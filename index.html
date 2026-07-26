@@ -1,434 +1,290 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Musa Cafe & Restaurant | Official Website</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        heading: ['Cinzel', 'serif'],
-                        body: ['Plus Jakarta Sans', 'sans-serif'],
-                    },
-                    colors: {
-                        gold: {
-                            400: '#facc15',
-                            500: '#eab308',
-                            600: '#ca8a04',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        h1, h2, h3, .font-heading { font-family: 'Cinzel', serif; }
-        .glass-card {
-            background: rgba(24, 24, 27, 0.75);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(234, 179, 8, 0.2);
-        }
-        .glass-card-hover {
-            transition: all 0.3s ease;
-        }
-        .glass-card-hover:hover {
-            border-color: rgba(234, 179, 8, 0.6);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px -10px rgba(234, 179, 8, 0.25);
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MUSA Cafe & Restaurant | Cinematic Luxury Dining Layyah</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#d4af37;--gold-light:#f0d787}
+*{box-sizing:border-box}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#08070a;color:#f2f2f2;overflow-x:hidden}
+h1,h2,h3,.font-heading{font-family:'Cinzel',serif}
+
+@keyframes floatY{0%,100%{transform:translateY(0) rotateZ(0)}50%{transform:translateY(-25px) rotateZ(3deg)}}
+@keyframes floatSlow{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+@keyframes glowPulse{0%,100%{box-shadow:0 0 25px rgba(212,175,55,0.3)}50%{box-shadow:0 0 55px rgba(212,175,55,0.6)}}
+@keyframes shimmer{0%{background-position:-500px 0}100%{background-position:500px 0}}
+@keyframes bgPan{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes spinSlow{from{transform:rotateY(0deg)}to{transform:rotateY(360deg)}}
+@keyframes particleUp{0%{transform:translateY(0) scale(1);opacity:0}50%{opacity:0.7}100%{transform:translateY(-120vh) scale(0.3);opacity:0}}
+@keyframes smokeRise{0%{transform:translateY(0) translateX(0) scale(0.8);opacity:0}20%{opacity:0.5}100%{transform:translateY(-180px) translateX(20px) scale(2.2);opacity:0}}
+@keyframes zoomSlow{0%{transform:scale(1)}100%{transform:scale(1.15)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(50px)}to{opacity:1;transform:translateY(0)}}
+
+.reveal{opacity:0;transform:translateY(40px);transition:all 1s cubic-bezier(.22,1,.36,1)}
+.reveal.show{opacity:1;transform:translateY(0)}
+
+.cinematic-bg{background:linear-gradient(120deg,#08070a,#1a1006,#08070a,#150d05);background-size:400% 400%;animation:bgPan 18s ease infinite}
+.particle{position:fixed;bottom:-30px;width:6px;height:6px;background:radial-gradient(circle,var(--gold-light),var(--gold));border-radius:50%;box-shadow:0 0 10px var(--gold);animation:particleUp linear infinite;z-index:1;pointer-events:none}
+.glass-card{background:rgba(20,18,14,0.6);backdrop-filter:blur(14px);border:1px solid rgba(212,175,55,0.18)}
+.card-3d{transition:all .5s cubic-bezier(.22,1,.36,1);transform-style:preserve-3d;perspective:1000px}
+.card-3d:hover{transform:translateY(-14px) rotateX(6deg) rotateY(-3deg);border-color:var(--gold);box-shadow:0 30px 60px rgba(212,175,55,.25)}
+.shimmer-text{background:linear-gradient(90deg,var(--gold) 0%,var(--gold-light) 25%,var(--gold) 50%,var(--gold-light) 75%,var(--gold) 100%);background-size:1000px 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 4s linear infinite}
+.float{animation:floatY 5s ease-in-out infinite}
+.float-slow{animation:floatSlow 6s ease-in-out infinite}
+.glow{animation:glowPulse 2.5s ease-in-out infinite}
+.rotate-3d{animation:spinSlow 12s linear infinite}
+
+.dish-card{position:relative;overflow:hidden;border-radius:18px}
+.dish-card img{transition:transform 8s ease}
+.dish-card:hover img{transform:scale(1.18)}
+.smoke{position:absolute;bottom:35%;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,0.5),transparent 70%);filter:blur(8px);pointer-events:none}
+.smoke1{left:35%;width:40px;height:70px;animation:smokeRise 4s ease-in infinite}
+.smoke2{left:50%;width:30px;height:55px;animation:smokeRise 5s ease-in infinite 1s}
+.smoke3{left:60%;width:35px;height:60px;animation:smokeRise 4.5s ease-in infinite 2s}
+
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-thumb{background:var(--gold);border-radius:10px}
+::-webkit-scrollbar-track{background:#111}
+</style>
 </head>
-<body class="bg-zinc-950 text-zinc-100 antialiased selection:bg-amber-500 selection:text-zinc-950 pb-28">
+<body class="cinematic-bg text-zinc-100 antialiased selection:bg-amber-500 selection:text-zinc-950 pb-24">
 
-    <!-- TOP RIGHT FLOATING MUSIC PLAYER -->
-    <div class="fixed top-4 right-4 z-50">
-        <audio id="bgMusic" loop>
-            <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
-        </audio>
-        <button onclick="toggleMusic()" id="musicBtn" class="glass-card hover:bg-zinc-800 text-amber-400 px-4 py-2.5 rounded-full shadow-2xl flex items-center gap-3 border border-amber-500/40 transition transform active:scale-95">
-            <span class="relative flex h-3 w-3">
-              <span id="musicPing" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75 hidden"></span>
-              <span class="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
-            </span>
-            <i id="musicIcon" class="fa-solid fa-play text-sm"></i>
-            <span class="text-xs font-semibold tracking-wider uppercase text-zinc-200">Soft Music</span>
-        </button>
-    </div>
+<div id="particles"></div>
 
-    <!-- FLOATING WHATSAPP BUTTON (Bottom Right) -->
-    <a href="https://wa.me/923001234567?text=Assalam-o-Alaikum,%20Musa%20Cafe%20%26%20Restaurant%20se%20order%20karna%20hai" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 bg-emerald-600 hover:bg-emerald-500 text-white p-4 rounded-full shadow-2xl flex items-center justify-center transition transform hover:scale-110 active:scale-95 border-2 border-emerald-400/30">
-        <i class="fa-brands fa-whatsapp text-3xl"></i>
+<div class="fixed top-4 right-4 z-50">
+  <audio id="bgMusic" loop><source src="https://cdn.pixabay.com/download/audio/2022/03/10/audio_c8e70c5164.mp3" type="audio/mpeg"></audio>
+  <button onclick="toggleMusic()" class="glass-card text-amber-400 px-4 py-2.5 rounded-full shadow-2xl flex items-center gap-3 border border-amber-500/40 transition active:scale-95 glow">
+    <span class="relative flex h-2.5 w-2.5"><span id="musicPing" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75 hidden"></span><span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500"></span></span>
+    <i id="musicIcon" class="fa-solid fa-play text-sm"></i>
+    <span class="text-xs font-semibold tracking-wider uppercase hidden sm:inline">Ambient Music</span>
+  </button>
+</div>
+
+<a href="https://wa.me/923013777777?text=Assalam-o-Alaikum%2C%20MUSA%20Cafe%20%26%20Restaurant%20se%20order%20karna%20hai" target="_blank" class="fixed bottom-6 right-6 z-50 bg-emerald-600 hover:bg-emerald-500 text-white p-4 rounded-full shadow-2xl flex items-center justify-center transition transform hover:scale-110 active:scale-95 border-2 border-emerald-400/30 glow">
+  <i class="fa-brands fa-whatsapp text-3xl"></i>
+</a>
+
+<button onclick="window.scrollTo({top:0,behavior:'smooth'})" id="scrollTop" class="fixed bottom-6 left-6 z-50 bg-gradient-to-br from-amber-500 to-amber-600 text-zinc-950 p-4 rounded-full shadow-2xl opacity-0 pointer-events-none transition-all"><i class="fa-solid fa-arrow-up"></i></button>
+
+<nav class="sticky top-0 z-40 bg-zinc-950/80 backdrop-blur-md border-b border-amber-500/10 px-6 py-4">
+  <div class="max-w-7xl mx-auto flex items-center justify-between">
+    <a href="#" class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-full bg-amber-500/10 border border-amber-500/40 flex items-center justify-center text-amber-400 font-heading font-bold text-xl float-slow">M</div>
+      <div><span class="font-heading text-lg font-bold tracking-wider text-amber-400 block leading-tight">MUSA</span><span class="text-[10px] tracking-widest text-zinc-400 uppercase block">Cafe & Restaurant</span></div>
     </a>
+    <div class="hidden md:flex items-center gap-8 text-sm font-medium text-zinc-300">
+      <a href="#signature" class="hover:text-amber-400 transition">Signature</a>
+      <a href="#gallery" class="hover:text-amber-400 transition">Gallery</a>
+      <a href="#menu" class="hover:text-amber-400 transition">Menu</a>
+      <a href="#reviews" class="hover:text-amber-400 transition">Reviews</a>
+      <a href="#location" class="hover:text-amber-400 transition">Location</a>
+    </div>
+    <a href="#menu" class="bg-amber-500 hover:bg-amber-400 text-zinc-950 px-5 py-2 rounded-lg font-semibold text-xs uppercase tracking-wider transition shadow-lg">Menu</a>
+  </div>
+</nav>
 
-    <!-- NAVBAR -->
-    <nav class="sticky top-0 z-40 bg-zinc-950/90 backdrop-blur-md border-b border-zinc-800/80 px-6 py-4">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <a href="#" class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-amber-500/10 border border-amber-500/40 flex items-center justify-center text-amber-400 font-heading font-bold text-xl">M</div>
-                <div>
-                    <span class="font-heading text-lg font-bold tracking-wider text-amber-400 block leading-tight">MUSA</span>
-                    <span class="text-[10px] tracking-widest text-zinc-400 uppercase block">Cafe & Restaurant</span>
-                </div>
-            </a>
-            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-zinc-300">
-                <a href="#about" class="hover:text-amber-400 transition">About Us</a>
-                <a href="#chefs" class="hover:text-amber-400 transition">Kitchen Team</a>
-                <a href="#ambience" class="hover:text-amber-400 transition">Ambience</a>
-                <a href="#menu" class="hover:text-amber-400 transition">Full Menu</a>
-                <a href="#location" class="hover:text-amber-400 transition">Location</a>
-            </div>
-            <a href="#menu" class="bg-amber-500 hover:bg-amber-400 text-zinc-950 px-5 py-2 rounded-lg font-semibold text-xs uppercase tracking-wider transition shadow-lg shadow-amber-500/10">Explore Menu</a>
-        </div>
-    </nav>
+<section class="relative min-h-[95vh] flex items-center justify-center text-center px-4 py-20 overflow-hidden">
+  <div class="absolute inset-0 bg-cover bg-center" style="animation:zoomSlow 20s ease-in-out infinite alternate;background-image:linear-gradient(to bottom,rgba(8,7,10,.65),rgba(8,7,10,.97)),url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1920&q=80')"></div>
+  <div class="absolute top-1/4 left-10 w-64 h-64 bg-amber-500 rounded-full blur-[120px] opacity-10 float"></div>
+  <div class="absolute bottom-1/4 right-10 w-80 h-80 bg-amber-600 rounded-full blur-[140px] opacity-10 float-slow"></div>
+  <div class="relative max-w-4xl mx-auto space-y-6 reveal show">
+    <div class="w-24 h-24 mx-auto rounded-full glass-card border border-amber-500/40 flex items-center justify-center font-heading font-bold text-4xl text-amber-400 glow rotate-3d">M</div>
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-xs font-semibold tracking-widest uppercase"><i class="fa-solid fa-utensils"></i> A Taste of Luxury & Tradition</div>
+    <h1 class="font-heading text-5xl sm:text-7xl font-extrabold tracking-tight leading-tight">MUSA <span class="shimmer-text">CAFE & RESTAURANT</span></h1>
+    <p class="text-zinc-300 text-base sm:text-lg max-w-2xl mx-auto font-light leading-relaxed">Experience the finest Karahi, sizzling BBQ, Chinese specialties, wood-fired Pizza & Biryani — crafted with passion in the heart of Layyah.</p>
+    <div class="pt-4 flex flex-wrap justify-center gap-4">
+      <a href="#menu" class="bg-gradient-to-r from-amber-500 to-amber-600 text-zinc-950 font-bold px-8 py-3.5 rounded-xl text-sm tracking-wide shadow-xl shadow-amber-500/20 transition transform hover:-translate-y-1">Explore Full Menu</a>
+      <a href="https://wa.me/923013777777" target="_blank" class="glass-card text-zinc-200 font-semibold px-8 py-3.5 rounded-xl text-sm border border-zinc-700 transition hover:border-amber-500">Order on WhatsApp</a>
+    </div>
+  </div>
+</section>
 
-    <!-- HERO SECTION -->
-    <section class="relative min-h-[85vh] flex items-center justify-center bg-cover bg-center text-center px-4 py-20" style="background-image: linear-gradient(to bottom, rgba(9, 9, 11, 0.75), rgba(9, 9, 11, 0.95)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1920&q=80');">
-        <div class="max-w-4xl mx-auto space-y-6">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-xs font-semibold tracking-widest uppercase">
-                <i class="fa-solid fa-utensils"></i> Authentic Fine Dining in Layyah
-            </div>
-            <h1 class="font-heading text-4xl sm:text-6xl md:text-7xl font-extrabold text-white tracking-tight leading-tight">
-                MUSA CAFE & <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-400 to-amber-600">RESTAURANT</span>
-            </h1>
-            <p class="text-zinc-300 text-base sm:text-lg max-w-2xl mx-auto font-light leading-relaxed">
-                Experience exceptional culinary artistry, traditional Pakistani heritage flavors, sizzling BBQ, Chinese specialties, and an unforgettable ambiance.
-            </p>
-            <div class="pt-4 flex flex-wrap justify-center gap-4">
-                <a href="#menu" class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-zinc-950 font-bold px-8 py-3.5 rounded-xl text-sm tracking-wide shadow-xl shadow-amber-500/20 transition transform hover:-translate-y-0.5">
-                    View Complete Menu
-                </a>
-                <a href="https://wa.me/923001234567?text=Assalam-o-Alaikum,%20table%20reservation%20ya%20order%20karna%20hai" target="_blank" class="glass-card hover:bg-zinc-800 text-zinc-200 font-semibold px-8 py-3.5 rounded-xl text-sm border border-zinc-700 transition">
-                    Reserve Table / Order
-                </a>
-            </div>
-        </div>
-    </section>
+<section id="signature" class="py-24 px-4 max-w-7xl mx-auto border-t border-zinc-800/50">
+  <div class="text-center max-w-3xl mx-auto mb-16">
+    <span class="text-amber-400 text-xs uppercase tracking-widest font-semibold">Chef's Signature</span>
+    <h2 class="font-heading text-4xl font-bold mt-3">Straight From Our Kitchen</h2>
+    <p class="text-zinc-400 text-sm mt-3">Freshly grilled, freshly brewed — every dish captured hot off the flame</p>
+  </div>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8" id="signatureGrid"></div>
+</section>
 
-    <!-- CHEFS & KITCHEN TEAM SHOWCASE -->
-    <section id="chefs" class="py-20 px-4 max-w-7xl mx-auto border-t border-zinc-800/60">
-        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
-            <span class="text-amber-400 font-semibold text-xs tracking-widest uppercase">Master Culinary Artists</span>
-            <h2 class="font-heading text-3xl sm:text-4xl font-bold text-white">Meet Our Kitchen & Chef Team</h2>
-            <p class="text-zinc-400 text-sm">Dedicated master chefs bringing passion, hygiene, and authentic flavors to every single dish served at Musa Cafe & Restaurant.</p>
-        </div>
+<section id="gallery" class="py-24 px-4 max-w-7xl mx-auto border-t border-zinc-800/50">
+  <div class="text-center max-w-3xl mx-auto mb-16">
+    <span class="text-amber-400 text-xs uppercase tracking-widest font-semibold">Ambience</span>
+    <h2 class="font-heading text-4xl font-bold mt-3">Interior & Rooftop Experience</h2>
+    <p class="text-zinc-400 text-sm mt-3">Elegant black-themed interior & open rooftop — perfect for picnics and picture-perfect evenings</p>
+  </div>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" id="galleryGrid"></div>
+</section>
 
-        <div class="grid md:grid-cols-2 gap-8 items-center">
-            <div class="glass-card rounded-2xl overflow-hidden border border-amber-500/30 p-3 shadow-2xl">
-                <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=80" alt="Executive Kitchen Team" class="w-full h-80 sm:h-96 object-cover rounded-xl">
-                <div class="p-4 text-center">
-                    <h3 class="font-heading text-xl font-bold text-amber-400">Executive Kitchen Staff</h3>
-                    <p class="text-zinc-400 text-xs mt-1">Specialized in Gourmet Pakistani, Desi Karahi, and Tandoor Delicacies.</p>
-                </div>
-            </div>
-            <div class="glass-card rounded-2xl overflow-hidden border border-amber-500/30 p-3 shadow-2xl">
-                <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=1200&q=80" alt="Master Chefs & Specialists" class="w-full h-80 sm:h-96 object-cover rounded-xl">
-                <div class="p-4 text-center">
-                    <h3 class="font-heading text-xl font-bold text-amber-400">Culinary Specialists</h3>
-                    <p class="text-zinc-400 text-xs mt-1">Crafting Continental Starters, Chinese Gravies, Pizzas, and Signature Platters.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<section id="menu" class="py-24 px-4 max-w-6xl mx-auto border-t border-zinc-800/50">
+  <div class="text-center max-w-3xl mx-auto mb-16">
+    <span class="text-amber-400 text-xs uppercase tracking-widest font-semibold">Complete Menu</span>
+    <h2 class="font-heading text-4xl sm:text-5xl font-bold mt-3">Our Full Menu — 22 Categories</h2>
+    <p class="text-zinc-400 text-sm mt-3">Every dish, every price, exactly as served at MUSA</p>
+  </div>
+  <div id="menuContainer" class="space-y-8"></div>
+</section>
 
-    <!-- AMBIENCE & INTERIOR GALLERY -->
-    <section id="ambience" class="py-20 px-4 max-w-7xl mx-auto border-t border-zinc-800/60">
-        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
-            <span class="text-amber-400 font-semibold text-xs tracking-widest uppercase">Premium Dining Experience</span>
-            <h2 class="font-heading text-3xl sm:text-4xl font-bold text-white">Restaurant Interior & Vibe</h2>
-            <p class="text-zinc-400 text-sm">Spacious seating, family halls, relaxing lighting, and warm hospitalities suited for gatherings, parties, and family dinners.</p>
-        </div>
+<section id="reviews" class="py-24 px-4 max-w-7xl mx-auto border-t border-zinc-800/50">
+  <div class="text-center max-w-3xl mx-auto mb-16">
+    <span class="text-amber-400 text-xs uppercase tracking-widest font-semibold">Google Reviews</span>
+    <h2 class="font-heading text-4xl font-bold mt-3">What Our Guests Say</h2>
+    <div class="flex items-center justify-center gap-3 mt-4">
+      <span class="text-3xl font-bold text-amber-400">4.6</span>
+      <div class="text-amber-400 text-xl"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
+      <span class="text-zinc-400 text-sm">on Google · 800+ Reviews</span>
+    </div>
+  </div>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="glass-card rounded-2xl p-6 card-3d">
+      <div class="text-amber-400 mb-3"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+      <p class="text-sm text-zinc-300 italic mb-4">"Best restaurant in Layyah! The White Karahi is absolutely divine. Ambience is stunning too."</p>
+      <p class="text-amber-400 text-xs font-bold">— Ali Raza, Layyah</p>
+    </div>
+    <div class="glass-card rounded-2xl p-6 card-3d">
+      <div class="text-amber-400 mb-3"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+      <p class="text-sm text-zinc-300 italic mb-4">"Amazing ambience and delicious food. Rooftop seating is our family's favourite."</p>
+      <p class="text-amber-400 text-xs font-bold">— Sana Khalid, Multan</p>
+    </div>
+    <div class="glass-card rounded-2xl p-6 card-3d">
+      <div class="text-amber-400 mb-3"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+      <p class="text-sm text-zinc-300 italic mb-4">"Visited from Karachi and it was worth it. MUSA is on another level entirely."</p>
+      <p class="text-amber-400 text-xs font-bold">— Imran Ahmed, Karachi</p>
+    </div>
+  </div>
+</section>
 
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="glass-card rounded-xl overflow-hidden glass-card-hover group">
-                <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=800&q=80" alt="Family Dining Area" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
-                <div class="p-4">
-                    <h3 class="font-heading font-semibold text-lg text-amber-400">Luxury Family Hall</h3>
-                    <p class="text-zinc-400 text-xs mt-1">Comfortable family booths with complete privacy.</p>
-                </div>
-            </div>
-            <div class="glass-card rounded-xl overflow-hidden glass-card-hover group">
-                <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80" alt="Cafe Bar & Drinks Counter" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
-                <div class="p-4">
-                    <h3 class="font-heading font-semibold text-lg text-amber-400">Coffee & Drinks Lounge</h3>
-                    <p class="text-zinc-400 text-xs mt-1">Serving handcrafted cold coffees, lattes, and fresh shakes.</p>
-                </div>
-            </div>
-            <div class="glass-card rounded-xl overflow-hidden glass-card-hover group sm:col-span-2 lg:col-span-1">
-                <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80" alt="Live BBQ Outdoor Dining" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
-                <div class="p-4">
-                    <h3 class="font-heading font-semibold text-lg text-amber-400">Live BBQ Setup</h3>
-                    <p class="text-zinc-400 text-xs mt-1">Freshly grilled charcoal tikka, kababs, and chops.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<section id="location" class="py-24 px-4 max-w-7xl mx-auto border-t border-zinc-800/50">
+  <div class="grid lg:grid-cols-3 gap-8 items-stretch">
+    <div class="glass-card rounded-2xl p-8 flex flex-col justify-between space-y-6 card-3d">
+      <div><span class="text-amber-400 text-xs uppercase tracking-widest font-semibold">Visit Us</span><h2 class="font-heading text-3xl font-bold mt-2">Location & Hours</h2></div>
+      <div class="space-y-4 text-sm">
+        <div class="flex items-start gap-3"><i class="fa-solid fa-location-dot text-amber-400 mt-1"></i><div><span class="font-semibold block">Address</span><span class="text-zinc-400 text-xs">03, Block A Housing Colony, Layyah, Punjab</span></div></div>
+        <div class="flex items-start gap-3"><i class="fa-solid fa-phone text-amber-400 mt-1"></i><div><span class="font-semibold block">Contact</span><span class="text-zinc-400 text-xs">0301 3777777</span></div></div>
+        <div class="flex items-start gap-3"><i class="fa-solid fa-clock text-amber-400 mt-1"></i><div><span class="font-semibold block">Hours</span><span class="text-zinc-400 text-xs">12:00 PM - 1:00 AM (Daily)</span></div></div>
+      </div>
+      <a href="https://wa.me/923013777777" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl text-center flex items-center justify-center gap-2 text-sm transition"><i class="fa-brands fa-whatsapp text-lg"></i> WhatsApp Order</a>
+    </div>
+    <div class="lg:col-span-2 glass-card rounded-2xl p-2 overflow-hidden min-h-[350px] card-3d">
+      <iframe src="https://www.google.com/maps?q=03+Block+A+Housing+Colony+Layyah&output=embed" width="100%" height="100%" style="border:0;min-height:380px" loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
 
-    <!-- FULL DISCIPLINED MENU SECTION -->
-    <section id="menu" class="py-20 px-4 max-w-6xl mx-auto border-t border-zinc-800/60">
-        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
-            <span class="text-amber-400 font-semibold text-xs tracking-widest uppercase">Complete Sequential Menu</span>
-            <h2 class="font-heading text-3xl sm:text-5xl font-bold text-white">Our Complete Menu</h2>
-            <p class="text-zinc-400 text-sm">Explore our structured, multi-category menu prepared with fresh premium ingredients.</p>
-        </div>
+<footer class="border-t border-zinc-800/60 py-8 px-4 text-center text-zinc-500 text-xs">
+  <p class="font-heading text-sm font-bold text-amber-400 tracking-wider mb-2">MUSA CAFE & RESTAURANT</p>
+  <p>03, Block A Housing Colony, Layyah | 0301 3777777</p>
+  <p class="mt-2">&copy; 2026 MUSA Cafe & Restaurant. All Rights Reserved.</p>
+</footer>
 
-        <div class="space-y-8">
-            <!-- 1. APPETIZERS -->
-            <div class="glass-card rounded-2xl p-6 sm:p-8">
-                <div class="flex items-center gap-3 border-b border-amber-500/20 pb-4 mb-6">
-                    <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 text-lg"><i class="fa-solid fa-bowl-food"></i></div>
-                    <h3 class="font-heading text-2xl font-bold text-amber-400">1. Appetizers</h3>
-                </div>
-                <div class="grid sm:grid-cols-2 gap-x-8 gap-y-4 text-sm">
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chicken Drum Stick (4 Pcs)</span><span class="text-amber-400 font-bold">Rs. 1349</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chicken Stripes (6 Pcs)</span><span class="text-amber-400 font-bold">Rs. 999</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Dynamite Jumbo Prown (6 Pcs)</span><span class="text-amber-400 font-bold">Rs. 1849</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Dynamite Fries</span><span class="text-amber-400 font-bold">Rs. 649</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Cheese Bowl (4 Pcs)</span><span class="text-amber-400 font-bold">Rs. 1049</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Honey Wings (12 Pcs)</span><span class="text-amber-400 font-bold">Rs. 1149</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Fish Cracker</span><span class="text-amber-400 font-bold">Rs. 249</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Dhaka Chicken</span><span class="text-amber-400 font-bold">Rs. 899</span></div>
-                </div>
-            </div>
+<script>
+const pc=document.getElementById('particles');
+for(let i=0;i<25;i++){
+  const p=document.createElement('div');
+  p.className='particle';
+  p.style.left=Math.random()*100+'vw';
+  p.style.animationDuration=(Math.random()*8+8)+'s';
+  p.style.animationDelay=Math.random()*6+'s';
+  pc.appendChild(p);
+}
 
-            <!-- 2. SOUP -->
-            <div class="glass-card rounded-2xl p-6 sm:p-8">
-                <div class="flex items-center justify-between border-b border-amber-500/20 pb-4 mb-6">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 text-lg"><i class="fa-solid fa-mug-hot"></i></div>
-                        <h3 class="font-heading text-2xl font-bold text-amber-400">2. Soup</h3>
-                    </div>
-                    <span class="text-xs text-zinc-400 uppercase tracking-wider bg-zinc-800 px-3 py-1 rounded-full">Full / Half</span>
-                </div>
-                <div class="grid sm:grid-cols-2 gap-x-8 gap-y-4 text-sm">
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Musa Special Soup</span><span class="text-amber-400 font-bold">1249 / 649</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chicken Corn Soup</span><span class="text-amber-400 font-bold">999 / 649</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Hot & Sour Soup</span><span class="text-amber-400 font-bold">1049 / 699</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Vegetable Soup</span><span class="text-amber-400 font-bold">849 / 599</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Thai Soup</span><span class="text-amber-400 font-bold">899 / 599</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Schezwan Soup</span><span class="text-amber-400 font-bold">1199 / 649</span></div>
-                </div>
-            </div>
+const music=document.getElementById('bgMusic'),icon=document.getElementById('musicIcon'),ping=document.getElementById('musicPing');
+function toggleMusic(){
+  if(music.paused){music.play().catch(()=>{});icon.classList.replace('fa-play','fa-pause');ping.classList.remove('hidden')}
+  else{music.pause();icon.classList.replace('fa-pause','fa-play');ping.classList.add('hidden')}
+}
 
-            <!-- 3. CHINESE RICE -->
-            <div class="glass-card rounded-2xl p-6 sm:p-8">
-                <div class="flex items-center justify-between border-b border-amber-500/20 pb-4 mb-6">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 text-lg"><i class="fa-solid fa-rice-bowl"></i></div>
-                        <h3 class="font-heading text-2xl font-bold text-amber-400">3. Chinese Rice</h3>
-                    </div>
-                    <span class="text-xs text-zinc-400 uppercase tracking-wider bg-zinc-800 px-3 py-1 rounded-full">Full / Half</span>
-                </div>
-                <div class="grid sm:grid-cols-2 gap-x-8 gap-y-4 text-sm">
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Musa Special Rice</span><span class="text-amber-400 font-bold">1199 / 649</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chicken Fried Rice</span><span class="text-amber-400 font-bold">1049 / 599</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chicken Masala Rice</span><span class="text-amber-400 font-bold">1049 / 599</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Egg Fried Rice</span><span class="text-amber-400 font-bold">999 / 549</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Vegetable Rice</span><span class="text-amber-400 font-bold">799 / 499</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Garlic Rice</span><span class="text-amber-400 font-bold">949 / 499</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Shashlik with Rice</span><span class="text-amber-400 font-bold">Rs. 1399</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chilli Dry With Rice</span><span class="text-amber-400 font-bold">Rs. 1399</span></div>
-                </div>
-            </div>
+window.addEventListener('scroll',()=>{
+  const st=document.getElementById('scrollTop');
+  if(window.scrollY>400){st.classList.remove('opacity-0','pointer-events-none')}else{st.classList.add('opacity-0','pointer-events-none')}
+  document.querySelectorAll('.reveal').forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight-100)el.classList.add('show')});
+});
 
-            <!-- 4. CHINESE GRAVY -->
-            <div class="glass-card rounded-2xl p-6 sm:p-8">
-                <div class="flex items-center gap-3 border-b border-amber-500/20 pb-4 mb-6">
-                    <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 text-lg"><i class="fa-solid fa-plate-wheat"></i></div>
-                    <h3 class="font-heading text-2xl font-bold text-amber-400">4. Chinese Gravy</h3>
-                </div>
-                <div class="grid sm:grid-cols-2 gap-x-8 gap-y-4 text-sm">
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Musa Special Chicken</span><span class="text-amber-400 font-bold">Rs. 1199</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chicken Cashewnut</span><span class="text-amber-400 font-bold">Rs. 1199</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Kung Pao Chicken</span><span class="text-amber-400 font-bold">Rs. 1049</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chicken Manchurian</span><span class="text-amber-400 font-bold">Rs. 1049</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chicken Chilli Dry</span><span class="text-amber-400 font-bold">Rs. 1249</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chicken Black Pepper</span><span class="text-amber-400 font-bold">Rs. 999</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Honey Crunchy Chicken</span><span class="text-amber-400 font-bold">Rs. 1199</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Mongolian Beef</span><span class="text-amber-400 font-bold">Rs. 1199</span></div>
-                </div>
-            </div>
+const signature=[
+  {name:"Chicken Biryani",price:"Rs. 1199",img:"https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80",smoke:true},
+  {name:"White Karahi",price:"Rs. 2049",img:"https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=800&q=80",smoke:true},
+  {name:"Musa Special Coffee",price:"Rs. 549",img:"https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80",smoke:true},
+  {name:"Musa Special Soup",price:"Rs. 1249",img:"https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=800&q=80",smoke:true},
+  {name:"Musa Signature Burger",price:"Rs. 649",img:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80",smoke:false},
+  {name:"Musa Special Pizza",price:"Rs. 1999",img:"https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80",smoke:true},
+  {name:"BBQ Platter",price:"Rs. 5999",img:"https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80",smoke:true},
+];
+const sigGrid=document.getElementById('signatureGrid');
+signature.forEach((d,idx)=>{
+  const card=document.createElement('div');
+  card.className='glass-card rounded-2xl overflow-hidden card-3d reveal';
+  card.style.transitionDelay=(idx*0.1)+'s';
+  card.innerHTML=`
+    <div class="dish-card h-72">
+      <img src="${d.img}" alt="${d.name}" class="w-full h-full object-cover">
+      ${d.smoke?'<div class="smoke smoke1"></div><div class="smoke smoke2"></div><div class="smoke smoke3"></div>':''}
+      <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+    </div>
+    <div class="p-5 flex justify-between items-center">
+      <h3 class="font-heading text-lg font-bold text-white">${d.name}</h3>
+      <span class="text-amber-400 font-bold">${d.price}</span>
+    </div>`;
+  sigGrid.appendChild(card);
+});
 
-            <!-- 5. CHICKEN KARAHI -->
-            <div class="glass-card rounded-2xl p-6 sm:p-8">
-                <div class="flex items-center justify-between border-b border-amber-500/20 pb-4 mb-6">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 text-lg"><i class="fa-solid fa-fire"></i></div>
-                        <h3 class="font-heading text-2xl font-bold text-amber-400">5. Chicken Karahi</h3>
-                    </div>
-                    <span class="text-xs text-zinc-400 uppercase tracking-wider bg-zinc-800 px-3 py-1 rounded-full">Full / Half</span>
-                </div>
-                <div class="grid sm:grid-cols-2 gap-x-8 gap-y-4 text-sm">
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Musa Special Chicken Karahi</span><span class="text-amber-400 font-bold">1999 / 1249</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chicken Lahori Karahi</span><span class="text-amber-400 font-bold">1799 / 1099</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chicken Peshawri Karahi</span><span class="text-amber-400 font-bold">1899 / 1049</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chicken White Karahi</span><span class="text-amber-400 font-bold">2049 / 1299</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chicken Butt Karahi</span><span class="text-amber-400 font-bold">1949 / 1099</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Special Desi Murgha Karahi</span><span class="text-amber-400 font-bold">3499 / 1999</span></div>
-                </div>
-            </div>
+const gallery=[
+  {title:"Black Luxury Interior",img:"https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=800&q=80"},
+  {title:"Elegant Dining Hall",img:"https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80"},
+  {title:"Rooftop Picnic Spot",img:"https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?auto=format&fit=crop&w=800&q=80"},
+  {title:"Rooftop Evening View",img:"https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=80"},
+  {title:"Family Dining Booths",img:"https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=800&q=80"},
+  {title:"Picture-Perfect Corners",img:"https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&w=800&q=80"},
+];
+const galGrid=document.getElementById('galleryGrid');
+gallery.forEach(g=>{
+  const div=document.createElement('div');
+  div.className='glass-card rounded-xl overflow-hidden card-3d reveal show';
+  div.innerHTML=`<img src="${g.img}" class="w-full h-64 object-cover"><div class="p-4"><h3 class="font-heading text-amber-400 font-semibold">${g.title}</h3></div>`;
+  galGrid.appendChild(div);
+});
 
-            <!-- 6. MUTTON KARAHI -->
-            <div class="glass-card rounded-2xl p-6 sm:p-8">
-                <div class="flex items-center justify-between border-b border-amber-500/20 pb-4 mb-6">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 text-lg"><i class="fa-solid fa-drumstick-bite"></i></div>
-                        <h3 class="font-heading text-2xl font-bold text-amber-400">6. Mutton Karahi & Kuna</h3>
-                    </div>
-                    <span class="text-xs text-zinc-400 uppercase tracking-wider bg-zinc-800 px-3 py-1 rounded-full">Full / Half</span>
-                </div>
-                <div class="grid sm:grid-cols-2 gap-x-8 gap-y-4 text-sm">
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Musa Special Mutton Karahi</span><span class="text-amber-400 font-bold">3649 / 2049</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Mutton Lahori Karahi</span><span class="text-amber-400 font-bold">3549 / 1899</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Mutton Peshawri Karahi</span><span class="text-amber-400 font-bold">3549 / 1999</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Mutton White Karahi</span><span class="text-amber-400 font-bold">3699 / 2049</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Mutton Koyla Karahi</span><span class="text-amber-400 font-bold">3599 / 1949</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Mutton Kuna</span><span class="text-amber-400 font-bold">Rs. 1999</span></div>
-                </div>
-            </div>
-
-            <!-- 7. B.B.Q. SPECIALS -->
-            <div class="glass-card rounded-2xl p-6 sm:p-8">
-                <div class="flex items-center gap-3 border-b border-amber-500/20 pb-4 mb-6">
-                    <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 text-lg"><i class="fa-solid fa-cubes-stacked"></i></div>
-                    <h3 class="font-heading text-2xl font-bold text-amber-400">7. B.B.Q. Barbecue</h3>
-                </div>
-                <div class="grid sm:grid-cols-2 gap-x-8 gap-y-4 text-sm">
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Malai Boti</span><span class="text-amber-400 font-bold">Rs. 1249</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Cheese Boti</span><span class="text-amber-400 font-bold">Rs. 1349</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Reshmi Kabab</span><span class="text-amber-400 font-bold">Rs. 999</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Mutton Kabab</span><span class="text-amber-400 font-bold">Rs. 1249</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Mutton Chops</span><span class="text-amber-400 font-bold">Rs. 1999</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chicken Tikka Chest</span><span class="text-amber-400 font-bold">Rs. 449</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chicken Tikka Leg</span><span class="text-amber-400 font-bold">Rs. 399</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Musa Special BBQ Platter</span><span class="text-amber-400 font-bold">Rs. 5999</span></div>
-                </div>
-            </div>
-
-            <!-- 8. PIZZAS & BURGERS -->
-            <div class="glass-card rounded-2xl p-6 sm:p-8">
-                <div class="flex items-center gap-3 border-b border-amber-500/20 pb-4 mb-6">
-                    <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 text-lg"><i class="fa-solid fa-pizza-slice"></i></div>
-                    <h3 class="font-heading text-2xl font-bold text-amber-400">8. Fast Food & Pizza</h3>
-                </div>
-                <div class="grid sm:grid-cols-2 gap-x-8 gap-y-4 text-sm">
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Pan Pizza (Sm/Med/Lg)</span><span class="text-amber-400 font-bold">649 / 1199 / 1699</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Premium Pizza (Med/Lg)</span><span class="text-amber-400 font-bold">1299 / 1999</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Zinger Burger</span><span class="text-amber-400 font-bold">Rs. 349</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Musa Signature Burger</span><span class="text-amber-400 font-bold">Rs. 649</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Club Sandwich</span><span class="text-amber-400 font-bold">Rs. 450</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Zinger Paratha Roll</span><span class="text-amber-400 font-bold">Rs. 449</span></div>
-                </div>
-            </div>
-
-            <!-- 9. DESSERTS & DRINKS -->
-            <div class="glass-card rounded-2xl p-6 sm:p-8">
-                <div class="flex items-center gap-3 border-b border-amber-500/20 pb-4 mb-6">
-                    <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 text-lg"><i class="fa-solid fa-ice-cream"></i></div>
-                    <h3 class="font-heading text-2xl font-bold text-amber-400">9. Sweets, Coffee & Shakes</h3>
-                </div>
-                <div class="grid sm:grid-cols-2 gap-x-8 gap-y-4 text-sm">
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Family Sweet Bowl</span><span class="text-amber-400 font-bold">Rs. 999</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Lab-e-Shireen</span><span class="text-amber-400 font-bold">Rs. 249</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Shahi Kheer</span><span class="text-amber-400 font-bold">Rs. 249</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Cold Coffee & Lattes</span><span class="text-amber-400 font-bold">Rs. 549</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Ice Cream Shake</span><span class="text-amber-400 font-bold">Rs. 549</span></div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Fresh Lime / Soft Drinks</span><span class="text-amber-400 font-bold">Rs. 149</span></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- LOCATION & MAP SECTION -->
-    <section id="location" class="py-20 px-4 max-w-7xl mx-auto border-t border-zinc-800/60">
-        <div class="grid lg:grid-cols-3 gap-8 items-stretch">
-            <div class="glass-card rounded-2xl p-8 flex flex-col justify-between space-y-6">
-                <div>
-                    <span class="text-amber-400 font-semibold text-xs tracking-widest uppercase">Visit Us Today</span>
-                    <h2 class="font-heading text-3xl font-bold text-white mt-2">Location & Hours</h2>
-                    <p class="text-zinc-400 text-xs mt-2">Drop by for a warm dining experience or contact us directly for home delivery.</p>
-                </div>
-
-                <div class="space-y-4 text-sm">
-                    <div class="flex items-start gap-3">
-                        <i class="fa-solid fa-location-dot text-amber-400 mt-1"></i>
-                        <div>
-                            <span class="font-semibold text-white block">Address</span>
-                            <span class="text-zinc-400 text-xs">Main Bazar, Near City Chowk, Layyah, Punjab, Pakistan</span>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-3">
-                        <i class="fa-solid fa-phone text-amber-400 mt-1"></i>
-                        <div>
-                            <span class="font-semibold text-white block">Contact Number</span>
-                            <span class="text-zinc-400 text-xs">+92 300 1234567</span>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-3">
-                        <i class="fa-solid fa-clock text-amber-400 mt-1"></i>
-                        <div>
-                            <span class="font-semibold text-white block">Opening Hours</span>
-                            <span class="text-zinc-400 text-xs">12:00 PM - 01:00 AM (Daily)</span>
-                        </div>
-                    </div>
-                </div>
-
-                <a href="https://wa.me/923001234567" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl text-center flex items-center justify-center gap-2 text-sm transition">
-                    <i class="fa-brands fa-whatsapp text-lg"></i> Direct WhatsApp Order
-                </a>
-            </div>
-
-            <!-- EMBEDDED GOOGLE MAP -->
-            <div class="lg:col-span-2 glass-card rounded-2xl p-2 border border-zinc-800 overflow-hidden shadow-2xl min-h-[350px]">
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d55000!2d70.93!3d30.96!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3924f5a342ff150b%3A0xc39f997232e01362!2sLayyah%2C%20Punjab%2C%20Pakistan!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s" 
-                    width="100%" 
-                    height="100%" 
-                    style="border:0; min-height: 380px;" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="border-t border-zinc-800/80 bg-zinc-950 py-8 px-4 text-center text-zinc-500 text-xs">
-        <div class="max-w-7xl mx-auto space-y-3">
-            <p class="font-heading text-sm font-bold text-amber-400 tracking-wider">MUSA CAFE & RESTAURANT</p>
-            <p>&copy; 2026 Musa Cafe & Restaurant Layyah. All Rights Reserved.</p>
-        </div>
-    </footer>
-
-    <!-- JS MUSIC TOGGLE -->
-    <script>
-        const music = document.getElementById('bgMusic');
-        const musicIcon = document.getElementById('musicIcon');
-        const musicPing = document.getElementById('musicPing');
-
-        function toggleMusic() {
-            if (music.paused) {
-                music.play();
-                musicIcon.classList.remove('fa-play');
-                musicIcon.classList.add('fa-pause');
-                musicPing.classList.remove('hidden');
-            } else {
-                music.pause();
-                musicIcon.classList.remove('fa-pause');
-                musicIcon.classList.add('fa-play');
-                musicPing.classList.add('hidden');
-            }
-        }
-    </script>
-
+const menu=[
+{cat:"1. Appetizer",icon:"fa-bowl-food",items:[["Chicken Drum Stick (4 Pcs)","1349"],["Chicken Stripes (6 Pcs)","999"],["Dynamite Jumbo Prawn (6 Pcs)","1849"],["Dynamite Fries","649"],["Cheese Bowl (4 Pcs)","1049"],["Honey Wings (12 Pcs)","1149"],["Fish Cracker","249"],["Dhaka Chicken","899"]]},
+{cat:"2. Soup (Full/Half)",icon:"fa-mug-hot",items:[["Musa Special","1249/649"],["Chicken Corn","999/649"],["Hot & Sour","1049/699"],["Vegetable","849/599"],["Thai","899/599"],["Schezwan","1199/649"]]},
+{cat:"3. Chinese Rice (Full/Half)",icon:"fa-bowl-rice",items:[["Musa Special Rice","1199/649"],["Chicken Fried Rice","1049/599"],["Chicken Masala Rice","1049/599"],["Egg Fried Rice","999/549"],["Vegetable Rice","799/499"],["Garlic Rice","949/499"],["Plane Rice","749"],["Shashlik with Rice","1399"],["Chilli Dry With Rice","1399"]]},
+{cat:"4. Chinese Gravy",icon:"fa-plate-wheat",items:[["Musa Special Chicken","1199"],["Chicken Cashewnut","1199"],["Kung Pao","1049"],["Manchurian","1049"],["Chicken Almond","1149"],["Chilli Dry","1249"],["Black Pepper","999"],["Hot Garlic","999"],["Schezwan","1049"],["Sweet & Sour","1049"],["Honey Crunchy","1199"],["Red Dragon","999"],["Mongolian Beef","1199"],["Sesame Beef","1199"]]},
+{cat:"5. Chow Mein",icon:"fa-wheat-awn",items:[["Musa Special","1099"],["Chicken","999"],["Vegetable","949"],["Thai","949"],["American Chopsuey","999"],["Thai Spicy Noodles","1099"],["Schezwan","1199"]]},
+{cat:"6. Pakistani Rice",icon:"fa-bowl-rice",items:[["Jungli Pulao","1299"],["Mutton Afghani Pulao","1599"],["Chicken Pulao","1199"],["Mutton Pulao","1599"],["Chicken Biryani","1199"],["Mutton Biryani","1599"],["Batair Biryani","1399"],["Matka Biryani","1649"],["Mumbai Biryani","1199"],["Yakhani Pulao","1149"]]},
+{cat:"7. Chicken Karahi (Full/Half)",icon:"fa-fire",items:[["Musa Special","1999/1249"],["Lahori","1799/1099"],["Peshawri","1899/1049"],["Hari Mirch","1949/1099"],["Butt","1949/1099"],["White","2049/1299"],["Sulemani","1999/1149"],["Afghani","1999/1149"],["Achari","1849/1099"],["Special Desi Murgha","3499/1999"]]},
+{cat:"8. Mutton Karahi (Full/Half)",icon:"fa-drumstick-bite",items:[["Musa Special","3649/2049"],["Lahori","3549/1899"],["Peshawri","3549/1999"],["Hari Mirch","3699/1949"],["Butt","3549/1899"],["White","3699/2049"],["Sulemani","3699/2049"],["Koyla","3599/1949"],["Achari","3549/1899"],["Namkeen","3499/1899"],["Afghani","3649/2049"],["Mutton Kuna","1999"]]},
+{cat:"9. Chicken Boneless",icon:"fa-drumstick-bite",items:[["Musa Special Handi","1599"],["Lahori","1499"],["Achari","1549"],["White","1649"],["Reshmi","1649"],["Alovera","1649"],["Ginger","1349"],["Jalfrezi","1399"],["Shah Jahani","1599"],["Madrasi","1599"],["Hari Mirch","1449"],["Pasandy","1549"],["Cheese Patiala","1549"],["Chef Kujha","1599"],["Green Chili Lemon","1449"],["Makhni","1449"],["Kabab Masala","1149"],["Mix Vegetable","549"],["Shahi Dall","699"],["Dall Makhni","549"]]},
+{cat:"10. Desi Jungle Mangal",icon:"fa-fire-flame-curved",items:[["Desi White Karahi","3549"],["Desi Achari Karahi","3549"],["Desi Charga With Rice","4199"],["Musa Special Batair Karahi","2399"],["Batair Buttor Karahi","2499"]]},
+{cat:"11. Special Platter",icon:"fa-utensils",items:[["BBQ Platter (Full Set)","5999"],["Musa Special Family Platter (8 Person)","11999"]]},
+{cat:"12. Chef Over Specialities",icon:"fa-utensils",items:[["Musa Special Chicken","1649"],["Mutton Candle","2099"],["Shahi Mutton","2099"],["Mutton Dhaba","2099"],["Mutton Bharta","2049"],["Mutton Filafil","2049"],["Mutton Patyala","1899"]]},
+{cat:"13. Garma Garam Tandoor",icon:"fa-bread-slice",items:[["Musa Special Nan","299"],["Afghani","219"],["Roghani","129"],["Garlic","129"],["Kalwanji","129"],["Chicken Nan","399"],["Kandhari","199"],["Ginger","129"],["Khemri Roti","49"],["Roti Per Head","69"],["Tandoori Pratha","149"],["Roti Sada","19"]]},
+{cat:"14. BBQ",icon:"fa-fire",items:[["Musa Special Platter (Half/Full)","3599/5999"],["Malai Boti","1249"],["Cheese Boti","1349"],["Kastori","1349"],["Chicken Kabab","849"],["Reshmi","999"],["Makhmali","1049"],["Mutton Kabab","1249"],["Mutton Tikka","1999"],["Mutton Chops","1999"],["Achari","1049"],["Chicken Boti","999"],["Bateer Tikka","2099"],["Chest Piece","449"],["Leg Piece","399"],["Qalmi Tikka","1299"],["Malai Leg","449"],["Malai Chest","479"],["Cheese Kabab","1149"],["Chatkhara Boti","1249"]]},
+{cat:"15. Khada Varieties",icon:"fa-drumstick-bite",items:[["Salam Bakra (12Kg On Order)","-"],["Dam Pukht (per Kg)","4000"],["Raan Roast (per Kg)","4000"],["Namkeen Roast","1600"],["Mutton Joint","1500"]]},
+{cat:"16. Fish Corner",icon:"fa-fish",items:[["Finger Fish (8 Pcs)","1549"],["Fried Fish (4 Pcs)","1549"],["Dhaka Fish (16 Pcs)","1549"],["Grill Fish (1 Kg)","1699"],["Fish Handi","1799"],["Fish Chilli Dry","1599"],["Fish Tikka (12 Pcs)","1499"]]},
+{cat:"17. Pizza",icon:"fa-pizza-slice",items:[["Pan Pizza (S/M/L)","649/1199/1699"],["Premium (M/L)","1299/1999"],["Craft (M/L)","1399/1899"],["Extreme (M/L)","1449/2199"],["Deep (M/L)","1549/2449"]]},
+{cat:"18. Starters",icon:"fa-french-fries",items:[["Plane Fries","299/399"],["Nuggets (10 Pcs)","649"],["Oven Baked Wings","899"],["Hot Wings","799"],["Dragon Shots","449"],["Loaded Fries","599"],["Pizza Fries","899"]]},
+{cat:"19. Wraps, Rolls, Sandwiches & Burgers",icon:"fa-burger",items:[["BBQ Wrap","599"],["Crispy Wrap","499"],["Zinger Pratha Roll","899"],["Malai Boti Roll","449"],["Club Sandwich","599"],["Mexican Sandwich","999"],["Zinger Burger","449"],["Al-Chappo Beef","979"],["Musa Chicken Madness","1049"]]},
+{cat:"20. Sweet's",icon:"fa-ice-cream",items:[["Family Sweet Bowl","999"],["Lab-e-Shireen","249"],["Shahi Tukda","249"],["Fruit Truffle","249"],["Gulab Jamun","249"],["Shahi Kheer","249"]]},
+{cat:"21. Salad Bar",icon:"fa-leaf",items:[["Musa Special","799"],["Chicken Pineapple","749"],["Russian","649"],["Kachumar","249"],["Fresh","119"],["Zeera Raita","99"],["Mint Raita","99"]]},
+{cat:"22. Drinks",icon:"fa-mug-saucer",items:[["Mineral Water (S/L)","69/119"],["1.5L Drink","249"],["Can","149"],["Cold Coffee","549"],["Latte Over Ice","599"],["Spanish Latte","599"],["Iced Coffee","599"],["Ice Mocha","599"],["Peach Ice Tea","599"],["Fresh Lime","179"],["Power Shake","649"],["Ice Cream Shake","549"]]},
+];
+const container=document.getElementById('menuContainer');
+menu.forEach((c,idx)=>{
+  const rows=c.items.map(([n,p])=>`<div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>${n}</span><span class="text-amber-400 font-bold">Rs. ${p}</span></div>`).join('');
+  const div=document.createElement('div');
+  div.className='glass-card rounded-2xl p-6 sm:p-8 card-3d reveal show';
+  div.innerHTML=`
+    <div class="flex items-center gap-3 border-b border-amber-500/20 pb-4 mb-6">
+      <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 text-lg"><i class="fa-solid ${c.icon}"></i></div>
+      <h3 class="font-heading text-2xl font-bold text-amber-400">${c.cat}</h3>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-x-8 gap-y-4 text-sm">${rows}</div>`;
+  container.appendChild(div);
+});
+</script>
 </body>
 </html>
