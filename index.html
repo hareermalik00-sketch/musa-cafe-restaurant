@@ -3,694 +3,354 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Musa Cafe & Restaurant | Complete Luxury Menu & Experience</title>
-    <!-- Google Fonts & FontAwesome -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    <title>The Shine of Layyah - Fine Dining & Cafe</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <style>
-        :root {
-            --primary: #ff9f43;
-            --secondary: #ee5253;
-            --bg-dark: #070709;
-            --card-bg: rgba(255, 255, 255, 0.04);
-            --card-border: rgba(255, 255, 255, 0.1);
-            --text: #ffffff;
-            --text-dim: #b5b5b5;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-            scroll-behavior: smooth;
-        }
-
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
+        
         body {
-            background-color: var(--bg-dark);
-            color: var(--text);
+            font-family: 'Poppins', sans-serif;
+            background-color: #0d0f12;
+            color: #f3f4f6;
             overflow-x: hidden;
         }
 
-        #bg-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            pointer-events: none;
+        .font-serif-title {
+            font-family: 'Playfair Display', serif;
         }
 
-        /* --- FIXED TOP-RIGHT AUDIO CONTROL --- */
-        .music-btn {
+        /* Smooth scroll effect */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Floating Chef Animation */
+        .scrolling-chef {
             position: fixed;
-            top: 20px;
+            bottom: 20px;
             right: 20px;
-            z-index: 1000;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border: none;
-            color: white;
-            padding: 12px 22px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            box-shadow: 0 8px 25px rgba(255, 159, 67, 0.4);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
+            z-index: 50;
+            animation: float 3s ease-in-out infinite;
         }
 
-        .music-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 12px 30px rgba(255, 159, 67, 0.6);
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(3deg); }
         }
 
-        /* --- HERO SECTION --- */
-        .hero {
-            height: 85vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 20px;
-            position: relative;
+        /* Glassmorphism Card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(255,159,67,0.2) 0%, rgba(0,0,0,0) 70%);
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: -1;
-        }
-
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.8rem;
-            letter-spacing: 1.5px;
-            background: linear-gradient(45deg, #ffffff, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: softGlowPulse 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes softGlowPulse {
-            0% { transform: translateY(0px); filter: drop-shadow(0 0 5px rgba(255, 159, 67, 0.2)); }
-            100% { transform: translateY(-5px); filter: drop-shadow(0 0 18px rgba(255, 159, 67, 0.5)); }
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-dim);
-            max-width: 650px;
-            margin-top: 15px;
-            line-height: 1.6;
-        }
-
-        /* --- CONTAINER & STYLING --- */
-        .container {
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 20px 20px 60px 20px;
-        }
-
-        .category-heading {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.3rem;
-            color: var(--primary);
-            margin: 50px 0 25px 0;
-            padding-bottom: 10px;
-            border-bottom: 2px dashed rgba(255, 159, 67, 0.3);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 18px;
-            padding: 20px;
-            backdrop-filter: blur(10px);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.8), 0 0 20px rgba(255, 159, 67, 0.2);
-            border-color: rgba(255, 159, 67, 0.4);
-        }
-
-        .card-img {
-            width: 100%;
-            height: 190px;
-            border-radius: 12px;
-            object-fit: cover;
-            margin-bottom: 15px;
-        }
-
-        .item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 8px;
-        }
-
-        .item-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #fff;
-        }
-
-        .item-price {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--primary);
-            white-space: nowrap;
-            background: rgba(255, 159, 67, 0.1);
-            padding: 4px 10px;
-            border-radius: 8px;
-        }
-
-        .item-desc {
-            font-size: 0.88rem;
-            color: var(--text-dim);
-            line-height: 1.5;
-        }
-
-        .dual-price {
-            font-size: 0.95rem;
-            color: var(--primary);
-            font-weight: 600;
-            margin-top: 5px;
-        }
-
-        /* --- LOCATION CARD & MAP --- */
-        .location-card {
-            background: linear-gradient(135deg, rgba(255,159,67,0.1), rgba(238,82,83,0.1));
-            border: 1px solid var(--primary);
-            text-align: center;
-            padding: 35px 25px;
-            margin-top: 60px;
-            border-radius: 22px;
-        }
-
-        .rating-num {
-            font-size: 2.8rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .map-container {
-            margin-top: 25px;
-            border-radius: 16px;
+        /* Collapsible Box Animation */
+        .category-content {
+            max-height: 0;
             overflow: hidden;
-            border: 1px solid var(--card-border);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out;
+            opacity: 0;
         }
 
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.4rem; }
-            .category-heading { font-size: 1.8rem; }
-            .music-btn { top: 15px; right: 15px; padding: 10px 16px; font-size: 0.8rem; }
+        .category-content.active {
+            max-height: 2000px;
+            opacity: 1;
+        }
+
+        /* Glowing Accent */
+        .gold-glow {
+            box-shadow: 0 0 25px rgba(234, 179, 8, 0.25);
         }
     </style>
 </head>
 <body>
 
-    <!-- AUDIO PLAYER: Donny Duardo - Savage -->
-    <audio id="bgAudio" loop preload="auto">
-        <source src="https://files.catbox.moe/5v4v3y.mp3" type="audio/mpeg">
+    <!-- Audio Player Element (Hidden Source, Custom Control) -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
     </audio>
 
-    <canvas id="bg-canvas"></canvas>
-
-    <!-- TOP-RIGHT MUSIC BUTTON -->
-    <button class="music-btn" id="musicToggle">
-        <i class="fa-solid fa-music"></i>
-        <span id="musicBtnText">Play: Savage - Donny Duardo</span>
-    </button>
-
-    <!-- HERO SECTION -->
-    <section class="hero">
-        <h1>Musa Cafe & Restaurant</h1>
-        <p>Explore our complete luxury menu featuring exquisite dining, rooftop views, and authentic flavors.</p>
-    </section>
-
-    <div class="container">
-
-        <!-- 🏢 AMBIANCE, ROOF & PHOTO SPOTS -->
-        <h2 class="category-heading"><i class="fa-solid fa-camera-retro"></i> Ambiance, Rooftop & Photo Spots</h2>
-        <div class="grid">
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80" alt="Main Dining Hall" class="card-img">
-                <div class="item-header"><h3 class="item-title">Main Luxury Dining Hall</h3></div>
-                <p class="item-desc">Sophisticated lighting, plush seating, and an exquisite atmosphere for unforgettable meals.</p>
-            </div>
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?auto=format&fit=crop&w=800&q=80" alt="Rooftop Open Air Dining" class="card-img">
-                <div class="item-header"><h3 class="item-title">Rooftop Open-Air Dining</h3></div>
-                <p class="item-desc">Enjoy your dinner under the open sky with cool evening breezes and scenic city views.</p>
-            </div>
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=800&q=80" alt="Scenic Photo Spots" class="card-img">
-                <div class="item-header"><h3 class="item-title">Scenic Photo Spots</h3></div>
-                <p class="item-desc">Specially designed aesthetic corners and backdrops to capture your memorable moments.</p>
+    <!-- FLOATING SCROLLING CHEF ANIMATION (3D/Video Effect) -->
+    <div class="scrolling-chef group">
+        <div class="relative bg-amber-500 text-black px-4 py-2 rounded-full font-bold shadow-2xl flex items-center gap-3 border-2 border-amber-300">
+            <span class="relative flex h-3 w-3">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-3 w-3 bg-red-600"></span>
+            </span>
+            <img src="https://cdn-icons-png.flaticon.com/512/1830/1830833.png" alt="Chef at Work" class="w-10 h-10 animate-spin-slow">
+            <div class="text-xs">
+                <p class="font-black uppercase tracking-wider text-black">Chef Live at Work 🍳</p>
+                <p class="text-[10px] text-gray-900 font-semibold">Crafting Fresh Delights...</p>
             </div>
         </div>
-
-        <!-- 1. APPETIZER -->
-        <h2 class="category-heading"><i class="fa-solid fa-utensils"></i> 1. Appetizers</h2>
-        <div class="grid">
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Drum Stick (4 Pcs)</h3><span class="item-price">Rs. 1349</span></div><p class="item-desc">Crispy golden fried chicken drumsticks with special dip.</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Stripes (6 Pcs)</h3><span class="item-price">Rs. 999</span></div><p class="item-desc">Tender juicy chicken breast strips coated in crispy breadcrumbs.</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Dynamite Jumbo Prawn (6 Pcs)</h3><span class="item-price">Rs. 1849</span></div><p class="item-desc">Jumbo prawns tossed in signature spicy dynamite sauce.</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Dynamite Fries</h3><span class="item-price">Rs. 649</span></div><p class="item-desc">Crispy french fries drenched in creamy and spicy dynamite sauce.</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Cheese Bowl (4 Pcs)</h3><span class="item-price">Rs. 1049</span></div><p class="item-desc">Crispy balls loaded with molten gooey cheese.</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Honey Wings (12 Pcs)</h3><span class="item-price">Rs. 1149</span></div><p class="item-desc">Sweet and sticky honey-glazed chicken wings.</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Fish Cracker</h3><span class="item-price">Rs. 249</span></div><p class="item-desc">Light and crunchy crispy fish crackers.</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Dhaka Chicken</h3><span class="item-price">Rs. 899</span></div><p class="item-desc">Spicy battered fried chicken chunks flavored with oriental spices.</p></div>
-        </div>
-
-        <!-- 2. SOUP -->
-        <h2 class="category-heading"><i class="fa-solid fa-bowl-food"></i> 2. Soups (Full / Half)</h2>
-        <div class="grid">
-            <div class="card"><div class="item-header"><h3 class="item-title">Musa Special Soup</h3><span class="item-price">Rs. 1249 / 649</span></div><p class="item-desc">Chef's secret hearty soup blend packed with premium ingredients.</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Corn Soup</h3><span class="item-price">Rs. 999 / 649</span></div><p class="item-desc">Classic comforting sweet corn soup with shredded chicken.</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Hot & Sour Soup</h3><span class="item-price">Rs. 1049 / 699</span></div><p class="item-desc">Spicy and tangy broth with mushrooms, vegetables, and chicken.</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Vegetable Soup</h3><span class="item-price">Rs. 849 / 599</span></div><p class="item-desc">Light, healthy broth loaded with fresh garden vegetables.</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Thai Soup</h3><span class="item-price">Rs. 899 / 599</span></div><p class="item-desc">Authentic aromatic Thai broth infused with lemon grass and herbs.</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Schezwan Soup</h3><span class="item-price">Rs. 1199 / 649</span></div><p class="item-desc">Fiery Schezwan style spicy soup for spice lovers.</p></div>
-        </div>
-
-        <!-- 3. CHINES RICE -->
-        <h2 class="category-heading"><i class="fa-solid fa-plate-wheat"></i> 3. Chinese Rice</h2>
-        <div class="grid">
-            <div class="card"><div class="item-header"><h3 class="item-title">Musa Special Rice</h3><span class="item-price">Rs. 1199 / 649</span></div><p class="item-desc">Special mixed fried rice loaded with chicken, prawns, and eggs.</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Fried Rice</h3><span class="item-price">Rs. 1049 / 599</span></div><p class="item-desc">Classic fried rice tossed with tender chicken chunks and veggies.</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Masala Rice</h3><span class="item-price">Rs. 1049 / 599</span></div><p class="item-desc">Spiced fried rice with savory chicken masala flavors.</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Egg Fried Rice</h3><span class="item-price">Rs. 999 / 549</span></div><p class="item-desc">Traditional fried rice scrambled with fresh eggs.</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Vegetable Rice</h3><span class="item-price">Rs. 799 / 499</span></div><p class="item-desc">Wok-tossed rice with seasoned mixed vegetables.</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Garlic Rice</h3><span class="item-price">Rs. 949 / 499</span></div><p class="item-desc">Fragrant fried rice infused with rich toasted garlic oil.</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Plane Rice</h3><span class="item-price">Rs. 749</span></div><p class="item-desc">Steamed fluffy white rice (Full).</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Shashlik with Rice</h3><span class="item-price">Rs. 1399</span></div><p class="item-desc">Tangy chicken shashlik gravy served alongside fried rice.</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chilli Dry With Rice</h3><span class="item-price">Rs. 1399</span></div><p class="item-desc">Crispy dry chili chicken served with flavored fried rice.</p></div>
-        </div>
-
-        <!-- 4. CHINES GRAVY -->
-        <h2 class="category-heading"><i class="fa-solid fa-bowl-rice"></i> 4. Chinese Gravy</h2>
-        <div class="grid">
-            <div class="card"><div class="item-header"><h3 class="item-title">Musa Special Chicken</h3><span class="item-price">Rs. 1199</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Cashewnut</h3><span class="item-price">Rs. 1199</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Kung Pao Chicken</h3><span class="item-price">Rs. 1049</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Manchurian</h3><span class="item-price">Rs. 1049</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken with Almond</h3><span class="item-price">Rs. 1149</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Chilli Dry</h3><span class="item-price">Rs. 1249</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Black Pepper</h3><span class="item-price">Rs. 999</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Hot Garlic</h3><span class="item-price">Rs. 999</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Schezwan Chicken</h3><span class="item-price">Rs. 1049</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Sweet & Sour Chicken</h3><span class="item-price">Rs. 1049</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Honey Crunchy Chicken</h3><span class="item-price">Rs. 1199</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Red Dragon</h3><span class="item-price">Rs. 999</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Mongolian Beef</h3><span class="item-price">Rs. 1199</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Sesame Beef</h3><span class="item-price">Rs. 1199</span></div></div>
-        </div>
-
-        <!-- 5. CHOW MEIN -->
-        <h2 class="category-heading"><i class="fa-solid fa-noodles"></i> 5. Chow Mein & Noodles</h2>
-        <div class="grid">
-            <div class="card"><div class="item-header"><h3 class="item-title">Musa Special Chow Mein</h3><span class="item-price">Rs. 1099</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Chow Mein</h3><span class="item-price">Rs. 999</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Vegetable Chow Mein</h3><span class="item-price">Rs. 949</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Thai Chow Mein</h3><span class="item-price">Rs. 949</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">American Chopsuey</h3><span class="item-price">Rs. 999</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Thai Spicy Noodles</h3><span class="item-price">Rs. 1099</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Schezwan Chow Mein</h3><span class="item-price">Rs. 1199</span></div></div>
-        </div>
-
-        <!-- 6. PAKISTANI RICE -->
-        <h2 class="category-heading"><i class="fa-solid fa-fire-burner"></i> 6. Pakistani Rice & Biryani</h2>
-        <div class="grid">
-            <div class="card"><div class="item-header"><h3 class="item-title">Musa Special Jungli Pulao</h3><span class="item-price">Rs. 1299</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Mutton Afghani Pulao</h3><span class="item-price">Rs. 1599</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Pulao</h3><span class="item-price">Rs. 1199</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Mutton Pulao</h3><span class="item-price">Rs. 1599</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Biryani</h3><span class="item-price">Rs. 1199</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Mutton Biryani</h3><span class="item-price">Rs. 1599</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Batair Biryani</h3><span class="item-price">Rs. 1399</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Matka Biryani</h3><span class="item-price">Rs. 1649</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Mumbai Biryani</h3><span class="item-price">Rs. 1199</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Yakhani Pulao</h3><span class="item-price">Rs. 1149</span></div></div>
-        </div>
-
-        <!-- 7. CHICKEN KARAHI -->
-        <h2 class="category-heading"><i class="fa-solid fa-pot-food"></i> 7. Chicken Karahi (Full / Half)</h2>
-        <div class="grid">
-            <div class="card"><div class="item-header"><h3 class="item-title">Musa Special Chicken Karahi</h3><span class="item-price">Rs. 1999 / 1249</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Lahori Karahi</h3><span class="item-price">Rs. 1799 / 1099</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Peshawri Karahi</h3><span class="item-price">Rs. 1899 / 1049</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Hari Mirch Karahi</h3><span class="item-price">Rs. 1949 / 1099</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Butt Karahi</h3><span class="item-price">Rs. 1949 / 1099</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken White Karahi</h3><span class="item-price">Rs. 2049 / 1299</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Sulemani Karahi</h3><span class="item-price">Rs. 1999 / 1149</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Afghani Karahi</h3><span class="item-price">Rs. 1999 / 1149</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Achari Karahi</h3><span class="item-price">Rs. 1849 / 1099</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Special Desi Murgha Karahi</h3><span class="item-price">Rs. 3499 / 1999</span></div></div>
-        </div>
-
-        <!-- 8. MUTTON KARAHI -->
-        <h2 class="category-heading"><i class="fa-solid fa-bowl-food"></i> 8. Mutton Karahi & Kuna (Full / Half)</h2>
-        <div class="grid">
-            <div class="card"><div class="item-header"><h3 class="item-title">Musa Special Mutton Karahi</h3><span class="item-price">Rs. 3649 / 2049</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Mutton Lahori Karahi</h3><span class="item-price">Rs. 3549 / 1899</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Mutton Peshawri Karahi</h3><span class="item-price">Rs. 3549 / 1999</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Mutton Hari Mirch Karahi</h3><span class="item-price">Rs. 3699 / 1949</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Mutton Butt Karahi</h3><span class="item-price">Rs. 3549 / 1899</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Mutton White Karahi</h3><span class="item-price">Rs. 3699 / 2049</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Mutton Sulemani Karahi</h3><span class="item-price">Rs. 3699 / 2049</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Mutton Koyla Karahi</h3><span class="item-price">Rs. 3599 / 1949</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Mutton Achari Karahi</h3><span class="item-price">Rs. 3549 / 1899</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Mutton Namkeen</h3><span class="item-price">Rs. 3499 / 1899</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Mutton Afghani Karahi</h3><span class="item-price">Rs. 3649 / 2049</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Mutton Kuna</h3><span class="item-price">Rs. 1999</span></div></div>
-        </div>
-
-        <!-- 9. CHICKEN BONELESS HANDI -->
-        <h2 class="category-heading"><i class="fa-solid fa-bowl-food"></i> 9. Chicken Boneless Handi & Vegetables</h2>
-        <div class="grid">
-            <div class="card"><div class="item-header"><h3 class="item-title">Musa Special Chicken Handi</h3><span class="item-price">Rs. 1599</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Lahori Handi</h3><span class="item-price">Rs. 1499</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Achari Handi</h3><span class="item-price">Rs. 1549</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken White Handi</h3><span class="item-price">Rs. 1649</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Reshmi Handi</h3><span class="item-price">Rs. 1649</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Alovera Chicken Handi</h3><span class="item-price">Rs. 1649</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Ginger</h3><span class="item-price">Rs. 1349</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Jalfrezi</h3><span class="item-price">Rs. 1399</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Shah Jahani</h3><span class="item-price">Rs. 1599</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Madrasi Handi</h3><span class="item-price">Rs. 1599</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Hari Mirch Handi</h3><span class="item-price">Rs. 1449</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Pasandy Handi</h3><span class="item-price">Rs. 1549</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Cheese Patiala Handi</h3><span class="item-price">Rs. 1549</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chef Kujha</h3><span class="item-price">Rs. 1599</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Patayla</h3><span class="item-price">Rs. 1449</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Green Chili Lemon</h3><span class="item-price">Rs. 1449</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Makhni Handi</h3><span class="item-price">Rs. 1449</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Kabab Masala</h3><span class="item-price">Rs. 1149</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Mix Vegetable</h3><span class="item-price">Rs. 549</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Shahi Dall</h3><span class="item-price">Rs. 699</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Dall Makhni</h3><span class="item-price">Rs. 549</span></div></div>
-        </div>
-
-        <!-- 10. DESI JUNGLE MANGAL -->
-        <h2 class="category-heading"><i class="fa-solid fa-fire"></i> 10. Desi Jungle Mangal</h2>
-        <div class="grid">
-            <div class="card"><div class="item-header"><h3 class="item-title">Desi Chicken White Karahai</h3><span class="item-price">Rs. 3549</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Desi Chicken Achari Karahai</h3><span class="item-price">Rs. 3549</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Desi Charga With Rice</h3><span class="item-price">Rs. 4199</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Musa Special Batair Karahai</h3><span class="item-price">Rs. 2399</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Batair Buttor Karahai</h3><span class="item-price">Rs. 2499</span></div></div>
-        </div>
-
-        <!-- 11. SPECIAL PLATTER -->
-        <h2 class="category-heading"><i class="fa-solid fa-plate-wheat"></i> 11. Special Platters</h2>
-        <div class="grid">
-            <div class="card">
-                <div class="item-header"><h3 class="item-title">B.B.Q Platter</h3><span class="item-price">Rs. 5999</span></div>
-                <p class="item-desc">Includes: Qalmi Tikka 4 Pcs, Reshmi Kabab 2 Pcs, Chicken Kabab 2 Pcs, Mutton Chanp 2 Pcs, Tikka Boti 6 Pcs, Malai Boti 6 Pcs, Chicken Tikka 1 Pc, Chicken Handi, Half Chicken Fried Rice, 1 Afghani Naan.</p>
-            </div>
-            <div class="card">
-                <div class="item-header"><h3 class="item-title">Musa Special Family Platter (8 Person)</h3><span class="item-price">Rs. 11999</span></div>
-                <p class="item-desc">Includes: 1 Chicken Handi, 1 Mutton Kuna, 1 Afghani Pulao, 2 Afghani Naan, 4 Head Roti, 4 Raita, 1 Fresh Salad Platter, 1 Shashlik with Rice, Chicken Kabab 4 Pcs, Tikka Boti 12 Pcs, Malai Boti 12 Pcs, Tikka Piece 1, Mineral Water 1, 1.5 Ltr Drink.</p>
-            </div>
-        </div>
-
-        <!-- 12. CHEF OVER SPECIALITIES -->
-        <h2 class="category-heading"><i class="fa-solid fa-star"></i> 12. Chef Over Specialities</h2>
-        <div class="grid">
-            <div class="card"><div class="item-header"><h3 class="item-title">Musa Special Chicken</h3><span class="item-price">Rs. 1649</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Mutton Candle</h3><span class="item-price">Rs. 2099</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Shahi Mutton</h3><span class="item-price">Rs. 2099</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Mutton Dhaba</h3><span class="item-price">Rs. 2099</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Mutton Bharta</h3><span class="item-price">Rs. 2049</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Mutton Filafil</h3><span class="item-price">Rs. 2049</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Mutton Patyala</h3><span class="item-price">Rs. 1899</span></div></div>
-        </div>
-
-        <!-- 13. GARMA GARM TANDOOR -->
-        <h2 class="category-heading"><i class="fa-solid fa-bread-slice"></i> 13. Garma Garm Tandoor</h2>
-        <div class="grid">
-            <div class="card"><div class="item-header"><h3 class="item-title">Musa Special Nan</h3><span class="item-price">Rs. 299</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Afghani Nan</h3><span class="item-price">Rs. 219</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Roghani Nan</h3><span class="item-price">Rs. 129</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Garlic Nan</h3><span class="item-price">Rs. 129</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Kalwanji Nan</h3><span class="item-price">Rs. 129</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Nan</h3><span class="item-price">Rs. 399</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Kandhari Nan</h3><span class="item-price">Rs. 199</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Ginger Nan</h3><span class="item-price">Rs. 129</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Khemri Roti</h3><span class="item-price">Rs. 49</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Roti Per Head</h3><span class="item-price">Rs. 69</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Tandoori Pratha</h3><span class="item-price">Rs. 149</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Roti Sada</h3><span class="item-price">Rs. 19</span></div></div>
-        </div>
-
-        <!-- 14. B.B.Q. -->
-        <h2 class="category-heading"><i class="fa-solid fa-fire-flame-curved"></i> 14. Barbeque (Half / Full)</h2>
-        <div class="grid">
-            <div class="card"><div class="item-header"><h3 class="item-title">Musa Special BBQ Platter</h3><span class="item-price">Rs. 3599 / 5999</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Malai Boti</h3><span class="item-price">Rs. 1249</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Cheese Boti</h3><span class="item-price">Rs. 1349</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Kastori Boti</h3><span class="item-price">Rs. 1349</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Kabab</h3><span class="item-price">Rs. 849</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Reshmi Kabab</h3><span class="item-price">Rs. 999</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Makhmali Kabab</h3><span class="item-price">Rs. 1049</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Mutton Kabab</h3><span class="item-price">Rs. 1249</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Mutton Tikka</h3><span class="item-price">Rs. 1999</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Mutton Chops</h3><span class="item-price">Rs. 1999</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Achari Boti</h3><span class="item-price">Rs. 1049</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Boti</h3><span class="item-price">Rs. 999</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Bateer Tikka</h3><span class="item-price">Rs. 2099</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Chest Piece</h3><span class="item-price">Rs. 449</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Leg Piece</h3><span class="item-price">Rs. 399</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Qalmi Tikka</h3><span class="item-price">Rs. 1299</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Malai Piece Leg</h3><span class="item-price">Rs. 449</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Malai Piece Chest</h3><span class="item-price">Rs. 479</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Cheese Kabab</h3><span class="item-price">Rs. 1149</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chatkhara Boti</h3><span class="item-price">Rs. 1249</span></div></div>
-        </div>
-
-        <!-- 15. KHADA VERITIES -->
-        <h2 class="category-heading"><i class="fa-solid fa-cow"></i> 15. Khada Varieties</h2>
-        <div class="grid">
-            <div class="card"><div class="item-header"><h3 class="item-title">Salam Bakra (12 Kg) With Rice</h3><span class="item-price">On Order</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Dam Pukht (Per Kg)</h3><span class="item-price">Rs. 4000</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Raan Roast (Per Kg)</h3><span class="item-price">Rs. 4000</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Namkeen Roast</h3><span class="item-price">Rs. 1600</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Mutton Joint</h3><span class="item-price">Rs. 1500</span></div></div>
-        </div>
-
-        <!-- 16. FISH CORNER -->
-        <h2 class="category-heading"><i class="fa-solid fa-fish"></i> 16. Fish Corner</h2>
-        <div class="grid">
-            <div class="card"><div class="item-header"><h3 class="item-title">Musa Special Finger Fish (8 Pcs)</h3><span class="item-price">Rs. 1549</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Fried Fish (4 Pcs)</h3><span class="item-price">Rs. 1549</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Dhaka Fish (16 Pcs)</h3><span class="item-price">Rs. 1549</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Grill Fish (1 Kg)</h3><span class="item-price">Rs. 1699</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Fish Handi</h3><span class="item-price">Rs. 1799</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Fish Chilli Dry</h3><span class="item-price">Rs. 1599</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Fish Tikka (12 Pcs)</h3><span class="item-price">Rs. 1499</span></div></div>
-        </div>
-
-        <!-- 17. PIZZA -->
-        <h2 class="category-heading"><i class="fa-solid fa-pizza-slice"></i> 17. Pizzas (Small / Medium / Large)</h2>
-        <div class="grid">
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Tikka Pizza</h3></div><p class="dual-price">S: 649 | M: 1199 | L: 1699</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Fajita Pizza</h3></div><p class="dual-price">S: 649 | M: 1199 | L: 1699</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Supreme Pizza</h3></div><p class="dual-price">S: 649 | M: 1199 | L: 1699</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Mughali Pizza</h3></div><p class="dual-price">S: 649 | M: 1199 | L: 1699</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Achari Pizza</h3></div><p class="dual-price">S: 649 | M: 1199 | L: 1699</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Cheese Lover Pizza</h3></div><p class="dual-price">S: 649 | M: 1199 | L: 1699</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Peri Peri Hot Pizza</h3></div><p class="dual-price">S: 649 | M: 1199 | L: 1699</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Musa Special / BBQ Pizza</h3></div><p class="dual-price">Medium: 1299 | Large: 1999</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Malai Boti / Bone Fire Pizza</h3></div><p class="dual-price">Medium: 1299 | Large: 1899</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Behari Kabab Pizza</h3></div><p class="dual-price">Medium: 1299 | Large: 1999</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Crust Specials (Kabab/Crown/Cheese)</h3></div><p class="dual-price">Medium: 1399 | Large: 1899</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Extreme (Peri-Peri / Flaming Kabab)</h3></div><p class="dual-price">Medium: 1449 | Large: 2199</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Deep Pizza (Chicago / Mild Butter)</h3></div><p class="dual-price">Medium: 1549 | Large: 2449</p></div>
-        </div>
-
-        <!-- 18. STARTERS & FRIES -->
-        <h2 class="category-heading"><i class="fa-solid fa-french-fries"></i> 18. Starters & Fast Bites</h2>
-        <div class="grid">
-            <div class="card"><div class="item-header"><h3 class="item-title">Plain Fries</h3><span class="item-price">Rs. 299 / 399</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Nuggets (10 Pcs)</h3><span class="item-price">Rs. 649</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Oven Baked Wings (10 Pcs)</h3><span class="item-price">Rs. 899</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Hot Wings (10 Pcs)</h3><span class="item-price">Rs. 799</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Dragon Shots (10 Pcs)</h3><span class="item-price">Rs. 449</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Loaded Fries</h3><span class="item-price">Rs. 599</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Pizza Fries</h3><span class="item-price">Rs. 899</span></div></div>
-        </div>
-
-        <!-- 19. WRAPS, ROLLS, SANDWICHES & BURGERS -->
-        <h2 class="category-heading"><i class="fa-solid fa-burger"></i> 19. Wraps, Rolls, Sandwiches & Burgers</h2>
-        <div class="grid">
-            <div class="card"><div class="item-header"><h3 class="item-title">BBQ / Crispy / Grill Wrap</h3><span class="item-price">Rs. 499 - 599</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Zinger Pratha Roll</h3><span class="item-price">Rs. 899</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Malai Boti Roll</h3><span class="item-price">Rs. 449</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Club Sandwich</h3><span class="item-price">Rs. 599</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Mexican Sandwich</h3><span class="item-price">Rs. 999</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Zinger Burger</h3><span class="item-price">Rs. 449</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Al-Chappo Beef Burger</h3><span class="item-price">Rs. 979</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Musa Chicken Madness Burger</h3><span class="item-price">Rs. 1049</span></div></div>
-        </div>
-
-        <!-- 20. SWEET'S -->
-        <h2 class="category-heading"><i class="fa-solid fa-ice-cream"></i> 20. Sweet Desserts</h2>
-        <div class="grid">
-            <div class="card"><div class="item-header"><h3 class="item-title">Family Sweet Bowl</h3><span class="item-price">Rs. 999</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Lab-e-Shireen</h3><span class="item-price">Rs. 249</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Shahi Tukda</h3><span class="item-price">Rs. 249</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Fruit Truffle</h3><span class="item-price">Rs. 249</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Gulab Jamun</h3><span class="item-price">Rs. 249</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Shahi Kheer</h3><span class="item-price">Rs. 249</span></div></div>
-        </div>
-
-        <!-- 21. SALAD BAR -->
-        <h2 class="category-heading"><i class="fa-solid fa-carrot"></i> 21. Salads & Raita</h2>
-        <div class="grid">
-            <div class="card"><div class="item-header"><h3 class="item-title">Musa Special Salad</h3><span class="item-price">Rs. 799</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Chicken Pineapple Salad</h3><span class="item-price">Rs. 749</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Russian Salad</h3><span class="item-price">Rs. 649</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Kachumar Salad</h3><span class="item-price">Rs. 249</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Fresh Salad</h3><span class="item-price">Rs. 119</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Zeera / Mint Raita</h3><span class="item-price">Rs. 99</span></div></div>
-        </div>
-
-        <!-- 22. DRINKS -->
-        <h2 class="category-heading"><i class="fa-solid fa-mug-hot"></i> 22. Drinks & Coffee Bar</h2>
-        <div class="grid">
-            <div class="card"><div class="item-header"><h3 class="item-title">Mineral Water</h3><span class="item-price">Rs. 69 / 119</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">1.5 Ltr Drink / Can</h3><span class="item-price">Rs. 249 / 149</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Cold Coffee / Spanish Latte</h3><span class="item-price">Rs. 549 - 599</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Peach Ice Tea</h3><span class="item-price">Rs. 599</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Power Shake</h3><span class="item-price">Rs. 649</span></div></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Ice Cream Shake</h3><span class="item-price">Rs. 549</span></div></div>
-        </div>
-
-        <!-- 📍 LOCATION & REVIEWS -->
-        <div class="location-card">
-            <div class="rating-num">3.8 / 5.0 ⭐</div>
-            <p style="color: var(--text-dim); margin-top: 5px;">Based on Authentic Google Customer Reviews</p>
-            <p style="margin-top: 15px; font-weight: 600; font-size: 1.1rem;">
-                <i class="fa-solid fa-location-dot" style="color: var(--secondary);"></i> 03, Block A Housing Colony, Layyah, Pakistan
-            </p>
-            <p style="margin-top: 8px; font-size: 1rem;">
-                <i class="fa-solid fa-phone" style="color: var(--primary);"></i> <strong>Call / WhatsApp:</strong> 0301 3777777
-            </p>
-
-            <div class="map-container">
-                <iframe 
-                    src="https://maps.google.com/maps?q=Block%20A%20Housing%20Colony%20Layyah&t=&z=15&ie=UTF8&iwloc=&output=embed" 
-                    width="100%" 
-                    height="300" 
-                    style="border:0; filter: invert(90%) hue-rotate(180deg) contrast(1.2);" 
-                    allowfullscreen="" 
-                    loading="lazy">
-                </iframe>
-            </div>
-        </div>
-
     </div>
 
+    <!-- NAVBAR & MUSIC CONTROL -->
+    <nav class="sticky top-0 z-40 bg-black/80 backdrop-blur-md border-b border-gray-800 px-6 py-4 flex justify-between items-center">
+        <div class="text-xl font-bold font-serif-title text-amber-400 tracking-wider flex items-center gap-2">
+            <i class="fa-solid font-crown text-amber-500"></i> MUSA CAFE
+        </div>
+
+        <!-- Music Play Button (No Song Name Shown) -->
+        <button onclick="toggleAudio()" id="musicBtn" class="bg-amber-500 hover:bg-amber-400 text-black font-semibold px-4 py-2 rounded-full text-sm flex items-center gap-2 transition-all shadow-lg active:scale-95">
+            <i class="fa-solid fa-music" id="musicIcon"></i>
+            <span id="musicText">Play Music</span>
+        </button>
+    </nav>
+
+    <!-- HERO SECTION: WELCOME & STAFF PICTURE -->
+    <header class="relative px-6 py-12 md:py-20 max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
+        <!-- Left: Catchy Slogan & Welcome -->
+        <div class="flex-1 space-y-6 text-center md:text-left">
+            <div class="inline-block bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs px-4 py-1.5 rounded-full font-semibold uppercase tracking-widest">
+                Layyah's Finest Culinary Destination
+            </div>
+            <h1 class="text-4xl md:text-6xl font-bold font-serif-title leading-tight text-white">
+                Welcome to the <span class="text-amber-400">Shine of Layyah</span> ✨
+            </h1>
+            <p class="text-gray-300 text-base md:text-lg leading-relaxed">
+                Step into a world where luxury meets extraordinary taste. From gourmet creations to serene rooftop dining, we bring you an unforgettable culinary celebration in the heart of Layyah.
+            </p>
+            <div class="pt-2 flex flex-wrap gap-4 justify-center md:justify-start">
+                <a href="#menu" class="bg-amber-500 hover:bg-amber-400 text-black font-bold px-7 py-3 rounded-xl transition-all shadow-lg hover:shadow-amber-500/30">
+                    Explore Menu 📜
+                </a>
+                <a href="#rooftop" class="bg-gray-800 hover:bg-gray-700 text-white font-semibold px-7 py-3 rounded-xl border border-gray-700 transition-all">
+                    Rooftop Spot 📸
+                </a>
+            </div>
+        </div>
+
+        <!-- Right: Online Kitchen & Staff Picture -->
+        <div class="flex-1 w-full">
+            <div class="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-amber-500/30 gold-glow group">
+                <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=1000&q=80" 
+                     alt="Our Master Chefs & Staff" 
+                     class="w-full h-[350px] md:h-[420px] object-cover group-hover:scale-105 transition-transform duration-700">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                <div class="absolute bottom-4 left-4 right-4 bg-black/70 backdrop-blur-md p-4 rounded-xl border border-white/10 flex justify-between items-center">
+                    <div>
+                        <h4 class="text-amber-400 font-bold text-sm">Our Master Culinary Team</h4>
+                        <p class="text-gray-300 text-xs">Ready to serve you fresh & sizzling perfection everyday.</p>
+                    </div>
+                    <span class="bg-green-500/20 text-green-400 text-xs px-2.5 py-1 rounded-full border border-green-500/30 font-semibold flex items-center gap-1">
+                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> Online Now
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ROOFTOP PICNIC & PICTURE SPOT FEATURE -->
+    <section id="rooftop" class="px-6 py-12 max-w-7xl mx-auto">
+        <div class="glass-card rounded-3xl p-6 md:p-10 border border-amber-500/20 relative overflow-hidden">
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="space-y-4">
+                    <span class="text-xs uppercase font-bold tracking-widest text-amber-400">Aesthetic Rooftop Experience</span>
+                    <h2 class="text-3xl font-serif-title font-bold text-white">Roof Picnic & Picture Spot 🌅📸</h2>
+                    
+                    <!-- Customized English Quote -->
+                    <blockquote class="italic text-gray-300 border-l-4 border-amber-500 pl-4 py-1 my-3 text-sm md:text-base">
+                        "Dine beneath the open sky, sip under the starlight, and capture moments that last forever. Layyah’s premier rooftop escape designed for memories."
+                    </blockquote>
+                    
+                    <p class="text-gray-400 text-sm">
+                        Featuring cozy picnic seating, fairy light ambiance, and breathtaking outdoor photo spots tailored for your perfect Instagram stories!
+                    </p>
+                </div>
+                <div class="rounded-2xl overflow-hidden shadow-xl border border-gray-700">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80" 
+                         alt="Rooftop Picnic Spot" 
+                         class="w-full h-[250px] object-cover hover:scale-105 transition-transform duration-500">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MENU CATEGORIES (EXPANDABLE/ACCORDION BOXES) -->
+    <section id="menu" class="px-6 py-12 max-w-5xl mx-auto space-y-6">
+        <div class="text-center space-y-2">
+            <h2 class="text-3xl font-bold font-serif-title text-amber-400">Our Delicious Menu</h2>
+            <p class="text-gray-400 text-sm">Click any category box below to view dishes and delicious moments!</p>
+        </div>
+
+        <!-- CATEGORY 1: APPETIZERS -->
+        <div class="glass-card rounded-2xl border border-gray-800 overflow-hidden">
+            <button onclick="toggleCategory('appetizers')" class="w-full p-5 flex justify-between items-center text-left hover:bg-white/5 transition-all">
+                <div class="flex items-center gap-3">
+                    <span class="text-2xl">🍟</span>
+                    <h3 class="text-xl font-bold text-white">Appetizers & Starters</h3>
+                </div>
+                <i id="icon-appetizers" class="fa-solid fa-chevron-down text-amber-400 transition-transform"></i>
+            </button>
+
+            <div id="appetizers" class="category-content px-6 pb-6">
+                <!-- People Eating / Delicious Food Image Header -->
+                <div class="rounded-xl overflow-hidden mb-6 border border-gray-700 my-2">
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1000&q=80" 
+                         alt="People Enjoying Food" 
+                         class="w-full h-48 md:h-64 object-cover">
+                    <div class="bg-gray-900/90 p-3 text-center text-xs text-amber-300 font-medium">
+                        ✨ Freshly prepared starter platters made for sharing with friends & family!
+                    </div>
+                </div>
+
+                <!-- Items List -->
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-black/40 p-4 rounded-xl border border-gray-800 flex justify-between items-center">
+                        <div>
+                            <h4 class="font-bold text-white">Loaded Cheese Fries</h4>
+                            <p class="text-xs text-gray-400">Crispy fries drenched in melted cheese sauce.</p>
+                        </div>
+                        <span class="text-amber-400 font-bold text-sm">Rs. 350</span>
+                    </div>
+                    <div class="bg-black/40 p-4 rounded-xl border border-gray-800 flex justify-between items-center">
+                        <div>
+                            <h4 class="font-bold text-white">Crispy Chicken Wings (6 pcs)</h4>
+                            <p class="text-xs text-gray-400">Served with spicy garlic dip.</p>
+                        </div>
+                        <span class="text-amber-400 font-bold text-sm">Rs. 480</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORY 2: MAIN COURSE & SPECIAL BARBECUE -->
+        <div class="glass-card rounded-2xl border border-gray-800 overflow-hidden">
+            <button onclick="toggleCategory('main-course')" class="w-full p-5 flex justify-between items-center text-left hover:bg-white/5 transition-all">
+                <div class="flex items-center gap-3">
+                    <span class="text-2xl">🍔</span>
+                    <h3 class="text-xl font-bold text-white">Main Course & Burgers</h3>
+                </div>
+                <i id="icon-main-course" class="fa-solid fa-chevron-down text-amber-400 transition-transform"></i>
+            </button>
+
+            <div id="main-course" class="category-content px-6 pb-6">
+                <!-- People Eating / Food Image -->
+                <div class="rounded-xl overflow-hidden mb-6 border border-gray-700 my-2">
+                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1000&q=80" 
+                         alt="Delicious BBQ Main Course" 
+                         class="w-full h-48 md:h-64 object-cover">
+                    <div class="bg-gray-900/90 p-3 text-center text-xs text-amber-300 font-medium">
+                        🔥 Juicy burgers and charcoal-grilled BBQ favorites!
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-black/40 p-4 rounded-xl border border-gray-800 flex justify-between items-center">
+                        <div>
+                            <h4 class="font-bold text-white">Musa Special Zinger Burger</h4>
+                            <p class="text-xs text-gray-400">Double crispy patty with extra cheese & special sauce.</p>
+                        </div>
+                        <span class="text-amber-400 font-bold text-sm">Rs. 520</span>
+                    </div>
+                    <div class="bg-black/40 p-4 rounded-xl border border-gray-800 flex justify-between items-center">
+                        <div>
+                            <h4 class="font-bold text-white">Chicken Malai Boti Platter</h4>
+                            <p class="text-xs text-gray-400">Tender grilled chicken served with fresh naan & chutney.</p>
+                        </div>
+                        <span class="text-amber-400 font-bold text-sm">Rs. 790</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORY 3: DRINKS & SHAKES -->
+        <div class="glass-card rounded-2xl border border-gray-800 overflow-hidden">
+            <button onclick="toggleCategory('beverages')" class="w-full p-5 flex justify-between items-center text-left hover:bg-white/5 transition-all">
+                <div class="flex items-center gap-3">
+                    <span class="text-2xl">🍹</span>
+                    <h3 class="text-xl font-bold text-white">Chilled Drinks & Shakes</h3>
+                </div>
+                <i id="icon-beverages" class="fa-solid fa-chevron-down text-amber-400 transition-transform"></i>
+            </button>
+
+            <div id="beverages" class="category-content px-6 pb-6">
+                <div class="rounded-xl overflow-hidden mb-6 border border-gray-700 my-2">
+                    <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=1000&q=80" 
+                         alt="Cool Drinks and Shakes" 
+                         class="w-full h-48 md:h-64 object-cover">
+                    <div class="bg-gray-900/90 p-3 text-center text-xs text-amber-300 font-medium">
+                        ❄️ Refreshing mocktails and thick gourmet shakes!
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-black/40 p-4 rounded-xl border border-gray-800 flex justify-between items-center">
+                        <div>
+                            <h4 class="font-bold text-white">Mint Margarita</h4>
+                            <p class="text-xs text-gray-400">Fresh mint blend with lemon and crushed ice.</p>
+                        </div>
+                        <span class="text-amber-400 font-bold text-sm">Rs. 280</span>
+                    </div>
+                    <div class="bg-black/40 p-4 rounded-xl border border-gray-800 flex justify-between items-center">
+                        <div>
+                            <h4 class="font-bold text-white">Oreo Thick Shake</h4>
+                            <p class="text-xs text-gray-400">Rich chocolate milk topped with crushed oreos.</p>
+                        </div>
+                        <span class="text-amber-400 font-bold text-sm">Rs. 380</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="text-center py-8 border-t border-gray-800 text-gray-500 text-xs">
+        <p>© 2026 Musa Cafe & Restaurant — The Shine of Layyah. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JAVASCRIPT FOR MUSIC & ACCORDION BOXES -->
     <script>
-        /* Background Particles */
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        class Particle {
-            constructor() { this.reset(); }
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.z = Math.random() * 2 + 0.5;
-                this.radius = Math.random() * 2 + 1;
-                this.vx = (Math.random() - 0.5) * 0.4;
-                this.vy = (Math.random() - 0.5) * 0.4;
-                this.alpha = Math.random() * 0.4 + 0.1;
-            }
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius * this.z, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255, 159, 67, ${this.alpha})`;
-                ctx.fill();
-            }
-        }
-
-        for (let i = 0; i < 50; i++) { particles.push(new Particle()); }
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => { p.update(); p.draw(); });
-            requestAnimationFrame(animateParticles);
-        }
-        animateParticles();
-
-        /* Audio Toggle */
-        const bgAudio = document.getElementById('bgAudio');
-        const musicBtn = document.getElementById('musicToggle');
-        const musicBtnText = document.getElementById('musicBtnText');
+        // 1. Interactive Audio Control (Fixes Autoplay issue and hides song titles)
+        const bgMusic = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicBtn');
+        const musicText = document.getElementById('musicText');
+        const musicIcon = document.getElementById('musicIcon');
         let isPlaying = false;
 
-        musicBtn.addEventListener('click', () => {
-            if (!isPlaying) {
-                bgAudio.play().then(() => {
-                    isPlaying = true;
-                    musicBtnText.innerText = "Pause Music";
-                    musicBtn.querySelector('i').className = "fa-solid fa-pause";
-                }).catch(err => {
-                    console.log("Audio play error: ", err);
-                });
-            } else {
-                bgAudio.pause();
+        function toggleAudio() {
+            if (isPlaying) {
+                bgMusic.pause();
+                musicText.innerText = "Play Music";
+                musicIcon.className = "fa-solid fa-music";
+                musicBtn.classList.remove("bg-green-500", "text-white");
+                musicBtn.classList.add("bg-amber-500", "text-black");
                 isPlaying = false;
-                musicBtnText.innerText = "Play: Savage - Donny Duardo";
-                musicBtn.querySelector('i').className = "fa-solid fa-music";
+            } else {
+                bgMusic.play().then(() => {
+                    musicText.innerText = "Pause Music";
+                    musicIcon.className = "fa-solid fa-pause animate-bounce";
+                    musicBtn.classList.remove("bg-amber-500", "text-black");
+                    musicBtn.classList.add("bg-green-500", "text-white");
+                    isPlaying = true;
+                }).catch(error => {
+                    alert("Audio play feature requires user click interaction first!");
+                });
             }
-        });
+        }
+
+        // 2. Collapsible Category Toggle Function
+        function toggleCategory(categoryId) {
+            const content = document.getElementById(categoryId);
+            const icon = document.getElementById('icon-' + categoryId);
+
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                // Close other open sections for smooth accordion feel
+                document.querySelectorAll('.category-content').forEach(el => el.classList.remove('active'));
+                document.querySelectorAll('[id^="icon-"]').forEach(el => el.style.transform = 'rotate(0deg)');
+
+                content.classList.add('active');
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
     </script>
 </body>
 </html>
