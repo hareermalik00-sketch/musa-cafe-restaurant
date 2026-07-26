@@ -55,7 +55,7 @@
             padding: 12px 22px;
             border-radius: 50px;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             cursor: pointer;
             box-shadow: 0 8px 25px rgba(255, 159, 67, 0.4);
             display: flex;
@@ -234,15 +234,15 @@
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.4rem; }
             .category-heading { font-size: 1.8rem; }
-            .music-btn { top: 15px; right: 15px; padding: 10px 16px; font-size: 0.85rem; }
+            .music-btn { top: 15px; right: 15px; padding: 10px 16px; font-size: 0.8rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- AUDIO PLAYER -->
+    <!-- AUDIO PLAYER: Donny Duardo - Savage -->
     <audio id="bgAudio" loop preload="auto">
-        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
+        <source src="https://files.catbox.moe/5v4v3y.mp3" type="audio/mpeg">
     </audio>
 
     <canvas id="bg-canvas"></canvas>
@@ -250,7 +250,7 @@
     <!-- TOP-RIGHT MUSIC BUTTON -->
     <button class="music-btn" id="musicToggle">
         <i class="fa-solid fa-music"></i>
-        <span id="musicBtnText">Play Music</span>
+        <span id="musicBtnText">Play: Savage - Donny Duardo</span>
     </button>
 
     <!-- HERO SECTION -->
@@ -289,7 +289,7 @@
             <div class="card"><div class="item-header"><h3 class="item-title">Dynamite Jumbo Prawn (6 Pcs)</h3><span class="item-price">Rs. 1849</span></div><p class="item-desc">Jumbo prawns tossed in signature spicy dynamite sauce.</p></div>
             <div class="card"><div class="item-header"><h3 class="item-title">Dynamite Fries</h3><span class="item-price">Rs. 649</span></div><p class="item-desc">Crispy french fries drenched in creamy and spicy dynamite sauce.</p></div>
             <div class="card"><div class="item-header"><h3 class="item-title">Cheese Bowl (4 Pcs)</h3><span class="item-price">Rs. 1049</span></div><p class="item-desc">Crispy balls loaded with molten gooey cheese.</p></div>
-            <div class="card"><div class="item-header"><h3 class="item-title">Honey Wings (12 Pcs)</h3><span class="item-price">Rs. 1149</span></div><p class="item-desc>Sweet and sticky honey-glazed chicken wings.</p></div>
+            <div class="card"><div class="item-header"><h3 class="item-title">Honey Wings (12 Pcs)</h3><span class="item-price">Rs. 1149</span></div><p class="item-desc">Sweet and sticky honey-glazed chicken wings.</p></div>
             <div class="card"><div class="item-header"><h3 class="item-title">Fish Cracker</h3><span class="item-price">Rs. 249</span></div><p class="item-desc">Light and crunchy crispy fish crackers.</p></div>
             <div class="card"><div class="item-header"><h3 class="item-title">Dhaka Chicken</h3><span class="item-price">Rs. 899</span></div><p class="item-desc">Spicy battered fried chicken chunks flavored with oriental spices.</p></div>
         </div>
@@ -687,7 +687,7 @@
             } else {
                 bgAudio.pause();
                 isPlaying = false;
-                musicBtnText.innerText = "Play Music";
+                musicBtnText.innerText = "Play: Savage - Donny Duardo";
                 musicBtn.querySelector('i').className = "fa-solid fa-music";
             }
         });
