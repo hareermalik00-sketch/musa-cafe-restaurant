@@ -1,521 +1,431 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Musa Restaurant - Complete Menu & Music</title>
-    <!-- Tailwind CSS CDN for modern styling -->
+    <title>Musa Cafe & Restaurant | Official Website</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for Icons -->
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        heading: ['Cinzel', 'serif'],
+                        body: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        gold: {
+                            400: '#facc15',
+                            500: '#eab308',
+                            600: '#ca8a04',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        h1, h2, h3, .font-heading { font-family: 'Cinzel', serif; }
+        .glass-card {
+            background: rgba(24, 24, 27, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(234, 179, 8, 0.2);
+        }
+        .glass-card-hover {
+            transition: all 0.3s ease;
+        }
+        .glass-card-hover:hover {
+            border-color: rgba(234, 179, 8, 0.6);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px -10px rgba(234, 179, 8, 0.25);
+        }
+    </style>
 </head>
-<body class="bg-gray-900 text-gray-100 font-sans pb-20">
+<body class="bg-zinc-950 text-zinc-100 antialiased selection:bg-amber-500 selection:text-zinc-950 pb-28">
 
-    <!-- Header / Hero Section with Staff Group Picture -->
-    <header class="relative bg-black border-b border-gray-800">
-        <div class="max-w-4xl mx-auto px-4 py-8 text-center">
-            <h1 class="text-4xl font-extrabold text-amber-500 tracking-wider mb-2">MUSA RESTAURANT</h1>
-            <p class="text-gray-400 text-sm mb-6">Asli Zaiqa, Behtareen Mahol — Meet Our Expert Kitchen & Chef Team</p>
-            
-            <!-- Staff Group Picture -->
-            <div class="rounded-xl overflow-hidden shadow-2xl border-2 border-amber-500/50 mb-6">
-                <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=80" alt="Staff Group Picture" class="w-full h-64 md:h-80 object-cover">
-            </div>
+    <!-- TOP RIGHT FLOATING MUSIC PLAYER -->
+    <div class="fixed top-4 right-4 z-50">
+        <audio id="bgMusic" loop>
+            <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
+        </audio>
+        <button onclick="toggleMusic()" id="musicBtn" class="glass-card hover:bg-zinc-800 text-amber-400 px-4 py-2.5 rounded-full shadow-2xl flex items-center gap-3 border border-amber-500/40 transition transform active:scale-95">
+            <span class="relative flex h-3 w-3">
+              <span id="musicPing" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75 hidden"></span>
+              <span class="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
+            </span>
+            <i id="musicIcon" class="fa-solid fa-play text-sm"></i>
+            <span class="text-xs font-semibold tracking-wider uppercase text-zinc-200">Soft Music</span>
+        </button>
+    </div>
 
-            <!-- Quick Contact & Location Info -->
-            <div class="flex flex-wrap justify-center gap-4 text-sm text-gray-300">
-                <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded-lg">
-                    <i class="fa-solid fa-location-dot text-amber-500"></i>
-                    <span>Main Bazar, Near City Chowk, Layyah</span>
-                </div>
-                <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded-lg">
-                    <i class="fa-solid fa-phone text-amber-500"></i>
-                    <span>+92 300 1234567</span>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/923001234567?text=Assalam-o-Alaikum,%20mujhe%20order%20dena%20hai" target="_blank" class="fixed bottom-6 right-6 z-50 bg-green-600 hover:bg-green-700 text-white p-4 rounded-full shadow-2xl flex items-center justify-center transition transform hover:scale-110">
+    <!-- FLOATING WHATSAPP BUTTON (Bottom Right) -->
+    <a href="https://wa.me/923001234567?text=Assalam-o-Alaikum,%20Musa%20Cafe%20%26%20Restaurant%20se%20order%20karna%20hai" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 bg-emerald-600 hover:bg-emerald-500 text-white p-4 rounded-full shadow-2xl flex items-center justify-center transition transform hover:scale-110 active:scale-95 border-2 border-emerald-400/30">
         <i class="fa-brands fa-whatsapp text-3xl"></i>
     </a>
 
-    <!-- Floating Music Player Bar -->
-    <div class="fixed bottom-6 left-6 z-50 bg-gray-800 border border-amber-500/50 p-3 rounded-full shadow-2xl flex items-center gap-3">
-        <audio id="bgMusic" loop>
-            <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-        <button onclick="toggleMusic()" id="musicBtn" class="bg-amber-500 hover:bg-amber-600 text-gray-950 w-10 h-10 rounded-full flex items-center justify-center font-bold transition">
-            <i id="musicIcon" class="fa-solid fa-play"></i>
-        </button>
-        <span class="text-xs text-amber-400 font-medium pr-2 hidden sm:inline">Café Music</span>
-    </div>
-
-    <!-- Menu Container (Portion-wise Accordions to avoid rush) -->
-    <main class="max-w-4xl mx-auto px-4 py-8 space-y-4">
-        <h2 class="text-2xl font-bold text-center text-amber-400 mb-6">— Our Complete Menu —</h2>
-
-        <!-- 1. APPETIZER -->
-        <details class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow">
-            <summary class="px-6 py-4 font-bold text-lg text-amber-400 cursor-pointer flex justify-between items-center hover:bg-gray-750">
-                <span>1. Appetizers</span>
-                <i class="fa-solid fa-chevron-down text-sm"></i>
-            </summary>
-            <div class="px-6 py-4 border-t border-gray-700 space-y-3 bg-gray-850 text-sm">
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Drum Stick (4 Pcs)</span> <span class="text-amber-400 font-semibold">Rs. 1349</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Stripes (6 Pcs)</span> <span class="text-amber-400 font-semibold">Rs. 999</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Dynamite Jumbo Prown (6 Pcs)</span> <span class="text-amber-400 font-semibold">Rs. 1849</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Dynamite Fries</span> <span class="text-amber-400 font-semibold">Rs. 649</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Cheese Bowl (4 Pcs)</span> <span class="text-amber-400 font-semibold">Rs. 1049</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Honey Wings (12 Pcs)</span> <span class="text-amber-400 font-semibold">Rs. 1149</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Fish Cracker</span> <span class="text-amber-400 font-semibold">Rs. 249</span></div>
-                <div class="flex justify-between pb-1"><span>Dhaka Chicken</span> <span class="text-amber-400 font-semibold">Rs. 899</span></div>
-            </div>
-        </details>
-
-        <!-- 2. SOUP -->
-        <details class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow">
-            <summary class="px-6 py-4 font-bold text-lg text-amber-400 cursor-pointer flex justify-between items-center hover:bg-gray-750">
-                <span>2. Soup <span class="text-xs text-gray-400 font-normal">(Full / Half)</span></span>
-                <i class="fa-solid fa-chevron-down text-sm"></i>
-            </summary>
-            <div class="px-6 py-4 border-t border-gray-700 space-y-3 bg-gray-850 text-sm">
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Musa Special Soup</span> <span class="text-amber-400 font-semibold">1249 / 649</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Corn Soup</span> <span class="text-amber-400 font-semibold">999 / 649</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Hot & Sour Soup</span> <span class="text-amber-400 font-semibold">1049 / 699</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Vegetable Soup</span> <span class="text-amber-400 font-semibold">849 / 599</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Thai Soup</span> <span class="text-amber-400 font-semibold">899 / 599</span></div>
-                <div class="flex justify-between pb-1"><span>Schezwan Soup</span> <span class="text-amber-400 font-semibold">1199 / 649</span></div>
-            </div>
-        </details>
-
-        <!-- 3. CHINESE RICE -->
-        <details class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow">
-            <summary class="px-6 py-4 font-bold text-lg text-amber-400 cursor-pointer flex justify-between items-center hover:bg-gray-750">
-                <span>3. Chinese Rice <span class="text-xs text-gray-400 font-normal">(Full / Half)</span></span>
-                <i class="fa-solid fa-chevron-down text-sm"></i>
-            </summary>
-            <div class="px-6 py-4 border-t border-gray-700 space-y-3 bg-gray-850 text-sm">
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Musa Special Rice</span> <span class="text-amber-400 font-semibold">1199 / 649</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Fried Rice</span> <span class="text-amber-400 font-semibold">1049 / 599</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Masala Rice</span> <span class="text-amber-400 font-semibold">1049 / 599</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Egg Fried Rice</span> <span class="text-amber-400 font-semibold">999 / 549</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Vegetable Rice</span> <span class="text-amber-400 font-semibold">799 / 499</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Garlic Rice</span> <span class="text-amber-400 font-semibold">949 / 499</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Plane Rice (Full)</span> <span class="text-amber-400 font-semibold">Rs. 749</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Shashlik with Rice</span> <span class="text-amber-400 font-semibold">Rs. 1399</span></div>
-                <div class="flex justify-between pb-1"><span>Chilli Dry With Rice</span> <span class="text-amber-400 font-semibold">Rs. 1399</span></div>
-            </div>
-        </details>
-
-        <!-- 4. CHINESE GRAVY -->
-        <details class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow">
-            <summary class="px-6 py-4 font-bold text-lg text-amber-400 cursor-pointer flex justify-between items-center hover:bg-gray-750">
-                <span>4. Chinese Gravy</span>
-                <i class="fa-solid fa-chevron-down text-sm"></i>
-            </summary>
-            <div class="px-6 py-4 border-t border-gray-700 space-y-3 bg-gray-850 text-sm">
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Musa Special Chicken</span> <span class="text-amber-400 font-semibold">Rs. 1199</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Cashewnut</span> <span class="text-amber-400 font-semibold">Rs. 1199</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Kung Pao Chicken</span> <span class="text-amber-400 font-semibold">Rs. 1049</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Manchurian</span> <span class="text-amber-400 font-semibold">Rs. 1049</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken with Almond</span> <span class="text-amber-400 font-semibold">Rs. 1149</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Chilli Dry</span> <span class="text-amber-400 font-semibold">Rs. 1249</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Black Paper</span> <span class="text-amber-400 font-semibold">Rs. 999</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Hot Garlic</span> <span class="text-amber-400 font-semibold">Rs. 999</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Schezwan Chicken</span> <span class="text-amber-400 font-semibold">Rs. 1049</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Sweet & Sour Chicken</span> <span class="text-amber-400 font-semibold">Rs. 1049</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Honey Crunchy Chicken</span> <span class="text-amber-400 font-semibold">Rs. 1199</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Red Dragon</span> <span class="text-amber-400 font-semibold">Rs. 999</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Mongolian Beef</span> <span class="text-amber-400 font-semibold">Rs. 1199</span></div>
-                <div class="flex justify-between pb-1"><span>Sesame Beef</span> <span class="text-amber-400 font-semibold">Rs. 1199</span></div>
-            </div>
-        </details>
-
-        <!-- 5. CHOW MEIN -->
-        <details class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow">
-            <summary class="px-6 py-4 font-bold text-lg text-amber-400 cursor-pointer flex justify-between items-center hover:bg-gray-750">
-                <span>5. Chow Mein</span>
-                <i class="fa-solid fa-chevron-down text-sm"></i>
-            </summary>
-            <div class="px-6 py-4 border-t border-gray-700 space-y-3 bg-gray-850 text-sm">
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Musa Special Chow Mein</span> <span class="text-amber-400 font-semibold">Rs. 1099</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Chow Mein</span> <span class="text-amber-400 font-semibold">Rs. 999</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Vegetable Chow Mein</span> <span class="text-amber-400 font-semibold">Rs. 949</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Thai Chow Mein</span> <span class="text-amber-400 font-semibold">Rs. 949</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>American Chopsuey</span> <span class="text-amber-400 font-semibold">Rs. 999</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Thai Spicy Noodles</span> <span class="text-amber-400 font-semibold">Rs. 1099</span></div>
-                <div class="flex justify-between pb-1"><span>Schezwan Chow Mein</span> <span class="text-amber-400 font-semibold">Rs. 1199</span></div>
-            </div>
-        </details>
-
-        <!-- 6. PAKISTANI RICE -->
-        <details class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow">
-            <summary class="px-6 py-4 font-bold text-lg text-amber-400 cursor-pointer flex justify-between items-center hover:bg-gray-750">
-                <span>6. Pakistani Rice & Biryani</span>
-                <i class="fa-solid fa-chevron-down text-sm"></i>
-            </summary>
-            <div class="px-6 py-4 border-t border-gray-700 space-y-3 bg-gray-850 text-sm">
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Musa Special Jungli Pulao</span> <span class="text-amber-400 font-semibold">Rs. 1299</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Mutton Afghani Pulao</span> <span class="text-amber-400 font-semibold">Rs. 1599</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Pulao</span> <span class="text-amber-400 font-semibold">Rs. 1199</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Mutton Pulao</span> <span class="text-amber-400 font-semibold">Rs. 1599</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Biryani</span> <span class="text-amber-400 font-semibold">Rs. 1199</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Mutton Biryani</span> <span class="text-amber-400 font-semibold">Rs. 1599</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Batair Biryani</span> <span class="text-amber-400 font-semibold">Rs. 1399</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Matka Biryani</span> <span class="text-amber-400 font-semibold">Rs. 1649</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Mumbai Biryani</span> <span class="text-amber-400 font-semibold">Rs. 1199</span></div>
-                <div class="flex justify-between pb-1"><span>Yakhani Pulao</span> <span class="text-amber-400 font-semibold">Rs. 1149</span></div>
-            </div>
-        </details>
-
-        <!-- 7. CHICKEN KARAHI -->
-        <details class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow">
-            <summary class="px-6 py-4 font-bold text-lg text-amber-400 cursor-pointer flex justify-between items-center hover:bg-gray-750">
-                <span>7. Chicken Karahi <span class="text-xs text-gray-400 font-normal">(Full / Half)</span></span>
-                <i class="fa-solid fa-chevron-down text-sm"></i>
-            </summary>
-            <div class="px-6 py-4 border-t border-gray-700 space-y-3 bg-gray-850 text-sm">
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Musa Special Chicken Karahi</span> <span class="text-amber-400 font-semibold">1999 / 1249</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Lahori Karahi</span> <span class="text-amber-400 font-semibold">1799 / 1099</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Peshawri Karahi</span> <span class="text-amber-400 font-semibold">1899 / 1049</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Hari Mirch Karahi</span> <span class="text-amber-400 font-semibold">1949 / 1099</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Butt Karahi</span> <span class="text-amber-400 font-semibold">1949 / 1099</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken White Karahi</span> <span class="text-amber-400 font-semibold">2049 / 1299</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Sulemani Karahi</span> <span class="text-amber-400 font-semibold">1999 / 1149</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Afghani Karahi</span> <span class="text-amber-400 font-semibold">1999 / 1149</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Achari Karahi</span> <span class="text-amber-400 font-semibold">1849 / 1099</span></div>
-                <div class="flex justify-between pb-1"><span>Special Desi Murgha Karahi</span> <span class="text-amber-400 font-semibold">3499 / 1999</span></div>
-            </div>
-        </details>
-
-        <!-- 8. MUTTON KARAHI -->
-        <details class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow">
-            <summary class="px-6 py-4 font-bold text-lg text-amber-400 cursor-pointer flex justify-between items-center hover:bg-gray-750">
-                <span>8. Mutton Karahi & Kuna <span class="text-xs text-gray-400 font-normal">(Full / Half)</span></span>
-                <i class="fa-solid fa-chevron-down text-sm"></i>
-            </summary>
-            <div class="px-6 py-4 border-t border-gray-700 space-y-3 bg-gray-850 text-sm">
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Musa Special Mutton Karahi</span> <span class="text-amber-400 font-semibold">3649 / 2049</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Mutton Lahori Karahi</span> <span class="text-amber-400 font-semibold">3549 / 1899</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Mutton Peshawri Karahi</span> <span class="text-amber-400 font-semibold">3549 / 1999</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Mutton Hari Mirch Karahi</span> <span class="text-amber-400 font-semibold">3699 / 1949</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Mutton Butt Karahi</span> <span class="text-amber-400 font-semibold">3549 / 1899</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Mutton White Karahi</span> <span class="text-amber-400 font-semibold">3699 / 2049</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Mutton Sulemani Karahi</span> <span class="text-amber-400 font-semibold">3699 / 2049</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Mutton Koyla Karahi</span> <span class="text-amber-400 font-semibold">3599 / 1949</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Mutton Achari Karahi</span> <span class="text-amber-400 font-semibold">3549 / 1899</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Mutton Namkeen</span> <span class="text-amber-400 font-semibold">3499 / 1899</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Mutton Afghani Karahi</span> <span class="text-amber-400 font-semibold">3649 / 2049</span></div>
-                <div class="flex justify-between pb-1"><span>Mutton Kuna</span> <span class="text-amber-400 font-semibold">Rs. 1999</span></div>
-            </div>
-        </details>
-
-        <!-- 9. CHICKEN BONELESS & HANDI -->
-        <details class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow">
-            <summary class="px-6 py-4 font-bold text-lg text-amber-400 cursor-pointer flex justify-between items-center hover:bg-gray-750">
-                <span>9. Chicken Boneless & Handi</span>
-                <i class="fa-solid fa-chevron-down text-sm"></i>
-            </summary>
-            <div class="px-6 py-4 border-t border-gray-700 space-y-3 bg-gray-850 text-sm">
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Musa Special Chicken Handi</span> <span class="text-amber-400 font-semibold">Rs. 1599</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Lahori Handi</span> <span class="text-amber-400 font-semibold">Rs. 1499</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Achari Handi</span> <span class="text-amber-400 font-semibold">Rs. 1549</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken White Handi</span> <span class="text-amber-400 font-semibold">Rs. 1649</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Reshmi Handi</span> <span class="text-amber-400 font-semibold">Rs. 1649</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Alovera Chicken Handi</span> <span class="text-amber-400 font-semibold">Rs. 1649</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Ginger</span> <span class="text-amber-400 font-semibold">Rs. 1349</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Jalfrezi</span> <span class="text-amber-400 font-semibold">Rs. 1399</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Shah Jahani</span> <span class="text-amber-400 font-semibold">Rs. 1599</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Madrasi Handi</span> <span class="text-amber-400 font-semibold">Rs. 1599</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Hari Mirch Handi</span> <span class="text-amber-400 font-semibold">Rs. 1449</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Pasandy Handi</span> <span class="text-amber-400 font-semibold">Rs. 1549</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Cheese Patiala Handi</span> <span class="text-amber-400 font-semibold">Rs. 1549</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chef Kujha</span> <span class="text-amber-400 font-semibold">Rs. 1599</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Patayla</span> <span class="text-amber-400 font-semibold">Rs. 1449</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Green Chili Lemon</span> <span class="text-amber-400 font-semibold">Rs. 1449</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Makhni Handi</span> <span class="text-amber-400 font-semibold">Rs. 1449</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Kabab Masala</span> <span class="text-amber-400 font-semibold">Rs. 1149</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Mix Vegetable</span> <span class="text-amber-400 font-semibold">Rs. 549</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Shahi Dall</span> <span class="text-amber-400 font-semibold">Rs. 699</span></div>
-                <div class="flex justify-between pb-1"><span>Dall Makhni</span> <span class="text-amber-400 font-semibold">Rs. 549</span></div>
-            </div>
-        </details>
-
-        <!-- 10. DESI JUNGLE MANGAL -->
-        <details class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow">
-            <summary class="px-6 py-4 font-bold text-lg text-amber-400 cursor-pointer flex justify-between items-center hover:bg-gray-750">
-                <span>10. Desi Jungle Mangal</span>
-                <i class="fa-solid fa-chevron-down text-sm"></i>
-            </summary>
-            <div class="px-6 py-4 border-t border-gray-700 space-y-3 bg-gray-850 text-sm">
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Desi Chicken White Karahai</span> <span class="text-amber-400 font-semibold">Rs. 3549</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Desi Chicken Achari Karahai</span> <span class="text-amber-400 font-semibold">Rs. 3549</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Desi Charga With Rice</span> <span class="text-amber-400 font-semibold">Rs. 4199</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Musa Special Batair Karahai</span> <span class="text-amber-400 font-semibold">Rs. 2399</span></div>
-                <div class="flex justify-between pb-1"><span>Batair Buttor Karahai</span> <span class="text-amber-400 font-semibold">Rs. 2499</span></div>
-            </div>
-        </details>
-
-        <!-- 11. SPECIAL PLATERS -->
-        <details class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow">
-            <summary class="px-6 py-4 font-bold text-lg text-amber-400 cursor-pointer flex justify-between items-center hover:bg-gray-750">
-                <span>11. Special Platters</span>
-                <i class="fa-solid fa-chevron-down text-sm"></i>
-            </summary>
-            <div class="px-6 py-4 border-t border-gray-700 space-y-4 bg-gray-850 text-sm">
+    <!-- NAVBAR -->
+    <nav class="sticky top-0 z-40 bg-zinc-950/90 backdrop-blur-md border-b border-zinc-800/80 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-amber-500/10 border border-amber-500/40 flex items-center justify-center text-amber-400 font-heading font-bold text-xl">M</div>
                 <div>
-                    <div class="flex justify-between font-bold text-base mb-1"><span>B.B.Q. PLATTER</span> <span class="text-amber-400">Rs. 5999</span></div>
-                    <p class="text-gray-400 text-xs">Includes: Qalmi Tikka 4 Pcs, Reshmi Kabab 2 Pcs, Chicken Kabab 2 Pcs, Mutton Chanp 2 Pcs, Tikka Boti 6 Pcs, Malai Boti 6 Pcs, Chicken Tikka 1 Pcs, Chicken Handi, Half Chicken Fried Rice, 1 Afghani Nan</p>
+                    <span class="font-heading text-lg font-bold tracking-wider text-amber-400 block leading-tight">MUSA</span>
+                    <span class="text-[10px] tracking-widest text-zinc-400 uppercase block">Cafe & Restaurant</span>
                 </div>
-                <hr class="border-gray-700">
-                <div>
-                    <div class="flex justify-between font-bold text-base mb-1"><span>MUSA SPECIAL FAMILY PLATTER (8 Person)</span> <span class="text-amber-400">Rs. 11999</span></div>
-                    <p class="text-gray-400 text-xs">Includes: 1 Chicken Handi, 1 Mutton Kuna, 1 Afghani Pulao, 2 Afghani Nan, 4 Head Roti, 4 Raita, 1 Fresh Salad Plater, 1 Shashlik with Rice, Chicken Kabab 4 Pcs, Tikka Boti 12 Pcs, Malai Boti 12 Pcs, Tikka Piece 1, Mineral Water 1, 1.5 Ltr Drink</p>
+            </a>
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-zinc-300">
+                <a href="#about" class="hover:text-amber-400 transition">About Us</a>
+                <a href="#chefs" class="hover:text-amber-400 transition">Kitchen Team</a>
+                <a href="#ambience" class="hover:text-amber-400 transition">Ambience</a>
+                <a href="#menu" class="hover:text-amber-400 transition">Full Menu</a>
+                <a href="#location" class="hover:text-amber-400 transition">Location</a>
+            </div>
+            <a href="#menu" class="bg-amber-500 hover:bg-amber-400 text-zinc-950 px-5 py-2 rounded-lg font-semibold text-xs uppercase tracking-wider transition shadow-lg shadow-amber-500/10">Explore Menu</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="relative min-h-[85vh] flex items-center justify-center bg-cover bg-center text-center px-4 py-20" style="background-image: linear-gradient(to bottom, rgba(9, 9, 11, 0.75), rgba(9, 9, 11, 0.95)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1920&q=80');">
+        <div class="max-w-4xl mx-auto space-y-6">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-xs font-semibold tracking-widest uppercase">
+                <i class="fa-solid fa-utensils"></i> Authentic Fine Dining in Layyah
+            </div>
+            <h1 class="font-heading text-4xl sm:text-6xl md:text-7xl font-extrabold text-white tracking-tight leading-tight">
+                MUSA CAFE & <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-400 to-amber-600">RESTAURANT</span>
+            </h1>
+            <p class="text-zinc-300 text-base sm:text-lg max-w-2xl mx-auto font-light leading-relaxed">
+                Experience exceptional culinary artistry, traditional Pakistani heritage flavors, sizzling BBQ, Chinese specialties, and an unforgettable ambiance.
+            </p>
+            <div class="pt-4 flex flex-wrap justify-center gap-4">
+                <a href="#menu" class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-zinc-950 font-bold px-8 py-3.5 rounded-xl text-sm tracking-wide shadow-xl shadow-amber-500/20 transition transform hover:-translate-y-0.5">
+                    View Complete Menu
+                </a>
+                <a href="https://wa.me/923001234567?text=Assalam-o-Alaikum,%20table%20reservation%20ya%20order%20karna%20hai" target="_blank" class="glass-card hover:bg-zinc-800 text-zinc-200 font-semibold px-8 py-3.5 rounded-xl text-sm border border-zinc-700 transition">
+                    Reserve Table / Order
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CHEFS & KITCHEN TEAM SHOWCASE -->
+    <section id="chefs" class="py-20 px-4 max-w-7xl mx-auto border-t border-zinc-800/60">
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+            <span class="text-amber-400 font-semibold text-xs tracking-widest uppercase">Master Culinary Artists</span>
+            <h2 class="font-heading text-3xl sm:text-4xl font-bold text-white">Meet Our Kitchen & Chef Team</h2>
+            <p class="text-zinc-400 text-sm">Dedicated master chefs bringing passion, hygiene, and authentic flavors to every single dish served at Musa Cafe & Restaurant.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+            <div class="glass-card rounded-2xl overflow-hidden border border-amber-500/30 p-3 shadow-2xl">
+                <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=80" alt="Executive Kitchen Team" class="w-full h-80 sm:h-96 object-cover rounded-xl">
+                <div class="p-4 text-center">
+                    <h3 class="font-heading text-xl font-bold text-amber-400">Executive Kitchen Staff</h3>
+                    <p class="text-zinc-400 text-xs mt-1">Specialized in Gourmet Pakistani, Desi Karahi, and Tandoor Delicacies.</p>
                 </div>
             </div>
-        </details>
-
-        <!-- 12. CHEF OVER SPECIALITIES -->
-        <details class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow">
-            <summary class="px-6 py-4 font-bold text-lg text-amber-400 cursor-pointer flex justify-between items-center hover:bg-gray-750">
-                <span>12. Chef Over Specialities</span>
-                <i class="fa-solid fa-chevron-down text-sm"></i>
-            </summary>
-            <div class="px-6 py-4 border-t border-gray-700 space-y-3 bg-gray-850 text-sm">
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Musa Special Chicken</span> <span class="text-amber-400 font-semibold">Rs. 1649</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Mutton Candle</span> <span class="text-amber-400 font-semibold">Rs. 2099</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Shahi Mutton</span> <span class="text-amber-400 font-semibold">Rs. 2099</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Mutton Dhaba</span> <span class="text-amber-400 font-semibold">Rs. 2099</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Mutton Bharta</span> <span class="text-amber-400 font-semibold">Rs. 2049</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Mutton Filafil</span> <span class="text-amber-400 font-semibold">Rs. 2049</span></div>
-                <div class="flex justify-between pb-1"><span>Mutton Patyala</span> <span class="text-amber-400 font-semibold">Rs. 1899</span></div>
-            </div>
-        </details>
-
-        <!-- 13. GARMA GARM TANDOOR -->
-        <details class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow">
-            <summary class="px-6 py-4 font-bold text-lg text-amber-400 cursor-pointer flex justify-between items-center hover:bg-gray-750">
-                <span>13. Garma Garm Tandoor</span>
-                <i class="fa-solid fa-chevron-down text-sm"></i>
-            </summary>
-            <div class="px-6 py-4 border-t border-gray-700 space-y-3 bg-gray-850 text-sm">
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Musa Special Nan</span> <span class="text-amber-400 font-semibold">Rs. 299</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Afghani Nan</span> <span class="text-amber-400 font-semibold">Rs. 219</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Roghani Nan</span> <span class="text-amber-400 font-semibold">Rs. 129</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Garlic Nan</span> <span class="text-amber-400 font-semibold">Rs. 129</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Kalwanji Nan</span> <span class="text-amber-400 font-semibold">Rs. 129</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Nan</span> <span class="text-amber-400 font-semibold">Rs. 399</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Kandhari Nan</span> <span class="text-amber-400 font-semibold">Rs. 199</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Ginger Nan</span> <span class="text-amber-400 font-semibold">Rs. 129</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Khemri Roti</span> <span class="text-amber-400 font-semibold">Rs. 49</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Roti Per Head</span> <span class="text-amber-400 font-semibold">Rs. 69</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Tandoori Pratha</span> <span class="text-amber-400 font-semibold">Rs. 149</span></div>
-                <div class="flex justify-between pb-1"><span>Roti Sada</span> <span class="text-amber-400 font-semibold">Rs. 19</span></div>
-            </div>
-        </details>
-
-        <!-- 14. B.B.Q. -->
-        <details class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow">
-            <summary class="px-6 py-4 font-bold text-lg text-amber-400 cursor-pointer flex justify-between items-center hover:bg-gray-750">
-                <span>14. B.B.Q. <span class="text-xs text-gray-400 font-normal">(Half / Full where applicable)</span></span>
-                <i class="fa-solid fa-chevron-down text-sm"></i>
-            </summary>
-            <div class="px-6 py-4 border-t border-gray-700 space-y-3 bg-gray-850 text-sm">
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Musa Special BBQ Plater</span> <span class="text-amber-400 font-semibold">3599 / 5999</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Malai Boti</span> <span class="text-amber-400 font-semibold">Rs. 1249</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Cheese Boti</span> <span class="text-amber-400 font-semibold">Rs. 1349</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Kastori Boti</span> <span class="text-amber-400 font-semibold">Rs. 1349</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Kabab</span> <span class="text-amber-400 font-semibold">Rs. 849</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Reshmi Kabab</span> <span class="text-amber-400 font-semibold">Rs. 999</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Makhmali Kabab</span> <span class="text-amber-400 font-semibold">Rs. 1049</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Mutton Kabab</span> <span class="text-amber-400 font-semibold">Rs. 1249</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Mutton Tikka</span> <span class="text-amber-400 font-semibold">Rs. 1999</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Mutton Chops</span> <span class="text-amber-400 font-semibold">Rs. 1999</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Achari Boti</span> <span class="text-amber-400 font-semibold">Rs. 1049</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Boti</span> <span class="text-amber-400 font-semibold">Rs. 999</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Bateer Tikka</span> <span class="text-amber-400 font-semibold">Rs. 2099</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Chest Peace</span> <span class="text-amber-400 font-semibold">Rs. 449</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Leg Peace</span> <span class="text-amber-400 font-semibold">Rs. 399</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Qalmi Tikka</span> <span class="text-amber-400 font-semibold">Rs. 1299</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Malai Piece Leg</span> <span class="text-amber-400 font-semibold">Rs. 449</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Malai Piece Chest</span> <span class="text-amber-400 font-semibold">Rs. 479</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Cheese Kabab</span> <span class="text-amber-400 font-semibold">Rs. 1149</span></div>
-                <div class="flex justify-between pb-1"><span>Chatkhara Boti</span> <span class="text-amber-400 font-semibold">Rs. 1249</span></div>
-            </div>
-        </details>
-
-        <!-- 15. KHADA VARIETIES -->
-        <details class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow">
-            <summary class="px-6 py-4 font-bold text-lg text-amber-400 cursor-pointer flex justify-between items-center hover:bg-gray-750">
-                <span>15. Khada Varieties</span>
-                <i class="fa-solid fa-chevron-down text-sm"></i>
-            </summary>
-            <div class="px-6 py-4 border-t border-gray-700 space-y-3 bg-gray-850 text-sm">
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Salam Bakra (12 Kg) With Rice</span> <span class="text-amber-400 font-semibold">On Order</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Dam Pukht Per Kg</span> <span class="text-amber-400 font-semibold">Rs. 4000</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Raan Roast Per Kg</span> <span class="text-amber-400 font-semibold">Rs. 4000</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Namkeen Roast</span> <span class="text-amber-400 font-semibold">Rs. 1600</span></div>
-                <div class="flex justify-between pb-1"><span>Mutton Joint</span> <span class="text-amber-400 font-semibold">Rs. 1500</span></div>
-            </div>
-        </details>
-
-        <!-- 16. FISH CORNER -->
-        <details class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow">
-            <summary class="px-6 py-4 font-bold text-lg text-amber-400 cursor-pointer flex justify-between items-center hover:bg-gray-750">
-                <span>16. Fish Corner</span>
-                <i class="fa-solid fa-chevron-down text-sm"></i>
-            </summary>
-            <div class="px-6 py-4 border-t border-gray-700 space-y-3 bg-gray-850 text-sm">
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Musa Special Finger Fish (8 Pcs)</span> <span class="text-amber-400 font-semibold">Rs. 1549</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Fried Fish (4 Pcs)</span> <span class="text-amber-400 font-semibold">Rs. 1549</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Dhaka Fish (16 Pcs)</span> <span class="text-amber-400 font-semibold">Rs. 1549</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Grill Fish (1 Kg)</span> <span class="text-amber-400 font-semibold">Rs. 1699</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Fish Handi</span> <span class="text-amber-400 font-semibold">Rs. 1799</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Fish Chilli Dry</span> <span class="text-amber-400 font-semibold">Rs. 1599</span></div>
-                <div class="flex justify-between pb-1"><span>Fish Tikka (12 Pcs)</span> <span class="text-amber-400 font-semibold">Rs. 1499</span></div>
-            </div>
-        </details>
-
-        <!-- 17. PIZZA -->
-        <details class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow">
-            <summary class="px-6 py-4 font-bold text-lg text-amber-400 cursor-pointer flex justify-between items-center hover:bg-gray-750">
-                <span>17. Pizza <span class="text-xs text-gray-400 font-normal">(Small / Med / Large)</span></span>
-                <i class="fa-solid fa-chevron-down text-sm"></i>
-            </summary>
-            <div class="px-6 py-4 border-t border-gray-700 space-y-4 bg-gray-850 text-sm">
-                <div>
-                    <p class="text-amber-400 font-semibold mb-1">PAN PIZZA (Small / Medium / Large)</p>
-                    <div class="flex justify-between border-b border-gray-700/50 py-1"><span>Chicken Tikka / Fajita / Supreme / Mughlai / Achari / Cheese Lover / Peri Peri</span> <span class="text-amber-400">649 / 1199 / 1699</span></div>
-                </div>
-                <div>
-                    <p class="text-amber-400 font-semibold mb-1">PREMIUM PIZZA (Medium / Large)</p>
-                    <div class="flex justify-between border-b border-gray-700/50 py-1"><span>Musa Special / BBQ / Malai Boti / Bone Fire / Behari Kabab</span> <span class="text-amber-400">1299 / 1999</span></div>
-                </div>
-                <div>
-                    <p class="text-amber-400 font-semibold mb-1">CRAFT MY OWN / EXTREME / DEEP PIZZA</p>
-                    <div class="flex justify-between border-b border-gray-700/50 py-1"><span>Kabab / Crown / Cheese Crust (Med/Large)</span> <span class="text-amber-400">1399 / 1899</span></div>
-                    <div class="flex justify-between border-b border-gray-700/50 py-1"><span>Extreme Peri-Peri / Flaming Kabab</span> <span class="text-amber-400">1449 / 2199</span></div>
-                    <div class="flex justify-between py-1"><span>Chicago / Mild Butter (Med/Large)</span> <span class="text-amber-400">1549 / 2449</span></div>
+            <div class="glass-card rounded-2xl overflow-hidden border border-amber-500/30 p-3 shadow-2xl">
+                <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=1200&q=80" alt="Master Chefs & Specialists" class="w-full h-80 sm:h-96 object-cover rounded-xl">
+                <div class="p-4 text-center">
+                    <h3 class="font-heading text-xl font-bold text-amber-400">Culinary Specialists</h3>
+                    <p class="text-zinc-400 text-xs mt-1">Crafting Continental Starters, Chinese Gravies, Pizzas, and Signature Platters.</p>
                 </div>
             </div>
-        </details>
+        </div>
+    </section>
 
-        <!-- 18. STARTERS & FRIES -->
-        <details class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow">
-            <summary class="px-6 py-4 font-bold text-lg text-amber-400 cursor-pointer flex justify-between items-center hover:bg-gray-750">
-                <span>18. Starters & Fast Food Bites</span>
-                <i class="fa-solid fa-chevron-down text-sm"></i>
-            </summary>
-            <div class="px-6 py-4 border-t border-gray-700 space-y-3 bg-gray-850 text-sm">
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Plane Fries (Reg / Large)</span> <span class="text-amber-400 font-semibold">299 / 399</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Nuggets (10pcs)</span> <span class="text-amber-400 font-semibold">Rs. 649</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Oven Baked Wings (10pcs)</span> <span class="text-amber-400 font-semibold">Rs. 899</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Hot Wings (10pcs)</span> <span class="text-amber-400 font-semibold">Rs. 799</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Dragon Shots (10pcs)</span> <span class="text-amber-400 font-semibold">Rs. 449</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Loaded Fries</span> <span class="text-amber-400 font-semibold">Rs. 599</span></div>
-                <div class="flex justify-between pb-1"><span>Pizza Fries</span> <span class="text-amber-400 font-semibold">Rs. 899</span></div>
-            </div>
-        </details>
+    <!-- AMBIENCE & INTERIOR GALLERY -->
+    <section id="ambience" class="py-20 px-4 max-w-7xl mx-auto border-t border-zinc-800/60">
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+            <span class="text-amber-400 font-semibold text-xs tracking-widest uppercase">Premium Dining Experience</span>
+            <h2 class="font-heading text-3xl sm:text-4xl font-bold text-white">Restaurant Interior & Vibe</h2>
+            <p class="text-zinc-400 text-sm">Spacious seating, family halls, relaxing lighting, and warm hospitalities suited for gatherings, parties, and family dinners.</p>
+        </div>
 
-        <!-- 19. WARP / ROLLS / SANDWICHES / BURGERS -->
-        <details class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow">
-            <summary class="px-6 py-4 font-bold text-lg text-amber-400 cursor-pointer flex justify-between items-center hover:bg-gray-750">
-                <span>19. Wraps, Rolls, Sandwiches & Burgers</span>
-                <i class="fa-solid fa-chevron-down text-sm"></i>
-            </summary>
-            <div class="px-6 py-4 border-t border-gray-700 space-y-4 bg-gray-850 text-sm">
-                <div>
-                    <p class="text-amber-400 font-semibold mb-1">WRAPS & ROLLS</p>
-                    <div class="flex justify-between border-b border-gray-700/50 py-1"><span>B.B.Q Wrap / Crispy / Grill / Chipotle</span> <span class="text-amber-400">499 - 699</span></div>
-                    <div class="flex justify-between py-1"><span>Zinger Pratha Roll / Malai Boti Roll</span> <span class="text-amber-400">449 / 899</span></div>
-                </div>
-                <div>
-                    <p class="text-amber-400 font-semibold mb-1">SANDWICHES</p>
-                    <div class="flex justify-between py-1"><span>Club / Mexican / Grill / Cheese Bake / Khameera</span> <span class="text-amber-400">450 - 999</span></div>
-                </div>
-                <div>
-                    <p class="text-amber-400 font-semibold mb-1">BURGERS</p>
-                    <div class="flex justify-between border-b border-gray-700/50 py-1"><span>Zinger / Patty / Chhapli / Crispy Stuff / Chipotle</span> <span class="text-amber-400">349 - 649</span></div>
-                    <div class="flex justify-between py-1"><span>Musa Signature (Al-Chappo, Holy Chuck, Madness)</span> <span class="text-amber-400">579 - 1049</span></div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="glass-card rounded-xl overflow-hidden glass-card-hover group">
+                <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=800&q=80" alt="Family Dining Area" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
+                <div class="p-4">
+                    <h3 class="font-heading font-semibold text-lg text-amber-400">Luxury Family Hall</h3>
+                    <p class="text-zinc-400 text-xs mt-1">Comfortable family booths with complete privacy.</p>
                 </div>
             </div>
-        </details>
-
-        <!-- 20. SWEETS -->
-        <details class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow">
-            <summary class="px-6 py-4 font-bold text-lg text-amber-400 cursor-pointer flex justify-between items-center hover:bg-gray-750">
-                <span>20. Sweets & Desserts</span>
-                <i class="fa-solid fa-chevron-down text-sm"></i>
-            </summary>
-            <div class="px-6 py-4 border-t border-gray-700 space-y-3 bg-gray-850 text-sm">
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Family Sweet Bowl</span> <span class="text-amber-400 font-semibold">Rs. 999</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Lab-e-Shireen</span> <span class="text-amber-400 font-semibold">Rs. 249</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Shahi Tukda</span> <span class="text-amber-400 font-semibold">Rs. 249</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Fruit Truffle</span> <span class="text-amber-400 font-semibold">Rs. 249</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Gulab Jamun</span> <span class="text-amber-400 font-semibold">Rs. 249</span></div>
-                <div class="flex justify-between pb-1"><span>Shahi Kheer</span> <span class="text-amber-400 font-semibold">Rs. 249</span></div>
+            <div class="glass-card rounded-xl overflow-hidden glass-card-hover group">
+                <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80" alt="Cafe Bar & Drinks Counter" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
+                <div class="p-4">
+                    <h3 class="font-heading font-semibold text-lg text-amber-400">Coffee & Drinks Lounge</h3>
+                    <p class="text-zinc-400 text-xs mt-1">Serving handcrafted cold coffees, lattes, and fresh shakes.</p>
+                </div>
             </div>
-        </details>
-
-        <!-- 21. SALAD BAR & RAITA -->
-        <details class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow">
-            <summary class="px-6 py-4 font-bold text-lg text-amber-400 cursor-pointer flex justify-between items-center hover:bg-gray-750">
-                <span>21. Salad Bar & Raita</span>
-                <i class="fa-solid fa-chevron-down text-sm"></i>
-            </summary>
-            <div class="px-6 py-4 border-t border-gray-700 space-y-3 bg-gray-850 text-sm">
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Musa Special Salad</span> <span class="text-amber-400 font-semibold">Rs. 799</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Chicken Pineapple Salad</span> <span class="text-amber-400 font-semibold">Rs. 749</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Russian Salad</span> <span class="text-amber-400 font-semibold">Rs. 649</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Kachumar Salad</span> <span class="text-amber-400 font-semibold">Rs. 249</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Fresh Salad</span> <span class="text-amber-400 font-semibold">Rs. 119</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Zeera Raita</span> <span class="text-amber-400 font-semibold">Rs. 99</span></div>
-                <div class="flex justify-between pb-1"><span>Mint Raita</span> <span class="text-amber-400 font-semibold">Rs. 99</span></div>
+            <div class="glass-card rounded-xl overflow-hidden glass-card-hover group sm:col-span-2 lg:col-span-1">
+                <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80" alt="Live BBQ Outdoor Dining" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
+                <div class="p-4">
+                    <h3 class="font-heading font-semibold text-lg text-amber-400">Live BBQ Setup</h3>
+                    <p class="text-zinc-400 text-xs mt-1">Freshly grilled charcoal tikka, kababs, and chops.</p>
+                </div>
             </div>
-        </details>
+        </div>
+    </section>
 
-        <!-- 22. DRINKS & COFFEE -->
-        <details class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow">
-            <summary class="px-6 py-4 font-bold text-lg text-amber-400 cursor-pointer flex justify-between items-center hover:bg-gray-750">
-                <span>22. Drinks, Coffee & Shakes</span>
-                <i class="fa-solid fa-chevron-down text-sm"></i>
-            </summary>
-            <div class="px-6 py-4 border-t border-gray-700 space-y-3 bg-gray-850 text-sm">
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Mineral Water (Small / Large)</span> <span class="text-amber-400 font-semibold">69 / 119</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>1.5 Ltr Drink</span> <span class="text-amber-400 font-semibold">Rs. 249</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Can / Diet / Fresh Lime</span> <span class="text-amber-400 font-semibold">149 - 179</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Cold Coffee & Lattes</span> <span class="text-amber-400 font-semibold">Rs. 549 - 599</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Ice Teas (Peach / Mango)</span> <span class="text-amber-400 font-semibold">Rs. 599</span></div>
-                <div class="flex justify-between border-b border-gray-700/50 pb-2"><span>Power Shake</span> <span class="text-amber-400 font-semibold">Rs. 649</span></div>
-                <div class="flex justify-between pb-1"><span>Ice Cream Shake</span> <span class="text-amber-400 font-semibold">Rs. 549</span></div>
+    <!-- FULL DISCIPLINED MENU SECTION -->
+    <section id="menu" class="py-20 px-4 max-w-6xl mx-auto border-t border-zinc-800/60">
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+            <span class="text-amber-400 font-semibold text-xs tracking-widest uppercase">Complete Sequential Menu</span>
+            <h2 class="font-heading text-3xl sm:text-5xl font-bold text-white">Our Complete Menu</h2>
+            <p class="text-zinc-400 text-sm">Explore our structured, multi-category menu prepared with fresh premium ingredients.</p>
+        </div>
+
+        <div class="space-y-8">
+            <!-- 1. APPETIZERS -->
+            <div class="glass-card rounded-2xl p-6 sm:p-8">
+                <div class="flex items-center gap-3 border-b border-amber-500/20 pb-4 mb-6">
+                    <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 text-lg"><i class="fa-solid fa-bowl-food"></i></div>
+                    <h3 class="font-heading text-2xl font-bold text-amber-400">1. Appetizers</h3>
+                </div>
+                <div class="grid sm:grid-cols-2 gap-x-8 gap-y-4 text-sm">
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chicken Drum Stick (4 Pcs)</span><span class="text-amber-400 font-bold">Rs. 1349</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chicken Stripes (6 Pcs)</span><span class="text-amber-400 font-bold">Rs. 999</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Dynamite Jumbo Prown (6 Pcs)</span><span class="text-amber-400 font-bold">Rs. 1849</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Dynamite Fries</span><span class="text-amber-400 font-bold">Rs. 649</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Cheese Bowl (4 Pcs)</span><span class="text-amber-400 font-bold">Rs. 1049</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Honey Wings (12 Pcs)</span><span class="text-amber-400 font-bold">Rs. 1149</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Fish Cracker</span><span class="text-amber-400 font-bold">Rs. 249</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Dhaka Chicken</span><span class="text-amber-400 font-bold">Rs. 899</span></div>
+                </div>
             </div>
-        </details>
 
-    </main>
+            <!-- 2. SOUP -->
+            <div class="glass-card rounded-2xl p-6 sm:p-8">
+                <div class="flex items-center justify-between border-b border-amber-500/20 pb-4 mb-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 text-lg"><i class="fa-solid fa-mug-hot"></i></div>
+                        <h3 class="font-heading text-2xl font-bold text-amber-400">2. Soup</h3>
+                    </div>
+                    <span class="text-xs text-zinc-400 uppercase tracking-wider bg-zinc-800 px-3 py-1 rounded-full">Full / Half</span>
+                </div>
+                <div class="grid sm:grid-cols-2 gap-x-8 gap-y-4 text-sm">
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Musa Special Soup</span><span class="text-amber-400 font-bold">1249 / 649</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chicken Corn Soup</span><span class="text-amber-400 font-bold">999 / 649</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Hot & Sour Soup</span><span class="text-amber-400 font-bold">1049 / 699</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Vegetable Soup</span><span class="text-amber-400 font-bold">849 / 599</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Thai Soup</span><span class="text-amber-400 font-bold">899 / 599</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Schezwan Soup</span><span class="text-amber-400 font-bold">1199 / 649</span></div>
+                </div>
+            </div>
 
-    <!-- Footer -->
-    <footer class="bg-black border-t border-gray-800 text-center py-6 mt-12 text-gray-500 text-xs">
-        <p>&copy; 2026 Musa Restaurant. All Rights Reserved. Designed with Background Café Music.</p>
+            <!-- 3. CHINESE RICE -->
+            <div class="glass-card rounded-2xl p-6 sm:p-8">
+                <div class="flex items-center justify-between border-b border-amber-500/20 pb-4 mb-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 text-lg"><i class="fa-solid fa-rice-bowl"></i></div>
+                        <h3 class="font-heading text-2xl font-bold text-amber-400">3. Chinese Rice</h3>
+                    </div>
+                    <span class="text-xs text-zinc-400 uppercase tracking-wider bg-zinc-800 px-3 py-1 rounded-full">Full / Half</span>
+                </div>
+                <div class="grid sm:grid-cols-2 gap-x-8 gap-y-4 text-sm">
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Musa Special Rice</span><span class="text-amber-400 font-bold">1199 / 649</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chicken Fried Rice</span><span class="text-amber-400 font-bold">1049 / 599</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chicken Masala Rice</span><span class="text-amber-400 font-bold">1049 / 599</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Egg Fried Rice</span><span class="text-amber-400 font-bold">999 / 549</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Vegetable Rice</span><span class="text-amber-400 font-bold">799 / 499</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Garlic Rice</span><span class="text-amber-400 font-bold">949 / 499</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Shashlik with Rice</span><span class="text-amber-400 font-bold">Rs. 1399</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chilli Dry With Rice</span><span class="text-amber-400 font-bold">Rs. 1399</span></div>
+                </div>
+            </div>
+
+            <!-- 4. CHINESE GRAVY -->
+            <div class="glass-card rounded-2xl p-6 sm:p-8">
+                <div class="flex items-center gap-3 border-b border-amber-500/20 pb-4 mb-6">
+                    <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 text-lg"><i class="fa-solid fa-plate-wheat"></i></div>
+                    <h3 class="font-heading text-2xl font-bold text-amber-400">4. Chinese Gravy</h3>
+                </div>
+                <div class="grid sm:grid-cols-2 gap-x-8 gap-y-4 text-sm">
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Musa Special Chicken</span><span class="text-amber-400 font-bold">Rs. 1199</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chicken Cashewnut</span><span class="text-amber-400 font-bold">Rs. 1199</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Kung Pao Chicken</span><span class="text-amber-400 font-bold">Rs. 1049</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chicken Manchurian</span><span class="text-amber-400 font-bold">Rs. 1049</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chicken Chilli Dry</span><span class="text-amber-400 font-bold">Rs. 1249</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chicken Black Pepper</span><span class="text-amber-400 font-bold">Rs. 999</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Honey Crunchy Chicken</span><span class="text-amber-400 font-bold">Rs. 1199</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Mongolian Beef</span><span class="text-amber-400 font-bold">Rs. 1199</span></div>
+                </div>
+            </div>
+
+            <!-- 5. CHICKEN KARAHI -->
+            <div class="glass-card rounded-2xl p-6 sm:p-8">
+                <div class="flex items-center justify-between border-b border-amber-500/20 pb-4 mb-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 text-lg"><i class="fa-solid fa-fire"></i></div>
+                        <h3 class="font-heading text-2xl font-bold text-amber-400">5. Chicken Karahi</h3>
+                    </div>
+                    <span class="text-xs text-zinc-400 uppercase tracking-wider bg-zinc-800 px-3 py-1 rounded-full">Full / Half</span>
+                </div>
+                <div class="grid sm:grid-cols-2 gap-x-8 gap-y-4 text-sm">
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Musa Special Chicken Karahi</span><span class="text-amber-400 font-bold">1999 / 1249</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chicken Lahori Karahi</span><span class="text-amber-400 font-bold">1799 / 1099</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chicken Peshawri Karahi</span><span class="text-amber-400 font-bold">1899 / 1049</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chicken White Karahi</span><span class="text-amber-400 font-bold">2049 / 1299</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chicken Butt Karahi</span><span class="text-amber-400 font-bold">1949 / 1099</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Special Desi Murgha Karahi</span><span class="text-amber-400 font-bold">3499 / 1999</span></div>
+                </div>
+            </div>
+
+            <!-- 6. MUTTON KARAHI -->
+            <div class="glass-card rounded-2xl p-6 sm:p-8">
+                <div class="flex items-center justify-between border-b border-amber-500/20 pb-4 mb-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 text-lg"><i class="fa-solid fa-drumstick-bite"></i></div>
+                        <h3 class="font-heading text-2xl font-bold text-amber-400">6. Mutton Karahi & Kuna</h3>
+                    </div>
+                    <span class="text-xs text-zinc-400 uppercase tracking-wider bg-zinc-800 px-3 py-1 rounded-full">Full / Half</span>
+                </div>
+                <div class="grid sm:grid-cols-2 gap-x-8 gap-y-4 text-sm">
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Musa Special Mutton Karahi</span><span class="text-amber-400 font-bold">3649 / 2049</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Mutton Lahori Karahi</span><span class="text-amber-400 font-bold">3549 / 1899</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Mutton Peshawri Karahi</span><span class="text-amber-400 font-bold">3549 / 1999</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Mutton White Karahi</span><span class="text-amber-400 font-bold">3699 / 2049</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Mutton Koyla Karahi</span><span class="text-amber-400 font-bold">3599 / 1949</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Mutton Kuna</span><span class="text-amber-400 font-bold">Rs. 1999</span></div>
+                </div>
+            </div>
+
+            <!-- 7. B.B.Q. SPECIALS -->
+            <div class="glass-card rounded-2xl p-6 sm:p-8">
+                <div class="flex items-center gap-3 border-b border-amber-500/20 pb-4 mb-6">
+                    <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 text-lg"><i class="fa-solid fa-cubes-stacked"></i></div>
+                    <h3 class="font-heading text-2xl font-bold text-amber-400">7. B.B.Q. Barbecue</h3>
+                </div>
+                <div class="grid sm:grid-cols-2 gap-x-8 gap-y-4 text-sm">
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Malai Boti</span><span class="text-amber-400 font-bold">Rs. 1249</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Cheese Boti</span><span class="text-amber-400 font-bold">Rs. 1349</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Reshmi Kabab</span><span class="text-amber-400 font-bold">Rs. 999</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Mutton Kabab</span><span class="text-amber-400 font-bold">Rs. 1249</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Mutton Chops</span><span class="text-amber-400 font-bold">Rs. 1999</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chicken Tikka Chest</span><span class="text-amber-400 font-bold">Rs. 449</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Chicken Tikka Leg</span><span class="text-amber-400 font-bold">Rs. 399</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Musa Special BBQ Platter</span><span class="text-amber-400 font-bold">Rs. 5999</span></div>
+                </div>
+            </div>
+
+            <!-- 8. PIZZAS & BURGERS -->
+            <div class="glass-card rounded-2xl p-6 sm:p-8">
+                <div class="flex items-center gap-3 border-b border-amber-500/20 pb-4 mb-6">
+                    <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 text-lg"><i class="fa-solid fa-pizza-slice"></i></div>
+                    <h3 class="font-heading text-2xl font-bold text-amber-400">8. Fast Food & Pizza</h3>
+                </div>
+                <div class="grid sm:grid-cols-2 gap-x-8 gap-y-4 text-sm">
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Pan Pizza (Sm/Med/Lg)</span><span class="text-amber-400 font-bold">649 / 1199 / 1699</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Premium Pizza (Med/Lg)</span><span class="text-amber-400 font-bold">1299 / 1999</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Zinger Burger</span><span class="text-amber-400 font-bold">Rs. 349</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Musa Signature Burger</span><span class="text-amber-400 font-bold">Rs. 649</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Club Sandwich</span><span class="text-amber-400 font-bold">Rs. 450</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Zinger Paratha Roll</span><span class="text-amber-400 font-bold">Rs. 449</span></div>
+                </div>
+            </div>
+
+            <!-- 9. DESSERTS & DRINKS -->
+            <div class="glass-card rounded-2xl p-6 sm:p-8">
+                <div class="flex items-center gap-3 border-b border-amber-500/20 pb-4 mb-6">
+                    <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 text-lg"><i class="fa-solid fa-ice-cream"></i></div>
+                    <h3 class="font-heading text-2xl font-bold text-amber-400">9. Sweets, Coffee & Shakes</h3>
+                </div>
+                <div class="grid sm:grid-cols-2 gap-x-8 gap-y-4 text-sm">
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Family Sweet Bowl</span><span class="text-amber-400 font-bold">Rs. 999</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Lab-e-Shireen</span><span class="text-amber-400 font-bold">Rs. 249</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Shahi Kheer</span><span class="text-amber-400 font-bold">Rs. 249</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Cold Coffee & Lattes</span><span class="text-amber-400 font-bold">Rs. 549</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Ice Cream Shake</span><span class="text-amber-400 font-bold">Rs. 549</span></div>
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>Fresh Lime / Soft Drinks</span><span class="text-amber-400 font-bold">Rs. 149</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LOCATION & MAP SECTION -->
+    <section id="location" class="py-20 px-4 max-w-7xl mx-auto border-t border-zinc-800/60">
+        <div class="grid lg:grid-cols-3 gap-8 items-stretch">
+            <div class="glass-card rounded-2xl p-8 flex flex-col justify-between space-y-6">
+                <div>
+                    <span class="text-amber-400 font-semibold text-xs tracking-widest uppercase">Visit Us Today</span>
+                    <h2 class="font-heading text-3xl font-bold text-white mt-2">Location & Hours</h2>
+                    <p class="text-zinc-400 text-xs mt-2">Drop by for a warm dining experience or contact us directly for home delivery.</p>
+                </div>
+
+                <div class="space-y-4 text-sm">
+                    <div class="flex items-start gap-3">
+                        <i class="fa-solid fa-location-dot text-amber-400 mt-1"></i>
+                        <div>
+                            <span class="font-semibold text-white block">Address</span>
+                            <span class="text-zinc-400 text-xs">Main Bazar, Near City Chowk, Layyah, Punjab, Pakistan</span>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <i class="fa-solid fa-phone text-amber-400 mt-1"></i>
+                        <div>
+                            <span class="font-semibold text-white block">Contact Number</span>
+                            <span class="text-zinc-400 text-xs">+92 300 1234567</span>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <i class="fa-solid fa-clock text-amber-400 mt-1"></i>
+                        <div>
+                            <span class="font-semibold text-white block">Opening Hours</span>
+                            <span class="text-zinc-400 text-xs">12:00 PM - 01:00 AM (Daily)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="https://wa.me/923001234567" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl text-center flex items-center justify-center gap-2 text-sm transition">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> Direct WhatsApp Order
+                </a>
+            </div>
+
+            <!-- EMBEDDED GOOGLE MAP -->
+            <div class="lg:col-span-2 glass-card rounded-2xl p-2 border border-zinc-800 overflow-hidden shadow-2xl min-h-[350px]">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d55000!2d70.93!3d30.96!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3924f5a342ff150b%3A0xc39f997232e01362!2sLayyah%2C%20Punjab%2C%20Pakistan!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0; min-height: 380px;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-zinc-800/80 bg-zinc-950 py-8 px-4 text-center text-zinc-500 text-xs">
+        <div class="max-w-7xl mx-auto space-y-3">
+            <p class="font-heading text-sm font-bold text-amber-400 tracking-wider">MUSA CAFE & RESTAURANT</p>
+            <p>&copy; 2026 Musa Cafe & Restaurant Layyah. All Rights Reserved.</p>
+        </div>
     </footer>
 
-    <!-- JavaScript for Music Toggle -->
+    <!-- JS MUSIC TOGGLE -->
     <script>
         const music = document.getElementById('bgMusic');
-        const musicBtn = document.getElementById('musicBtn');
         const musicIcon = document.getElementById('musicIcon');
+        const musicPing = document.getElementById('musicPing');
 
         function toggleMusic() {
             if (music.paused) {
                 music.play();
                 musicIcon.classList.remove('fa-play');
                 musicIcon.classList.add('fa-pause');
+                musicPing.classList.remove('hidden');
             } else {
                 music.pause();
                 musicIcon.classList.remove('fa-pause');
                 musicIcon.classList.add('fa-play');
+                musicPing.classList.add('hidden');
             }
         }
     </script>
