@@ -3,43 +3,132 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MUSA Cafe & Restaurant | Premium Dining Layyah</title>
-<meta name="description" content="MUSA Cafe & Restaurant - 03 Block A Housing Colony, Layyah. Premium Karahi, Biryani, BBQ, Pizza. Order: 0301 3777777">
+<title>MUSA Cafe & Restaurant | Luxury 3D Dining Experience Layyah</title>
+<meta name="description" content="MUSA Cafe & Restaurant - Premium Fine Dining. 03 Block A Housing Colony, Layyah. Karahi, BBQ, Pizza, Biryani. WhatsApp: 0301 3777777">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,700&family=Poppins:wght@100;300;400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
 :root{
   --black:#0a0a0a;
-  --dark-grey:#1a1a1a;
+  --dark-grey:#141414;
+  --grey:#1f1f1f;
   --light-grey:#2a2a2a;
   --gold:#d4af37;
   --gold-light:#e8c547;
-  --text:#f5f5f5;
-  --text-muted:#b0b0b0;
+  --cream:#f5f5f5;
+  --text-muted:#a0a0a0;
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
+
 html{scroll-behavior:smooth}
+
 body{
-  font-family:'Inter',sans-serif;
+  font-family:'Poppins',sans-serif;
   background:var(--black);
-  color:var(--text);
+  color:var(--cream);
+  overflow-x:hidden;
   line-height:1.6;
 }
 
-.container{max-width:1200px;margin:0 auto;padding:0 30px}
+/* GLOBAL ANIMATIONS */
+@keyframes fadeInUp{
+  from{opacity:0;transform:translateY(60px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes fadeInDown{
+  from{opacity:0;transform:translateY(-60px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes slideInLeft{
+  from{opacity:0;transform:translateX(-80px)}
+  to{opacity:1;transform:translateX(0)}
+}
+
+@keyframes slideInRight{
+  from{opacity:0;transform:translateX(80px)}
+  to{opacity:1;transform:translateX(0)}
+}
+
+@keyframes floatElement{
+  0%{transform:translateY(0px) rotateZ(0deg)}
+  25%{transform:translateY(-30px) rotateZ(2deg)}
+  50%{transform:translateY(-50px) rotateZ(-2deg)}
+  75%{transform:translateY(-30px) rotateZ(2deg)}
+  100%{transform:translateY(0px) rotateZ(0deg)}
+}
+
+@keyframes parallaxBg{
+  0%{background-position:0 0}
+  100%{background-position:0 -100px}
+}
+
+@keyframes glow{
+  0%,100%{box-shadow:0 0 30px rgba(212,175,55,0.3),0 0 60px rgba(212,175,55,0.1)}
+  50%{box-shadow:0 0 50px rgba(212,175,55,0.5),0 0 80px rgba(212,175,55,0.2)}
+}
+
+@keyframes rotate3d{
+  0%{transform:rotateX(0deg) rotateY(0deg)}
+  50%{transform:rotateX(10deg) rotateY(10deg)}
+  100%{transform:rotateX(0deg) rotateY(0deg)}
+}
+
+@keyframes shimmer{
+  0%{left:-1000px}
+  100%{left:1000px}
+}
+
+@keyframes pulse{
+  0%,100%{opacity:1}
+  50%{opacity:0.6}
+}
+
+@keyframes moveCloud{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(100px)}
+}
+
+.reveal{
+  opacity:0;
+  transform:translateY(40px);
+  transition:all 1s cubic-bezier(0.22,1,0.36,1);
+}
+
+.reveal.active{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* CONTAINER */
+.container{
+  max-width:1400px;
+  margin:0 auto;
+  padding:0 40px;
+}
 
 /* HEADER */
 header{
   position:fixed;
   top:0;
   width:100%;
-  background:rgba(10,10,10,0.95);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid rgba(212,175,55,0.15);
+  background:rgba(10,10,10,0.92);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(212,175,55,0.1);
   z-index:1000;
-  padding:20px 0;
+  padding:18px 0;
+  animation:fadeInDown 0.8s ease-out;
+}
+
+header.scrolled{
+  background:rgba(10,10,10,0.97);
+  box-shadow:0 10px 50px rgba(0,0,0,0.6);
+  padding:12px 0;
 }
 
 nav{
@@ -50,360 +139,476 @@ nav{
 
 .logo{
   font-family:'Playfair Display',serif;
-  font-size:28px;
-  font-weight:700;
-  color:var(--gold);
+  font-size:32px;
+  font-weight:800;
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
   letter-spacing:2px;
+  text-transform:uppercase;
 }
 
 .nav-links{
   display:flex;
-  gap:40px;
+  gap:50px;
   list-style:none;
 }
 
 .nav-links a{
-  font-size:13px;
-  font-weight:500;
-  color:var(--text);
-  transition:color 0.3s;
-  text-transform:uppercase;
-  letter-spacing:1px;
-}
-
-.nav-links a:hover{color:var(--gold)}
-
-.cta-btn{
-  background:var(--gold);
-  color:var(--black);
-  padding:11px 28px;
-  border:none;
-  border-radius:4px;
+  font-size:11px;
   font-weight:600;
-  font-size:12px;
-  cursor:pointer;
-  transition:all 0.3s;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  color:var(--cream);
+  position:relative;
+  transition:all 0.4s;
+}
+
+.nav-links a::after{
+  content:'';
+  position:absolute;
+  bottom:-8px;
+  left:0;
+  width:0;
+  height:2px;
+  background:linear-gradient(90deg,var(--gold),var(--gold-light));
+  transition:width 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+
+.nav-links a:hover{color:var(--gold-light)}
+.nav-links a:hover::after{width:100%}
+
+.nav-cta{
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));
+  color:var(--black);
+  padding:12px 32px;
+  border:none;
+  border-radius:50px;
+  font-weight:700;
+  font-size:11px;
   text-transform:uppercase;
   letter-spacing:1px;
+  cursor:pointer;
+  transition:all 0.4s;
+  box-shadow:0 8px 25px rgba(212,175,55,0.3);
 }
 
-.cta-btn:hover{
-  background:var(--gold-light);
-  transform:translateY(-2px);
+.nav-cta:hover{
+  transform:translateY(-4px);
+  box-shadow:0 15px 40px rgba(212,175,55,0.5);
 }
 
-/* HERO */
+/* HERO SECTION */
 .hero{
-  height:100vh;
-  background:linear-gradient(135deg,#0a0a0a 0%,#1a1410 100%);
+  position:relative;
+  height:120vh;
+  min-height:900px;
   display:flex;
   align-items:center;
   justify-content:center;
+  overflow:hidden;
   margin-top:60px;
-  position:relative;
+}
+
+.hero-bg-video{
+  position:absolute;
+  inset:0;
+  z-index:0;
+}
+
+.hero-bg-layer-1{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,#0a0a0a 0%,#1a0f05 50%,#0a0a0a 100%);
+  z-index:1;
+}
+
+.hero-bg-layer-2{
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 30% 50%,rgba(212,175,55,0.08) 0%,transparent 50%),
+             radial-gradient(circle at 70% 50%,rgba(212,175,55,0.05) 0%,transparent 60%);
+  animation:parallaxBg 15s linear infinite;
+  z-index:2;
+}
+
+.hero-animated-shapes{
+  position:absolute;
+  inset:0;
+  z-index:2;
   overflow:hidden;
 }
 
-.hero::before{
-  content:'';
+.shape{
   position:absolute;
-  inset:0;
-  background:radial-gradient(circle at 30% 50%,rgba(212,175,55,0.1) 0%,transparent 50%);
-  pointer-events:none;
+  border-radius:50%;
+  opacity:0.03;
+  animation:floatElement 8s ease-in-out infinite;
 }
+
+.shape-1{width:400px;height:400px;background:var(--gold);top:10%;left:10%;animation-delay:0s}
+.shape-2{width:300px;height:300px;background:var(--gold);bottom:15%;right:10%;animation-delay:2s}
+.shape-3{width:250px;height:250px;background:var(--gold-light);top:50%;left:5%;animation-delay:1s}
 
 .hero-content{
   position:relative;
-  z-index:2;
+  z-index:3;
   text-align:center;
-  max-width:800px;
+  max-width:900px;
+  animation:fadeInUp 1.2s ease-out;
+}
+
+.hero-badge{
+  display:inline-block;
+  background:rgba(212,175,55,0.1);
+  border:2px solid var(--gold);
+  padding:14px 35px;
+  border-radius:50px;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  margin-bottom:40px;
+  animation:fadeInUp 1s ease-out 0.2s both;
+  color:var(--gold-light);
 }
 
 .hero h1{
   font-family:'Playfair Display',serif;
-  font-size:clamp(48px,7vw,80px);
+  font-size:clamp(52px,8vw,100px);
   font-weight:800;
-  line-height:1.1;
+  line-height:1.05;
   margin-bottom:30px;
-  color:var(--text);
+  animation:fadeInUp 1s ease-out 0.4s both;
+  background:linear-gradient(135deg,var(--cream),var(--gold-light));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
   letter-spacing:1px;
-}
-
-.hero h1 .highlight{
-  color:var(--gold);
 }
 
 .hero p{
   font-size:18px;
   color:var(--text-muted);
   margin-bottom:50px;
+  animation:fadeInUp 1s ease-out 0.6s both;
   font-weight:300;
+  max-width:700px;
+  margin-left:auto;
+  margin-right:auto;
+  line-height:1.9;
 }
 
 .hero-cta{
   display:flex;
-  gap:20px;
+  gap:25px;
   justify-content:center;
+  flex-wrap:wrap;
+  animation:fadeInUp 1s ease-out 0.8s both;
 }
 
 .btn{
-  padding:14px 40px;
+  padding:16px 50px;
   border:none;
-  border-radius:4px;
+  border-radius:50px;
   font-size:12px;
-  font-weight:600;
-  cursor:pointer;
-  transition:all 0.3s;
+  font-weight:700;
   text-transform:uppercase;
-  letter-spacing:1px;
+  letter-spacing:2px;
+  cursor:pointer;
+  transition:all 0.5s cubic-bezier(0.22,1,0.36,1);
+  position:relative;
+  overflow:hidden;
+  z-index:1;
+}
+
+.btn::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));
+  transform:translateY(0);
+  transition:all 0.5s cubic-bezier(0.22,1,0.36,1);
+  z-index:-1;
 }
 
 .btn-primary{
-  background:var(--gold);
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));
   color:var(--black);
+  box-shadow:0 10px 40px rgba(212,175,55,0.4);
 }
 
 .btn-primary:hover{
-  background:var(--gold-light);
+  transform:translateY(-8px);
+  box-shadow:0 20px 60px rgba(212,175,55,0.6);
 }
 
 .btn-secondary{
   background:transparent;
   color:var(--gold);
-  border:1px solid var(--gold);
+  border:2px solid var(--gold);
+  box-shadow:0 0 30px rgba(212,175,55,0.2);
 }
 
 .btn-secondary:hover{
-  background:var(--gold);
   color:var(--black);
+  transform:translateY(-8px);
+  box-shadow:0 15px 50px rgba(212,175,55,0.5);
 }
+
+/* FLOATING ELEMENTS */
+.float-item{
+  position:absolute;
+  font-size:80px;
+  animation:floatElement 6s ease-in-out infinite;
+  opacity:0.1;
+  z-index:2;
+  filter:blur(0.5px);
+}
+
+.float-item:nth-child(1){top:15%;left:10%;animation-delay:0s}
+.float-item:nth-child(2){top:30%;right:15%;animation-delay:1s;font-size:70px}
+.float-item:nth-child(3){bottom:20%;left:20%;animation-delay:2s;font-size:90px}
+.float-item:nth-child(4){bottom:15%;right:10%;animation-delay:1.5s;font-size:75px}
 
 /* FEATURED SECTION */
 .featured{
-  padding:120px 0;
-  background:var(--black);
-  border-bottom:1px solid rgba(212,175,55,0.15);
+  position:relative;
+  padding:150px 0;
+  background:linear-gradient(180deg,var(--black) 0%,var(--dark-grey) 50%,var(--black) 100%);
+  border-bottom:1px solid rgba(212,175,55,0.1);
+  overflow:hidden;
+}
+
+.featured::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 50% 50%,rgba(212,175,55,0.03),transparent 70%);
+  pointer-events:none;
 }
 
 .section-header{
   text-align:center;
-  margin-bottom:80px;
+  margin-bottom:100px;
+  position:relative;
+  z-index:1;
 }
 
 .section-title{
   font-family:'Playfair Display',serif;
-  font-size:clamp(36px,5vw,52px);
+  font-size:clamp(40px,6vw,60px);
   font-weight:800;
-  margin-bottom:15px;
-  color:var(--text);
+  margin-bottom:20px;
+  color:var(--cream);
+  letter-spacing:1px;
 }
 
 .section-title .highlight{
-  color:var(--gold);
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
 .featured-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:40px;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:50px;
+  position:relative;
+  z-index:1;
 }
 
 .featured-card{
-  background:var(--light-grey);
+  group:'featured';
+  background:linear-gradient(135deg,rgba(42,42,42,0.8),rgba(31,31,31,0.5));
   border:1px solid rgba(212,175,55,0.2);
-  border-radius:8px;
+  border-radius:15px;
+  padding:0;
   overflow:hidden;
-  transition:all 0.5s;
+  transition:all 0.6s cubic-bezier(0.22,1,0.36,1);
   cursor:pointer;
+  position:relative;
+  transform-style:preserve-3d;
+  perspective:1000px;
 }
 
 .featured-card:hover{
   border-color:var(--gold);
-  box-shadow:0 15px 40px rgba(212,175,55,0.2);
-  transform:translateY(-10px);
+  box-shadow:0 30px 80px rgba(212,175,55,0.3);
+  transform:translateY(-20px) rotateX(8deg);
 }
 
 .featured-image{
+  position:relative;
   width:100%;
-  height:250px;
-  background:linear-gradient(135deg,#2a2a2a 0%,#1a1a1a 100%);
+  height:280px;
+  background:linear-gradient(135deg,#1f1f1f 0%,#0a0a0a 100%);
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:80px;
-  position:relative;
+  font-size:100px;
   overflow:hidden;
 }
 
-.featured-image img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+.featured-image::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(45deg,transparent 30%,rgba(255,255,255,0.1) 50%,transparent 70%);
+  animation:shimmer 3s infinite;
 }
 
 .featured-info{
-  padding:25px;
+  padding:35px;
 }
 
 .featured-name{
-  font-size:18px;
+  font-size:20px;
   font-weight:700;
-  margin-bottom:8px;
-  color:var(--text);
+  margin-bottom:12px;
+  color:var(--cream);
   font-family:'Playfair Display',serif;
 }
 
 .featured-price{
-  font-size:20px;
-  color:var(--gold);
+  font-size:24px;
+  color:var(--gold-light);
   font-weight:700;
 }
 
-/* SEARCH SECTION */
-.search-section{
-  padding:80px 0;
-  background:linear-gradient(180deg,var(--black) 0%,var(--dark-grey) 100%);
-  border-bottom:1px solid rgba(212,175,55,0.15);
-}
-
-.search-container{
-  max-width:600px;
-  margin:0 auto 60px;
-}
-
-.search-box{
+/* ABOUT SECTION */
+.about{
   position:relative;
-}
-
-.search-box input{
-  width:100%;
-  padding:18px 25px;
-  background:var(--light-grey);
-  border:1px solid rgba(212,175,55,0.3);
-  border-radius:6px;
-  color:var(--text);
-  font-size:14px;
-  outline:none;
-  transition:all 0.3s;
-}
-
-.search-box input:focus{
-  border-color:var(--gold);
-  box-shadow:0 0 20px rgba(212,175,55,0.2);
-}
-
-.search-box input::placeholder{
-  color:var(--text-muted);
-}
-
-.search-results{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-  gap:30px;
-}
-
-.search-result-card{
-  background:var(--light-grey);
-  border:1px solid rgba(212,175,55,0.2);
-  border-radius:8px;
+  padding:150px 0;
+  background:var(--black);
+  border-bottom:1px solid rgba(212,175,55,0.1);
   overflow:hidden;
-  transition:all 0.4s;
 }
 
-.search-result-card:hover{
-  border-color:var(--gold);
-  box-shadow:0 10px 30px rgba(212,175,55,0.2);
-  transform:translateY(-8px);
+.about-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:80px;
+  align-items:center;
+  position:relative;
+  z-index:1;
 }
 
-.result-image{
-  width:100%;
-  height:200px;
-  background:linear-gradient(135deg,#2a2a2a 0%,#1a1a1a 100%);
+.about-image{
+  position:relative;
+  height:500px;
+  border-radius:15px;
+  border:1px solid rgba(212,175,55,0.2);
+  overflow:hidden;
+  background:linear-gradient(135deg,#1f1f1f,#0a0a0a);
   display:flex;
   align-items:center;
   justify-content:center;
-  overflow:hidden;
-  position:relative;
+  font-size:150px;
+  transform-style:preserve-3d;
+  transition:all 0.6s;
 }
 
-.result-image img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+.about-image:hover{
+  border-color:var(--gold);
+  transform:rotateY(5deg) rotateX(-2deg);
+  box-shadow:0 30px 60px rgba(212,175,55,0.2);
 }
 
-.result-info{
-  padding:20px;
-}
-
-.result-name{
-  font-size:16px;
-  font-weight:700;
-  color:var(--text);
-  margin-bottom:10px;
+.about-content h2{
   font-family:'Playfair Display',serif;
+  font-size:clamp(36px,5vw,52px);
+  font-weight:800;
+  margin-bottom:30px;
+  line-height:1.1;
+  color:var(--cream);
 }
 
-.result-price{
-  font-size:18px;
-  color:var(--gold);
-  font-weight:700;
-  margin-bottom:12px;
+.about-content h2 .highlight{
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
-.result-category{
-  font-size:11px;
+.about-content p{
+  font-size:16px;
   color:var(--text-muted);
-  text-transform:uppercase;
-  letter-spacing:1px;
-  margin-bottom:15px;
+  margin-bottom:25px;
+  line-height:2;
+  font-weight:300;
 }
 
-.order-btn{
-  width:100%;
-  padding:10px;
-  background:var(--gold);
-  color:var(--black);
-  border:none;
-  border-radius:4px;
-  font-weight:600;
-  font-size:12px;
-  cursor:pointer;
-  transition:all 0.3s;
-  text-transform:uppercase;
-  letter-spacing:1px;
+.features-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:25px;
+  margin-top:50px;
 }
 
-.order-btn:hover{
-  background:var(--gold-light);
+.feature-box{
+  background:rgba(212,175,55,0.1);
+  border-left:4px solid var(--gold);
+  padding:30px;
+  border-radius:8px;
+  transition:all 0.4s;
+  backdrop-filter:blur(10px);
+}
+
+.feature-box:hover{
+  background:rgba(212,175,55,0.15);
+  transform:translateX(10px);
+}
+
+.feature-box h3{
+  color:var(--gold);
+  font-size:14px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin-bottom:10px;
+  font-weight:700;
+}
+
+.feature-box p{
+  font-size:14px;
+  margin-bottom:0;
+  color:var(--cream);
 }
 
 /* MENU SECTION */
 .menu{
-  padding:120px 0;
-  background:var(--black);
-  border-bottom:1px solid rgba(212,175,55,0.15);
+  position:relative;
+  padding:150px 0;
+  background:linear-gradient(180deg,var(--black) 0%,var(--dark-grey) 100%);
+  border-bottom:1px solid rgba(212,175,55,0.1);
+  overflow:hidden;
+}
+
+.menu::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 50% 0%,rgba(212,175,55,0.05),transparent 60%);
 }
 
 .menu-filters{
   display:flex;
-  gap:12px;
+  gap:15px;
   justify-content:center;
   flex-wrap:wrap;
-  margin-bottom:60px;
+  margin-bottom:80px;
+  position:relative;
+  z-index:1;
 }
 
 .filter-btn{
-  background:transparent;
+  background:rgba(212,175,55,0.08);
   border:1px solid rgba(212,175,55,0.4);
-  color:var(--text);
-  padding:10px 20px;
-  border-radius:4px;
+  color:var(--cream);
+  padding:12px 28px;
+  border-radius:50px;
   font-size:12px;
   font-weight:600;
   cursor:pointer;
-  transition:all 0.3s;
+  transition:all 0.4s cubic-bezier(0.22,1,0.36,1);
   text-transform:uppercase;
   letter-spacing:1px;
 }
@@ -413,196 +618,418 @@ nav{
   background:var(--gold);
   color:var(--black);
   border-color:var(--gold);
+  transform:scale(1.05);
+  box-shadow:0 10px 30px rgba(212,175,55,0.3);
 }
 
 .menu-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-  gap:25px;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:30px;
+  position:relative;
+  z-index:1;
 }
 
 .menu-card{
-  background:var(--light-grey);
+  background:linear-gradient(135deg,rgba(42,42,42,0.6),rgba(31,31,31,0.3));
   border:1px solid rgba(212,175,55,0.15);
-  border-radius:6px;
-  padding:20px;
-  transition:all 0.4s;
+  border-radius:10px;
+  padding:30px;
+  text-align:center;
+  transition:all 0.5s cubic-bezier(0.22,1,0.36,1);
+  cursor:pointer;
+  position:relative;
+  transform-style:preserve-3d;
+  backdrop-filter:blur(5px);
+}
+
+.menu-card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,rgba(212,175,55,0.1),transparent);
+  opacity:0;
+  transition:opacity 0.4s;
+  border-radius:10px;
 }
 
 .menu-card:hover{
   border-color:var(--gold);
-  box-shadow:0 8px 25px rgba(212,175,55,0.15);
-  transform:translateY(-6px);
+  background:linear-gradient(135deg,rgba(212,175,55,0.15),rgba(212,175,55,0.05));
+  transform:translateY(-15px) rotateX(5deg) rotateY(5deg);
+  box-shadow:0 25px 60px rgba(212,175,55,0.25);
 }
 
+.menu-card:hover::before{opacity:1}
+
 .menu-name{
-  font-size:15px;
+  font-size:17px;
   font-weight:700;
-  color:var(--text);
-  margin-bottom:8px;
+  color:var(--cream);
+  margin-bottom:15px;
   font-family:'Playfair Display',serif;
+  position:relative;
+  z-index:1;
 }
 
 .menu-price{
-  font-size:16px;
-  color:var(--gold);
+  font-size:20px;
+  color:var(--gold-light);
   font-weight:700;
+  margin-bottom:20px;
+  position:relative;
+  z-index:1;
 }
 
-/* LOCATION */
-.location{
-  padding:120px 0;
+.order-btn{
+  background:var(--gold);
+  color:var(--black);
+  border:none;
+  padding:10px 22px;
+  border-radius:50px;
+  font-size:11px;
+  font-weight:700;
+  cursor:pointer;
+  transition:all 0.3s;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  position:relative;
+  z-index:1;
+}
+
+.order-btn:hover{
+  background:var(--gold-light);
+  transform:scale(1.05);
+  box-shadow:0 8px 20px rgba(212,175,55,0.4);
+}
+
+/* REVIEWS SECTION */
+.reviews{
+  position:relative;
+  padding:150px 0;
   background:linear-gradient(180deg,var(--dark-grey) 0%,var(--black) 100%);
-  border-bottom:1px solid rgba(212,175,55,0.15);
+  border-bottom:1px solid rgba(212,175,55,0.1);
+  overflow:hidden;
+}
+
+.reviews-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:40px;
+  position:relative;
+  z-index:1;
+}
+
+.review-card{
+  background:rgba(212,175,55,0.1);
+  border:1px solid rgba(212,175,55,0.2);
+  padding:40px;
+  border-radius:12px;
+  transition:all 0.6s cubic-bezier(0.22,1,0.36,1);
+  position:relative;
+  overflow:hidden;
+  backdrop-filter:blur(10px);
+}
+
+.review-card::before{
+  content:'';
+  position:absolute;
+  top:-50%;
+  left:-50%;
+  width:200%;
+  height:200%;
+  background:radial-gradient(circle,rgba(212,175,55,0.2),transparent);
+  opacity:0;
+  transition:opacity 0.4s;
+}
+
+.review-card:hover{
+  border-color:var(--gold);
+  background:rgba(212,175,55,0.15);
+  transform:translateY(-20px) rotateZ(2deg);
+  box-shadow:0 30px 70px rgba(212,175,55,0.3);
+}
+
+.review-card:hover::before{opacity:1}
+
+.stars{
+  color:var(--gold);
+  font-size:18px;
+  margin-bottom:20px;
+  letter-spacing:3px;
+  position:relative;
+  z-index:1;
+}
+
+.review-text{
+  font-size:15px;
+  color:var(--cream);
+  margin-bottom:20px;
+  line-height:1.9;
+  font-style:italic;
+  font-weight:300;
+  position:relative;
+  z-index:1;
+}
+
+.reviewer-name{
+  font-weight:700;
+  color:var(--gold-light);
+  font-size:13px;
+  position:relative;
+  z-index:1;
+}
+
+/* LOCATION SECTION */
+.location{
+  position:relative;
+  padding:150px 0;
+  background:var(--black);
+  border-bottom:1px solid rgba(212,175,55,0.1);
+  overflow:hidden;
 }
 
 .location-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:60px;
+  gap:80px;
   align-items:center;
+  position:relative;
+  z-index:1;
 }
 
 .location-info{
   display:flex;
   flex-direction:column;
-  gap:30px;
+  gap:40px;
 }
 
 .info-block{
-  border-left:3px solid var(--gold);
-  padding-left:25px;
+  background:rgba(212,175,55,0.08);
+  border-left:4px solid var(--gold);
+  padding:35px;
+  border-radius:10px;
+  transition:all 0.4s;
+  backdrop-filter:blur(10px);
+}
+
+.info-block:hover{
+  background:rgba(212,175,55,0.12);
+  transform:translateX(15px);
+  box-shadow:0 15px 40px rgba(212,175,55,0.2);
 }
 
 .info-label{
   font-size:12px;
   color:var(--gold);
   text-transform:uppercase;
-  letter-spacing:1px;
-  font-weight:600;
-  margin-bottom:8px;
+  letter-spacing:2px;
+  font-weight:700;
+  margin-bottom:12px;
 }
 
 .info-text{
   font-size:16px;
-  color:var(--text);
+  color:var(--cream);
   font-weight:500;
+  line-height:1.8;
 }
 
 .map-container{
-  border-radius:8px;
+  position:relative;
+  border-radius:15px;
   overflow:hidden;
   border:1px solid rgba(212,175,55,0.2);
-  height:400px;
+  height:500px;
+  box-shadow:0 30px 70px rgba(0,0,0,0.6);
+  transition:all 0.5s;
+  transform-style:preserve-3d;
+}
+
+.map-container:hover{
+  border-color:var(--gold);
+  box-shadow:0 40px 100px rgba(212,175,55,0.3);
+  transform:rotateX(5deg) rotateY(-5deg);
 }
 
 .map-container iframe{
   width:100%;
   height:100%;
   border:none;
-}
-
-/* FLOATING BUTTON */
-.whatsapp-btn{
-  position:fixed;
-  bottom:30px;
-  right:30px;
-  width:60px;
-  height:60px;
-  background:#25D366;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:28px;
-  cursor:pointer;
-  box-shadow:0 8px 25px rgba(0,0,0,0.5);
-  z-index:900;
-  border:none;
-  transition:all 0.3s;
-}
-
-.whatsapp-btn:hover{
-  transform:scale(1.1);
-  box-shadow:0 12px 35px rgba(37,211,102,0.5);
+  filter:grayscale(0.3) contrast(1.1) brightness(0.9);
 }
 
 /* FOOTER */
 footer{
   background:var(--dark-grey);
-  border-top:1px solid rgba(212,175,55,0.15);
-  padding:50px 0 20px;
+  border-top:1px solid rgba(212,175,55,0.1);
+  padding:80px 0 30px;
+  position:relative;
+  z-index:1;
 }
 
-.footer-content{
+.footer-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:40px;
-  margin-bottom:30px;
+  gap:60px;
+  margin-bottom:50px;
 }
 
 .footer-col h4{
   color:var(--gold);
-  font-size:14px;
+  font-size:13px;
   font-weight:700;
   text-transform:uppercase;
-  letter-spacing:1px;
-  margin-bottom:15px;
+  letter-spacing:2px;
+  margin-bottom:25px;
 }
 
 .footer-col p,
 .footer-col a{
-  font-size:13px;
+  font-size:14px;
   color:var(--text-muted);
-  margin-bottom:10px;
-  transition:color 0.3s;
+  margin-bottom:12px;
+  transition:all 0.3s;
+  line-height:1.8;
 }
 
-.footer-col a:hover{color:var(--gold)}
+.footer-col a:hover{
+  color:var(--gold-light);
+  transform:translateX(5px);
+}
 
 .footer-bottom{
   text-align:center;
   border-top:1px solid rgba(212,175,55,0.1);
-  padding-top:20px;
+  padding-top:30px;
   font-size:12px;
   color:var(--text-muted);
 }
 
+/* WHATSAPP BUTTON */
+.whatsapp-btn{
+  position:fixed;
+  bottom:30px;
+  right:30px;
+  width:70px;
+  height:70px;
+  background:linear-gradient(135deg,#25D366,#20c55f);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:32px;
+  cursor:pointer;
+  box-shadow:0 15px 45px rgba(37,211,102,0.5);
+  z-index:900;
+  border:none;
+  transition:all 0.4s cubic-bezier(0.22,1,0.36,1);
+  animation:pulse 2s ease-in-out infinite;
+}
+
+.whatsapp-btn:hover{
+  transform:scale(1.15);
+  box-shadow:0 20px 60px rgba(37,211,102,0.7);
+  animation:none;
+}
+
+/* SCROLL TO TOP */
+.scroll-top{
+  position:fixed;
+  bottom:30px;
+  left:30px;
+  width:70px;
+  height:70px;
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+  color:var(--black);
+  cursor:pointer;
+  opacity:0;
+  transition:all 0.4s;
+  z-index:900;
+  pointer-events:none;
+  box-shadow:0 10px 40px rgba(212,175,55,0.3);
+}
+
+.scroll-top.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.scroll-top:hover{
+  transform:translateY(-8px);
+  box-shadow:0 15px 55px rgba(212,175,55,0.5);
+}
+
 /* RESPONSIVE */
-@media(max-width:768px){
+@media(max-width:1000px){
   .nav-links{display:none}
-  .hero h1{font-size:40px}
   .location-grid{grid-template-columns:1fr}
-  .map-container{height:300px}
-  .footer-content{grid-template-columns:1fr}
+  .about-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .map-container{height:350px}
+}
+
+@media(max-width:650px){
+  .container{padding:0 20px}
+  header{padding:10px 0}
+  .hero{margin-top:50px;height:100vh}
+  .hero h1{font-size:42px}
   .featured-grid{grid-template-columns:1fr}
+  .menu-grid{grid-template-columns:1fr}
+  .reviews-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .float-item{font-size:50px}
 }
 </style>
 </head>
 <body>
 
 <!-- HEADER -->
-<header>
+<header id="header">
   <div class="container">
     <nav>
       <div class="logo">MUSA</div>
       <ul class="nav-links">
         <li><a href="#featured">Featured</a></li>
-        <li><a href="#search">Search Menu</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#reviews">Reviews</a></li>
         <li><a href="#location">Location</a></li>
       </ul>
-      <button class="cta-btn" onclick="openWhatsApp()">Order Now</button>
+      <button class="nav-cta" onclick="openWhatsApp()">Order Now</button>
     </nav>
   </div>
 </header>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="home">
+  <div class="hero-bg-video">
+    <div class="hero-bg-layer-1"></div>
+    <div class="hero-bg-layer-2"></div>
+  </div>
+
+  <div class="hero-animated-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+
+  <div class="float-item">🍲</div>
+  <div class="float-item">🍕</div>
+  <div class="float-item">🍢</div>
+  <div class="float-item">🍗</div>
+
   <div class="hero-content">
-    <h1>MUSA Cafe & <span class="highlight">Restaurant</span></h1>
-    <p>Premium Dining Experience in Layyah</p>
+    <div class="hero-badge">✦ Finest Dining Experience ✦</div>
+    <h1>A Taste of <span>LUXURY</span><br>& TRADITION</h1>
+    <p>Experience the finest Karahi, BBQ, Chinese, Pizza & more — crafted with passion and generations of culinary excellence</p>
     <div class="hero-cta">
-      <button class="btn btn-primary" onclick="document.getElementById('featured').scrollIntoView()">View Featured</button>
+      <button class="btn btn-primary" onclick="document.getElementById('featured').scrollIntoView()">Explore Menu</button>
       <button class="btn btn-secondary" onclick="openWhatsApp()">Order on WhatsApp</button>
     </div>
   </div>
@@ -612,21 +1039,41 @@ footer{
 <section class="featured" id="featured">
   <div class="container">
     <div class="section-header">
-      <h2 class="section-title">Featured <span class="highlight">Dishes</span></h2>
+      <h2 class="section-title">Chef's <span class="highlight">Signature</span> Picks</h2>
     </div>
     <div class="featured-grid" id="featuredGrid"></div>
   </div>
 </section>
 
-<!-- SEARCH -->
-<section class="search-section" id="search">
+<!-- ABOUT -->
+<section class="about" id="about">
   <div class="container">
-    <div class="search-container">
-      <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Search by dish name... e.g., Biryani, Karahi, Pizza">
+    <div class="about-grid">
+      <div class="about-image reveal-scale"></div>
+      <div class="about-content reveal">
+        <h2>Where Every Plate<br>Tells a Story of <span class="highlight">Passion</span></h2>
+        <p>Located in the heart of Layyah at 03, Block A Housing Colony, MUSA Cafe & Restaurant was built on one belief: dining should feel like an occasion. From our sizzling desi Karahi to our wood-fired pizza and Chinese specialities, every dish is crafted with premium ingredients and generations of culinary craft.</p>
+        
+        <div class="features-grid">
+          <div class="feature-box">
+            <h3>Master Chefs</h3>
+            <p>Experienced chefs across multiple cuisines</p>
+          </div>
+          <div class="feature-box">
+            <h3>Fresh Ingredients</h3>
+            <p>Sourced daily & prepared fresh to order</p>
+          </div>
+          <div class="feature-box">
+            <h3>Signature Flavour</h3>
+            <p>MUSA recipes you won't find anywhere else</p>
+          </div>
+          <div class="feature-box">
+            <h3>Fast Service</h3>
+            <p>Quick WhatsApp order & delivery arrangement</p>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="search-results" id="searchResults"></div>
   </div>
 </section>
 
@@ -634,45 +1081,74 @@ footer{
 <section class="menu" id="menu">
   <div class="container">
     <div class="section-header">
-      <h2 class="section-title">Our <span class="highlight">Menu</span></h2>
+      <h2 class="section-title">Our Complete <span class="highlight">Menu</span></h2>
     </div>
     
     <div class="menu-filters">
-      <button class="filter-btn active" onclick="filterCategory('all')">All</button>
-      <button class="filter-btn" onclick="filterCategory('biryani')">Biryani & Rice</button>
+      <button class="filter-btn active" onclick="filterCategory('all')">All Dishes</button>
+      <button class="filter-btn" onclick="filterCategory('featured')">Featured</button>
       <button class="filter-btn" onclick="filterCategory('karahi')">Karahi</button>
+      <button class="filter-btn" onclick="filterCategory('biryani')">Biryani & Rice</button>
       <button class="filter-btn" onclick="filterCategory('bbq')">BBQ</button>
       <button class="filter-btn" onclick="filterCategory('pizza')">Pizza</button>
+      <button class="filter-btn" onclick="filterCategory('appetizer')">Appetizer</button>
     </div>
     
     <div class="menu-grid" id="menuGrid"></div>
   </div>
 </section>
 
+<!-- REVIEWS -->
+<section class="reviews" id="reviews">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Why Guests Choose <span class="highlight">MUSA</span></h2>
+    </div>
+    
+    <div class="reviews-grid">
+      <div class="review-card reveal">
+        <div class="stars">★★★★★</div>
+        <div class="review-text">"The best restaurant in Layyah! Every dish is perfection. The Karahi is absolutely divine. Highly recommended!"</div>
+        <div class="reviewer-name">— Ali Khan, Layyah</div>
+      </div>
+      <div class="review-card reveal">
+        <div class="stars">★★★★★</div>
+        <div class="review-text">"Amazing BBQ platter! Fresh ingredients, perfect seasoning, outstanding service. Worth every penny!"</div>
+        <div class="reviewer-name">— Fatima Ahmed, Layyah</div>
+      </div>
+      <div class="review-card reveal">
+        <div class="stars">★★★★★</div>
+        <div class="review-text">"Pizza here is incredible! Crispy crust, premium toppings, fast delivery. MUSA is the best!"</div>
+        <div class="reviewer-name">— Hassan Malik, Layyah</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- LOCATION -->
 <section class="location" id="location">
   <div class="container">
-    <h2 class="section-title" style="margin-bottom:60px;text-align:center">Find <span class="highlight">Us</span></h2>
+    <h2 class="section-title" style="text-align:center;margin-bottom:80px">Find <span class="highlight">Us</span></h2>
     
     <div class="location-grid">
       <div class="location-info">
-        <div class="info-block">
-          <div class="info-label">Address</div>
+        <div class="info-block reveal">
+          <div class="info-label">📍 Address</div>
           <div class="info-text">03, Block A Housing Colony<br>Layyah, Punjab, Pakistan</div>
         </div>
         
-        <div class="info-block">
-          <div class="info-label">Contact</div>
-          <div class="info-text"><a href="https://wa.me/923013777777" style="color:var(--gold)">WhatsApp: 0301 3777777</a></div>
+        <div class="info-block reveal">
+          <div class="info-label">📱 Contact</div>
+          <div class="info-text"><a href="https://wa.me/923013777777" style="color:var(--gold-light)">WhatsApp: 0301 3777777</a></div>
         </div>
         
-        <div class="info-block">
-          <div class="info-label">Hours</div>
-          <div class="info-text">12:00 PM - 1:00 AM (Daily)</div>
+        <div class="info-block reveal">
+          <div class="info-label">⏰ Hours</div>
+          <div class="info-text">12:00 PM - 1:00 AM<br>(Daily)</div>
         </div>
       </div>
       
-      <div class="map-container">
+      <div class="map-container reveal">
         <iframe src="https://www.google.com/maps?q=03+Block+A+Housing+Colony+Layyah&output=embed"></iframe>
       </div>
     </div>
@@ -682,62 +1158,137 @@ footer{
 <!-- FOOTER -->
 <footer>
   <div class="container">
-    <div class="footer-content">
-      <div class="footer-col">
-        <h4>MUSA</h4>
-        <p>Premium Dining Experience at 03, Block A Housing Colony, Layyah</p>
+    <div class="footer-grid">
+      <div>
+        <h4>MUSA Cafe & Restaurant</h4>
+        <p>Premium dining experience with authentic Pakistani, Chinese & Continental cuisine at 03, Block A Housing Colony, Layyah. WhatsApp: 0301 3777777</p>
       </div>
-      <div class="footer-col">
+      <div>
         <h4>Quick Links</h4>
         <a href="#featured">Featured Dishes</a>
-        <a href="#search">Search Menu</a>
+        <a href="#about">About Us</a>
+        <a href="#menu">Menu</a>
+        <a href="#reviews">Reviews</a>
         <a href="#location">Location</a>
       </div>
-      <div class="footer-col">
-        <h4>Contact</h4>
+      <div>
+        <h4>Contact Info</h4>
         <p>WhatsApp: <a href="https://wa.me/923013777777">0301 3777777</a></p>
         <p>Email: info@musa.com</p>
+        <p>📍 03, Block A Housing Colony, Layyah</p>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2024 MUSA Cafe & Restaurant. All Rights Reserved.</p>
+      <p>&copy; 2024 MUSA Cafe & Restaurant. All Rights Reserved. Premium Dining in Layyah, Punjab</p>
     </div>
   </div>
 </footer>
 
-<!-- WHATSAPP BUTTON -->
-<button class="whatsapp-btn" onclick="openWhatsApp()">💬</button>
+<!-- FLOATING BUTTONS -->
+<button class="whatsapp-btn" onclick="openWhatsApp()" title="Order on WhatsApp">💬</button>
+<button class="scroll-top" id="scrollTop" onclick="scrollToTop()">↑</button>
 
 <script>
-// MENU DATA
-const menuData = [
-  {name:"Chicken Biryani",price:1199,category:"biryani",image:"biryani.jpg"},
-  {name:"Mutton Biryani",price:1599,category:"biryani",image:"biryani-mutton.jpg"},
-  {name:"Chicken Pulao",price:1199,category:"biryani",image:"pulao.jpg"},
-  {name:"Musa Special Chicken Karahi",price:"1999/1249",category:"karahi",image:"karahi.jpg"},
-  {name:"Mutton Karahi",price:"3649/2049",category:"karahi",image:"karahi-mutton.jpg"},
-  {name:"Musa Special BBQ Platter",price:"5999/3599",category:"bbq",image:"bbq.jpg"},
-  {name:"Chicken Tikka Pizza",price:"649/1199/1699",category:"pizza",image:"pizza.jpg"},
-  {name:"Musa Special Pizza",price:"1299/1999",category:"pizza",image:"pizza-special.jpg"},
-];
-
-const featuredDishes = [
-  {name:"Chicken Biryani",price:1199,image:"biryani.jpg"},
-  {name:"Musa Special Karahi",price:"1999/1249",image:"karahi.jpg"},
-  {name:"BBQ Platter",price:"5999/3599",image:"bbq.jpg"},
-  {name:"Musa Special Pizza",price:"1299/1999",image:"pizza-special.jpg"},
-];
-
-// RENDER FEATURED
-function renderFeatured(){
-  const grid = document.getElementById('featuredGrid');
-  grid.innerHTML = '';
+// MENU DATA - EXACT FROM YOUR LIST
+const menuData=[
+  {name:"Musa Special Chicken Karahi",price:"1999/1249",category:"featured",category2:"karahi"},
+  {name:"Musa Special BBQ Platter",price:"5999/3599",category:"featured",category2:"bbq"},
+  {name:"Musa Special Pizza",price:"1299/1999",category:"featured",category2:"pizza"},
+  {name:"Chicken Biryani",price:1199,category:"featured",category2:"biryani"},
   
-  featuredDishes.forEach(dish => {
-    const card = document.createElement('div');
-    card.className = 'featured-card';
-    card.innerHTML = `
-      <div class="featured-image"><img src="${dish.image}" alt="${dish.name}" onerror="this.style.display='none'"></div>
+  {name:"Chicken Drum Stick (4 Pcs)",price:1349,category:"appetizer"},
+  {name:"Chicken Stripes (6 Pcs)",price:999,category:"appetizer"},
+  {name:"Dynamite Jumbo Prawn (6 Pcs)",price:1849,category:"appetizer"},
+  {name:"Dynamite Fries",price:649,category:"appetizer"},
+  {name:"Cheese Bowl (4 Pcs)",price:1049,category:"appetizer"},
+  {name:"Honey Wings (12 Pcs)",price:1149,category:"appetizer"},
+  {name:"Fish Cracker",price:249,category:"appetizer"},
+  {name:"Dhaka Chicken",price:899,category:"appetizer"},
+  
+  {name:"Musa Special Chicken Karahi",price:"1999/1249",category:"karahi"},
+  {name:"Chicken Lahori Karahi",price:"1799/1099",category:"karahi"},
+  {name:"Chicken Peshawri Karahi",price:"1899/1049",category:"karahi"},
+  {name:"Chicken Hari Mirch Karahi",price:"1949/1099",category:"karahi"},
+  {name:"Chicken Butt Karahi",price:"1949/1099",category:"karahi"},
+  {name:"Chicken White Karahi",price:"2049/1299",category:"karahi"},
+  {name:"Chicken Sulemani Karahi",price:"1999/1149",category:"karahi"},
+  {name:"Chicken Afghani Karahi",price:"1999/1149",category:"karahi"},
+  {name:"Chicken Achari Karahi",price:"1849/1099",category:"karahi"},
+  {name:"Special Desi Murgha Karahi",price:"3499/1999",category:"karahi"},
+  {name:"Musa Special Mutton Karahi",price:"3649/2049",category:"karahi"},
+  {name:"Mutton Lahori Karahi",price:"3549/1899",category:"karahi"},
+  {name:"Mutton Peshawri Karahi",price:"3549/1999",category:"karahi"},
+  {name:"Mutton Hari Mirch Karahi",price:"3699/1949",category:"karahi"},
+  {name:"Mutton Butt Karahi",price:"3549/1899",category:"karahi"},
+  {name:"Mutton White Karahi",price:"3699/2049",category:"karahi"},
+  {name:"Mutton Sulemani Karahi",price:"3699/2049",category:"karahi"},
+  {name:"Mutton Koyla Karahi",price:"3599/1949",category:"karahi"},
+  {name:"Mutton Achari Karahi",price:"3549/1899",category:"karahi"},
+  {name:"Mutton Namkeen",price:"3499/1899",category:"karahi"},
+  {name:"Mutton Afghani Karahi",price:"3649/2049",category:"karahi"},
+  {name:"Mutton Kuna",price:1999,category:"karahi"},
+  
+  {name:"Musa Special Jungli Pulao",price:1299,category:"biryani"},
+  {name:"Mutton Afghani Pulao",price:1599,category:"biryani"},
+  {name:"Chicken Pulao",price:1199,category:"biryani"},
+  {name:"Mutton Pulao",price:1599,category:"biryani"},
+  {name:"Chicken Biryani",price:1199,category:"biryani"},
+  {name:"Mutton Biryani",price:1599,category:"biryani"},
+  {name:"Batair Biryani",price:1399,category:"biryani"},
+  {name:"Matka Biryani",price:1649,category:"biryani"},
+  {name:"Mumbai Biryani",price:1199,category:"biryani"},
+  {name:"Yakhani Pulao",price:1149,category:"biryani"},
+  
+  {name:"Musa Special BBQ Platter",price:"5999/3599",category:"bbq"},
+  {name:"Malai Boti",price:1249,category:"bbq"},
+  {name:"Cheese Boti",price:1349,category:"bbq"},
+  {name:"Kastori Boti",price:1349,category:"bbq"},
+  {name:"Chicken Kabab",price:849,category:"bbq"},
+  {name:"Reshmi Kabab",price:999,category:"bbq"},
+  {name:"Makhmali Kabab",price:1049,category:"bbq"},
+  {name:"Mutton Kabab",price:1249,category:"bbq"},
+  {name:"Mutton Tikka",price:1999,category:"bbq"},
+  {name:"Mutton Chops",price:1999,category:"bbq"},
+  {name:"Achari Boti",price:1049,category:"bbq"},
+  {name:"Chicken Boti",price:999,category:"bbq"},
+  {name:"Bateer Tikka",price:2099,category:"bbq"},
+  {name:"Chicken Chest Piece",price:449,category:"bbq"},
+  {name:"Chicken Leg Piece",price:399,category:"bbq"},
+  {name:"Chicken Qalmi Tikka",price:1299,category:"bbq"},
+  {name:"Malai Piece Leg",price:449,category:"bbq"},
+  {name:"Malai Piece Chest",price:479,category:"bbq"},
+  {name:"Cheese Kabab",price:1149,category:"bbq"},
+  {name:"Chatkhara Boti",price:1249,category:"bbq"},
+  
+  {name:"Chicken Tikka",price:"649/1199/1699",category:"pizza"},
+  {name:"Chicken Fajita",price:"649/1199/1699",category:"pizza"},
+  {name:"Chicken Supreme",price:"649/1199/1699",category:"pizza"},
+  {name:"Mughali",price:"649/1199/1699",category:"pizza"},
+  {name:"Chicken Achari",price:"649/1199/1699",category:"pizza"},
+  {name:"Cheese Lover",price:"649/1199/1699",category:"pizza"},
+  {name:"Peri Peri Hot",price:"649/1199/1699",category:"pizza"},
+  {name:"Musa Special",price:"1299/1999",category:"pizza"},
+  {name:"BBQ Pizza",price:"1299/1999",category:"pizza"},
+  {name:"Malai Boti",price:"1299/1899",category:"pizza"},
+  {name:"Bone Fire",price:"1299/1899",category:"pizza"},
+  {name:"Behari Kabab",price:"1299/1999",category:"pizza"},
+];
+
+function renderFeatured(){
+  const grid=document.getElementById('featuredGrid');
+  grid.innerHTML='';
+  const featured=[
+    {name:"Musa Special Chicken Karahi",price:"1999/1249"},
+    {name:"Musa Special BBQ Platter",price:"5999/3599"},
+    {name:"Musa Special Pizza",price:"1299/1999"},
+    {name:"Chicken Biryani",price:1199},
+  ];
+  featured.forEach((dish,idx)=>{
+    const card=document.createElement('div');
+    card.className='featured-card reveal';
+    card.style.animationDelay=idx*0.2+'s';
+    card.innerHTML=`
+      <div class="featured-image">🍲</div>
       <div class="featured-info">
         <div class="featured-name">${dish.name}</div>
         <div class="featured-price">Rs ${dish.price}</div>
@@ -747,61 +1298,47 @@ function renderFeatured(){
   });
 }
 
-// SEARCH FUNCTIONALITY
-document.getElementById('searchInput').addEventListener('input', function(e){
-  const query = e.target.value.toLowerCase();
-  const results = document.getElementById('searchResults');
-  results.innerHTML = '';
-  
-  if(query.length > 0){
-    const filtered = menuData.filter(item => item.name.toLowerCase().includes(query));
-    
-    filtered.forEach(item => {
-      const card = document.createElement('div');
-      card.className = 'search-result-card';
-      card.innerHTML = `
-        <div class="result-image"><img src="${item.image}" alt="${item.name}" onerror="this.style.display='none'"></div>
-        <div class="result-info">
-          <div class="result-category">${item.category}</div>
-          <div class="result-name">${item.name}</div>
-          <div class="result-price">Rs ${item.price}</div>
-          <button class="order-btn" onclick="openWhatsApp()">Order Now</button>
-        </div>
-      `;
-      results.appendChild(card);
-    });
-  }
-});
-
-// FILTER MENU
 function filterCategory(category){
-  document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
   event.target.classList.add('active');
-  
-  const grid = document.getElementById('menuGrid');
-  grid.innerHTML = '';
-  
-  const filtered = category === 'all' ? menuData : menuData.filter(item => item.category === category);
-  
-  filtered.forEach(item => {
-    const card = document.createElement('div');
-    card.className = 'menu-card';
-    card.innerHTML = `
+  const grid=document.getElementById('menuGrid');
+  grid.innerHTML='';
+  const filtered=category==='all'?menuData:menuData.filter(i=>i.category===category||i.category2===category);
+  filtered.forEach((item,idx)=>{
+    const card=document.createElement('div');
+    card.className='menu-card reveal';
+    card.style.animationDelay=idx*0.1+'s';
+    card.innerHTML=`
       <div class="menu-name">${item.name}</div>
       <div class="menu-price">Rs ${item.price}</div>
+      <button class="order-btn" onclick="openWhatsApp()">Order</button>
     `;
     grid.appendChild(card);
   });
 }
 
-// WHATSAPP
 function openWhatsApp(){
   window.open('https://wa.me/923013777777?text=Hello%20MUSA%20Cafe%20%26%20Restaurant%2C%20I%20would%20like%20to%20place%20an%20order.','_blank');
 }
 
-// INIT
+function scrollToTop(){
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+window.addEventListener('scroll',()=>{
+  const header=document.getElementById('header');
+  const scrollTop=document.getElementById('scrollTop');
+  if(window.scrollY>50){header.classList.add('scrolled')}else{header.classList.remove('scrolled')}
+  if(window.scrollY>300){scrollTop.classList.add('show')}else{scrollTop.classList.remove('show')}
+  
+  document.querySelectorAll('.reveal').forEach(el=>{
+    if(el.getBoundingClientRect().top<window.innerHeight-100){el.classList.add('active')}
+  });
+});
+
 renderFeatured();
 filterCategory('all');
+document.querySelectorAll('.about-image').forEach(el=>el.innerHTML='🍽️');
 </script>
 
 </body>
