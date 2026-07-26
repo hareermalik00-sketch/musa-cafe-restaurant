@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Musa Cafe & Restaurant | 3D Dining Experience</title>
+    <title>Musa Cafe & Restaurant | 3D Live Experience</title>
     <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -13,11 +13,11 @@
         :root {
             --primary: #ff9f43;
             --secondary: #ee5253;
-            --bg-dark: #0f0f13;
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --card-border: rgba(255, 255, 255, 0.12);
+            --bg-dark: #0a0a0d;
+            --card-bg: rgba(255, 255, 255, 0.06);
+            --card-border: rgba(255, 255, 255, 0.15);
             --text: #ffffff;
-            --text-dim: #b3b3b3;
+            --text-dim: #c7c7c7;
         }
 
         * {
@@ -32,7 +32,7 @@
             background-color: var(--bg-dark);
             color: var(--text);
             overflow-x: hidden;
-            perspective: 1000px;
+            perspective: 1200px;
         }
 
         /* --- 3D AMBIENT BACKGROUND PARTICLES --- */
@@ -46,7 +46,7 @@
             pointer-events: none;
         }
 
-        /* --- AUDIO TOGGLE BUTTON --- */
+        /* --- FLOATING AUDIO CONTROL --- */
         .music-btn {
             position: fixed;
             bottom: 25px;
@@ -55,29 +55,29 @@
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             border: none;
             color: white;
-            padding: 14px 22px;
+            padding: 14px 24px;
             border-radius: 50px;
             font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 10px 25px rgba(255, 159, 67, 0.4);
+            box-shadow: 0 10px 30px rgba(255, 159, 67, 0.5);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             transition: all 0.3s ease;
-            animation: pulse 2s infinite;
+            animation: pulseGlow 2s infinite;
         }
 
         .music-btn:hover {
-            transform: scale(1.08) translateY(-3px);
+            transform: scale(1.08) translateY(-4px);
         }
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(255, 159, 67, 0.6); }
-            70% { box-shadow: 0 0 0 15px rgba(255, 159, 67, 0); }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(255, 159, 67, 0.7); }
+            70% { box-shadow: 0 0 0 18px rgba(255, 159, 67, 0); }
             100% { box-shadow: 0 0 0 0 rgba(255, 159, 67, 0); }
         }
 
-        /* --- HERO SECTION WITH 3D DEPTH --- */
+        /* --- HERO SECTION WITH CONTINUOUS 3D MOTION --- */
         .hero {
             height: 100vh;
             display: flex;
@@ -93,50 +93,51 @@
         .hero::before {
             content: '';
             position: absolute;
-            width: 350px;
-            height: 350px;
-            background: radial-gradient(circle, rgba(255,159,67,0.2) 0%, rgba(0,0,0,0) 70%);
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(255,159,67,0.25) 0%, rgba(0,0,0,0) 70%);
             border-radius: 50%;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: -1;
-            animation: floatingGlow 6s ease-in-out infinite alternate;
+            animation: floatAmbient 5s ease-in-out infinite alternate;
         }
 
-        @keyframes floatingGlow {
-            0% { transform: translate(-50%, -50%) scale(1); }
-            100% { transform: translate(-50%, -50%) scale(1.3); }
+        @keyframes floatAmbient {
+            0% { transform: translate(-50%, -50%) scale(0.9) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) scale(1.3) rotate(10deg); }
         }
 
         .hero h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 4rem;
+            font-size: 4.2rem;
             letter-spacing: 2px;
-            background: linear-gradient(45deg, #fff, var(--primary));
+            background: linear-gradient(45deg, #ffffff, var(--primary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            animation: floatText 4s ease-in-out infinite alternate;
+            text-shadow: 0 15px 35px rgba(0,0,0,0.7);
+            animation: continuous3DFloat 4s ease-in-out infinite alternate;
         }
 
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             color: var(--text-dim);
-            max-width: 600px;
+            max-width: 650px;
             margin-top: 15px;
+            animation: continuous3DFloat 4s ease-in-out infinite alternate-reverse;
         }
 
-        @keyframes floatText {
-            0% { transform: translateY(0px) rotateX(0deg); }
-            100% { transform: translateY(-15px) rotateX(5deg); }
+        @keyframes continuous3DFloat {
+            0% { transform: translateY(0px) rotateX(0deg) rotateY(0deg) translateZ(0px); }
+            100% { transform: translateY(-18px) rotateX(8deg) rotateY(-4deg) translateZ(20px); }
         }
 
-        /* --- CONTAINER & SECTION TITLES --- */
+        /* --- CONTAINER & TITLES --- */
         .container {
             max-width: 1300px;
             margin: 0 auto;
-            padding: 60px 20px;
+            padding: 40px 20px;
         }
 
         .section-title {
@@ -150,281 +151,326 @@
 
         .section-title::after {
             content: '';
-            width: 80px;
-            height: 3px;
+            width: 90px;
+            height: 4px;
             background: var(--secondary);
             position: absolute;
-            bottom: -10px;
+            bottom: -12px;
             left: 50%;
             transform: translateX(-50%);
+            border-radius: 2px;
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-bottom: 80px;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 35px;
+            margin-bottom: 70px;
         }
 
-        /* --- 3D TILT CARDS --- */
+        /* --- 3D FLOATING CARDS --- */
         .card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 20px;
-            padding: 20px;
-            backdrop-filter: blur(10px);
+            border-radius: 22px;
+            padding: 22px;
+            backdrop-filter: blur(12px);
             transition: transform 0.2s ease-out, box-shadow 0.3s ease;
             transform-style: preserve-3d;
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            animation: cardFloat 6s ease-in-out infinite alternate;
+        }
+
+        .grid .card:nth-child(even) {
+            animation-delay: 1.5s;
+        }
+
+        @keyframes cardFloat {
+            0% { transform: translateY(0px) rotateX(0deg); }
+            100% { transform: translateY(-10px) rotateX(4deg); }
         }
 
         .card:hover {
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 20px rgba(255, 159, 67, 0.2);
+            box-shadow: 0 25px 45px rgba(0,0,0,0.8), 0 0 25px rgba(255, 159, 67, 0.3);
         }
 
         .card-img-wrapper {
             width: 100%;
-            height: 220px;
-            border-radius: 15px;
+            height: 230px;
+            border-radius: 16px;
             overflow: hidden;
             position: relative;
-            transform: translateZ(30px);
+            transform: translateZ(35px);
         }
 
         .card-img-wrapper img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: transform 0.6s ease;
         }
 
         .card:hover .card-img-wrapper img {
-            transform: scale(1.1);
+            transform: scale(1.12);
         }
 
         .card-title {
-            font-size: 1.4rem;
+            font-size: 1.45rem;
             margin: 20px 0 10px 0;
             color: #fff;
-            transform: translateZ(25px);
+            transform: translateZ(28px);
         }
 
         .card-desc {
-            font-size: 0.9rem;
+            font-size: 0.92rem;
             color: var(--text-dim);
             transform: translateZ(20px);
-            line-height: 1.4;
+            line-height: 1.5;
+        }
+
+        /* --- RESTAURANT INTERIOR SECTION --- */
+        .interior-card {
+            height: 300px;
+        }
+
+        .interior-card img {
+            object-fit: cover;
+            filter: brightness(0.9);
         }
 
         /* --- LOCATION CARD STYLING --- */
         .location-card {
-            background: linear-gradient(135deg, rgba(255,159,67,0.1), rgba(238,82,83,0.1));
+            background: linear-gradient(135deg, rgba(255,159,67,0.12), rgba(238,82,83,0.12));
             border: 1px solid var(--primary);
             text-align: center;
-            padding: 35px;
+            padding: 40px;
             margin-bottom: 40px;
+            border-radius: 25px;
         }
 
         .rating-num {
-            font-size: 2.8rem;
+            font-size: 3rem;
             font-weight: 700;
             color: var(--primary);
         }
 
         /* --- RESPONSIVE DESIGN --- */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .section-title { font-size: 2rem; }
-            .grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+            .hero h1 { font-size: 2.6rem; }
+            .section-title { font-size: 2.1rem; }
+            .grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
         }
     </style>
 </head>
 <body>
 
+    <!-- REAL SOFT INSTRUMENTAL AUDIO TRACK -->
+    <audio id="bgAudio" loop preload="auto">
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
+    </audio>
+
     <!-- 3D Particle Canvas Background -->
     <canvas id="bg-canvas"></canvas>
 
-    <!-- Audio Player Toggle -->
+    <!-- Audio Player Toggle Button -->
     <button class="music-btn" id="musicToggle">
         <i class="fa-solid fa-music"></i>
-        <span>Play Ambient Music</span>
+        <span id="musicBtnText">Play Soft Ambient Music</span>
     </button>
 
     <!-- Hero Section -->
     <section class="hero">
         <h1>Musa Cafe & Restaurant</h1>
-        <p>Experience authentic taste served with modern elegance & immersive atmosphere.</p>
+        <p>Step into an immersive 3D culinary journey with fresh taste & cozy atmosphere.</p>
     </section>
 
     <!-- Main Content Container -->
     <div class="container">
 
-        <!-- 1. PIZZAS -->
+        <!-- 🏢 RESTAURANT INTERIOR & AMBIANCE -->
+        <h2 class="section-title">Restaurant Interior & Ambiance</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="card-img-wrapper interior-card">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80" alt="Musa Cafe Main Hall Interior">
+                </div>
+                <h3 class="card-title">Main Dining Hall</h3>
+                <p class="card-desc">Warm aesthetic lighting, premium seating arrangements, and elegant modern décor.</p>
+            </div>
+            <div class="card">
+                <div class="card-img-wrapper interior-card">
+                    <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=800&q=80" alt="Family Lounge Seating">
+                </div>
+                <h3 class="card-title">Cozy Family Lounge</h3>
+                <p class="card-desc">Private, peaceful, and clean seating space customized for families & group dining.</p>
+            </div>
+        </div>
+
+        <!-- 🍕 1. SPECIAL PIZZAS -->
         <h2 class="section-title">Special Pizzas</h2>
         <div class="grid">
             <div class="card">
                 <div class="card-img-wrapper">
-                    <img src="deep-dish-pizza.jpg" alt="Special Deep Dish Pizza">
+                    <img src="https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?auto=format&fit=crop&w=800&q=80" alt="Special Deep Dish Pizza">
                 </div>
                 <h3 class="card-title">Special Deep Dish Pizza</h3>
                 <p class="card-desc">Rich layers of cheese, minced beef & secret sauce cooked to deep-dish perfection.</p>
             </div>
             <div class="card">
                 <div class="card-img-wrapper">
-                    <img src="chicken-pizza.jpg" alt="Chicken Jalapeño Pizza">
+                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=80" alt="Chicken Jalapeño Pizza">
                 </div>
                 <h3 class="card-title">Chicken Jalapeño Pizza</h3>
                 <p class="card-desc">Spicy chicken topped with fresh jalapeños, onions, and melted mozzarella cheese.</p>
             </div>
             <div class="card">
                 <div class="card-img-wrapper">
-                    <img src="tikka-pizza.jpg" alt="Chicken Tikka Pizza">
+                    <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80" alt="Chicken Tikka Pizza">
                 </div>
                 <h3 class="card-title">Chicken Tikka Pizza</h3>
                 <p class="card-desc">Traditional barbecued chicken tikka chunks with capsicum, oregano & herbs.</p>
             </div>
         </div>
 
-        <!-- 2. SOUPS -->
+        <!-- 🍲 2. WARM SOUPS -->
         <h2 class="section-title">Warm Soups</h2>
         <div class="grid">
             <div class="card">
                 <div class="card-img-wrapper">
-                    <img src="noodle-soup.jpg" alt="Chicken Noodle Soup">
+                    <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=800&q=80" alt="Chicken Noodle Soup">
                 </div>
                 <h3 class="card-title">Chicken Noodle Soup</h3>
                 <p class="card-desc">Comforting hot broth filled with tender chicken pieces, scallions, and soft noodles.</p>
             </div>
             <div class="card">
                 <div class="card-img-wrapper">
-                    <img src="chicken-soup.jpg" alt="Clear Chicken Soup">
+                    <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=800&q=80" alt="Clear Chicken Soup">
                 </div>
                 <h3 class="card-title">Clear Chicken Soup</h3>
                 <p class="card-desc">Nutritious, simmered broth with chopped vegetables and shredded chicken breast.</p>
             </div>
             <div class="card">
                 <div class="card-img-wrapper">
-                    <img src="corn-soup.jpg" alt="Chicken Corn Soup">
+                    <img src="https://images.unsplash.com/photo-1603105037880-880cd4edfb5d?auto=format&fit=crop&w=800&q=80" alt="Chicken Corn Soup">
                 </div>
                 <h3 class="card-title">Chicken Corn Soup</h3>
                 <p class="card-desc">Classic creamy sweet corn soup with egg drops, chicken, and black pepper.</p>
             </div>
         </div>
 
-        <!-- 3. BBQ & MAIN HANDI -->
+        <!-- 🍗 3. BBQ & MAIN HANDI -->
         <h2 class="section-title">BBQ & Main Karahi</h2>
         <div class="grid">
             <div class="card">
                 <div class="card-img-wrapper">
-                    <img src="chicken-handi.jpg" alt="Creamy Chicken Handi">
+                    <img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80" alt="Creamy Chicken Handi">
                 </div>
                 <h3 class="card-title">Creamy Chicken Handi</h3>
                 <p class="card-desc">Boneless chicken simmered in rich butter, fresh cream, and aromatic spices.</p>
             </div>
             <div class="card">
                 <div class="card-img-wrapper">
-                    <img src="malai-boti.jpg" alt="Chicken Malai Boti">
+                    <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=800&q=80" alt="Chicken Malai Boti">
                 </div>
                 <h3 class="card-title">Chicken Malai Boti</h3>
                 <p class="card-desc">Mouth-watering grilled chicken marinated in cream, lemon, green chillies & herbs.</p>
             </div>
         </div>
 
-        <!-- 4. FRESH NAAN -->
+        <!-- 🫓 4. TANDOORI NAAN SELECTION -->
         <h2 class="section-title">Tandoori Naan Selection</h2>
         <div class="grid">
             <div class="card">
                 <div class="card-img-wrapper">
-                    <img src="garlic-naan.jpg" alt="Garlic Naan">
+                    <img src="https://images.unsplash.com/photo-1626074353765-517a681e40be?auto=format&fit=crop&w=800&q=80" alt="Garlic Naan">
                 </div>
                 <h3 class="card-title">Garlic Naan</h3>
                 <p class="card-desc">Freshly baked tandoori naan brushed with garlic butter and parsley.</p>
             </div>
             <div class="card">
                 <div class="card-img-wrapper">
-                    <img src="chicken-naan.jpg" alt="Chicken Stuffed Naan">
+                    <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80" alt="Chicken Stuffed Naan">
                 </div>
                 <h3 class="card-title">Chicken Stuffed Naan</h3>
                 <p class="card-desc">Oven-baked naan stuffed with spicy minced chicken filling.</p>
             </div>
             <div class="card">
                 <div class="card-img-wrapper">
-                    <img src="roghani-naan.jpg" alt="Roghani Naan">
+                    <img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=800&q=80" alt="Roghani Naan">
                 </div>
                 <h3 class="card-title">Roghani Naan</h3>
                 <p class="card-desc">Traditional soft Roghani naan sprinkled with sesame seeds and ghee.</p>
             </div>
             <div class="card">
                 <div class="card-img-wrapper">
-                    <img src="tandoori-naan.jpg" alt="Special Tandoori Naan">
+                    <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80" alt="Special Tandoori Naan">
                 </div>
                 <h3 class="card-title">Special Tandoori Naan</h3>
                 <p class="card-desc">Classic crispy clay-oven naan bread served piping hot.</p>
             </div>
         </div>
 
-        <!-- 5. COFFEE & BEVERAGES -->
+        <!-- ☕ 5. COFFEE & BEVERAGES -->
         <h2 class="section-title">Coffee & Drinks</h2>
         <div class="grid">
             <div class="card">
                 <div class="card-img-wrapper">
-                    <img src="hot-coffee.jpg" alt="Cappuccino Hot Coffee">
+                    <img src="https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=800&q=80" alt="Cappuccino Hot Coffee">
                 </div>
                 <h3 class="card-title">Cappuccino Hot Coffee</h3>
                 <p class="card-desc">Rich espresso blended with steamed milk and thick micro-foam froth.</p>
             </div>
             <div class="card">
                 <div class="card-img-wrapper">
-                    <img src="spanish-latte.jpg" alt="Spanish Latte">
+                    <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=800&q=80" alt="Spanish Latte">
                 </div>
                 <h3 class="card-title">Spanish Latte / Caramel</h3>
                 <p class="card-desc">Smooth espresso poured over sweet milk and served iced or warm.</p>
             </div>
             <div class="card">
                 <div class="card-img-wrapper">
-                    <img src="iced-coffee.jpg" alt="Cold Iced Coffee">
+                    <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=800&q=80" alt="Cold Iced Coffee">
                 </div>
                 <h3 class="card-title">Iced Cold Coffee</h3>
                 <p class="card-desc">Refreshing chilled brew infused with sweet milk cream and ice.</p>
             </div>
         </div>
 
-        <!-- 6. DESSERTS -->
+        <!-- 🍨 6. SWEET DESSERTS -->
         <h2 class="section-title">Sweet Desserts</h2>
         <div class="grid">
             <div class="card">
                 <div class="card-img-wrapper">
-                    <img src="gulab-jamun.jpg" alt="Gulab Jamun">
+                    <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80" alt="Gulab Jamun">
                 </div>
                 <h3 class="card-title">Gulab Jamun</h3>
                 <p class="card-desc">Warm, soft fried dumplings soaked in cardamom sugar syrup.</p>
             </div>
             <div class="card">
                 <div class="card-img-wrapper">
-                    <img src="kheer.jpg" alt="Special Kheer / Firni">
+                    <img src="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=800&q=80" alt="Special Kheer / Firni">
                 </div>
                 <h3 class="card-title">Special Kheer / Firni</h3>
                 <p class="card-desc">Traditional rice pudding slow-cooked with milk, saffron, and nuts.</p>
             </div>
             <div class="card">
                 <div class="card-img-wrapper">
-                    <img src="fruit-trifle.jpg" alt="Fruit Trifle Dessert">
+                    <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=800&q=80" alt="Fruit Trifle Dessert">
                 </div>
                 <h3 class="card-title">Fruit Trifle</h3>
                 <p class="card-desc">Delightful layered dessert with custard, sponge cake, and fresh fruits.</p>
             </div>
         </div>
 
-        <!-- 7. LOCATION, RATING & GOOGLE REVIEWS -->
+        <!-- 📍 7. LOCATION, RATING & GOOGLE REVIEWS -->
         <h2 class="section-title">Location & Google Reviews</h2>
         
-        <!-- Summary Banner -->
         <div class="card location-card">
             <div class="rating-num">3.8 / 5.0 ⭐</div>
             <p style="color: var(--text-dim); margin-top: 5px;">Based on Authentic Google Customer Reviews</p>
-            <p style="margin-top: 18px; font-weight: 600; font-size: 1.1rem;">
+            <p style="margin-top: 18px; font-weight: 600; font-size: 1.15rem;">
                 <i class="fa-solid fa-location-dot" style="color: var(--secondary);"></i> 03, Block A Housing Colony, Layyah, Pakistan
             </p>
             <p style="margin-top: 8px; font-size: 1.05rem;">
@@ -432,7 +478,6 @@
             </p>
         </div>
 
-        <!-- Customer Reviews Cards -->
         <div class="grid">
             <div class="card">
                 <div style="color: #ffc107; margin-bottom: 10px; font-size: 1.2rem;">
@@ -461,9 +506,9 @@
 
     </div>
 
-    <!-- JAVASCRIPT: 3D PARTICLES, TILT EFFECTS, & AMBIENT SYNTH AUDIO -->
+    <!-- JAVASCRIPT: PARTICLES, TILT, & REAL MP3 AUDIO TOGGLE -->
     <script>
-        /* --- 1. 3D CANVAS PARTICLES ANIMATION --- */
+        /* --- 1. PARTICLES CANVAS --- */
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -476,24 +521,20 @@
         resizeCanvas();
 
         class Particle {
-            constructor() {
-                this.reset();
-            }
+            constructor() { this.reset(); }
             reset() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
                 this.z = Math.random() * 2 + 0.5;
                 this.radius = Math.random() * 2.5 + 1;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
+                this.vx = (Math.random() - 0.5) * 0.6;
+                this.vy = (Math.random() - 0.5) * 0.6;
                 this.alpha = Math.random() * 0.5 + 0.2;
             }
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
-                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
-                    this.reset();
-                }
+                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
             }
             draw() {
                 ctx.beginPath();
@@ -503,21 +544,16 @@
             }
         }
 
-        for (let i = 0; i < 70; i++) {
-            particles.push(new Particle());
-        }
+        for (let i = 0; i < 75; i++) { particles.push(new Particle()); }
 
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
+            particles.forEach(p => { p.update(); p.draw(); });
             requestAnimationFrame(animateParticles);
         }
         animateParticles();
 
-        /* --- 2. DYNAMIC 3D CARD TILT EFFECT --- */
+        /* --- 2. DYNAMIC MOUSE/TOUCH 3D TILT --- */
         const cards = document.querySelectorAll('.card');
 
         cards.forEach(card => {
@@ -529,10 +565,10 @@
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
                 
-                const rotateX = ((y - centerY) / centerY) * -12;
-                const rotateY = ((x - centerX) / centerX) * 12;
+                const rotateX = ((y - centerY) / centerY) * -15;
+                const rotateY = ((x - centerX) / centerX) * 15;
 
-                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(15px)`;
             });
 
             card.addEventListener('mouseleave', () => {
@@ -540,53 +576,27 @@
             });
         });
 
-        /* --- 3. AMBIENT MUSIC SYNTH GENERATOR (WEB AUDIO API) --- */
-        let audioCtx;
-        let isPlaying = false;
-        let oscillatorInterval;
-
+        /* --- 3. REAL MP3 AUDIO TOGGLE --- */
+        const bgAudio = document.getElementById('bgAudio');
         const musicBtn = document.getElementById('musicToggle');
-
-        function startAmbientSound() {
-            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const notes = [261.63, 329.63, 392.00, 523.25, 440.00]; // C, E, G, C, A
-
-            function playChord() {
-                if(!isPlaying) return;
-                const note = notes[Math.floor(Math.random() * notes.length)];
-                
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(note, audioCtx.currentTime);
-
-                gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.08, audioCtx.currentTime + 1.5);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 4);
-
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-
-                osc.start();
-                osc.stop(audioCtx.currentTime + 4.5);
-            }
-
-            playChord();
-            oscillatorInterval = setInterval(playChord, 2000);
-        }
+        const musicBtnText = document.getElementById('musicBtnText');
+        let isPlaying = false;
 
         musicBtn.addEventListener('click', () => {
             if (!isPlaying) {
-                isPlaying = true;
-                startAmbientSound();
-                musicBtn.innerHTML = `<i class="fa-solid fa-pause"></i> <span>Mute Soft Music</span>`;
-                musicBtn.style.background = "linear-gradient(135deg, #ee5253, #ff9f43)";
+                bgAudio.play().then(() => {
+                    isPlaying = true;
+                    musicBtnText.innerText = "Pause Ambient Music";
+                    musicBtn.querySelector('i').className = "fa-solid fa-pause";
+                    musicBtn.style.background = "linear-gradient(135deg, #ee5253, #ff9f43)";
+                }).catch(err => {
+                    console.log("Audio play error: ", err);
+                });
             } else {
+                bgAudio.pause();
                 isPlaying = false;
-                if(audioCtx) audioCtx.close();
-                clearInterval(oscillatorInterval);
-                musicBtn.innerHTML = `<i class="fa-solid fa-music"></i> <span>Play Ambient Music</span>`;
+                musicBtnText.innerText = "Play Soft Ambient Music";
+                musicBtn.querySelector('i').className = "fa-solid fa-music";
                 musicBtn.style.background = "linear-gradient(135deg, #ff9f43, #ee5253)";
             }
         });
