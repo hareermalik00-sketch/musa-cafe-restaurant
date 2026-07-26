@@ -3,259 +3,544 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MUSA Cafe & Restaurant | Cinematic Luxury Dining Layyah</title>
-<script src="https://cdn.tailwindcss.com"></script>
+<meta name="description" content="MUSA Cafe & Restaurant — Layyah's finest luxury dining destination. Karahi, BBQ, Chinese, Pizza & Biryani crafted with passion.">
+<title>MUSA Cafe & Restaurant | Fine Dining Layyah</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/3.4.3/tailwind.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Cinzel:wght@500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--gold:#d4af37;--gold-light:#f0d787}
+:root{
+  --black:#0D0D0D;
+  --grey:#1A1A1A;
+  --grey-2:#141414;
+  --gold:#D4AF37;
+  --gold-soft:#E8C766;
+  --gold-dim:#8a7326;
+  --ivory:#F8F8F8;
+  --muted:#9a978c;
+}
 *{box-sizing:border-box}
-body{font-family:'Plus Jakarta Sans',sans-serif;background:#08070a;color:#f2f2f2;overflow-x:hidden}
-h1,h2,h3,.font-heading{font-family:'Cinzel',serif}
+html{scrollbar-color:var(--gold) var(--black)}
+body{
+  font-family:'Manrope',sans-serif;
+  background:var(--black);
+  color:var(--ivory);
+  overflow-x:hidden;
+  cursor:default;
+}
+h1,h2,h3,.font-display{font-family:'Cormorant Garamond',serif}
+.font-eyebrow{font-family:'Cinzel',serif}
+::selection{background:var(--gold);color:#0D0D0D}
 
-@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
-@keyframes glowPulse{0%,100%{box-shadow:0 0 20px rgba(212,175,55,0.3)}50%{box-shadow:0 0 40px rgba(212,175,55,0.55)}}
-@keyframes shimmer{0%{background-position:-500px 0}100%{background-position:500px 0}}
-@keyframes particleUp{0%{transform:translateY(0) scale(1);opacity:0}50%{opacity:0.6}100%{transform:translateY(-110vh) scale(.3);opacity:0}}
-@keyframes smokeRise{0%{transform:translateY(0) scale(.8);opacity:0}20%{opacity:.5}100%{transform:translateY(-150px) scale(2);opacity:0}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(35px)}to{opacity:1;transform:translateY(0)}}
-@keyframes splashFade{0%{opacity:1}80%{opacity:1}100%{opacity:0;visibility:hidden}}
-@keyframes splashText{0%{opacity:0;transform:translateY(20px)}30%{opacity:1;transform:translateY(0)}100%{opacity:1;transform:translateY(0)}}
+/* ---------- Loader ---------- */
+#loader{position:fixed;inset:0;z-index:10000;background:var(--black);display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity .9s ease, visibility .9s ease}
+#loader.hide{opacity:0;visibility:hidden}
+.ember{position:relative;width:56px;height:56px}
+.ember span{position:absolute;inset:0;border:1px solid var(--gold);border-radius:50%;opacity:0;animation:emberRing 1.8s ease-out infinite}
+.ember span:nth-child(2){animation-delay:.45s}
+.ember span:nth-child(3){animation-delay:.9s}
+.ember i{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:20px}
+@keyframes emberRing{0%{transform:scale(.4);opacity:0}30%{opacity:1}100%{transform:scale(1.9);opacity:0}}
+#loader p{font-family:'Cinzel',serif;letter-spacing:5px;font-size:11px;color:var(--muted);margin-top:22px;text-transform:uppercase;opacity:0;animation:loaderText 1.2s ease forwards .3s}
+@keyframes loaderText{to{opacity:1}}
 
-.reveal{opacity:0;transform:translateY(25px);transition:all .6s cubic-bezier(.22,1,.36,1)}
+/* ---------- Scroll progress ---------- */
+#progressBar{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--gold-dim),var(--gold),var(--gold-soft));z-index:9998;width:0%;box-shadow:0 0 8px rgba(212,175,55,.6)}
+
+/* ---------- Cursor glow ---------- */
+#cursorGlow{position:fixed;width:380px;height:380px;border-radius:50%;pointer-events:none;z-index:1;background:radial-gradient(circle,rgba(212,175,55,0.06),transparent 70%);transform:translate(-50%,-50%);transition:opacity .3s;left:-500px;top:-500px}
+@media (max-width:768px){#cursorGlow{display:none}}
+
+/* ---------- Reveal ---------- */
+.reveal{opacity:0;transform:translateY(36px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1)}
 .reveal.show{opacity:1;transform:translateY(0)}
+.reveal-l{opacity:0;transform:translateX(-40px);transition:opacity .9s ease,transform .9s cubic-bezier(.16,1,.3,1)}
+.reveal-l.show{opacity:1;transform:translateX(0)}
+.reveal-r{opacity:0;transform:translateX(40px);transition:opacity .9s ease,transform .9s cubic-bezier(.16,1,.3,1)}
+.reveal-r.show{opacity:1;transform:translateX(0)}
 
-.glass-card{background:rgba(20,18,14,0.6);backdrop-filter:blur(10px);border:1px solid rgba(212,175,55,0.18)}
-.card-3d{transition:all .4s cubic-bezier(.22,1,.36,1)}
-.card-3d:hover{transform:translateY(-10px);border-color:var(--gold);box-shadow:0 20px 45px rgba(212,175,55,.22)}
+/* ---------- Particles ---------- */
+@keyframes particleUp{0%{transform:translateY(0) translateX(0);opacity:0}10%{opacity:.7}90%{opacity:.4}100%{transform:translateY(-115vh) translateX(var(--drift,20px));opacity:0}}
+.particle{position:fixed;bottom:-20px;border-radius:50%;background:radial-gradient(circle,var(--gold-soft),var(--gold));box-shadow:0 0 10px rgba(212,175,55,.7);animation:particleUp linear infinite;z-index:1;pointer-events:none}
 
-.shimmer-text{background:linear-gradient(90deg,var(--gold) 0%,var(--gold-light) 25%,var(--gold) 50%,var(--gold-light) 75%,var(--gold) 100%);background-size:1000px 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 3s linear infinite}
-.float{animation:floatY 4s ease-in-out infinite}
-.glow{animation:glowPulse 2.2s ease-in-out infinite}
-.particle{position:fixed;bottom:-30px;width:5px;height:5px;background:radial-gradient(circle,var(--gold-light),var(--gold));border-radius:50%;box-shadow:0 0 8px var(--gold);animation:particleUp linear infinite;z-index:1;pointer-events:none}
+/* ---------- Glass ---------- */
+.glass{background:rgba(255,255,255,0.025);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);border:1px solid rgba(212,175,55,0.14)}
+.glass-strong{background:rgba(20,20,20,0.55);backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);border:1px solid rgba(212,175,55,0.16)}
 
-.dish-card{position:relative;overflow:hidden;border-radius:16px}
-.dish-card img{transition:transform 3s ease}
-.dish-card:hover img{transform:scale(1.1)}
-.smoke{position:absolute;bottom:35%;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,0.5),transparent 70%);filter:blur(7px);pointer-events:none}
-.smoke1{left:35%;width:35px;height:60px;animation:smokeRise 3.2s ease-in infinite}
-.smoke2{left:50%;width:26px;height:48px;animation:smokeRise 3.8s ease-in infinite .8s}
-.smoke3{left:60%;width:30px;height:52px;animation:smokeRise 3.5s ease-in infinite 1.6s}
+/* ---------- Nav ---------- */
+#nav{transition:background .5s ease,border-color .5s ease,padding .4s ease;border-bottom:1px solid transparent}
+#nav.scrolled{background:rgba(13,13,13,0.86);backdrop-filter:blur(18px);border-color:rgba(212,175,55,0.16)}
+.nav-link{position:relative;padding-bottom:4px}
+.nav-link::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--gold);transition:width .35s cubic-bezier(.16,1,.3,1)}
+.nav-link:hover::after{width:100%}
+.logo-ring{animation:logoSpin 14s linear infinite}
+@keyframes logoSpin{to{transform:rotate(360deg)}}
 
-#splash{position:fixed;inset:0;z-index:9999;background:#08070a;display:flex;align-items:center;justify-content:center;flex-direction:column;animation:splashFade 3.2s ease forwards}
-#splash h1{font-family:'Cinzel',serif;font-size:clamp(24px,5vw,42px);text-align:center;opacity:0;animation:splashText 3.2s ease forwards}
-#splash p{color:var(--gold-light);letter-spacing:3px;text-transform:uppercase;font-size:12px;margin-top:14px;opacity:0;animation:splashText 3.2s ease forwards .2s}
+/* ---------- Buttons ---------- */
+.btn-gold{position:relative;overflow:hidden;isolation:isolate}
+.btn-gold::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.35),transparent 60%);opacity:0;transition:opacity .4s;z-index:-1}
+.btn-gold:hover::before{opacity:1}
+.ripple{position:relative;overflow:hidden}
+.ripple-dot{position:absolute;border-radius:50%;background:rgba(255,255,255,0.5);transform:scale(0);animation:rippleAnim .65s ease-out forwards;pointer-events:none}
+@keyframes rippleAnim{to{transform:scale(3);opacity:0}}
+.glow-border{box-shadow:0 0 0 1px rgba(212,175,55,.35),0 8px 30px rgba(212,175,55,.15)}
+.glow-pulse{animation:glowPulse 2.6s ease-in-out infinite}
+@keyframes glowPulse{0%,100%{box-shadow:0 0 18px rgba(212,175,55,.25)}50%{box-shadow:0 0 32px rgba(212,175,55,.5)}}
 
-::-webkit-scrollbar{width:8px}
-::-webkit-scrollbar-thumb{background:var(--gold);border-radius:10px}
+/* ---------- 3D cards ---------- */
+.tilt-card{transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s ease,border-color .5s ease;transform-style:preserve-3d;will-change:transform}
+.tilt-card:hover{box-shadow:0 30px 60px -20px rgba(0,0,0,.6),0 0 40px -10px rgba(212,175,55,.25);border-color:rgba(212,175,55,.5)}
+
+/* ---------- Hero ---------- */
+.hero-bg{background-size:cover;background-position:center;animation:heroZoom 26s ease-in-out infinite alternate}
+@keyframes heroZoom{0%{transform:scale(1)}100%{transform:scale(1.13)}}
+.spotlight{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 20%,rgba(212,175,55,.16),transparent 65%)}
+.shimmer{background:linear-gradient(100deg,var(--gold-dim) 10%,var(--gold-soft) 35%,var(--gold) 50%,var(--gold-soft) 65%,var(--gold-dim) 90%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmerMove 5s linear infinite}
+@keyframes shimmerMove{0%{background-position:200% 0}100%{background-position:-50% 0}}
+.divider-gold{width:64px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+
+/* ---------- Dish card smoke ---------- */
+.dish-media{position:relative;overflow:hidden}
+.dish-media img{transition:transform 4s cubic-bezier(.16,1,.3,1),filter .6s}
+.tilt-card:hover .dish-media img{transform:scale(1.12)}
+.smoke{position:absolute;bottom:38%;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.45),transparent 70%);filter:blur(8px);pointer-events:none}
+@keyframes smokeRise{0%{transform:translateY(0) scale(.8);opacity:0}20%{opacity:.55}100%{transform:translateY(-140px) scale(2.1);opacity:0}}
+.smoke1{left:32%;width:34px;height:58px;animation:smokeRise 3.4s ease-in infinite}
+.smoke2{left:50%;width:26px;height:46px;animation:smokeRise 4s ease-in infinite .9s}
+.smoke3{left:62%;width:30px;height:50px;animation:smokeRise 3.7s ease-in infinite 1.7s}
+
+/* ---------- Menu accordion ---------- */
+.menu-toggle{cursor:pointer}
+.menu-body{max-height:0;overflow:hidden;transition:max-height .6s cubic-bezier(.16,1,.3,1)}
+.menu-body.open{max-height:2400px}
+.chevron{transition:transform .45s cubic-bezier(.16,1,.3,1)}
+.chevron.open{transform:rotate(180deg)}
+.menu-row{border-bottom:1px solid rgba(212,175,55,.08);transition:background .3s, padding-left .3s}
+.menu-row:hover{background:rgba(212,175,55,.04);padding-left:6px}
+
+/* ---------- Gallery / lightbox ---------- */
+.masonry{column-count:1;column-gap:1.25rem}
+@media(min-width:640px){.masonry{column-count:2}}
+@media(min-width:1024px){.masonry{column-count:3}}
+.masonry-item{break-inside:avoid;margin-bottom:1.25rem}
+#lightbox{position:fixed;inset:0;z-index:9997;background:rgba(8,8,8,.95);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
+#lightbox.active{opacity:1;visibility:visible}
+#lightbox img{max-width:88vw;max-height:82vh;border-radius:6px;box-shadow:0 30px 80px rgba(0,0,0,.7)}
+
+/* ---------- Counters ---------- */
+.counter-num{font-family:'Cormorant Garamond',serif;font-weight:700}
+
+/* ---------- Timeline ---------- */
+.timeline-line{background:linear-gradient(180deg,transparent,var(--gold) 10%,var(--gold) 90%,transparent)}
+
+/* ---------- Testimonial carousel ---------- */
+.t-slide{display:none;animation:fadeSlide .7s ease}
+.t-slide.active{display:block}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.t-dot{width:7px;height:7px;border-radius:50%;background:rgba(212,175,55,.3);transition:all .35s}
+.t-dot.active{background:var(--gold);width:22px;border-radius:4px}
+@keyframes starPop{0%{transform:scale(0);opacity:0}60%{transform:scale(1.25)}100%{transform:scale(1);opacity:1}}
+.star-anim{display:inline-block;animation:starPop .45s cubic-bezier(.34,1.56,.64,1) forwards;opacity:0}
+
+/* ---------- Form ---------- */
+.lux-input{background:rgba(255,255,255,.02);border:1px solid rgba(212,175,55,.2);transition:border-color .3s,box-shadow .3s}
+.lux-input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,.12)}
+.lux-input::placeholder{color:#6b6a63}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:9px}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--gold-dim),var(--gold));border-radius:10px}
 ::-webkit-scrollbar-track{background:#111}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}
+}
+
+/* Focus visibility for accessibility */
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 </style>
 </head>
-<body class="text-zinc-100 antialiased selection:bg-amber-500 selection:text-zinc-950 pb-24" style="background:linear-gradient(135deg,#08070a,#12100a)">
+<body class="antialiased selection:bg-amber-500 selection:text-zinc-950 pb-24" style="background:radial-gradient(ellipse at top,#151310,#0D0D0D 60%)">
 
-<!-- SPLASH INTRO -->
-<div id="splash">
-  <div class="w-16 h-16 rounded-full glass-card border border-amber-500/40 flex items-center justify-center font-heading font-bold text-2xl text-amber-400 glow mb-6">M</div>
-  <h1><span class="shimmer-text">Welcome to the Shine of Layyah</span></h1>
-  <p>MUSA Cafe & Restaurant</p>
+<!-- Loader -->
+<div id="loader" aria-hidden="true">
+  <div class="ember"><span></span><span></span><span></span><i class="fa-solid fa-utensils"></i></div>
+  <p>MUSA Cafe &amp; Restaurant</p>
 </div>
 
-<div id="particles"></div>
+<div id="progressBar"></div>
+<div id="cursorGlow"></div>
+<div id="particles" aria-hidden="true"></div>
 
-<div class="fixed top-4 right-4 z-50">
-  <audio id="bgMusic" loop>
-    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3" type="audio/mpeg">
-  </audio>
-  <button onclick="toggleMusic()" class="glass-card text-amber-400 px-4 py-2.5 rounded-full shadow-2xl flex items-center gap-3 border border-amber-500/40 transition active:scale-95 glow">
-    <span class="relative flex h-2.5 w-2.5"><span id="musicPing" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75 hidden"></span><span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500"></span></span>
-    <i id="musicIcon" class="fa-solid fa-play text-sm"></i>
-    <span class="text-xs font-semibold tracking-wider uppercase hidden sm:inline">Ambient Music</span>
-  </button>
+<!-- Lightbox -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image preview">
+  <button id="lightboxClose" aria-label="Close preview" class="absolute top-6 right-6 text-amber-400 text-3xl hover:text-white transition"><i class="fa-solid fa-xmark"></i></button>
+  <img id="lightboxImg" src="" alt="">
 </div>
 
-<a href="https://wa.me/923013777777?text=Assalam-o-Alaikum%2C%20MUSA%20Cafe%20%26%20Restaurant%20se%20order%20karna%20hai" target="_blank" class="fixed bottom-6 right-6 z-50 bg-emerald-600 hover:bg-emerald-500 text-white p-4 rounded-full shadow-2xl flex items-center justify-center transition transform hover:scale-110 active:scale-95 border-2 border-emerald-400/30 glow">
+<!-- WhatsApp -->
+<a href="https://wa.me/923013777777?text=Assalam-o-Alaikum%2C%20MUSA%20Cafe%20%26%20Restaurant%20se%20order%20karna%20hai" target="_blank" rel="noopener" aria-label="Order on WhatsApp" class="fixed bottom-6 right-6 z-50 bg-emerald-600 hover:bg-emerald-500 text-white p-4 rounded-full shadow-2xl flex items-center justify-center transition transform hover:scale-110 active:scale-95 border-2 border-emerald-400/30 glow-pulse">
   <i class="fa-brands fa-whatsapp text-3xl"></i>
 </a>
 
-<button onclick="window.scrollTo({top:0,behavior:'smooth'})" id="scrollTop" class="fixed bottom-6 left-6 z-50 bg-gradient-to-br from-amber-500 to-amber-600 text-zinc-950 p-4 rounded-full shadow-2xl opacity-0 pointer-events-none transition-all"><i class="fa-solid fa-arrow-up"></i></button>
+<!-- Back to top -->
+<button onclick="window.scrollTo({top:0,behavior:'smooth'})" id="scrollTop" aria-label="Back to top" class="fixed bottom-6 left-6 z-50 bg-gradient-to-br from-amber-400 to-amber-600 text-zinc-950 w-12 h-12 rounded-full shadow-2xl opacity-0 pointer-events-none transition-all flex items-center justify-center hover:scale-110">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
 
-<nav class="sticky top-0 z-40 bg-zinc-950/85 backdrop-blur-md border-b border-amber-500/10 px-6 py-4">
+<!-- NAV -->
+<nav id="nav" class="fixed top-0 inset-x-0 z-40 px-6 py-5">
   <div class="max-w-7xl mx-auto flex items-center justify-between">
-    <a href="#" class="flex items-center gap-3">
-      <div class="w-10 h-10 rounded-full bg-amber-500/10 border border-amber-500/40 flex items-center justify-center text-amber-400 font-heading font-bold text-xl">M</div>
-      <div><span class="font-heading text-lg font-bold tracking-wider text-amber-400 block leading-tight">MUSA</span><span class="text-[10px] tracking-widest text-zinc-400 uppercase block">Cafe & Restaurant</span></div>
+    <a href="#" class="flex items-center gap-3 group">
+      <div class="relative w-11 h-11 flex items-center justify-center">
+        <svg class="absolute inset-0 logo-ring" viewBox="0 0 44 44"><circle cx="22" cy="22" r="20" fill="none" stroke="#D4AF37" stroke-width="1" stroke-dasharray="4 6"/></svg>
+        <span class="font-display font-bold text-lg text-amber-400">M</span>
+      </div>
+      <div>
+        <span class="font-eyebrow text-base font-semibold tracking-[3px] text-amber-400 block leading-tight">MUSA</span>
+        <span class="text-[9px] tracking-[3px] text-zinc-400 uppercase block">Cafe &amp; Restaurant</span>
+      </div>
     </a>
-    <div class="hidden md:flex items-center gap-8 text-sm font-medium text-zinc-300">
-      <a href="#signature" class="hover:text-amber-400 transition">Signature</a>
-      <a href="#gallery" class="hover:text-amber-400 transition">Gallery</a>
-      <a href="#menu" class="hover:text-amber-400 transition">Menu</a>
-      <a href="#reviews" class="hover:text-amber-400 transition">Reviews</a>
-      <a href="#location" class="hover:text-amber-400 transition">Location</a>
+    <div class="hidden md:flex items-center gap-9 text-sm font-medium text-zinc-300 font-eyebrow tracking-wide">
+      <a href="#signature" class="nav-link hover:text-amber-400 transition">Signature</a>
+      <a href="#about" class="nav-link hover:text-amber-400 transition">About</a>
+      <a href="#gallery" class="nav-link hover:text-amber-400 transition">Gallery</a>
+      <a href="#menu" class="nav-link hover:text-amber-400 transition">Menu</a>
+      <a href="#reviews" class="nav-link hover:text-amber-400 transition">Reviews</a>
+      <a href="#location" class="nav-link hover:text-amber-400 transition">Visit</a>
     </div>
-    <a href="#menu" class="bg-amber-500 hover:bg-amber-400 text-zinc-950 px-5 py-2 rounded-lg font-semibold text-xs uppercase tracking-wider transition shadow-lg">Menu</a>
+    <a href="#menu" class="ripple btn-gold bg-amber-500 hover:bg-amber-400 text-zinc-950 px-5 py-2.5 rounded-sm font-eyebrow font-semibold text-[11px] uppercase tracking-[2px] transition shadow-lg">View Menu</a>
   </div>
 </nav>
 
-<section class="relative min-h-[95vh] flex items-center justify-center text-center px-4 py-20 overflow-hidden">
-  <div class="absolute inset-0 bg-cover bg-center" style="background-image:linear-gradient(to bottom,rgba(8,7,10,.65),rgba(8,7,10,.97)),url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1600&q=70')"></div>
-  <div class="relative max-w-4xl mx-auto space-y-6">
-    <div class="w-24 h-24 mx-auto rounded-full glass-card border border-amber-500/40 flex items-center justify-center font-heading font-bold text-4xl text-amber-400 glow">M</div>
-    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-xs font-semibold tracking-widest uppercase"><i class="fa-solid fa-utensils"></i> A Taste of Luxury & Tradition</div>
-    <h1 class="font-heading text-5xl sm:text-7xl font-extrabold tracking-tight leading-tight">MUSA <span class="shimmer-text">CAFE & RESTAURANT</span></h1>
-    <p class="text-zinc-300 text-base sm:text-lg max-w-2xl mx-auto font-light leading-relaxed">Experience the finest Karahi, sizzling BBQ, Chinese specialties, wood-fired Pizza & Biryani — crafted with passion in the heart of Layyah.</p>
-    <div class="pt-4 flex flex-wrap justify-center gap-4">
-      <a href="#menu" class="bg-gradient-to-r from-amber-500 to-amber-600 text-zinc-950 font-bold px-8 py-3.5 rounded-xl text-sm tracking-wide shadow-xl shadow-amber-500/20 transition transform hover:-translate-y-1">Explore Full Menu</a>
-      <a href="https://wa.me/923013777777" target="_blank" class="glass-card text-zinc-200 font-semibold px-8 py-3.5 rounded-xl text-sm border border-zinc-700 transition hover:border-amber-500">Order on WhatsApp</a>
+<!-- HERO -->
+<section id="hero" class="relative min-h-[100vh] flex items-center justify-center text-center px-4 overflow-hidden">
+  <div id="heroParallax" class="absolute inset-0 hero-bg" style="background-image:linear-gradient(180deg,rgba(13,13,13,.55),rgba(13,13,13,.75) 60%,rgba(13,13,13,.98)),url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1800&q=70')"></div>
+  <div class="spotlight"></div>
+  <div class="relative max-w-4xl mx-auto space-y-7 px-2">
+    <div class="reveal show flex items-center justify-center gap-4">
+      <div class="divider-gold"></div>
+      <span class="font-eyebrow text-[11px] tracking-[4px] uppercase text-amber-400">Est. in Layyah</span>
+      <div class="divider-gold"></div>
     </div>
+    <h1 class="reveal show font-display text-6xl sm:text-8xl font-bold tracking-tight leading-[0.95]" style="transition-delay:.1s">
+      <span class="shimmer">MUSA</span><br>
+      <span class="text-zinc-50 text-3xl sm:text-4xl font-eyebrow font-semibold tracking-[6px] uppercase block mt-3">Cafe &amp; Restaurant</span>
+    </h1>
+    <p class="reveal show text-zinc-300 text-base sm:text-lg max-w-xl mx-auto font-light leading-relaxed" style="transition-delay:.2s">
+      Sizzling Karahi, smoked BBQ, wood-fired Pizza &amp; slow-cooked Biryani — an unforgettable table in the heart of Layyah.
+    </p>
+    <div class="reveal show pt-4 flex flex-wrap justify-center gap-4" style="transition-delay:.3s">
+      <a href="#menu" class="ripple btn-gold bg-gradient-to-r from-amber-400 to-amber-600 text-zinc-950 font-eyebrow font-semibold px-9 py-4 rounded-sm text-xs tracking-[2px] uppercase shadow-xl shadow-amber-500/20 transition transform hover:-translate-y-1 glow-pulse">Explore Menu</a>
+      <a href="https://wa.me/923013777777" target="_blank" rel="noopener" class="ripple glass text-zinc-100 font-eyebrow font-semibold px-9 py-4 rounded-sm text-xs tracking-[2px] uppercase transition hover:border-amber-500">Reserve a Table</a>
+    </div>
+  </div>
+  <div class="absolute bottom-9 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-amber-400/70 reveal show" style="transition-delay:.5s">
+    <span class="text-[9px] tracking-[3px] uppercase font-eyebrow">Scroll</span>
+    <div class="w-[1px] h-10 bg-gradient-to-b from-amber-400 to-transparent"></div>
   </div>
 </section>
 
-<section id="signature" class="py-24 px-4 max-w-7xl mx-auto border-t border-zinc-800/50">
-  <div class="text-center max-w-3xl mx-auto mb-16">
-    <span class="text-amber-400 text-xs uppercase tracking-widest font-semibold">Chef's Signature</span>
-    <h2 class="font-heading text-4xl font-bold mt-3">Straight From Our Kitchen</h2>
-    <p class="text-zinc-400 text-sm mt-3">Freshly grilled, freshly brewed — every dish captured hot off the flame</p>
+<!-- SIGNATURE -->
+<section id="signature" class="py-28 px-4 max-w-7xl mx-auto">
+  <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+    <span class="font-eyebrow text-amber-400 text-[11px] uppercase tracking-[4px]">Chef's Signature</span>
+    <h2 class="font-display text-5xl font-bold mt-4">Straight From Our Kitchen</h2>
+    <div class="divider-gold mx-auto mt-5"></div>
+    <p class="text-zinc-400 text-sm mt-5 font-light">Freshly grilled, freshly brewed — every dish captured hot off the flame.</p>
   </div>
   <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8" id="signatureGrid"></div>
 </section>
 
-<section id="gallery" class="py-24 px-4 max-w-7xl mx-auto border-t border-zinc-800/50">
-  <div class="text-center max-w-3xl mx-auto mb-16">
-    <span class="text-amber-400 text-xs uppercase tracking-widest font-semibold">Ambience</span>
-    <h2 class="font-heading text-4xl font-bold mt-3">Interior & Rooftop Experience</h2>
-    <p class="text-zinc-400 text-sm mt-3">Black sofas, black tables, white plates — elegant fine-dine styling with an open rooftop for picnics</p>
-  </div>
-  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" id="galleryGrid"></div>
-</section>
+<!-- ABOUT -->
+<section id="about" class="py-28 px-4 max-w-7xl mx-auto border-t border-amber-500/10">
+  <div class="grid lg:grid-cols-2 gap-16 items-center">
+    <div class="reveal-l">
+      <span class="font-eyebrow text-amber-400 text-[11px] uppercase tracking-[4px]">Our Story</span>
+      <h2 class="font-display text-5xl font-bold mt-4 leading-tight">A Legacy Served<br>One Table at a Time</h2>
+      <div class="divider-gold mt-5 mb-7"></div>
+      <p class="text-zinc-400 text-sm leading-relaxed font-light mb-10">MUSA began as a single grill in Layyah and grew into the city's most talked-about dining address — where matte-black interiors, rooftop breeze, and the aroma of open-flame cooking meet in one room.</p>
 
-<section id="menu" class="py-24 px-4 max-w-6xl mx-auto border-t border-zinc-800/50">
-  <div class="text-center max-w-3xl mx-auto mb-16">
-    <span class="text-amber-400 text-xs uppercase tracking-widest font-semibold">Complete Menu</span>
-    <h2 class="font-heading text-4xl sm:text-5xl font-bold mt-3">Our Full Menu — 22 Categories</h2>
-    <p class="text-zinc-400 text-sm mt-3">Every dish, every price, exactly as served at MUSA</p>
-  </div>
-  <div id="menuContainer" class="space-y-8"></div>
-</section>
-
-<section id="reviews" class="py-24 px-4 max-w-7xl mx-auto border-t border-zinc-800/50">
-  <div class="text-center max-w-3xl mx-auto mb-16">
-    <span class="text-amber-400 text-xs uppercase tracking-widest font-semibold">Google Reviews</span>
-    <h2 class="font-heading text-4xl font-bold mt-3">What Our Guests Say</h2>
-    <div class="flex items-center justify-center gap-3 mt-4">
-      <span class="text-3xl font-bold text-amber-400">4.6</span>
-      <div class="text-amber-400 text-xl"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
-      <span class="text-zinc-400 text-sm">on Google · 800+ Reviews</span>
-    </div>
-  </div>
-  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    <div class="glass-card rounded-2xl p-6 card-3d">
-      <div class="text-amber-400 mb-3"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-      <p class="text-sm text-zinc-300 italic mb-4">"Best restaurant in Layyah! The White Karahi is absolutely divine. Ambience is stunning too."</p>
-      <p class="text-amber-400 text-xs font-bold">— Ali Raza, Layyah</p>
-    </div>
-    <div class="glass-card rounded-2xl p-6 card-3d">
-      <div class="text-amber-400 mb-3"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-      <p class="text-sm text-zinc-300 italic mb-4">"Amazing ambience and delicious food. Rooftop seating is our family's favourite."</p>
-      <p class="text-amber-400 text-xs font-bold">— Sana Khalid, Multan</p>
-    </div>
-    <div class="glass-card rounded-2xl p-6 card-3d">
-      <div class="text-amber-400 mb-3"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-      <p class="text-sm text-zinc-300 italic mb-4">"Visited from Karachi and it was worth it. MUSA is on another level entirely."</p>
-      <p class="text-amber-400 text-xs font-bold">— Imran Ahmed, Karachi</p>
-    </div>
-  </div>
-</section>
-
-<section id="location" class="py-24 px-4 max-w-7xl mx-auto border-t border-zinc-800/50">
-  <div class="grid lg:grid-cols-3 gap-8 items-stretch">
-    <div class="glass-card rounded-2xl p-8 flex flex-col justify-between space-y-6 card-3d">
-      <div><span class="text-amber-400 text-xs uppercase tracking-widest font-semibold">Visit Us</span><h2 class="font-heading text-3xl font-bold mt-2">Location & Hours</h2></div>
-      <div class="space-y-4 text-sm">
-        <div class="flex items-start gap-3"><i class="fa-solid fa-location-dot text-amber-400 mt-1"></i><div><span class="font-semibold block">Address</span><span class="text-zinc-400 text-xs">03, Block A Housing Colony, Layyah, Punjab</span></div></div>
-        <div class="flex items-start gap-3"><i class="fa-solid fa-phone text-amber-400 mt-1"></i><div><span class="font-semibold block">Contact</span><span class="text-zinc-400 text-xs">0301 3777777</span></div></div>
-        <div class="flex items-start gap-3"><i class="fa-solid fa-clock text-amber-400 mt-1"></i><div><span class="font-semibold block">Hours</span><span class="text-zinc-400 text-xs">12:00 PM - 1:00 AM (Daily)</span></div></div>
+      <div class="space-y-6 relative pl-8">
+        <div class="absolute left-[7px] top-1 bottom-1 w-[1px] timeline-line"></div>
+        <div class="relative reveal-l" style="transition-delay:.05s">
+          <div class="absolute -left-8 top-1 w-3.5 h-3.5 rounded-full bg-amber-400 border-2 border-black"></div>
+          <span class="font-eyebrow text-amber-400 text-xs tracking-widest">THE GRILL</span>
+          <p class="text-zinc-400 text-sm font-light mt-1">A small tandoor and a big idea — honest, fire-cooked food.</p>
+        </div>
+        <div class="relative reveal-l" style="transition-delay:.15s">
+          <div class="absolute -left-8 top-1 w-3.5 h-3.5 rounded-full bg-amber-400 border-2 border-black"></div>
+          <span class="font-eyebrow text-amber-400 text-xs tracking-widest">THE KITCHEN GROWS</span>
+          <p class="text-zinc-400 text-sm font-light mt-1">Chinese, BBQ &amp; Pizza join the menu; the dining room expands.</p>
+        </div>
+        <div class="relative reveal-l" style="transition-delay:.25s">
+          <div class="absolute -left-8 top-1 w-3.5 h-3.5 rounded-full bg-amber-400 border-2 border-black"></div>
+          <span class="font-eyebrow text-amber-400 text-xs tracking-widest">MUSA TODAY</span>
+          <p class="text-zinc-400 text-sm font-light mt-1">A rooftop, a full luxury interior, and 800+ five-star guests.</p>
+        </div>
       </div>
-      <a href="https://wa.me/923013777777" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl text-center flex items-center justify-center gap-2 text-sm transition"><i class="fa-brands fa-whatsapp text-lg"></i> WhatsApp Order</a>
     </div>
-    <div class="lg:col-span-2 glass-card rounded-2xl p-2 overflow-hidden min-h-[350px] card-3d">
-      <iframe src="https://www.google.com/maps?q=03+Block+A+Housing+Colony+Layyah&output=embed" width="100%" height="100%" style="border:0;min-height:380px" loading="lazy"></iframe>
+
+    <div class="grid grid-cols-2 gap-6 reveal-r">
+      <div class="glass rounded-lg p-8 text-center tilt-card">
+        <i class="fa-solid fa-fire text-amber-400 text-2xl mb-3"></i>
+        <div class="counter-num text-5xl text-amber-400" data-count="22">0</div>
+        <p class="text-zinc-400 text-xs font-eyebrow tracking-widest uppercase mt-2">Menu Categories</p>
+      </div>
+      <div class="glass rounded-lg p-8 text-center tilt-card mt-8">
+        <i class="fa-solid fa-star text-amber-400 text-2xl mb-3"></i>
+        <div class="counter-num text-5xl text-amber-400"><span data-count="4.6">0</span></div>
+        <p class="text-zinc-400 text-xs font-eyebrow tracking-widest uppercase mt-2">Google Rating</p>
+      </div>
+      <div class="glass rounded-lg p-8 text-center tilt-card">
+        <div class="counter-num text-5xl text-amber-400"><span data-count="800">0</span>+</div>
+        <i class="fa-solid fa-users text-amber-400 text-2xl mb-3 hidden"></i>
+        <p class="text-zinc-400 text-xs font-eyebrow tracking-widest uppercase mt-2">Happy Reviews</p>
+      </div>
+      <div class="glass rounded-lg p-8 text-center tilt-card mt-8">
+        <div class="counter-num text-5xl text-amber-400"><span data-count="13">0</span>h</div>
+        <p class="text-zinc-400 text-xs font-eyebrow tracking-widest uppercase mt-2">Open Daily</p>
+      </div>
     </div>
   </div>
 </section>
 
-<footer class="border-t border-zinc-800/60 py-8 px-4 text-center text-zinc-500 text-xs">
-  <p class="font-heading text-sm font-bold text-amber-400 tracking-wider mb-2">MUSA CAFE & RESTAURANT</p>
-  <p>03, Block A Housing Colony, Layyah | 0301 3777777</p>
-  <p class="mt-2">&copy; 2026 MUSA Cafe & Restaurant. All Rights Reserved.</p>
+<!-- GALLERY -->
+<section id="gallery" class="py-28 px-4 max-w-7xl mx-auto border-t border-amber-500/10">
+  <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+    <span class="font-eyebrow text-amber-400 text-[11px] uppercase tracking-[4px]">Ambience</span>
+    <h2 class="font-display text-5xl font-bold mt-4">Interior &amp; Rooftop</h2>
+    <div class="divider-gold mx-auto mt-5"></div>
+    <p class="text-zinc-400 text-sm mt-5 font-light">Matte-black interiors, white plates, and an open rooftop for evening picnics.</p>
+  </div>
+  <div class="masonry" id="galleryGrid"></div>
+</section>
+
+<!-- MENU -->
+<section id="menu" class="py-28 px-4 max-w-5xl mx-auto border-t border-amber-500/10">
+  <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+    <span class="font-eyebrow text-amber-400 text-[11px] uppercase tracking-[4px]">Complete Menu</span>
+    <h2 class="font-display text-5xl font-bold mt-4">22 Categories, One Kitchen</h2>
+    <div class="divider-gold mx-auto mt-5"></div>
+    <p class="text-zinc-400 text-sm mt-5 font-light">Every dish, every price, exactly as served at MUSA. Tap a category to expand.</p>
+  </div>
+  <div id="menuContainer" class="space-y-4"></div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews" class="py-28 px-4 max-w-4xl mx-auto border-t border-amber-500/10">
+  <div class="text-center max-w-3xl mx-auto mb-14 reveal">
+    <span class="font-eyebrow text-amber-400 text-[11px] uppercase tracking-[4px]">Google Reviews</span>
+    <h2 class="font-display text-5xl font-bold mt-4">What Our Guests Say</h2>
+    <div class="flex items-center justify-center gap-3 mt-6">
+      <span class="font-display text-4xl font-bold text-amber-400">4.6</span>
+      <div class="text-amber-400 text-lg" id="reviewStars"></div>
+      <span class="text-zinc-400 text-xs font-eyebrow tracking-wide">800+ REVIEWS</span>
+    </div>
+  </div>
+
+  <div class="relative glass rounded-lg p-10 sm:p-14 min-h-[220px] reveal">
+    <i class="fa-solid fa-quote-left text-amber-400/20 text-5xl absolute top-6 left-8"></i>
+    <div id="tSlides" class="relative z-10"></div>
+    <div id="tDots" class="flex items-center justify-center gap-2 mt-10"></div>
+  </div>
+</section>
+
+<!-- LOCATION / CONTACT -->
+<section id="location" class="py-28 px-4 max-w-7xl mx-auto border-t border-amber-500/10">
+  <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+    <span class="font-eyebrow text-amber-400 text-[11px] uppercase tracking-[4px]">Visit Us</span>
+    <h2 class="font-display text-5xl font-bold mt-4">Location, Hours &amp; Reservations</h2>
+    <div class="divider-gold mx-auto mt-5"></div>
+  </div>
+
+  <div class="grid lg:grid-cols-3 gap-8">
+    <div class="glass rounded-lg p-8 flex flex-col justify-between space-y-8 tilt-card reveal-l lg:col-span-1">
+      <div class="space-y-5 text-sm">
+        <div class="flex items-start gap-4"><i class="fa-solid fa-location-dot text-amber-400 mt-1"></i><div><span class="font-eyebrow text-xs tracking-widest block mb-1">ADDRESS</span><span class="text-zinc-400 text-xs">03, Block A Housing Colony, Layyah, Punjab</span></div></div>
+        <div class="flex items-start gap-4"><i class="fa-solid fa-phone text-amber-400 mt-1"></i><div><span class="font-eyebrow text-xs tracking-widest block mb-1">CONTACT</span><span class="text-zinc-400 text-xs">0301 3777777</span></div></div>
+        <div class="flex items-start gap-4"><i class="fa-solid fa-clock text-amber-400 mt-1"></i><div><span class="font-eyebrow text-xs tracking-widest block mb-1">HOURS</span><span class="text-zinc-400 text-xs">12:00 PM – 1:00 AM · Daily</span></div></div>
+      </div>
+      <div class="flex gap-3">
+        <a href="https://wa.me/923013777777" target="_blank" rel="noopener" aria-label="WhatsApp" class="w-11 h-11 rounded-full glass flex items-center justify-center text-amber-400 hover:text-emerald-400 hover:border-emerald-400/50 transition"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="#" aria-label="Instagram" class="w-11 h-11 rounded-full glass flex items-center justify-center text-amber-400 hover:glow-pulse hover:border-amber-400 transition"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="Facebook" class="w-11 h-11 rounded-full glass flex items-center justify-center text-amber-400 hover:glow-pulse hover:border-amber-400 transition"><i class="fa-brands fa-facebook-f"></i></a>
+      </div>
+      <a href="https://wa.me/923013777777" target="_blank" rel="noopener" class="ripple w-full bg-emerald-600 hover:bg-emerald-500 text-white font-eyebrow font-semibold py-4 rounded-sm text-center flex items-center justify-center gap-2 text-xs tracking-widest uppercase transition"><i class="fa-brands fa-whatsapp text-lg"></i> Order on WhatsApp</a>
+    </div>
+
+    <div class="glass rounded-lg p-2 overflow-hidden min-h-[300px] tilt-card reveal">
+      <iframe title="MUSA Cafe location map" src="https://www.google.com/maps?q=03+Block+A+Housing+Colony+Layyah&output=embed" width="100%" height="100%" style="border:0;min-height:340px;filter:grayscale(.3) contrast(1.1)" loading="lazy"></iframe>
+    </div>
+
+    <form class="glass rounded-lg p-8 space-y-4 tilt-card reveal-r" onsubmit="return false;">
+      <span class="font-eyebrow text-xs tracking-widest text-amber-400 block mb-1">RESERVE A TABLE</span>
+      <input type="text" required placeholder="Full name" class="lux-input w-full rounded-sm px-4 py-3 text-sm text-zinc-100">
+      <input type="tel" required placeholder="Phone number" class="lux-input w-full rounded-sm px-4 py-3 text-sm text-zinc-100">
+      <div class="grid grid-cols-2 gap-3">
+        <input type="date" required class="lux-input w-full rounded-sm px-4 py-3 text-sm text-zinc-100">
+        <input type="number" min="1" placeholder="Guests" required class="lux-input w-full rounded-sm px-4 py-3 text-sm text-zinc-100">
+      </div>
+      <textarea rows="2" placeholder="Special request (optional)" class="lux-input w-full rounded-sm px-4 py-3 text-sm text-zinc-100 resize-none"></textarea>
+      <button type="submit" class="ripple btn-gold w-full bg-amber-500 hover:bg-amber-400 text-zinc-950 font-eyebrow font-semibold py-3.5 rounded-sm text-xs tracking-widest uppercase transition">Request Table</button>
+    </form>
+  </div>
+</section>
+
+<footer class="border-t border-amber-500/10 pt-14 pb-8 px-4 text-center">
+  <div class="divider-gold mx-auto mb-8"></div>
+  <p class="font-display text-2xl font-bold text-amber-400 tracking-wide mb-2">MUSA Cafe &amp; Restaurant</p>
+  <p class="text-zinc-500 text-xs font-light">03, Block A Housing Colony, Layyah &nbsp;·&nbsp; 0301 3777777</p>
+  <div class="flex justify-center gap-4 mt-6">
+    <a href="https://wa.me/923013777777" target="_blank" rel="noopener" aria-label="WhatsApp" class="w-9 h-9 rounded-full glass flex items-center justify-center text-amber-400 hover:text-emerald-400 hover:border-emerald-400/50 transition text-sm"><i class="fa-brands fa-whatsapp"></i></a>
+    <a href="#" aria-label="Instagram" class="w-9 h-9 rounded-full glass flex items-center justify-center text-amber-400 hover:border-amber-400 transition text-sm"><i class="fa-brands fa-instagram"></i></a>
+    <a href="#" aria-label="Facebook" class="w-9 h-9 rounded-full glass flex items-center justify-center text-amber-400 hover:border-amber-400 transition text-sm"><i class="fa-brands fa-facebook-f"></i></a>
+  </div>
+  <p class="mt-8 text-zinc-600 text-[11px]" id="copyYear">&copy; 2026 MUSA Cafe &amp; Restaurant. All Rights Reserved.</p>
 </footer>
 
 <script>
-setTimeout(()=>{const s=document.getElementById('splash');if(s)s.remove();},3300);
+/* Loader */
+window.addEventListener('load',()=>{
+  setTimeout(()=>document.getElementById('loader').classList.add('hide'),700);
+});
 
+/* Particles */
 const pc=document.getElementById('particles');
-for(let i=0;i<14;i++){
+for(let i=0;i<16;i++){
   const p=document.createElement('div');
   p.className='particle';
+  const size=Math.random()*4+2;
+  p.style.width=size+'px';p.style.height=size+'px';
   p.style.left=Math.random()*100+'vw';
-  p.style.animationDuration=(Math.random()*6+6)+'s';
-  p.style.animationDelay=Math.random()*5+'s';
+  p.style.setProperty('--drift',(Math.random()*80-40)+'px');
+  p.style.animationDuration=(Math.random()*8+8)+'s';
+  p.style.animationDelay=Math.random()*8+'s';
   pc.appendChild(p);
 }
 
-const music=document.getElementById('bgMusic'),icon=document.getElementById('musicIcon'),ping=document.getElementById('musicPing');
-function toggleMusic(){
-  if(music.paused){music.play().catch(()=>{});icon.classList.replace('fa-play','fa-pause');ping.classList.remove('hidden')}
-  else{music.pause();icon.classList.replace('fa-pause','fa-play');ping.classList.add('hidden')}
-}
-
-window.addEventListener('scroll',()=>{
-  const st=document.getElementById('scrollTop');
-  if(window.scrollY>400){st.classList.remove('opacity-0','pointer-events-none')}else{st.classList.add('opacity-0','pointer-events-none')}
-  document.querySelectorAll('.reveal').forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight-80)el.classList.add('show')});
+/* Cursor glow */
+const glow=document.getElementById('cursorGlow');
+window.addEventListener('pointermove',e=>{
+  glow.style.left=e.clientX+'px';
+  glow.style.top=e.clientY+'px';
 });
 
+/* Scroll progress + nav + back to top + reveal */
+const nav=document.getElementById('nav');
+const scrollTopBtn=document.getElementById('scrollTop');
+const progressBar=document.getElementById('progressBar');
+function onScroll(){
+  const st=window.scrollY;
+  const docH=document.documentElement.scrollHeight-window.innerHeight;
+  progressBar.style.width=(st/docH*100)+'%';
+  nav.classList.toggle('scrolled',st>60);
+  if(st>400){scrollTopBtn.classList.remove('opacity-0','pointer-events-none')}else{scrollTopBtn.classList.add('opacity-0','pointer-events-none')}
+  document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el=>{
+    if(el.getBoundingClientRect().top<window.innerHeight-90)el.classList.add('show');
+  });
+}
+window.addEventListener('scroll',onScroll);
+onScroll();
+
+/* Hero parallax on mouse */
+const heroBg=document.getElementById('heroParallax');
+const heroSection=document.getElementById('hero');
+heroSection.addEventListener('pointermove',e=>{
+  const x=(e.clientX/window.innerWidth-0.5)*24;
+  const y=(e.clientY/window.innerHeight-0.5)*24;
+  heroBg.style.transform=`translate(${x}px,${y}px) scale(1.08)`;
+});
+heroSection.addEventListener('pointerleave',()=>{heroBg.style.transform='translate(0,0) scale(1)';});
+
+/* Tilt cards 3D */
+document.addEventListener('pointermove',e=>{
+  const card=e.target.closest('.tilt-card');
+  if(!card)return;
+  const r=card.getBoundingClientRect();
+  const rx=((e.clientY-r.top)/r.height-0.5)*-8;
+  const ry=((e.clientX-r.left)/r.width-0.5)*8;
+  card.style.transform=`perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
+});
+document.addEventListener('pointerleave',e=>{
+  const card=e.target.closest && e.target.closest('.tilt-card');
+  if(card)card.style.transform='';
+},true);
+document.querySelectorAll('.tilt-card').forEach(c=>{
+  c.addEventListener('mouseleave',()=>c.style.transform='');
+});
+
+/* Ripple */
+document.querySelectorAll('.ripple').forEach(btn=>{
+  btn.style.position='relative';
+  btn.addEventListener('click',function(e){
+    const r=this.getBoundingClientRect();
+    const dot=document.createElement('span');
+    const size=Math.max(r.width,r.height);
+    dot.className='ripple-dot';
+    dot.style.width=dot.style.height=size+'px';
+    dot.style.left=(e.clientX-r.left-size/2)+'px';
+    dot.style.top=(e.clientY-r.top-size/2)+'px';
+    this.appendChild(dot);
+    setTimeout(()=>dot.remove(),650);
+  });
+});
+
+/* Signature dishes */
 const signature=[
-  {name:"Chicken Biryani",price:"Rs. 1199",img:"https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=700&q=70",smoke:true},
-  {name:"White Karahi",price:"Rs. 2049",img:"https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=700&q=70",smoke:true},
-  {name:"Musa Special Coffee",price:"Rs. 549",img:"https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=700&q=70",smoke:true},
-  {name:"Musa Special Soup",price:"Rs. 1249",img:"https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=700&q=70",smoke:true},
-  {name:"Musa Signature Burger",price:"Rs. 649",img:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=700&q=70",smoke:false},
-  {name:"Musa Special Pizza",price:"Rs. 1999",img:"https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=700&q=70",smoke:true},
-  {name:"BBQ Platter",price:"Rs. 5999",img:"https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=700&q=70",smoke:true},
+  {name:"Chicken Biryani",price:"Rs. 1,199",img:"https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=700&q=70",smoke:true},
+  {name:"White Karahi",price:"Rs. 2,049",img:"https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=700&q=70",smoke:true},
+  {name:"Musa Special Coffee",price:"Rs. 549",img:"https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=700&q=70",smoke:false},
+  {name:"Musa Special Soup",price:"Rs. 1,249",img:"https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=700&q=70",smoke:true},
+  {name:"Signature Burger",price:"Rs. 649",img:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=700&q=70",smoke:false},
+  {name:"Wood-Fired Pizza",price:"Rs. 1,999",img:"https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=700&q=70",smoke:true},
+  {name:"BBQ Platter",price:"Rs. 5,999",img:"https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=700&q=70",smoke:true},
 ];
 const sigGrid=document.getElementById('signatureGrid');
-signature.forEach((d,idx)=>{
+signature.forEach(d=>{
   const card=document.createElement('div');
-  card.className='glass-card rounded-2xl overflow-hidden card-3d reveal show';
+  card.className='glass rounded-lg overflow-hidden tilt-card reveal show';
   card.innerHTML=`
-    <div class="dish-card h-64">
+    <div class="dish-media h-64">
       <img src="${d.img}" alt="${d.name}" class="w-full h-full object-cover" loading="lazy">
       ${d.smoke?'<div class="smoke smoke1"></div><div class="smoke smoke2"></div><div class="smoke smoke3"></div>':''}
-      <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent"></div>
     </div>
-    <div class="p-5 flex justify-between items-center">
-      <h3 class="font-heading text-lg font-bold text-white">${d.name}</h3>
-      <span class="text-amber-400 font-bold">${d.price}</span>
+    <div class="p-5 flex justify-between items-center border-t border-amber-500/10">
+      <h3 class="font-display text-xl font-bold text-white">${d.name}</h3>
+      <span class="text-amber-400 font-eyebrow font-semibold text-sm">${d.price}</span>
     </div>`;
   sigGrid.appendChild(card);
 });
 
+/* Gallery + lightbox */
 const gallery=[
   {title:"Black Sofa Luxury Interior",img:"https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=700&q=70"},
-  {title:"Black Table Fine Dine Setup",img:"https://images.unsplash.com/photo-1592861956120-e524fc739696?auto=format&fit=crop&w=700&q=70"},
+  {title:"Black Table Fine Dine Setup",img:"https://images.unsplash.com/photo-1592861956120-e524fc739696?auto=format&fit=crop&w=700&q=75"},
   {title:"Rooftop Picnic Spot",img:"https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?auto=format&fit=crop&w=700&q=70"},
-  {title:"Rooftop Evening View",img:"https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=700&q=70"},
+  {title:"Rooftop Evening View",img:"https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=700&q=80"},
   {title:"White Plates on Black Table",img:"https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=700&q=70"},
   {title:"Picture-Perfect Corners",img:"https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&w=700&q=70"},
 ];
 const galGrid=document.getElementById('galleryGrid');
+const lightbox=document.getElementById('lightbox');
+const lightboxImg=document.getElementById('lightboxImg');
 gallery.forEach(g=>{
   const div=document.createElement('div');
-  div.className='glass-card rounded-xl overflow-hidden card-3d reveal show';
-  div.innerHTML=`<img src="${g.img}" class="w-full h-56 object-cover" loading="lazy"><div class="p-4"><h3 class="font-heading text-amber-400 font-semibold text-sm">${g.title}</h3></div>`;
+  div.className='masonry-item glass rounded-lg overflow-hidden tilt-card reveal show cursor-pointer group';
+  div.innerHTML=`<div class="relative overflow-hidden"><img src="${g.img}" alt="${g.title}" class="w-full h-auto object-cover transition duration-700 group-hover:scale-110" loading="lazy"><div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition"></div></div><div class="p-4 border-t border-amber-500/10"><h3 class="font-eyebrow text-amber-400 font-semibold text-xs tracking-widest">${g.title.toUpperCase()}</h3></div>`;
+  div.addEventListener('click',()=>{
+    lightboxImg.src=g.img;lightboxImg.alt=g.title;
+    lightbox.classList.add('active');
+  });
   galGrid.appendChild(div);
 });
+document.getElementById('lightboxClose').addEventListener('click',()=>lightbox.classList.remove('active'));
+lightbox.addEventListener('click',e=>{if(e.target===lightbox)lightbox.classList.remove('active');});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')lightbox.classList.remove('active');});
 
+/* Menu accordion data (unchanged content) */
 const menu=[
 {cat:"1. Appetizer",icon:"fa-bowl-food",items:[["Chicken Drum Stick (4 Pcs)","1349"],["Chicken Stripes (6 Pcs)","999"],["Dynamite Jumbo Prawn (6 Pcs)","1849"],["Dynamite Fries","649"],["Cheese Bowl (4 Pcs)","1049"],["Honey Wings (12 Pcs)","1149"],["Fish Cracker","249"],["Dhaka Chicken","899"]]},
 {cat:"2. Soup (Full/Half)",icon:"fa-mug-hot",items:[["Musa Special","1249/649"],["Chicken Corn","999/649"],["Hot & Sour","1049/699"],["Vegetable","849/599"],["Thai","899/599"],["Schezwan","1199/649"]]},
@@ -281,18 +566,97 @@ const menu=[
 {cat:"22. Drinks",icon:"fa-mug-saucer",items:[["Mineral Water (S/L)","69/119"],["1.5L Drink","249"],["Can","149"],["Cold Coffee","549"],["Latte Over Ice","599"],["Spanish Latte","599"],["Iced Coffee","599"],["Ice Mocha","599"],["Peach Ice Tea","599"],["Fresh Lime","179"],["Power Shake","649"],["Ice Cream Shake","549"]]},
 ];
 const container=document.getElementById('menuContainer');
-menu.forEach(c=>{
-  const rows=c.items.map(([n,p])=>`<div class="flex justify-between items-center border-b border-zinc-800 pb-2"><span>${n}</span><span class="text-amber-400 font-bold">Rs. ${p}</span></div>`).join('');
-  const div=document.createElement('div');
-  div.className='glass-card rounded-2xl p-6 sm:p-8 card-3d reveal show';
-  div.innerHTML=`
-    <div class="flex items-center gap-3 border-b border-amber-500/20 pb-4 mb-6">
-      <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 text-lg"><i class="fa-solid ${c.icon}"></i></div>
-      <h3 class="font-heading text-2xl font-bold text-amber-400">${c.cat}</h3>
-    </div>
-    <div class="grid sm:grid-cols-2 gap-x-8 gap-y-4 text-sm">${rows}</div>`;
-  container.appendChild(div);
+menu.forEach((c,i)=>{
+  const rows=c.items.map(([n,p])=>`<div class="menu-row flex justify-between items-center py-3 px-1"><span class="text-zinc-300 text-sm">${n}</span><span class="text-amber-400 font-eyebrow font-semibold text-sm whitespace-nowrap ml-4">Rs. ${p}</span></div>`).join('');
+  const wrap=document.createElement('div');
+  wrap.className='glass rounded-lg overflow-hidden reveal show';
+  wrap.innerHTML=`
+    <button class="menu-toggle w-full flex items-center justify-between gap-3 p-6 text-left" aria-expanded="false">
+      <span class="flex items-center gap-4">
+        <span class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 text-base shrink-0"><i class="fa-solid ${c.icon}"></i></span>
+        <span class="font-display text-2xl font-bold text-amber-400">${c.cat}</span>
+      </span>
+      <i class="fa-solid fa-chevron-down chevron text-amber-400 text-sm"></i>
+    </button>
+    <div class="menu-body">
+      <div class="px-6 pb-6 pt-0 grid sm:grid-cols-2 gap-x-8">${rows}</div>
+    </div>`;
+  const btn=wrap.querySelector('.menu-toggle');
+  const body=wrap.querySelector('.menu-body');
+  const chev=wrap.querySelector('.chevron');
+  btn.addEventListener('click',()=>{
+    const isOpen=body.classList.contains('open');
+    body.classList.toggle('open');
+    chev.classList.toggle('open');
+    btn.setAttribute('aria-expanded',!isOpen);
+  });
+  if(i===0){body.classList.add('open');chev.classList.add('open');btn.setAttribute('aria-expanded','true');}
+  container.appendChild(wrap);
 });
+
+/* Review stars */
+const starsWrap=document.getElementById('reviewStars');
+for(let i=0;i<5;i++){
+  const s=document.createElement('i');
+  s.className=i<4?'fa-solid fa-star':'fa-solid fa-star-half-stroke';
+  starsWrap.appendChild(s);
+}
+
+/* Testimonials carousel */
+const testimonials=[
+  {text:"Best restaurant in Layyah. The White Karahi is absolutely divine and the ambience is stunning.",name:"Ali Raza",loc:"Layyah"},
+  {text:"Amazing ambience and delicious food. Rooftop seating is our family's favourite spot in the city.",name:"Sana Khalid",loc:"Multan"},
+  {text:"Visited from Karachi and it was worth every mile. MUSA is genuinely on another level.",name:"Imran Ahmed",loc:"Karachi"},
+  {text:"The BBQ platter is a feast. Service was warm and the interior felt like a five-star lounge.",name:"Hamza Tariq",loc:"Layyah"},
+];
+const tSlides=document.getElementById('tSlides');
+const tDots=document.getElementById('tDots');
+testimonials.forEach((t,i)=>{
+  const stars=Array.from({length:5}).map((_,si)=>`<i class="fa-solid fa-star star-anim" style="animation-delay:${si*0.08}s"></i>`).join('');
+  const slide=document.createElement('div');
+  slide.className='t-slide'+(i===0?' active':'');
+  slide.innerHTML=`<div class="text-amber-400 mb-4 text-sm">${stars}</div><p class="text-lg sm:text-xl font-display font-medium text-zinc-200 leading-relaxed mb-6">"${t.text}"</p><p class="text-amber-400 text-xs font-eyebrow tracking-widest">${t.name.toUpperCase()} &middot; ${t.loc.toUpperCase()}</p>`;
+  tSlides.appendChild(slide);
+  const dot=document.createElement('button');
+  dot.className='t-dot'+(i===0?' active':'');
+  dot.setAttribute('aria-label','Show testimonial '+(i+1));
+  dot.addEventListener('click',()=>showSlide(i));
+  tDots.appendChild(dot);
+});
+let tIndex=0;
+function showSlide(i){
+  document.querySelectorAll('.t-slide').forEach((s,idx)=>s.classList.toggle('active',idx===i));
+  document.querySelectorAll('.t-dot').forEach((d,idx)=>d.classList.toggle('active',idx===i));
+  document.querySelectorAll('.t-slide.active .star-anim').forEach(el=>{el.style.animation='none';void el.offsetWidth;el.style.animation='';});
+  tIndex=i;
+}
+setInterval(()=>showSlide((tIndex+1)%testimonials.length),5000);
+
+/* Animated counters */
+const counters=document.querySelectorAll('[data-count]');
+let countersDone=false;
+function runCounters(){
+  if(countersDone)return;
+  const trigger=document.getElementById('about').getBoundingClientRect().top;
+  if(trigger>window.innerHeight)return;
+  countersDone=true;
+  counters.forEach(el=>{
+    const target=parseFloat(el.dataset.count);
+    const isDecimal=target%1!==0;
+    let cur=0;
+    const step=target/60;
+    const iv=setInterval(()=>{
+      cur+=step;
+      if(cur>=target){cur=target;clearInterval(iv);}
+      el.textContent=isDecimal?cur.toFixed(1):Math.round(cur);
+    },25);
+  });
+}
+window.addEventListener('scroll',runCounters);
+runCounters();
+
+/* Footer year */
+document.getElementById('copyYear').innerHTML='&copy; '+new Date().getFullYear()+' MUSA Cafe &amp; Restaurant. All Rights Reserved.';
 </script>
 </body>
 </html>
