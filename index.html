@@ -1,369 +1,302 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MUSA Cafe & Restaurant | Luxury Dining Layyah</title>
-
-<!-- Tailwind CSS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/3.4.3/tailwind.min.js"></script>
-<!-- FontAwesome Icons -->
+<!-- FontAwesome Icons & Google Fonts -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Cinzel:wght@500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Cinzel:wght@600;700&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
+/* PURE CSS - ZERO EXTERNAL SCRIPT DEPENDENCY (NEVER BREAKS) */
 :root {
-  --bg-light: #FAF8F5;
-  --bg-card: rgba(255, 255, 255, 0.82);
-  --gold-primary: #C5A059;
-  --gold-soft: #E5C88A;
-  --text-dark: #2A241E;
-  --text-muted: #6E675F;
-  --border-gold: rgba(197, 160, 89, 0.28);
+  --bg-dark: #0D0D0D;
+  --bg-card: #161616;
+  --gold: #D4AF37;
+  --gold-light: #F3E5AB;
+  --gold-dim: rgba(212, 175, 55, 0.2);
+  --text-white: #F8F8F8;
+  --text-muted: #A0A0A0;
 }
 
-* { box-sizing: border-box; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
 body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  background-color: var(--bg-light);
-  color: var(--text-dark);
+  font-family: 'Manrope', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-white);
+  line-height: 1.6;
   overflow-x: hidden;
 }
 
-h1, h2, h3, .font-serif-title { font-family: 'Cormorant Garamond', serif; }
-.font-eyebrow { font-family: 'Cinzel', serif; }
+h1, h2, h3, .font-serif { font-family: 'Cormorant Garamond', serif; }
+.font-eyebrow { font-family: 'Cinzel', serif; letter-spacing: 2px; }
 
-/* 1. FIXED APPLE-STYLE SCROLL CANVAS BACKGROUND */
-#appleScrollCanvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 1;
-  pointer-events: none;
-}
+a { text-decoration: none; color: inherit; }
 
-/* 2. OVERLAY LAYERS & GLASSMORPHISM LIGHT MODE */
-.content-layer {
-  position: relative;
-  z-index: 10;
+/* Navbar */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(13, 13, 13, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--gold-dim);
+  padding: 14px 24px;
+  display: flex; align-items: center; justify-content: space-between;
 }
+.nav-brand { display: flex; align-items: center; gap: 12px; }
+.nav-logo-circle {
+  width: 38px; height: 38px; border-radius: 50%;
+  border: 1px dashed var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold); font-weight: bold; font-size: 18px;
+}
+.nav-title { font-size: 16px; font-weight: 700; color: var(--gold); }
+.nav-subtitle { font-size: 8px; color: var(--text-muted); text-transform: uppercase; }
 
-.glass-card-light {
-  background: var(--bg-card);
-  backdrop-filter: blur(18px) saturate(160%);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
-  border: 1px solid var(--border-gold);
-  box-shadow: 0 20px 40px rgba(197, 160, 89, 0.08), 0 2px 10px rgba(0,0,0,0.02);
-}
+.nav-links { display: flex; gap: 24px; font-size: 12px; }
+.nav-link { color: var(--text-white); transition: color 0.3s; }
+.nav-link:hover { color: var(--gold); }
 
-/* 3. SCROLL PROGRESS BAR */
-#progressBar {
-  position: fixed; top: 0; left: 0; height: 3px;
-  background: linear-gradient(90deg, #C5A059, #E5C88A, #C5A059);
-  z-index: 100; width: 0%; transition: width 0.1s ease-out;
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold), #B89028);
+  color: #000; font-weight: 700; font-size: 11px;
+  padding: 10px 20px; border-radius: 4px;
+  text-transform: uppercase; letter-spacing: 1px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: inline-block; border: none; cursor: pointer;
 }
+.btn-gold:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4); }
 
-/* 4. BUTTONS & ACCENTS */
-.btn-gold-light {
-  background: linear-gradient(135deg, #C5A059, #B08A43);
-  color: #FFFFFF;
-  box-shadow: 0 10px 25px rgba(197, 160, 89, 0.3);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.btn-gold-light:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 15px 30px rgba(197, 160, 89, 0.45);
+@media (max-width: 768px) {
+  .nav-links { display: none; } /* Mobile cleanup */
 }
 
-/* Scroll Animations */
-.reveal {
-  opacity: 0; transform: translateY(30px);
-  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+/* Hero Section */
+.hero {
+  min-height: 100vh; padding: 120px 20px 60px;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  background: linear-gradient(180deg, rgba(13,13,13,0.6), var(--bg-dark)), 
+              url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=70') center/cover no-repeat;
 }
-.reveal.active {
-  opacity: 1; transform: translateY(0);
+.hero-card {
+  max-width: 700px; background: rgba(22, 22, 22, 0.85);
+  border: 1px solid var(--gold-dim); padding: 40px 24px; border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+.hero-title { font-size: 48px; color: var(--gold); line-height: 1.1; margin: 16px 0; }
+@media (min-width: 640px) { .hero-title { font-size: 64px; } }
+.hero-desc { color: var(--text-muted); font-size: 15px; margin-bottom: 24px; }
+
+/* Sections */
+.section { padding: 80px 20px; max-width: 1100px; margin: 0 auto; }
+.section-header { text-align: center; margin-bottom: 48px; }
+.section-title { font-size: 36px; color: var(--text-white); margin-top: 8px; }
+.gold-divider { width: 50px; height: 2px; background: var(--gold); margin: 12px auto; }
+
+/* Cards Grid (3-in-1 Responsive) */
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+.card {
+  background: var(--bg-card); border: 1px solid var(--gold-dim);
+  border-radius: 10px; overflow: hidden; transition: transform 0.3s, border-color 0.3s;
+}
+.card:hover { transform: translateY(-5px); border-color: var(--gold); }
+.card-img { width: 100%; height: 200px; object-fit: cover; }
+.card-body { padding: 20px; }
+.card-title { font-size: 20px; color: var(--text-white); display: flex; justify-content: space-between; align-items: center; }
+.card-price { color: var(--gold); font-size: 16px; font-weight: 700; }
+
+/* Accordion Menu */
+.menu-search {
+  width: 100%; max-width: 400px; margin: 0 auto 30px; display: block;
+  padding: 12px 20px; border-radius: 25px; border: 1px solid var(--gold-dim);
+  background: #1a1a1a; color: var(--text-white); font-size: 14px;
+}
+.menu-search:focus { outline: none; border-color: var(--gold); }
+
+.menu-cat {
+  background: var(--bg-card); border: 1px solid var(--gold-dim);
+  border-radius: 8px; margin-bottom: 12px; overflow: hidden;
+}
+.menu-cat-btn {
+  width: 100%; padding: 18px 20px; background: none; border: none;
+  color: var(--gold); font-size: 20px; text-align: left; cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.menu-cat-content { display: none; padding: 0 20px 20px; }
+.menu-cat-content.active { display: block; }
+.menu-item {
+  display: flex; justify-content: space-between; padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px;
+}
+
+/* Floating WhatsApp */
+.whatsapp-btn {
+  position: fixed; bottom: 24px; right: 24px; z-index: 999;
+  background: #25D366; color: white; width: 56px; height: 56px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 28px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  transition: transform 0.2s;
+}
+.whatsapp-btn:hover { transform: scale(1.1); }
+
+/* Reservation Form */
+.form-group { margin-bottom: 16px; }
+.form-input {
+  width: 100%; padding: 12px 16px; background: #1a1a1a;
+  border: 1px solid var(--gold-dim); border-radius: 6px; color: white;
 }
 </style>
 </head>
 
-<body class="antialiased selection:bg-amber-200 selection:text-amber-950">
+<body>
 
-<!-- Scroll Progress Bar -->
-<div id="progressBar"></div>
-
-<!-- 1. APPLE SCROLL CANVAS BACKGROUND -->
-<canvas id="appleScrollCanvas"></canvas>
-
-<!-- Floating WhatsApp Button -->
-<a href="https://wa.me/923013777777?text=Assalam-o-Alaikum%20MUSA%20Cafe%20Reservation" target="_blank" aria-label="WhatsApp Order" class="fixed bottom-6 right-6 z-50 bg-emerald-600 hover:bg-emerald-500 text-white p-4 rounded-full shadow-2xl transition transform hover:scale-110 active:scale-95 border-2 border-white">
-  <i class="fa-brands fa-whatsapp text-2xl sm:text-3xl"></i>
-</a>
-
-<!-- NAVBAR (3-in-1 Responsive) -->
-<nav class="fixed top-0 inset-x-0 z-40 px-4 sm:px-8 py-4 transition-all duration-300" id="navbar">
-  <div class="max-w-7xl mx-auto flex items-center justify-between glass-card-light rounded-full px-6 py-3">
-    <a href="#" class="flex items-center gap-3">
-      <span class="w-9 h-9 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-700 font-bold font-serif-title text-xl">M</span>
-      <div>
-        <span class="font-eyebrow text-sm font-bold text-amber-800 tracking-widest block leading-none">MUSA</span>
-        <span class="text-[9px] text-stone-500 uppercase tracking-widest block">Cafe &amp; Restaurant</span>
-      </div>
-    </a>
-
-    <!-- Desktop Navigation -->
-    <div class="hidden lg:flex items-center gap-8 text-xs font-eyebrow font-semibold text-stone-700 tracking-wider">
-      <a href="#experience" class="hover:text-amber-700 transition">3D Experience</a>
-      <a href="#menu" class="hover:text-amber-700 transition">Signature Menu</a>
-      <a href="#ambience" class="hover:text-amber-700 transition">Ambience</a>
-      <a href="#reserve" class="hover:text-amber-700 transition">Reservations</a>
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="nav-brand">
+    <div class="nav-logo-circle">M</div>
+    <div>
+      <div class="nav-title font-eyebrow">MUSA</div>
+      <div class="nav-subtitle">Cafe &amp; Restaurant</div>
     </div>
-
-    <!-- CTA -->
-    <a href="#reserve" class="btn-gold-light px-5 py-2.5 rounded-full font-eyebrow font-bold text-[10px] uppercase tracking-widest">Book Table</a>
   </div>
+  <div class="nav-links font-eyebrow">
+    <a href="#signature" class="nav-link">Signature</a>
+    <a href="#menu" class="nav-link">Menu</a>
+    <a href="#reserve" class="nav-link">Reserve</a>
+  </div>
+  <a href="#reserve" class="btn-gold font-eyebrow">Book Table</a>
 </nav>
 
-<!-- MAIN SCROLL CONTENT LAYER -->
-<main class="content-layer">
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-card">
+    <span class="font-eyebrow" style="color: var(--gold); font-size: 12px;">EST. IN LAYYAH</span>
+    <h1 class="hero-title">MUSA CAFE &amp; RESTAURANT</h1>
+    <p class="hero-desc">Sizzling Karahi, smoked BBQ, wood-fired Pizza &amp; slow-cooked Biryani — an unforgettable table in the heart of Layyah.</p>
+    <a href="#menu" class="btn-gold font-eyebrow" style="padding: 14px 28px; font-size: 12px;">Explore Menu</a>
+  </div>
+</section>
 
-  <!-- HERO SECTION (Frame Sequence 0-25%) -->
-  <section class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-12 text-center pt-20">
-    <div class="max-w-4xl mx-auto glass-card-light p-8 sm:p-14 rounded-3xl reveal active">
-      <span class="font-eyebrow text-amber-700 text-xs tracking-[4px] uppercase block mb-3">Layyah's Fine Dining Destination</span>
-      <h1 class="font-serif-title text-5xl sm:text-7xl lg:text-8xl font-bold text-stone-900 leading-tight">
-        Experience Food<br><span class="italic font-normal text-amber-700">In 3D Motion</span>
-      </h1>
-      <p class="mt-6 text-stone-600 text-sm sm:text-base max-w-xl mx-auto font-normal leading-relaxed">
-        Scroll down to walk through our signature dining hall, gourmet kitchen fire, and luxury rooftop seating.
-      </p>
-      <div class="mt-8 flex flex-wrap justify-center gap-4">
-        <a href="#menu" class="btn-gold-light px-8 py-3.5 rounded-full text-xs font-eyebrow font-bold uppercase tracking-widest">Explore Menu</a>
-        <a href="#experience" class="bg-white/80 border border-amber-600/30 text-amber-900 hover:bg-white px-8 py-3.5 rounded-full text-xs font-eyebrow font-bold uppercase tracking-widest transition">Scroll Walkthrough</a>
+<!-- Signature Dishes -->
+<section id="signature" class="section">
+  <div class="section-header">
+    <span class="font-eyebrow" style="color: var(--gold); font-size: 11px;">CHEF'S SELECTION</span>
+    <h2 class="section-title">Signature Dishes</h2>
+    <div class="gold-divider"></div>
+  </div>
+
+  <div class="grid-cards">
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=600&q=70" class="card-img" alt="Chicken Biryani">
+      <div class="card-body">
+        <div class="card-title">Chicken Biryani <span class="card-price">Rs. 1,199</span></div>
       </div>
     </div>
-  </section>
-
-  <!-- 3D SCROLL FEATURE BREAKDOWNS (Frame Sequence 25-75%) -->
-  <section id="experience" class="py-32 px-4 sm:px-8 max-w-7xl mx-auto space-y-40">
-    
-    <!-- Feature 1 -->
-    <div class="grid lg:grid-cols-2 gap-12 items-center">
-      <div class="glass-card-light p-8 sm:p-12 rounded-3xl reveal">
-        <span class="font-eyebrow text-amber-700 text-xs tracking-widest uppercase block mb-2">01 / Signature Grill</span>
-        <h2 class="font-serif-title text-4xl sm:text-5xl font-bold text-stone-900">Live Flame Cooking</h2>
-        <p class="mt-4 text-stone-600 text-sm leading-relaxed">
-          Authentic Mutton Karahi and BBQ prepared on traditional open flames with hand-ground spices every single day.
-        </p>
-      </div>
-      <div></div> <!-- Space left open to reveal background 3D Canvas -->
-    </div>
-
-    <!-- Feature 2 -->
-    <div class="grid lg:grid-cols-2 gap-12 items-center">
-      <div></div> <!-- Space left open -->
-      <div class="glass-card-light p-8 sm:p-12 rounded-3xl reveal">
-        <span class="font-eyebrow text-amber-700 text-xs tracking-widest uppercase block mb-2">02 / Rooftop View</span>
-        <h2 class="font-serif-title text-4xl sm:text-5xl font-bold text-stone-900">Open-Air Luxury</h2>
-        <p class="mt-4 text-stone-600 text-sm leading-relaxed">
-          Enjoy your evening under the Layyah sky with family seating, private cabins, and ambient warm lighting.
-        </p>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=600&q=70" class="card-img" alt="White Karahi">
+      <div class="card-body">
+        <div class="card-title">White Karahi <span class="card-price">Rs. 2,049</span></div>
       </div>
     </div>
-
-  </section>
-
-  <!-- POPULAR MENU SNAPSHOT (Frame Sequence 75-90%) -->
-  <section id="menu" class="py-24 px-4 sm:px-8 max-w-7xl mx-auto">
-    <div class="text-center max-w-2xl mx-auto mb-16 glass-card-light p-8 rounded-3xl reveal">
-      <span class="font-eyebrow text-amber-700 text-xs tracking-widest uppercase block mb-2">Gourmet Selection</span>
-      <h2 class="font-serif-title text-4xl sm:text-5xl font-bold text-stone-900">MUSA Favorites</h2>
-      <p class="text-stone-600 text-sm mt-3">Crafted with precision, served with passion.</p>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=600&q=70" class="card-img" alt="Special Coffee">
+      <div class="card-body">
+        <div class="card-title">Musa Special Coffee <span class="card-price">Rs. 549</span></div>
+      </div>
     </div>
+  </div>
+</section>
 
-    <!-- Responsive Grid for Mobile / Laptop / PC -->
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-      
-      <div class="glass-card-light rounded-2xl p-6 transition transform hover:-translate-y-2 reveal">
-        <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=600&q=75" alt="Chicken Biryani" class="w-full h-48 object-cover rounded-xl mb-4">
-        <div class="flex justify-between items-center">
-          <h3 class="font-serif-title text-2xl font-bold text-stone-900">Chicken Biryani</h3>
-          <span class="text-amber-800 font-eyebrow font-bold text-sm">Rs. 1,199</span>
-        </div>
-        <p class="text-stone-500 text-xs mt-2">Aromatic basmati rice cooked with fresh spices and tender chicken.</p>
-      </div>
+<!-- Accordion Menu -->
+<section id="menu" class="section">
+  <div class="section-header">
+    <span class="font-eyebrow" style="color: var(--gold); font-size: 11px;">COMPLETE MENU</span>
+    <h2 class="section-title">22 Gourmet Categories</h2>
+    <div class="gold-divider"></div>
+  </div>
 
-      <div class="glass-card-light rounded-2xl p-6 transition transform hover:-translate-y-2 reveal">
-        <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=600&q=75" alt="White Karahi" class="w-full h-48 object-cover rounded-xl mb-4">
-        <div class="flex justify-between items-center">
-          <h3 class="font-serif-title text-2xl font-bold text-stone-900">White Karahi</h3>
-          <span class="text-amber-800 font-eyebrow font-bold text-sm">Rs. 2,049</span>
-        </div>
-        <p class="text-stone-500 text-xs mt-2">Rich cream and yoghurt gravy prepared with green chillies and butter.</p>
-      </div>
+  <input type="text" id="menuSearch" class="menu-search" placeholder="Search dish (e.g. Biryani, Karahi)...">
 
-      <div class="glass-card-light rounded-2xl p-6 transition transform hover:-translate-y-2 reveal">
-        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=600&q=75" alt="Special Coffee" class="w-full h-48 object-cover rounded-xl mb-4">
-        <div class="flex justify-between items-center">
-          <h3 class="font-serif-title text-2xl font-bold text-stone-900">Musa Cold Coffee</h3>
-          <span class="text-amber-800 font-eyebrow font-bold text-sm">Rs. 549</span>
-        </div>
-        <p class="text-stone-500 text-xs mt-2">Slow-roasted arabica espresso blended with ice cream and dark cocoa.</p>
-      </div>
+  <div id="accordionContainer"></div>
+</section>
 
-    </div>
-  </section>
+<!-- Reservation Form -->
+<section id="reserve" class="section">
+  <div class="section-header">
+    <span class="font-eyebrow" style="color: var(--gold); font-size: 11px;">LAYYAH LOCATION</span>
+    <h2 class="section-title">Reserve a Table</h2>
+    <div class="gold-divider"></div>
+  </div>
 
-  <!-- RESERVATION & LOCATION -->
-  <section id="reserve" class="py-24 px-4 sm:px-8 max-w-5xl mx-auto">
-    <div class="glass-card-light rounded-3xl p-8 sm:p-14 grid lg:grid-cols-2 gap-12 items-center reveal">
-      <div>
-        <span class="font-eyebrow text-amber-700 text-xs tracking-widest uppercase block mb-2">Book Your Table</span>
-        <h2 class="font-serif-title text-4xl sm:text-5xl font-bold text-stone-900">Reserve an Unforgettable Evening</h2>
-        <p class="text-stone-600 text-sm mt-4 leading-relaxed">
-          03, Block A Housing Colony, Layyah, Punjab.<br>
-          Open Daily: 12:00 PM – 01:00 AM
-        </p>
-        <div class="mt-6 flex items-center gap-4 text-stone-700 text-sm">
-          <i class="fa-solid fa-phone text-amber-700"></i>
-          <span>0301 3777777</span>
-        </div>
-      </div>
+  <div style="max-width: 500px; margin: 0 auto; background: var(--bg-card); padding: 30px; border-radius: 10px; border: 1px solid var(--gold-dim);">
+    <form id="resForm">
+      <div class="form-group"><input type="text" id="rName" class="form-input" placeholder="Full Name" required></div>
+      <div class="form-group"><input type="tel" id="rPhone" class="form-input" placeholder="Phone Number" required></div>
+      <div class="form-group"><input type="date" id="rDate" class="form-input" required></div>
+      <div class="form-group"><input type="number" id="rGuests" class="form-input" placeholder="Number of Guests" min="1" required></div>
+      <button type="submit" class="btn-gold font-eyebrow" style="width: 100%; padding: 14px;">Reserve via WhatsApp</button>
+    </form>
+  </div>
+</section>
 
-      <form id="resForm" class="space-y-4">
-        <input type="text" id="rName" required placeholder="Full Name" class="w-full bg-white/70 border border-amber-600/20 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-600">
-        <input type="tel" id="rPhone" required placeholder="Phone Number" class="w-full bg-white/70 border border-amber-600/20 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-600">
-        <div class="grid grid-cols-2 gap-3">
-          <input type="date" id="rDate" required class="w-full bg-white/70 border border-amber-600/20 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-600">
-          <input type="number" id="rGuests" min="1" placeholder="Guests" required class="w-full bg-white/70 border border-amber-600/20 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-600">
-        </div>
-        <button type="submit" class="btn-gold-light w-full py-4 rounded-xl font-eyebrow font-bold text-xs uppercase tracking-widest">Confirm Table Via WhatsApp</button>
-      </form>
-    </div>
-  </section>
+<!-- Floating WhatsApp -->
+<a href="https://wa.me/923013777777" class="whatsapp-btn" target="_blank" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
 
-  <!-- FOOTER -->
-  <footer class="py-12 border-t border-amber-600/10 text-center text-stone-500 text-xs font-eyebrow">
-    <p>&copy; 2026 MUSA Cafe &amp; Restaurant Layyah. All Rights Reserved.</p>
-  </footer>
-
-</main>
-
-<!-- JAVASCRIPT: APPLE SCROLL ANIMATION & CANVAS CONTROLLER -->
 <script>
-// 1. Apple-Style Scroll Driven Canvas Controller
-const canvas = document.getElementById('appleScrollCanvas');
-const ctx = canvas.getContext('2d');
-
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  render3DFrame(getScrollFraction());
-}
-window.addEventListener('resize', resizeCanvas);
-
-// High-resolution realistic frame layers for Apple-style 3D camera pan simulation
-const frameImages = [
-  'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=80',
-  'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1600&q=80',
-  'https://images.unsplash.com/photo-1592861956120-e524fc739696?auto=format&fit=crop&w=1600&q=80',
-  'https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?auto=format&fit=crop&w=1600&q=80'
+// Menu Data
+const menuData = [
+  { cat: "1. Appetizer", items: [["Chicken Drum Stick (4 Pcs)", "1,349"], ["Dynamite Fries", "649"], ["Honey Wings (12 Pcs)", "1,149"]] },
+  { cat: "2. Soup (Full/Half)", items: [["Musa Special", "1,249 / 649"], ["Chicken Corn", "999 / 649"], ["Hot & Sour", "1,049 / 699"]] },
+  { cat: "3. Pakistani Rice", items: [["Chicken Biryani", "1,199"], ["Mutton Biryani", "1,599"], ["Yakhni Pulao", "1,149"]] },
+  { cat: "4. Chicken Karahi", items: [["White Karahi", "2,049"], ["Lahori Karahi", "1,799"], ["Peshawri Karahi", "1,899"]] },
+  { cat: "5. Drinks & Coffee", items: [["Musa Cold Coffee", "549"], ["Spanish Latte", "599"], ["Fresh Lime", "179"]] }
 ];
 
-const loadedImages = [];
-let imagesLoaded = 0;
+const container = document.getElementById('accordionContainer');
 
-frameImages.forEach((src, i) => {
-  const img = new Image();
-  img.src = src;
-  img.onload = () => {
-    imagesLoaded++;
-    if(imagesLoaded === frameImages.length) {
-      resizeCanvas();
-    }
-  };
-  loadedImages.push(img);
-});
+function renderMenu(filter = '') {
+  container.innerHTML = '';
+  menuData.forEach((c, index) => {
+    const filtered = c.items.filter(i => i[0].toLowerCase().includes(filter.toLowerCase()));
+    if(filtered.length > 0) {
+      const catDiv = document.createElement('div');
+      catDiv.className = 'menu-cat';
+      
+      const itemsHtml = filtered.map(i => `
+        <div class="menu-item">
+          <span>${i[0]}</span>
+          <span style="color:var(--gold); font-weight:bold;">Rs. ${i[1]}</span>
+        </div>
+      `).join('');
 
-// Calculate current scroll ratio (0.0 to 1.0)
-function getScrollFraction() {
-  const scrollTop = window.scrollY;
-  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-  return Math.min(1, Math.max(0, scrollTop / maxScroll));
-}
+      catDiv.innerHTML = `
+        <button class="menu-cat-btn font-serif">${c.cat} <i class="fa-solid fa-chevron-down" style="font-size:14px;"></i></button>
+        <div class="menu-cat-content ${index === 0 || filter ? 'active' : ''}">${itemsHtml}</div>
+      `;
 
-// 2. Render 3D Frame Sequence on Canvas
-function render3DFrame(progress) {
-  if (loadedImages.length === 0) return;
+      catDiv.querySelector('.menu-cat-btn').addEventListener('click', function() {
+        const content = this.nextElementSibling;
+        content.classList.toggle('active');
+      });
 
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  // Smooth interpolation between frames
-  const totalFrames = loadedImages.length - 1;
-  const frameIndex = Math.min(totalFrames, Math.floor(progress * totalFrames));
-  const nextFrameIndex = Math.min(totalFrames, frameIndex + 1);
-  const blend = (progress * totalFrames) - frameIndex;
-
-  const currentImg = loadedImages[frameIndex];
-  const nextImg = loadedImages[nextFrameIndex];
-
-  // Camera Zoom & Pan Calculation (Apple-style 3D Perspective)
-  const scale = 1.05 + (progress * 0.12);
-  const panY = progress * -50;
-
-  if (currentImg && currentImg.complete) {
-    ctx.save();
-    ctx.globalAlpha = 1 - blend;
-    drawScaledImage(currentImg, scale, panY);
-    ctx.restore();
-  }
-
-  if (nextImg && nextImg.complete && blend > 0) {
-    ctx.save();
-    ctx.globalAlpha = blend;
-    drawScaledImage(nextImg, scale, panY);
-    ctx.restore();
-  }
-
-  // Warm luxury overlay tint over canvas
-  ctx.fillStyle = 'rgba(250, 248, 245, 0.45)';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-}
-
-function drawScaledImage(img, scale, panY) {
-  const w = canvas.width * scale;
-  const h = canvas.height * scale;
-  const x = (canvas.width - w) / 2;
-  const y = ((canvas.height - h) / 2) + panY;
-  ctx.drawImage(img, x, y, w, h);
-}
-
-// 3. Scroll Listener for Smooth Updating
-const progressBar = document.getElementById('progressBar');
-
-window.addEventListener('scroll', () => {
-  const progress = getScrollFraction();
-  
-  // Update progress bar
-  progressBar.style.width = (progress * 100) + '%';
-
-  // Render canvas frame
-  requestAnimationFrame(() => render3DFrame(progress));
-
-  // Reveal animations
-  document.querySelectorAll('.reveal').forEach(el => {
-    if (el.getBoundingClientRect().top < window.innerHeight - 80) {
-      el.classList.add('active');
+      container.appendChild(catDiv);
     }
   });
+}
+
+renderMenu();
+
+document.getElementById('menuSearch').addEventListener('input', (e) => {
+  renderMenu(e.target.value.trim());
 });
 
-// Initial Setup
-resizeCanvas();
-
-// Reservation Form Handler
+// WhatsApp Reservation
 document.getElementById('resForm').addEventListener('submit', (e) => {
   e.preventDefault();
   const name = document.getElementById('rName').value;
@@ -371,12 +304,13 @@ document.getElementById('resForm').addEventListener('submit', (e) => {
   const date = document.getElementById('rDate').value;
   const guests = document.getElementById('rGuests').value;
 
-  const text = `Assalam-o-Alaikum! MUSA Cafe Table Booking:%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Phone:* ${encodeURIComponent(phone)}%0A*Date:* ${encodeURIComponent(date)}%0A*Guests:* ${encodeURIComponent(guests)}`;
-  window.open(`https://wa.me/923013777777?text=${text}`, '_blank');
+  const msg = `Assalam-o-Alaikum! MUSA Cafe Table Booking:%0A*Name:* ${encodeURIComponent(name)}%0A*Phone:* ${encodeURIComponent(phone)}%0A*Date:* ${encodeURIComponent(date)}%0A*Guests:* ${encodeURIComponent(guests)}`;
+  window.open(`https://wa.me/923013777777?text=${msg}`, '_blank');
 });
 </script>
 
 </body>
 </html>
+
 
 
