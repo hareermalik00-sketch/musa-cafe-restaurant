@@ -1,642 +1,595 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MUSA Cafe & Restaurant | 3D Cinematic Experience</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Musa Cafe & Restaurant | 3D Dining Experience</title>
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<!-- GOOGLE FONTS -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS RESET & VARIABLES --- */
+        :root {
+            --primary: #ff9f43;
+            --secondary: #ee5253;
+            --bg-dark: #0f0f13;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(255, 255, 255, 0.12);
+            --text: #ffffff;
+            --text-dim: #b3b3b3;
+        }
 
-<!-- THREE.JS 3D ENGINE -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
 
-<style>
-:root {
-  --black: #080808;
-  --gold: #d4af37;
-  --gold-light: #f3e5ab;
-  --gold-glow: rgba(212, 175, 55, 0.4);
-  --dark-card: rgba(18, 18, 18, 0.75);
-  --text-muted: #b0b0b0;
-}
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text);
+            overflow-x: hidden;
+            perspective: 1000px;
+        }
 
-* { margin:0; padding:0; box-sizing:border-box; }
-html, body { width: 100%; height: 100%; background: var(--black); color: #fff; font-family: 'Poppins', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
+        /* --- 3D AMBIENT BACKGROUND PARTICLES --- */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
 
-/* THREE.JS CANVAS BACKGROUND */
-#webgl-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 1;
-  pointer-events: none;
-}
+        /* --- AUDIO TOGGLE BUTTON --- */
+        .music-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 999;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            color: white;
+            padding: 14px 22px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(255, 159, 67, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
 
-/* CINEMATIC OVERLAY BARS */
-.cinematic-bar-top, .cinematic-bar-bottom {
-  position: fixed;
-  left: 0;
-  width: 100%;
-  height: 0px;
-  background: #000;
-  z-index: 999;
-  transition: height 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.cinematic-bar-top { top: 0; }
-.cinematic-bar-bottom { bottom: 0; }
+        .music-btn:hover {
+            transform: scale(1.08) translateY(-3px);
+        }
 
-body.cinematic-active .cinematic-bar-top,
-body.cinematic-active .cinematic-bar-bottom {
-  height: 60px;
-}
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 159, 67, 0.6); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 159, 67, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 159, 67, 0); }
+        }
 
-/* UI LAYER */
-.ui-layer {
-  position: relative;
-  z-index: 10;
-}
+        /* --- HERO SECTION WITH 3D DEPTH --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+            transform-style: preserve-3d;
+        }
 
-/* HEADER */
-header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  padding: 25px 60px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(180deg, rgba(8,8,8,0.9) 0%, rgba(8,8,8,0) 100%);
-  backdrop-filter: blur(10px);
-  z-index: 100;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.15);
-}
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(255,159,67,0.2) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            animation: floatingGlow 6s ease-in-out infinite alternate;
+        }
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.logo-icon {
-  width: 42px;
-  height: 42px;
-  border: 2px solid var(--gold);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--gold);
-  font-family: 'Playfair Display', serif;
-  font-weight: 800;
-  box-shadow: 0 0 15px var(--gold-glow);
-}
-.logo-text {
-  font-family: 'Playfair Display', serif;
-  font-size: 22px;
-  font-weight: 800;
-  letter-spacing: 2px;
-  color: var(--gold-light);
-  text-transform: uppercase;
-}
-.logo-sub {
-  font-size: 9px;
-  letter-spacing: 4px;
-  color: var(--text-muted);
-  display: block;
-}
+        @keyframes floatingGlow {
+            0% { transform: translate(-50%, -50%) scale(1); }
+            100% { transform: translate(-50%, -50%) scale(1.3); }
+        }
 
-nav ul {
-  display: flex;
-  gap: 35px;
-  list-style: none;
-}
-nav a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  transition: all 0.3s;
-  position: relative;
-}
-nav a:hover { color: var(--gold); }
-nav a::after {
-  content: '';
-  position: absolute;
-  bottom: -6px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--gold);
-  transition: width 0.3s;
-}
-nav a:hover::after { width: 100%; }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            letter-spacing: 2px;
+            background: linear-gradient(45deg, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            animation: floatText 4s ease-in-out infinite alternate;
+        }
 
-.nav-actions {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-}
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            max-width: 600px;
+            margin-top: 15px;
+        }
 
-.btn-book {
-  background: transparent;
-  border: 1px solid var(--gold);
-  color: var(--gold);
-  padding: 10px 24px;
-  border-radius: 4px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.4s;
-}
-.btn-book:hover {
-  background: var(--gold);
-  color: #000;
-  box-shadow: 0 0 25px var(--gold-glow);
-}
+        @keyframes floatText {
+            0% { transform: translateY(0px) rotateX(0deg); }
+            100% { transform: translateY(-15px) rotateX(5deg); }
+        }
 
-/* HERO SECTION */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  padding: 140px 80px 60px;
-  position: relative;
-}
+        /* --- CONTAINER & SECTION TITLES --- */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
 
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 40px;
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  align-items: center;
-}
+        .section-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            margin-bottom: 50px;
+            color: var(--primary);
+            position: relative;
+        }
 
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: rgba(212, 175, 55, 0.08);
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  padding: 8px 20px;
-  border-radius: 50px;
-  font-size: 11px;
-  color: var(--gold-light);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  margin-bottom: 25px;
-}
+        .section-title::after {
+            content: '';
+            width: 80px;
+            height: 3px;
+            background: var(--secondary);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
 
-.hero h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(48px, 6vw, 82px);
-  font-weight: 800;
-  line-height: 1.05;
-  margin-bottom: 25px;
-  background: linear-gradient(135deg, #ffffff 30%, var(--gold-light) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
 
-.hero h1 span {
-  font-style: italic;
-  font-weight: 600;
-  color: var(--gold);
-  -webkit-text-fill-color: var(--gold);
-}
+        /* --- 3D TILT CARDS --- */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.2s ease-out, box-shadow 0.3s ease;
+            transform-style: preserve-3d;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
 
-.hero p {
-  font-size: 16px;
-  color: var(--text-muted);
-  max-width: 520px;
-  line-height: 1.8;
-  margin-bottom: 40px;
-  font-weight: 300;
-}
+        .card:hover {
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 20px rgba(255, 159, 67, 0.2);
+        }
 
-.hero-buttons {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
+        .card-img-wrapper {
+            width: 100%;
+            height: 220px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            transform: translateZ(30px);
+        }
 
-.btn-primary {
-  background: linear-gradient(135deg, #d4af37, #b8860b);
-  color: #000;
-  border: none;
-  padding: 16px 36px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.4s;
-  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
-}
-.btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 40px rgba(212, 175, 55, 0.5);
-}
+        .card-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
 
-.btn-secondary {
-  background: rgba(20, 20, 20, 0.8);
-  border: 1px solid rgba(212, 175, 55, 0.4);
-  color: #fff;
-  padding: 16px 36px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.4s;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.btn-secondary:hover {
-  border-color: var(--gold);
-  background: rgba(212, 175, 55, 0.1);
-  color: var(--gold-light);
-}
+        .card:hover .card-img-wrapper img {
+            transform: scale(1.1);
+        }
 
-/* 3D HERO VISUAL CARD */
-.hero-visual-card {
-  position: relative;
-  width: 100%;
-  height: 520px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform-style: preserve-3d;
-  perspective: 1000px;
-}
+        .card-title {
+            font-size: 1.4rem;
+            margin: 20px 0 10px 0;
+            color: #fff;
+            transform: translateZ(25px);
+        }
 
-.karahi-container {
-  width: 100%;
-  height: 100%;
-  border-radius: 20px;
-  position: relative;
-  overflow: hidden;
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  background: radial-gradient(circle at 50% 50%, rgba(40,25,10,0.8), rgba(8,8,8,0.95));
-  box-shadow: 0 30px 80px rgba(0,0,0,0.9), inset 0 0 50px rgba(212, 175, 55, 0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.2s cubic-bezier(0.1, 1, 0.1, 1);
-}
+        .card-desc {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            transform: translateZ(20px);
+            line-height: 1.4;
+        }
 
-.karahi-img {
-  width: 85%;
-  height: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8));
-  transform: translateZ(40px);
-  animation: floatDish 6s ease-in-out infinite;
-}
+        /* --- LOCATION CARD STYLING --- */
+        .location-card {
+            background: linear-gradient(135deg, rgba(255,159,67,0.1), rgba(238,82,83,0.1));
+            border: 1px solid var(--primary);
+            text-align: center;
+            padding: 35px;
+            margin-bottom: 40px;
+        }
 
-@keyframes floatDish {
-  0%, 100% { transform: translateZ(40px) translateY(0px) rotate(0deg); }
-  50% { transform: translateZ(60px) translateY(-15px) rotate(1deg); }
-}
+        .rating-num {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
 
-.hot-glow {
-  position: absolute;
-  width: 250px;
-  height: 250px;
-  background: radial-gradient(circle, rgba(255, 120, 0, 0.4) 0%, rgba(212, 175, 55, 0.1) 50%, transparent 70%);
-  border-radius: 50%;
-  animation: pulseGlow 3s ease-in-out infinite;
-  pointer-events: none;
-}
-
-@keyframes pulseGlow {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
-  50% { opacity: 0.9; transform: scale(1.15); }
-}
-
-/* STATS STRIP */
-.stats-strip {
-  margin-top: 50px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  background: var(--dark-card);
-  border: 1px solid rgba(212, 175, 55, 0.2);
-  padding: 25px;
-  border-radius: 12px;
-  backdrop-filter: blur(15px);
-}
-
-.stat-item {
-  text-align: center;
-  border-right: 1px solid rgba(212, 175, 55, 0.15);
-}
-.stat-item:last-child { border-right: none; }
-
-.stat-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 28px;
-  font-weight: 800;
-  color: var(--gold-light);
-  margin-bottom: 4px;
-}
-.stat-label {
-  font-size: 11px;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-/* CINEMATIC CONTROLLER FLOATING BUTTON */
-.cinematic-toggle {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  z-index: 1000;
-  background: rgba(18, 18, 18, 0.9);
-  border: 2px solid var(--gold);
-  color: var(--gold-light);
-  padding: 14px 24px;
-  border-radius: 50px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  cursor: pointer;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px var(--gold-glow);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  transition: all 0.4s;
-}
-
-.cinematic-toggle:hover {
-  background: var(--gold);
-  color: #000;
-  transform: scale(1.05);
-}
-
-/* RESPONSIVE */
-@media (max-width: 1024px) {
-  .hero-grid { grid-template-columns: 1fr; text-align: center; }
-  .hero p { margin-left: auto; margin-right: auto; }
-  .hero-buttons { justify-content: center; }
-  .stats-strip { grid-template-columns: 1fr 1fr; gap: 20px; }
-  .stat-item { border-right: none; }
-  header { padding: 20px 30px; }
-  nav { display: none; }
-}
-</style>
+        /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .section-title { font-size: 2rem; }
+            .grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+        }
+    </style>
 </head>
 <body>
 
-<!-- CINEMATIC WIDESCREEN BARS -->
-<div class="cinematic-bar-top"></div>
-<div class="cinematic-bar-bottom"></div>
+    <!-- 3D Particle Canvas Background -->
+    <canvas id="bg-canvas"></canvas>
 
-<!-- THREE.JS 3D CANVAS -->
-<div id="webgl-container"></div>
+    <!-- Audio Player Toggle -->
+    <button class="music-btn" id="musicToggle">
+        <i class="fa-solid fa-music"></i>
+        <span>Play Ambient Music</span>
+    </button>
 
-<!-- CINEMATIC MODE TOGGLE BUTTON -->
-<button class="cinematic-toggle" id="cinematicBtn" onclick="toggleCinematic()">
-  🎬 <span>Cinematic Mode</span>
-</button>
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Musa Cafe & Restaurant</h1>
+        <p>Experience authentic taste served with modern elegance & immersive atmosphere.</p>
+    </section>
 
-<!-- UI CONTENT LAYER -->
-<div class="ui-layer">
+    <!-- Main Content Container -->
+    <div class="container">
 
-  <!-- HEADER -->
-  <header>
-    <div class="logo">
-      <div class="logo-icon">M</div>
-      <div>
-        <span class="logo-text">MUSA</span>
-        <span class="logo-sub">CAFE & RESTAURANT</span>
-      </div>
-    </div>
+        <!-- 1. PIZZAS -->
+        <h2 class="section-title">Special Pizzas</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="deep-dish-pizza.jpg" alt="Special Deep Dish Pizza">
+                </div>
+                <h3 class="card-title">Special Deep Dish Pizza</h3>
+                <p class="card-desc">Rich layers of cheese, minced beef & secret sauce cooked to deep-dish perfection.</p>
+            </div>
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="chicken-pizza.jpg" alt="Chicken Jalapeño Pizza">
+                </div>
+                <h3 class="card-title">Chicken Jalapeño Pizza</h3>
+                <p class="card-desc">Spicy chicken topped with fresh jalapeños, onions, and melted mozzarella cheese.</p>
+            </div>
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="tikka-pizza.jpg" alt="Chicken Tikka Pizza">
+                </div>
+                <h3 class="card-title">Chicken Tikka Pizza</h3>
+                <p class="card-desc">Traditional barbecued chicken tikka chunks with capsicum, oregano & herbs.</p>
+            </div>
+        </div>
 
-    <nav>
-      <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About Us</a></li>
-        <li><a href="#menu">Menu</a></li>
-        <li><a href="#reservation">Reservation</a></li>
-        <li><a href="#gallery">Gallery</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
+        <!-- 2. SOUPS -->
+        <h2 class="section-title">Warm Soups</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="noodle-soup.jpg" alt="Chicken Noodle Soup">
+                </div>
+                <h3 class="card-title">Chicken Noodle Soup</h3>
+                <p class="card-desc">Comforting hot broth filled with tender chicken pieces, scallions, and soft noodles.</p>
+            </div>
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="chicken-soup.jpg" alt="Clear Chicken Soup">
+                </div>
+                <h3 class="card-title">Clear Chicken Soup</h3>
+                <p class="card-desc">Nutritious, simmered broth with chopped vegetables and shredded chicken breast.</p>
+            </div>
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="corn-soup.jpg" alt="Chicken Corn Soup">
+                </div>
+                <h3 class="card-title">Chicken Corn Soup</h3>
+                <p class="card-desc">Classic creamy sweet corn soup with egg drops, chicken, and black pepper.</p>
+            </div>
+        </div>
 
-    <div class="nav-actions">
-      <button class="btn-book" onclick="openWhatsApp()">Book A Table</button>
-    </div>
-  </header>
+        <!-- 3. BBQ & MAIN HANDI -->
+        <h2 class="section-title">BBQ & Main Karahi</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="chicken-handi.jpg" alt="Creamy Chicken Handi">
+                </div>
+                <h3 class="card-title">Creamy Chicken Handi</h3>
+                <p class="card-desc">Boneless chicken simmered in rich butter, fresh cream, and aromatic spices.</p>
+            </div>
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="malai-boti.jpg" alt="Chicken Malai Boti">
+                </div>
+                <h3 class="card-title">Chicken Malai Boti</h3>
+                <p class="card-desc">Mouth-watering grilled chicken marinated in cream, lemon, green chillies & herbs.</p>
+            </div>
+        </div>
 
-  <!-- HERO SECTION -->
-  <section class="hero" id="home">
-    <div class="hero-grid">
-      
-      <!-- LEFT CONTENT -->
-      <div class="hero-content">
-        <div class="hero-badge">✦ Layyah's Premium Dining ✦</div>
-        <h1>A Taste of <span>LUXURY</span> & TRADITION</h1>
-        <p>Experience the finest Karahi, BBQ, Chinese, Pizza & more — crafted with passion, authentic spices, and generations of culinary excellence.</p>
+        <!-- 4. FRESH NAAN -->
+        <h2 class="section-title">Tandoori Naan Selection</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="garlic-naan.jpg" alt="Garlic Naan">
+                </div>
+                <h3 class="card-title">Garlic Naan</h3>
+                <p class="card-desc">Freshly baked tandoori naan brushed with garlic butter and parsley.</p>
+            </div>
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="chicken-naan.jpg" alt="Chicken Stuffed Naan">
+                </div>
+                <h3 class="card-title">Chicken Stuffed Naan</h3>
+                <p class="card-desc">Oven-baked naan stuffed with spicy minced chicken filling.</p>
+            </div>
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="roghani-naan.jpg" alt="Roghani Naan">
+                </div>
+                <h3 class="card-title">Roghani Naan</h3>
+                <p class="card-desc">Traditional soft Roghani naan sprinkled with sesame seeds and ghee.</p>
+            </div>
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="tandoori-naan.jpg" alt="Special Tandoori Naan">
+                </div>
+                <h3 class="card-title">Special Tandoori Naan</h3>
+                <p class="card-desc">Classic crispy clay-oven naan bread served piping hot.</p>
+            </div>
+        </div>
+
+        <!-- 5. COFFEE & BEVERAGES -->
+        <h2 class="section-title">Coffee & Drinks</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="hot-coffee.jpg" alt="Cappuccino Hot Coffee">
+                </div>
+                <h3 class="card-title">Cappuccino Hot Coffee</h3>
+                <p class="card-desc">Rich espresso blended with steamed milk and thick micro-foam froth.</p>
+            </div>
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="spanish-latte.jpg" alt="Spanish Latte">
+                </div>
+                <h3 class="card-title">Spanish Latte / Caramel</h3>
+                <p class="card-desc">Smooth espresso poured over sweet milk and served iced or warm.</p>
+            </div>
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="iced-coffee.jpg" alt="Cold Iced Coffee">
+                </div>
+                <h3 class="card-title">Iced Cold Coffee</h3>
+                <p class="card-desc">Refreshing chilled brew infused with sweet milk cream and ice.</p>
+            </div>
+        </div>
+
+        <!-- 6. DESSERTS -->
+        <h2 class="section-title">Sweet Desserts</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="gulab-jamun.jpg" alt="Gulab Jamun">
+                </div>
+                <h3 class="card-title">Gulab Jamun</h3>
+                <p class="card-desc">Warm, soft fried dumplings soaked in cardamom sugar syrup.</p>
+            </div>
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="kheer.jpg" alt="Special Kheer / Firni">
+                </div>
+                <h3 class="card-title">Special Kheer / Firni</h3>
+                <p class="card-desc">Traditional rice pudding slow-cooked with milk, saffron, and nuts.</p>
+            </div>
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="fruit-trifle.jpg" alt="Fruit Trifle Dessert">
+                </div>
+                <h3 class="card-title">Fruit Trifle</h3>
+                <p class="card-desc">Delightful layered dessert with custard, sponge cake, and fresh fruits.</p>
+            </div>
+        </div>
+
+        <!-- 7. LOCATION, RATING & GOOGLE REVIEWS -->
+        <h2 class="section-title">Location & Google Reviews</h2>
         
-        <div class="hero-buttons">
-          <button class="btn-primary" onclick="alert('Menu Section Loading...')">Explore Menu</button>
-          <button class="btn-secondary" onclick="openWhatsApp()">
-            💬 Order on WhatsApp
-          </button>
+        <!-- Summary Banner -->
+        <div class="card location-card">
+            <div class="rating-num">3.8 / 5.0 ⭐</div>
+            <p style="color: var(--text-dim); margin-top: 5px;">Based on Authentic Google Customer Reviews</p>
+            <p style="margin-top: 18px; font-weight: 600; font-size: 1.1rem;">
+                <i class="fa-solid fa-location-dot" style="color: var(--secondary);"></i> 03, Block A Housing Colony, Layyah, Pakistan
+            </p>
+            <p style="margin-top: 8px; font-size: 1.05rem;">
+                <i class="fa-solid fa-phone" style="color: var(--primary);"></i> <strong>Call / WhatsApp:</strong> 0301 3777777
+            </p>
         </div>
 
-        <!-- STATS STRIP -->
-        <div class="stats-strip">
-          <div class="stat-item">
-            <div class="stat-num">20+</div>
-            <div class="stat-label">Menu Categories</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-num">150+</div>
-            <div class="stat-label">Dishes Crafted</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-num">100%</div>
-            <div class="stat-label">Fresh & Halal</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-num">25+</div>
-            <div class="stat-label">Signature Dishes</div>
-          </div>
-        </div>
+        <!-- Customer Reviews Cards -->
+        <div class="grid">
+            <div class="card">
+                <div style="color: #ffc107; margin-bottom: 10px; font-size: 1.2rem;">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <h3 class="card-title" style="font-size: 1.15rem;">Family Seating & Atmosphere</h3>
+                <p class="card-desc">"Very clean and pleasant ambiance. The family seating area is well managed, comfortable, and peaceful."</p>
+            </div>
 
-      </div>
+            <div class="card">
+                <div style="color: #ffc107; margin-bottom: 10px; font-size: 1.2rem;">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <h3 class="card-title" style="font-size: 1.15rem;">Delicious Taste & Quality</h3>
+                <p class="card-desc">"The BBQ platters and Mutton Handi are exceptional! Authentic local flavors served piping hot."</p>
+            </div>
 
-      <!-- RIGHT 3D INTERACTIVE DISH CARD -->
-      <div class="hero-visual-card" id="cardContainer">
-        <div class="karahi-container" id="karahiCard">
-          <div class="hot-glow"></div>
-          <!-- High Quality Sizzling Karahi Render -->
-          <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=1000&q=80" alt="Musa Special Karahi" class="karahi-img">
+            <div class="card">
+                <div style="color: #ffc107; margin-bottom: 10px; font-size: 1.2rem;">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
+                </div>
+                <h3 class="card-title" style="font-size: 1.15rem;">Fast Delivery Service</h3>
+                <p class="card-desc">"Quick response on phone orders and efficient home delivery services across Layyah city."</p>
+            </div>
         </div>
-      </div>
 
     </div>
-  </section>
 
-</div>
+    <!-- JAVASCRIPT: 3D PARTICLES, TILT EFFECTS, & AMBIENT SYNTH AUDIO -->
+    <script>
+        /* --- 1. 3D CANVAS PARTICLES ANIMATION --- */
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
 
-<script>
-/* ===================================================
-   THREE.JS REAL-TIME 3D EMBERS & SMOKE ENGINE
-   =================================================== */
-let scene, camera, renderer;
-let emberParticles, smokeParticles = [];
-let mouseX = 0, mouseY = 0;
-let targetX = 0, targetY = 0;
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
-function init3D() {
-  const container = document.getElementById('webgl-container');
-  
-  // Scene Setup
-  scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x080808, 0.0015);
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.z = Math.random() * 2 + 0.5;
+                this.radius = Math.random() * 2.5 + 1;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.alpha = Math.random() * 0.5 + 0.2;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                    this.reset();
+                }
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius * this.z, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 159, 67, ${this.alpha})`;
+                ctx.fill();
+            }
+        }
 
-  // Camera Setup
-  camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 2000);
-  camera.position.z = 800;
+        for (let i = 0; i < 70; i++) {
+            particles.push(new Particle());
+        }
 
-  // Renderer Setup
-  renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  container.appendChild(renderer.domElement);
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
 
-  // Lights
-  const ambientLight = new THREE.AmbientLight(0xd4af37, 0.8);
-  scene.add(ambientLight);
+        /* --- 2. DYNAMIC 3D CARD TILT EFFECT --- */
+        const cards = document.querySelectorAll('.card');
 
-  const pointLight = new THREE.PointLight(0xff7700, 3, 1000);
-  pointLight.position.set(200, 100, 400);
-  scene.add(pointLight);
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = ((y - centerY) / centerY) * -12;
+                const rotateY = ((x - centerX) / centerX) * 12;
 
-  // 1. CREATE 3D GOLDEN EMBERS & DUST
-  const emberCount = 350;
-  const geometry = new THREE.BufferGeometry();
-  const positions = new Float32Array(emberCount * 3);
-  const scales = new Float32Array(emberCount);
+                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+            });
 
-  for (let i = 0; i < emberCount * 3; i += 3) {
-    positions[i] = (Math.random() - 0.5) * 1600;
-    positions[i + 1] = (Math.random() - 0.5) * 1600;
-    positions[i + 2] = (Math.random() - 0.5) * 1000;
-    scales[i / 3] = Math.random() * 4 + 1;
-  }
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `rotateX(0deg) rotateY(0deg) translateZ(0px)`;
+            });
+        });
 
-  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  
-  // Custom Particle Material
-  const material = new THREE.PointsMaterial({
-    color: 0xd4af37,
-    size: 4,
-    transparent: true,
-    opacity: 0.7,
-    blending: THREE.AdditiveBlending
-  });
+        /* --- 3. AMBIENT MUSIC SYNTH GENERATOR (WEB AUDIO API) --- */
+        let audioCtx;
+        let isPlaying = false;
+        let oscillatorInterval;
 
-  emberParticles = new THREE.Points(geometry, material);
-  scene.add(emberParticles);
+        const musicBtn = document.getElementById('musicToggle');
 
-  // Event Listeners
-  window.addEventListener('resize', onWindowResize);
-  document.addEventListener('mousemove', onMouseMove);
+        function startAmbientSound() {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const notes = [261.63, 329.63, 392.00, 523.25, 440.00]; // C, E, G, C, A
 
-  animate();
-}
+            function playChord() {
+                if(!isPlaying) return;
+                const note = notes[Math.floor(Math.random() * notes.length)];
+                
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
 
-// 3D ANIMATION LOOP
-function animate() {
-  requestAnimationFrame(animate);
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(note, audioCtx.currentTime);
 
-  // Smooth Camera Parallax Lerp
-  targetX = mouseX * 80;
-  targetY = -mouseY * 80;
+                gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.08, audioCtx.currentTime + 1.5);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 4);
 
-  camera.position.x += (targetX - camera.position.x) * 0.05;
-  camera.position.y += (targetY - camera.position.y) * 0.05;
-  camera.lookAt(scene.position);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
 
-  // Rotate Embers in 3D Space
-  if (emberParticles) {
-    emberParticles.rotation.y += 0.001;
-    emberParticles.rotation.x += 0.0005;
+                osc.start();
+                osc.stop(audioCtx.currentTime + 4.5);
+            }
 
-    const positions = emberParticles.geometry.attributes.position.array;
-    for (let i = 1; i < positions.length; i += 3) {
-      positions[i] += 0.5; // Float upwards
-      if (positions[i] > 800) positions[i] = -800; // Loop back
-    }
-    emberParticles.geometry.attributes.position.needsUpdate = true;
-  }
+            playChord();
+            oscillatorInterval = setInterval(playChord, 2000);
+        }
 
-  renderer.render(scene, camera);
-}
-
-function onMouseMove(event) {
-  mouseX = (event.clientX - window.innerWidth / 2) / (window.innerWidth / 2);
-  mouseY = (event.clientY - window.innerHeight / 2) / (window.innerHeight / 2);
-
-  // 3D Tilt Card Effect
-  const card = document.getElementById('karahiCard');
-  if(card) {
-    const tiltX = mouseY * 20;
-    const tiltY = -mouseX * 20;
-    card.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
-  }
-}
-
-function onWindowResize() {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-}
-
-/* ===================================================
-   CINEMATIC MODE TOGGLE
-   =================================================== */
-let isCinematic = false;
-
-function toggleCinematic() {
-  isCinematic = !isCinematic;
-  document.body.classList.toggle('cinematic-active', isCinematic);
-  
-  const btn = document.getElementById('cinematicBtn');
-  if (isCinematic) {
-    btn.innerHTML = "❌ <span>Exit Cinematic</span>";
-    btn.style.borderColor = "#ff4444";
-  } else {
-    btn.innerHTML = "🎬 <span>Cinematic Mode</span>";
-    btn.style.borderColor = "#d4af37";
-  }
-}
-
-function openWhatsApp() {
-  window.open('https://wa.me/923013777777?text=Hello%20MUSA%20Cafe%20%26%20Restaurant%2C%20I%20would%20like%20to%20book%20a%20table.','_blank');
-}
-
-// Initialize Three.js Engine on Load
-window.onload = init3D;
-</script>
-
+        musicBtn.addEventListener('click', () => {
+            if (!isPlaying) {
+                isPlaying = true;
+                startAmbientSound();
+                musicBtn.innerHTML = `<i class="fa-solid fa-pause"></i> <span>Mute Soft Music</span>`;
+                musicBtn.style.background = "linear-gradient(135deg, #ee5253, #ff9f43)";
+            } else {
+                isPlaying = false;
+                if(audioCtx) audioCtx.close();
+                clearInterval(oscillatorInterval);
+                musicBtn.innerHTML = `<i class="fa-solid fa-music"></i> <span>Play Ambient Music</span>`;
+                musicBtn.style.background = "linear-gradient(135deg, #ff9f43, #ee5253)";
+            }
+        });
+    </script>
 </body>
 </html>
