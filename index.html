@@ -26,19 +26,19 @@
             overflow-x: hidden;
             line-height: 1.6;
         }
-        
+
         /* 3D Canvas */
         #bg-canvas {
             position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
             z-index: 0; pointer-events: none;
         }
-        
+
         /* Scrollbar */
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: var(--dark); }
         ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
-        
+
         /* ===== NAVIGATION ===== */
         .side-nav {
             position: fixed; right: 0; top: 0;
@@ -95,7 +95,7 @@
             align-items: center; justify-content: center;
             font-weight: 700; display: none;
         }
-        
+
         /* ===== HERO ===== */
         .hero {
             position: relative; z-index: 1;
@@ -161,7 +161,7 @@
             animation: bounce 2s infinite;
         }
         .scroll-indicator i { font-size: 1.2rem; color: var(--gold); }
-        
+
         /* ===== DISCOVER / EDEN SPACE ===== */
         .discover {
             position: relative; z-index: 1;
@@ -216,7 +216,7 @@
         .info-box div { font-size: 0.8rem; }
         .info-box div strong { color: var(--text); display: block; }
         .info-box div span { color: var(--text-dim); font-size: 0.75rem; }
-        
+
         /* ===== MENU SECTION ===== */
         .menu-section {
             position: relative; z-index: 1;
@@ -308,7 +308,7 @@
         }
         .add-cart-btn:hover { transform: scale(1.1); background: var(--gold-light); }
         .add-cart-btn.added { background: #4caf50; color: white; }
-        
+
         /* ===== POPULAR DISHES ===== */
         .popular {
             position: relative; z-index: 1;
@@ -351,7 +351,7 @@
             color: var(--gold); font-weight: 600;
             margin-top: 0.5rem; display: block;
         }
-        
+
         /* ===== TESTIMONIALS ===== */
         .testimonials {
             position: relative; z-index: 1;
@@ -389,7 +389,7 @@
         }
         .testi-author div strong { color: var(--text); font-size: 0.9rem; }
         .testi-author div span { color: var(--text-dim); font-size: 0.75rem; }
-        
+
         /* ===== VISIT US / RESERVATION ===== */
         .visit {
             position: relative; z-index: 1;
@@ -438,7 +438,7 @@
         .visit-row div { font-size: 0.85rem; }
         .visit-row div strong { color: var(--text); display: block; }
         .visit-row div span { color: var(--text-dim); }
-        
+
         /* ===== FOOTER ===== */
         footer {
             position: relative; z-index: 1;
@@ -475,7 +475,7 @@
             color: var(--text-dim); font-size: 0.8rem;
             letter-spacing: 1px;
         }
-        
+
         /* ===== CART SIDEBAR ===== */
         .overlay {
             position: fixed; inset: 0;
@@ -531,8 +531,352 @@
             width: 26px; height: 26px; border-radius: 50%;
             border: 1px solid var(--border); background: none;
             color: var(--gold); cursor: pointer; font-size: 0.8rem;
-            display: flex; align-ite# Now the complete menu data and JavaScript
-js_code = '''
+            display: flex; align-items: center; justify-content: center;
+        }
+        .qty-control button:hover { background: rgba(201,169,110,0.1); }
+        .qty-control span { color: var(--text); font-weight: 500; min-width: 20px; text-align: center; font-size: 0.9rem; }
+        .remove-item {
+            background: none; border: none;
+            color: var(--text-dim); cursor: pointer;
+            font-size: 0.85rem; transition: color 0.3s;
+            align-self: flex-start; margin-top: 0.3rem;
+        }
+        .remove-item:hover { color: #e74c3c; }
+        .cart-total {
+            margin-top: 2rem; padding-top: 1.5rem;
+            border-top: 2px solid var(--gold);
+        }
+        .total-row {
+            display: flex; justify-content: space-between;
+            margin-bottom: 0.6rem; font-size: 0.95rem;
+            color: var(--text-dim);
+        }
+        .total-row.grand {
+            font-size: 1.2rem; font-weight: 600;
+            color: var(--gold); margin-top: 0.8rem;
+        }
+        .whatsapp-btn {
+            width: 100%; margin-top: 1.5rem;
+            padding: 1rem; background: #25D366;
+            color: white; border: none;
+            border-radius: 8px; font-size: 1rem;
+            font-weight: 600; cursor: pointer;
+            display: flex; align-items: center;
+            justify-content: center; gap: 0.6rem;
+            transition: all 0.3s; letter-spacing: 1px;
+        }
+        .whatsapp-btn:hover { background: #128C7E; transform: translateY(-2px); }
+        .empty-cart {
+            text-align: center; padding: 4rem 0;
+            color: var(--text-dim);
+        }
+        .empty-cart i { font-size: 2.5rem; margin-bottom: 1rem; color: var(--gold); opacity: 0.4; }
+
+        /* ===== MUSIC PLAYER ===== */
+        .music-player {
+            position: fixed; bottom: 2rem; left: 2rem;
+            z-index: 1000;
+            background: rgba(20,20,20,0.95);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            padding: 0.5rem 1.2rem 0.5rem 0.5rem;
+            display: flex; align-items: center;
+            gap: 0.8rem; transition: all 0.3s;
+        }
+        .music-player:hover { border-color: rgba(201,169,110,0.3); }
+        .music-btn {
+            width: 38px; height: 38px; border-radius: 50%;
+            background: var(--gold); border: none;
+            color: var(--dark); cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.85rem; transition: all 0.3s;
+        }
+        .music-btn:hover { transform: scale(1.1); background: var(--gold-light); }
+        .music-info { color: var(--text-dim); font-size: 0.75rem; }
+        .music-info span { display: block; color: var(--text); font-weight: 500; font-size: 0.8rem; }
+
+        /* ===== TOAST ===== */
+        .toast {
+            position: fixed; bottom: 2rem; right: 100px;
+            background: var(--gold); color: var(--dark);
+            padding: 1rem 1.5rem; border-radius: 10px;
+            font-weight: 500; z-index: 3000;
+            transform: translateX(200%);
+            transition: transform 0.4s ease;
+            display: flex; align-items: center;
+            gap: 0.6rem; font-size: 0.9rem;
+        }
+        .toast.show { transform: translateX(0); }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+        .reveal {
+            opacity: 0; transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .side-nav { display: none; }
+            .hero { padding: 6rem 2rem 3rem; flex-direction: column; }
+            .hero-bg { width: 100%; height: 50%; border-radius: 0 0 20px 20px; opacity: 0.4; }
+            .discover { flex-direction: column; padding: 4rem 2rem; }
+            .popular-grid { grid-template-columns: 1fr; }
+            .testi-grid { grid-template-columns: 1fr; }
+            .visit { grid-template-columns: 1fr; }
+            .visit-map { height: 300px; }
+            .nav-icons { right: 1.5rem; }
+        }
+        @media (max-width: 768px) {
+            .menu-grid { grid-template-columns: 1fr; }
+            .cart-sidebar { width: 100%; }
+            .hero-content h1 { font-size: 2.2rem; }
+            .music-player { bottom: 1rem; left: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Logo -->
+    <div class="nav-logo">
+        <h1>Musa</h1>
+        <span>Cafe & Restaurant - Layyah</span>
+    </div>
+
+    <!-- Top Icons -->
+    <div class="nav-icons">
+        <button id="music-toggle-nav" title="Music"><i class="fas fa-music"></i></button>
+        <button id="cart-btn" title="Cart">
+            <i class="fas fa-shopping-bag"></i>
+            <span class="cart-badge" id="cart-count">0</span>
+        </button>
+    </div>
+
+    <!-- Side Navigation -->
+    <nav class="side-nav">
+        <a href="#home" class="active">Home</a>
+        <a href="#discover">Discover</a>
+        <a href="#menu">Menu</a>
+        <a href="#popular">Popular</a>
+        <a href="#testimonials">Reviews</a>
+        <a href="#visit">Visit</a>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <span class="shine">Welcome to the Shine of Layyah</span>
+            <h1>Welcome to<br>Musa Restaurant</h1>
+            <p>Experience the finest flavors of Layyah, where traditional recipes meet modern presentation. Every dish is crafted with passion and heritage.</p>
+            <a href="#menu" class="btn-main">View Menu <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- ===== DISCOVER ===== -->
+    <section class="discover" id="discover">
+        <div class="discover-img reveal">
+            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800" alt="Restaurant Interior">
+        </div>
+        <div class="discover-content reveal">
+            <span class="label">Discover</span>
+            <h2>The Eden Space</h2>
+            <p>Musa is not just a restaurant, it is a paradise for your taste buds. Here you will get an unforgettable feeling of unity with nature and you will not find a single forbidden fruit. Since 2010, we have been the heart of Layyah's dining scene.</p>
+            <a href="#menu" class="btn-main">Reserve a Table <i class="fas fa-arrow-right"></i></a>
+            <div class="info-boxes">
+                <div class="info-box">
+                    <i class="fas fa-clock"></i>
+                    <div><strong>Open Hours</strong><span>11:00 AM - 12:00 AM</span></div>
+                </div>
+                <div class="info-box">
+                    <i class="fas fa-phone"></i>
+                    <div><strong>Reservation</strong><span>+92 300 1234567</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MENU ===== -->
+    <section class="menu-section" id="menu">
+        <div class="section-header reveal">
+            <span class="label">Discover</span>
+            <h2>Our Menu</h2>
+        </div>
+        <div class="menu-categories reveal" id="menu-categories"></div>
+        <div class="menu-grid" id="menu-grid"></div>
+    </section>
+
+    <!-- ===== POPULAR DISHES ===== -->
+    <section class="popular" id="popular">
+        <div class="section-header reveal">
+            <span class="label">Discover</span>
+            <h2>Our Popular Dishes</h2>
+        </div>
+        <div class="popular-grid">
+            <div class="popular-card reveal">
+                <img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600" alt="BBQ Plater">
+                <div class="popular-info">
+                    <h3>B.B.Q Plater</h3>
+                    <p>Qalmi Tikka, Reshmi Kabab, Chicken Kabab, Mutton Chanp, Tikka Boti, Malai Boti & more</p>
+                    <span class="price">Rs. 5,999</span>
+                </div>
+            </div>
+            <div class="popular-card reveal" style="transition-delay: 0.15s">
+                <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600" alt="Mutton Karahi">
+                <div class="popular-info">
+                    <h3>Musa Special Mutton Karahi</h3>
+                    <p>Traditional desi ghee mein banaya hua special mutton karahi with fresh tomatoes</p>
+                    <span class="price">Rs. 3,649</span>
+                </div>
+            </div>
+            <div class="popular-card reveal" style="transition-delay: 0.3s">
+                <img src="https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=600" alt="Chicken Tikka">
+                <div class="popular-info">
+                    <h3>Chicken Tikka</h3>
+                    <p>Marinated chicken grilled to perfection with our special spices</p>
+                    <span class="price">Rs. 1,349</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TESTIMONIALS ===== -->
+    <section class="testimonials" id="testimonials">
+        <div class="section-header reveal">
+            <span class="label">Testimonials</span>
+            <h2>What Our Visitors Say</h2>
+        </div>
+        <div class="testi-grid">
+            <div class="testi-card reveal">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p>"Best karahi in Layyah! The desi murgha karahi was absolutely amazing. The ambiance and service made our family dinner truly special."</p>
+                <div class="testi-author">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100" alt="Customer">
+                    <div><strong>Ahmed Khan</strong><span>Local Guide</span></div>
+                </div>
+            </div>
+            <div class="testi-card reveal" style="transition-delay: 0.15s">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p>"The BBQ plater is a must-try! Every item was perfectly cooked. Musa Cafe has become our go-to place for family gatherings."</p>
+                <div class="testi-author">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" alt="Customer">
+                    <div><strong>Fatima Ali</strong><span>Food Blogger</span></div>
+                </div>
+            </div>
+            <div class="testi-card reveal" style="transition-delay: 0.3s">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                <p>"Authentic taste, great portions, and reasonable prices. The special family plater fed our whole family of 8 easily!"</p>
+                <div class="testi-author">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100" alt="Customer">
+                    <div><strong>Usman Raza</strong><span>Regular Customer</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== VISIT US ===== -->
+    <section class="visit" id="visit">
+        <div class="visit-map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3440.0!2d70.93!3d30.96!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzDCsDU3JzM2LjAiTiA3MMKwNTUnNDguMCJF!5e0!3m2!1sen!2s!4v1" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        <div class="visit-content">
+            <span class="label">Visit Us</span>
+            <h2>Find Your Way to Flavor</h2>
+            <p>Located in the heart of Layyah, Musa Cafe & Restaurant welcomes you to experience authentic Pakistani cuisine in a warm and elegant setting.</p>
+            <div class="visit-details">
+                <div class="visit-row">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div><strong>Address</strong><span>Main Bazaar, Layyah, Punjab, Pakistan</span></div>
+                </div>
+                <div class="visit-row">
+                    <i class="fas fa-phone"></i>
+                    <div><strong>Phone</strong><span>+92 300 1234567</span></div>
+                </div>
+                <div class="visit-row">
+                    <i class="fas fa-clock"></i>
+                    <div><strong>Opening Hours</strong><span>11:00 AM - 12:00 AM (Daily)</span></div>
+                </div>
+                <div class="visit-row">
+                    <i class="fas fa-envelope"></i>
+                    <div><strong>Email</strong><span>musacafe.layyah@gmail.com</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="footer-logo">
+            Musa
+            <span>Cafe & Restaurant - Layyah</span>
+        </div>
+        <div class="footer-social">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p class="copyright">Made with love by Musa Cafe & Restaurant Layyah</p>
+    </footer>
+
+    <!-- ===== CART SIDEBAR ===== -->
+    <div class="overlay" id="overlay"></div>
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>Your Order</h2>
+            <button class="close-cart" id="close-cart"><i class="fas fa-times"></i></button>
+        </div>
+        <div id="cart-items"></div>
+        <div class="cart-total" id="cart-total" style="display:none;">
+            <div class="total-row"><span>Subtotal</span><span id="subtotal">Rs. 0</span></div>
+            <div class="total-row"><span>Delivery</span><span>Free</span></div>
+            <div class="total-row grand"><span>Total</span><span id="grand-total">Rs. 0</span></div>
+            <button class="whatsapp-btn" id="whatsapp-order">
+                <i class="fab fa-whatsapp"></i> Order on WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <!-- ===== MUSIC PLAYER ===== -->
+    <div class="music-player">
+        <button class="music-btn" id="music-toggle">
+            <i class="fas fa-play" id="music-icon"></i>
+        </button>
+        <div class="music-info">
+            <span>Cafe Ambiance</span>
+            <small>Soft & Relaxing</small>
+        </div>
+    </div>
+
+    <!-- ===== TOAST ===== -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toast-msg">Added to cart</span>
+    </div>
+
+    <!-- ===== AUDIO ===== -->
+    <audio id="bg-music" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/10/14/audio_9939f792cb.mp3?filename=soft-piano-100-bpm-121529.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+
         // ===================== COMPLETE MENU DATA =====================
         const menuData = {
             "Appetizer": [
@@ -805,7 +1149,7 @@ js_code = '''
                 { name: "Ice Cream Shake", price: 549, img: "shake" }
             ]
         };
-        
+
         const imageMap = {
             chicken: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=400",
             shrimp: "https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?w=400",
@@ -824,22 +1168,340 @@ js_code = '''
             desi: "https://images.unsplash.com/photo-1544025162-d76694265947?w=400",
             plater: "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=400",
             chef: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=400",
-            nan: "https://images.unsplash.com/photo-1565557623262-b51# Combine both parts into final file
-with open('/mnt/agents/output/musa_cafe_part1.html', 'r', encoding='utf-8') as f:
-    part1 = f.read()
+            nan: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400",
+            roti: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400",
+            bbq: "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=400",
+            pizza: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400",
+            nuggets: "https://images.unsplash.com/photo-1562967916-eb82221dfb2c?w=400",
+            shots: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400",
+            wrap: "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=400",
+            roll: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=400",
+            sandwich: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=400",
+            burger: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400",
+            sweet: "https://images.unsplash.com/photo-1541783245831-57d6fb0926d3?w=400",
+            salad: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400",
+            raita: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400",
+            drink: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400",
+            coffee: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=400",
+            tea: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=400",
+            shake: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=400",
+            beef: "https://images.unsplash.com/photo-1544025162-d76694265947?w=400",
+            noodles: "https://images.unsplash.com/photo-1552611052-33e04de081de?w=400"
+        };
 
-with open('/mnt/agents/output/musa_cafe_part2.html', 'r', encoding='utf-8') as f:
-    part2 = f.read()
+        let cart = [];
+        let currentCategory = "Appetizer";
 
-final = part1 + part2
+        // ===================== RENDER CATEGORIES =====================
+        function renderCategories() {
+            const container = document.getElementById('menu-categories');
+            const cats = Object.keys(menuData);
+            container.innerHTML = cats.map((cat, i) => 
+                `<button class="cat-btn ${i===0?'active':''}" data-cat="${cat}">${cat}</button>`
+            ).join('');
 
-with open('/mnt/agents/output/musa_cafe_restaurant.html', 'w', encoding='utf-8') as f:
-    f.write(final)
+            container.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    container.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentCategory = this.dataset.cat;
+                    renderMenu(this.dataset.cat);
+                });
+            });
+        }
 
-print(f"FINAL FILE SAVED!")
-print(f"Total size: {len(final):,} characters")
-print(f"Approx: {len(final)/1024:.1f} KB")
+        // ===================== RENDER MENU =====================
+        function renderMenu(category) {
+            const grid = document.getElementById('menu-grid');
+            const items = menuData[category] || [];
 
+            grid.innerHTML = items.map((item, idx) => {
+                let priceDisplay = '';
+                let priceVal = 0;
+                if (item.price) {
+                    priceDisplay = `Rs. ${item.price}`;
+                    priceVal = item.price;
+                } else if (item.priceF) {
+                    priceDisplay = `Rs. ${item.priceF}`;
+                    priceVal = item.priceF;
+                    if (item.priceH) priceDisplay += ` <span class="half">(Half: ${item.priceH})</span>`;
+                } else if (item.priceS) {
+                    priceDisplay = `S: ${item.priceS} / M: ${item.priceM} / L: ${item.priceL}`;
+                    priceVal = item.priceM || item.priceS;
+                } else if (item.priceS !== undefined) {
+                    priceDisplay = `Rs. ${item.priceS} / ${item.priceL}`;
+                    priceVal = item.priceS;
+                }
+
+                const img = imageMap[item.img] || imageMap.chicken;
+
+                return `
+                    <div class="menu-item reveal" style="transition-delay: ${idx * 0.05}s">
+                        <div class="menu-item-img" style="background-image: url('${img}')"></div>
+                        <div class="menu-item-body">
+                            <h3>${item.name}</h3>
+                            <div class="menu-item-footer">
+                                <span class="menu-price">${priceDisplay}</span>
+                                <button class="add-cart-btn" data-name="${item.name}" data-price="${priceVal}" data-img="${img}">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Re-attach event listeners
+            document.querySelectorAll('.add-cart-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const name = this.dataset.name;
+                    const price = parseInt(this.dataset.price);
+                    const img = this.dataset.img;
+                    addToCart(name, price, img);
+                    this.innerHTML = '<i class="fas fa-check"></i>';
+                    this.classList.add('added');
+                    setTimeout(() => {
+                        this.innerHTML = '<i class="fas fa-plus"></i>';
+                        this.classList.remove('added');
+                    }, 1500);
+                });
+            });
+
+            // Re-trigger reveal animation
+            setTimeout(() => {
+                document.querySelectorAll('.menu-item.reveal').forEach(el => el.classList.add('active'));
+            }, 50);
+        }
+
+        // ===================== CART =====================
+        function addToCart(name, price, img) {
+            if (price <= 0) { showToast('Please call for pricing'); return; }
+            const existing = cart.find(c => c.name === name);
+            if (existing) existing.qty++;
+            else cart.push({ name, price, img, qty: 1 });
+            updateCart();
+            showToast(`${name} added`);
+        }
+
+        function updateCart() {
+            const count = cart.reduce((s, c) => s + c.qty, 0);
+            const badge = document.getElementById('cart-count');
+            badge.textContent = count;
+            badge.style.display = count > 0 ? 'flex' : 'none';
+
+            const container = document.getElementById('cart-items');
+            const totalDiv = document.getElementById('cart-total');
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-bag"></i>
+                        <p>Your cart is empty</p>
+                    </div>`;
+                totalDiv.style.display = 'none';
+                return;
+            }
+
+            container.innerHTML = cart.map((item, i) => `
+                <div class="cart-item">
+                    <div class="cart-item-img" style="background-image: url('${item.img}')"></div>
+                    <div class="cart-item-info">
+                        <h4>${item.name}</h4>
+                        <span class="item-price">Rs. ${item.price}</span>
+                        <div class="qty-control">
+                            <button onclick="changeQty(${i}, -1)">-</button>
+                            <span>${item.qty}</span>
+                            <button onclick="changeQty(${i}, 1)">+</button>
+                        </div>
+                    </div>
+                    <button class="remove-item" onclick="removeItem(${i})"><i class="fas fa-trash"></i></button>
+                </div>
+            `).join('');
+
+            const subtotal = cart.reduce((s, c) => s + c.price * c.qty, 0);
+            document.getElementById('subtotal').textContent = `Rs. ${subtotal}`;
+            document.getElementById('grand-total').textContent = `Rs. ${subtotal}`;
+            totalDiv.style.display = 'block';
+        }
+
+        window.changeQty = function(idx, delta) {
+            cart[idx].qty += delta;
+            if (cart[idx].qty <= 0) cart.splice(idx, 1);
+            updateCart();
+        };
+
+        window.removeItem = function(idx) {
+            cart.splice(idx, 1);
+            updateCart();
+        };
+
+        // ===================== WHATSAPP ORDER =====================
+        document.getElementById('whatsapp-order').addEventListener('click', function() {
+            if (cart.length === 0) return;
+            const phone = "923001234567"; // CHANGE TO YOUR NUMBER
+            let msg = "*New Order - Musa Cafe & Restaurant Layyah*%0A%0A";
+            msg += "*Customer Name:* ___________%0A";
+            msg += "*Address:* ___________%0A%0A";
+            msg += "*Order:*%0A━━━━━━━━━━━━%0A";
+            let total = 0;
+            cart.forEach(c => {
+                msg += `• ${c.name} x${c.qty} = Rs. ${c.price * c.qty}%0A`;
+                total += c.price * c.qty;
+            });
+            msg += "━━━━━━━━━━━━%0A";
+            msg += `*Total: Rs. ${total}*%0A%0A`;
+            msg += "Please confirm my order!";
+            window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
+        });
+
+        // ===================== MUSIC =====================
+        const music = document.getElementById('bg-music');
+        music.volume = 0.12;
+        const musicToggle = document.getElementById('music-toggle');
+        const musicIcon = document.getElementById('music-icon');
+        const musicNav = document.getElementById('music-toggle-nav');
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (isPlaying) { music.pause(); musicIcon.className = 'fas fa-play'; }
+            else { music.play().catch(e=>{}); musicIcon.className = 'fas fa-pause'; }
+            isPlaying = !isPlaying;
+        }
+        musicToggle.addEventListener('click', toggleMusic);
+        musicNav.addEventListener('click', toggleMusic);
+
+        // ===================== CART SIDEBAR =====================
+        const cartSidebar = document.getElementById('cart-sidebar');
+        const overlay = document.getElementById('overlay');
+
+        document.getElementById('cart-btn').addEventListener('click', () => {
+            cartSidebar.classList.add('open');
+            overlay.classList.add('active');
+        });
+        document.getElementById('close-cart').addEventListener('click', closeCart);
+        overlay.addEventListener('click', closeCart);
+
+        function closeCart() {
+            cartSidebar.classList.remove('open');
+            overlay.classList.remove('active');
+        }
+
+        // ===================== TOAST =====================
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        // ===================== 3D BACKGROUND =====================
+        const canvas = document.getElementById('bg-canvas');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        // Warm golden particles
+        const pCount = 2500;
+        const posArr = new Float32Array(pCount * 3);
+        const colArr = new Float32Array(pCount * 3);
+
+        for(let i=0; i<pCount*3; i+=3) {
+            posArr[i] = (Math.random()-0.5)*50;
+            posArr[i+1] = (Math.random()-0.5)*50;
+            posArr[i+2] = (Math.random()-0.5)*40-5;
+            const c = new THREE.Color().setHSL(0.08+Math.random()*0.08, 0.6, 0.3+Math.random()*0.3);
+            colArr[i]=c.r; colArr[i+1]=c.g; colArr[i+2]=c.b;
+        }
+
+        const pGeo = new THREE.BufferGeometry();
+        pGeo.setAttribute('position', new THREE.BufferAttribute(posArr, 3));
+        pGeo.setAttribute('color', new THREE.BufferAttribute(colArr, 3));
+
+        const pMat = new THREE.PointsMaterial({
+            size: 0.07, vertexColors: true, transparent: true,
+            opacity: 0.5, blending: THREE.AdditiveBlending
+        });
+        const particles = new THREE.Points(pGeo, pMat);
+        scene.add(particles);
+
+        // Floating orbs
+        const orbs = [];
+        for(let i=0; i<20; i++) {
+            const geo = new THREE.SphereGeometry(0.1+Math.random()*0.2, 16, 16);
+            const mat = new THREE.MeshBasicMaterial({
+                color: new THREE.Color().setHSL(0.1, 0.8, 0.4),
+                transparent: true, opacity: 0.15+Math.random()*0.2
+            });
+            const orb = new THREE.Mesh(geo, mat);
+            orb.position.set((Math.random()-0.5)*30, (Math.random()-0.5)*25, (Math.random()-0.5)*20-5);
+            orb.userData = { speed: Math.random()*0.003+0.001, offset: Math.random()*Math.PI*2 };
+            scene.add(orb); orbs.push(orb);
+        }
+
+        // Elegant rings
+        const rings = [];
+        for(let i=0; i<6; i++) {
+            const geo = new THREE.TorusGeometry(2+i, 0.015, 8, 80);
+            const mat = new THREE.MeshBasicMaterial({
+                color: new THREE.Color().setHSL(0.1, 0.4, 0.25),
+                transparent: true, opacity: 0.06
+            });
+            const ring = new THREE.Mesh(geo, mat);
+            ring.position.set((Math.random()-0.5)*25, (Math.random()-0.5)*20, (Math.random()-0.5)*15-8);
+            ring.rotation.x = Math.random()*Math.PI;
+            ring.rotation.y = Math.random()*Math.PI;
+            ring.userData = { rx: (Math.random()-0.5)*0.002, ry: (Math.random()-0.5)*0.002 };
+            scene.add(ring); rings.push(ring);
+        }
+
+        camera.position.z = 12;
+        let mouseX=0, mouseY=0;
+        document.addEventListener('mousemove', e => {
+            mouseX = (e.clientX/window.innerWidth-0.5)*2;
+            mouseY = (e.clientY/window.innerHeight-0.5)*2;
+        });
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const t = Date.now()*0.001;
+            particles.rotation.y += 0.0003;
+            particles.rotation.x += 0.0001;
+            orbs.forEach(o => {
+                o.position.y += Math.sin(t*o.userData.speed*100+o.userData.offset)*0.002;
+                o.material.opacity = 0.1 + Math.sin(t+o.userData.offset)*0.08;
+            });
+            rings.forEach(r => { r.rotation.x += r.userData.rx; r.rotation.y += r.userData.ry; });
+            camera.position.x += (mouseX*1.5 - camera.position.x)*0.015;
+            camera.position.y += (-mouseY*1.5 - camera.position.y)*0.015;
+            camera.lookAt(scene.position);
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth/window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // ===================== SCROLL REVEAL =====================
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // ===================== INIT =====================
+        renderCategories();
+        renderMenu("Appetizer");
+        updateCart();
+    </script>
+</body>
+</html>
 
 
 
