@@ -1,564 +1,1172 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MUSA Cafe & Restaurant | Luxury Dining in Layyah</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: #09090b;
-      color: #f4f4f5;
-      overflow-x: hidden;
-    }
-    .font-display { font-family: 'Cinzel', serif; }
-    .font-eyebrow { letter-spacing: 0.2em; text-transform: uppercase; }
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #09090b; }
-    ::-webkit-scrollbar-thumb { background: #b45309; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #d97706; }
-    .glass {
-      background: rgba(18, 18, 22, 0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(217, 119, 6, 0.2);
-    }
-    .shimmer {
-      background: linear-gradient(90deg, #f59e0b, #fbbf24, #fef3c7, #fbbf24, #f59e0b);
-      background-size: 200% auto;
-      color: transparent;
-      -webkit-background-clip: text;
-      animation: shimmer 4s linear infinite;
-    }
-    @keyframes shimmer { to { background-position: 200% center; } }
-    .btn-gold { transition: all 0.3s ease; }
-    .btn-gold:hover {
-      box-shadow: 0 0 25px rgba(245, 158, 11, 0.4);
-      transform: translateY(-2px);
-    }
-    #progressBar {
-      position: fixed; top: 0; left: 0; height: 3px;
-      background: linear-gradient(90deg, #d97706, #fbbf24);
-      z-index: 100; width: 0%; transition: width 0.1s;
-    }
-    .food-img-card {
-      position: relative;
-      width: 100%;
-      height: 240px;
-      border-radius: 1rem;
-      overflow: hidden;
-      border: 1px solid rgba(217, 119, 6, 0.3);
-    }
-    .food-img-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-    .food-img-card:hover img {
-      transform: scale(1.08);
-    }
-    .menu-body {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .menu-body.open { max-height: 1500px; }
-    .chevron { transition: transform 0.3s ease; }
-    .chevron.open { transform: rotate(180deg); }
-    #cartDrawer {
-      position: fixed; top: 0; right: -100%; width: 100%; max-width: 420px; height: 100%;
-      background: #09090b; z-index: 1000; box-shadow: -10px 0 30px rgba(0,0,0,0.8);
-      transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column;
-      border-left: 1px solid rgba(217, 119, 6, 0.2);
-    }
-    #cartDrawer.active { right: 0; }
-    #cartOverlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
-      z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
-    }
-    #cartOverlay.active { opacity: 1; pointer-events: auto; }
-    #cartBtn {
-      position: fixed; bottom: 30px; right: 30px; z-index: 90;
-      background: linear-gradient(135deg, #d97706, #b45309); color: #09090b;
-      width: 60px; height: 60px; border-radius: 50%; display: flex;
-      align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(217, 119, 6, 0.4);
-      cursor: pointer; transition: transform 0.3s ease;
-    }
-    #cartBtn:hover { transform: scale(1.1); }
-    #cartBadge {
-      position: absolute; top: -5px; right: -5px; background: #fef3c7; color: #78350f;
-      font-size: 11px; font-weight: bold; width: 24px; height: 24px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center; border: 2px solid #09090b;
-    }
-    #musicBtn {
-      position: fixed; bottom: 30px; left: 30px; z-index: 90;
-      background: rgba(18, 18, 22, 0.9); border: 1px solid rgba(217, 119, 6, 0.5); color: #f59e0b;
-      width: 50px; height: 50px; border-radius: 50%; display: flex;
-      align-items: center; justify-content: center; cursor: pointer;
-      backdrop-filter: blur(10px); transition: all 0.3s ease;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-    }
-    #musicBtn:hover { background: #d97706; color: #09090b; transform: scale(1.1); }
-    .lux-input {
-      background: rgba(18, 18, 22, 0.8);
-      border: 1px solid rgba(217, 119, 6, 0.25);
-      transition: all 0.3s ease;
-    }
-    .lux-input:focus { outline: none; border-color: #f59e0b; box-shadow: 0 0 15px rgba(245, 158, 11, 0.2); }
-    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
-    .reveal.show { opacity: 1; transform: translateY(0); }
-  </style>
-</head>
-<body class="antialiased">
-
-  <div id="progressBar"></div>
-
-  <!-- Reliable Background Audio (Soft Instrumental Cafe Music) -->
-  <audio id="bgMusic" loop preload="auto">
-    <source src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=chill-abstract-intention-12099.mp3" type="audio/mpeg">
-  </audio>
-
-  <!-- Music Toggle Floating Button -->
-  <button id="musicBtn" onclick="toggleMusic()" title="Play / Pause Background Music">
-    <i id="musicIcon" class="fa-solid fa-volume-xmark text-lg"></i>
-  </button>
-
-  <!-- Navigation -->
-  <header id="nav" class="fixed top-0 left-0 right-0 z-50 px-6 py-4 glass border-b border-amber-400/20">
-    <div class="max-w-7xl mx-auto flex items-center justify-between">
-      <a href="#" class="flex items-center gap-3">
-        <div class="w-10 h-10 flex items-center justify-center border border-amber-400/40 rounded-full bg-amber-400/10">
-          <span class="font-display text-amber-400 font-bold text-lg">M</span>
-        </div>
-        <div class="flex flex-col">
-          <span class="font-eyebrow text-sm tracking-[3px] text-amber-300 font-bold">MUSA</span>
-          <span class="text-[9px] tracking-[4px] text-zinc-400 uppercase">Cafe & Restaurant</span>
-        </div>
-      </a>
-      <nav class="hidden lg:flex items-center gap-8 text-sm font-medium tracking-wide">
-        <a href="#featured" class="text-amber-300 font-bold">Featured Dishes</a>
-        <a href="#menu" class="text-zinc-300 hover:text-amber-300 transition">Complete Menu</a>
-        <a href="#about" class="text-zinc-300 hover:text-amber-300 transition">About Us</a>
-        <a href="#reservation" class="text-zinc-300 hover:text-amber-300 transition">Reservation</a>
-      </nav>
-      <a href="#reservation" class="px-5 py-2.5 rounded-full text-xs font-eyebrow tracking-[2px] bg-amber-400 text-zinc-950 font-bold btn-gold shadow-lg shadow-amber-500/20">
-        Book Table
-      </a>
-    </div>
-  </header>
-
-  <!-- Hero Section -->
-  <section class="relative min-h-[90vh] flex items-center justify-center text-center px-6 pt-28">
-    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1920&auto=format&fit=crop')] bg-cover bg-center opacity-25"></div>
-    <div class="absolute inset-0 bg-gradient-to-b from-zinc-950/60 via-zinc-950/80 to-zinc-950"></div>
-    <div class="relative z-10 max-w-4xl mx-auto space-y-6 reveal">
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border border-amber-400/30 text-amber-300 text-xs font-eyebrow tracking-[3px]">
-        <i class="fa-solid fa-music"></i> Soft Music Tone & Real Food Experience in Layyah
-      </div>
-      <h1 class="font-display text-5xl sm:text-7xl font-bold tracking-tight">
-        MUSA Cafe & <span class="shimmer italic">Restaurant</span>
-      </h1>
-      <p class="text-zinc-300 text-base sm:text-lg max-w-2xl mx-auto font-light">
-        Lambi smooth-scrolling website jismein asli aur khubsurat food pictures, soft background music, aur pura khana menu shaamil hai.
-      </p>
-      <div class="flex justify-center gap-4 pt-4">
-        <a href="#menu" class="px-8 py-4 rounded-full font-eyebrow text-xs tracking-[2px] bg-gradient-to-r from-amber-600 to-amber-400 text-zinc-950 font-bold btn-gold shadow-xl">
-          Explore Full Menu
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Featured Dishes with Real Pictures -->
-  <section id="featured" class="py-24 px-6 relative bg-zinc-900/30">
-    <div class="max-w-7xl mx-auto space-y-12">
-      <div class="text-center space-y-4 reveal">
-        <div class="inline-flex items-center gap-2 text-amber-300 text-xs font-eyebrow tracking-[3px] uppercase">
-          <span class="w-8 h-[1px] bg-amber-400"></span> Chef's Special Specials <span class="w-8 h-[1px] bg-amber-400"></span>
-        </div>
-        <h2 class="font-display text-4xl sm:text-5xl font-bold">Popular <span class="shimmer italic">Masterpieces</span></h2>
-        <p class="text-zinc-400 text-sm max-w-xl mx-auto">Asli tasveeron ke sath MUSA Cafe ki sab se maqbool dishes.</p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal">
-        <!-- Dish 1 -->
-        <div class="glass p-5 rounded-2xl border border-amber-400/20 space-y-4">
-          <div class="food-img-card">
-            <img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?q=80&w=800&auto=format&fit=crop" alt="Shinwari Mutton Karahi">
-          </div>
-          <div class="flex justify-between items-center">
-            <div>
-              <h3 class="font-display text-lg font-bold text-amber-300">Shinwari Mutton Karahi</h3>
-              <p class="text-xs text-zinc-400">Fresh cooked in pure butter</p>
-            </div>
-            <span class="text-amber-400 font-bold">Rs. 2,490</span>
-          </div>
-          <button onclick="addToCart('Shinwari Mutton Karahi', 2490)" class="w-full py-2.5 rounded-full text-xs font-eyebrow bg-amber-400 text-zinc-950 font-bold hover:bg-amber-300 transition">Add to Order</button>
-        </div>
-
-        <!-- Dish 2 -->
-        <div class="glass p-5 rounded-2xl border border-amber-400/20 space-y-4">
-          <div class="food-img-card">
-            <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=800&auto=format&fit=crop" alt="Royal BBQ Platter">
-          </div>
-          <div class="flex justify-between items-center">
-            <div>
-              <h3 class="font-display text-lg font-bold text-amber-300">Royal BBQ Platter</h3>
-              <p class="text-xs text-zinc-400">Charcoal smoke grilled tikka</p>
-            </div>
-            <span class="text-amber-400 font-bold">Rs. 3,500</span>
-          </div>
-          <button onclick="addToCart('Royal BBQ Platter', 3500)" class="w-full py-2.5 rounded-full text-xs font-eyebrow bg-amber-400 text-zinc-950 font-bold hover:bg-amber-300 transition">Add to Order</button>
-        </div>
-
-        <!-- Dish 3 -->
-        <div class="glass p-5 rounded-2xl border border-amber-400/20 space-y-4">
-          <div class="food-img-card">
-            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=800&auto=format&fit=crop" alt="Musa Supreme Pizza">
-          </div>
-          <div class="flex justify-between items-center">
-            <div>
-              <h3 class="font-display text-lg font-bold text-amber-300">Musa Supreme Pizza</h3>
-              <p class="text-xs text-zinc-400">Oven baked extra cheese</p>
-            </div>
-            <span class="text-amber-400 font-bold">Rs. 1,950</span>
-          </div>
-          <button onclick="addToCart('Musa Supreme Pizza', 1950)" class="w-full py-2.5 rounded-full text-xs font-eyebrow bg-amber-400 text-zinc-950 font-bold hover:bg-amber-300 transition">Add to Order</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Complete Menu Section (Pura ka pura menu with real dish pictures) -->
-  <section id="menu" class="py-24 px-6 relative">
-    <div class="max-w-4xl mx-auto space-y-8">
-      <div class="text-center space-y-4 reveal">
-        <div class="inline-flex items-center gap-2 text-amber-300 text-xs font-eyebrow tracking-[3px] uppercase">
-          <span class="w-8 h-[1px] bg-amber-400"></span> Complete Gastronomic Catalog <span class="w-8 h-[1px] bg-amber-400"></span>
-        </div>
-        <h2 class="font-display text-4xl sm:text-5xl font-bold">Pura MUSA <span class="shimmer italic">Menu</span></h2>
-        <p class="text-zinc-400 text-sm">Click any category below to expand, check items with real pictures, and order instantly.</p>
-      </div>
-
-      <div class="space-y-4 reveal">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Musa Cafe & Restaurant - Layyah</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        <!-- Category 1: Traditional Karahi & Handi -->
-        <div class="glass rounded-xl border border-amber-400/20 overflow-hidden">
-          <div class="menu-toggle px-6 py-5 flex items-center justify-between cursor-pointer bg-zinc-950/40 hover:bg-zinc-900/60 transition">
-            <h3 class="font-display text-xl font-bold text-amber-300"><i class="fa-solid fa-fire-burner mr-2"></i> Traditional Karahi & Handi</h3>
-            <i class="fa-solid fa-chevron-down chevron text-amber-300"></i>
-          </div>
-          <div class="menu-body px-6">
-            <div class="divide-y divide-amber-400/10 py-4 space-y-4">
-              <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <div class="flex items-center gap-4">
-                  <img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?q=80&w=120&auto=format&fit=crop" class="w-16 h-16 rounded-lg object-cover border border-amber-400/30" alt="">
-                  <div><h4 class="font-bold text-sm text-amber-100">Shinwari Mutton Karahi</h4><span class="text-xs text-zinc-400">Tender mutton cooked in pure butter</span></div>
-                </div>
-                <div class="flex items-center gap-4 w-full sm:w-auto justify-between"><span class="text-amber-300 font-bold">Rs. 2,490</span><button onclick="addToCart('Shinwari Mutton Karahi', 2490)" class="px-4 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded-full">Add</button></div>
-              </div>
-              <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <div class="flex items-center gap-4">
-                  <img src="https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=120&auto=format&fit=crop" class="w-16 h-16 rounded-lg object-cover border border-amber-400/30" alt="">
-                  <div><h4 class="font-bold text-sm text-amber-100">Chicken White Karahi</h4><span class="text-xs text-zinc-400">Rich creamy yogurt and white pepper gravy</span></div>
-                </div>
-                <div class="flex items-center gap-4 w-full sm:w-auto justify-between"><span class="text-amber-300 font-bold">Rs. 1,850</span><button onclick="addToCart('Chicken White Karahi', 1850)" class="px-4 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded-full">Add</button></div>
-              </div>
-              <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <div class="flex items-center gap-4">
-                  <img src="https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?q=80&w=120&auto=format&fit=crop" class="w-16 h-16 rounded-lg object-cover border border-amber-400/30" alt="">
-                  <div><h4 class="font-bold text-sm text-amber-100">Desi Chicken Black Pepper Karahi</h4><span class="text-xs text-zinc-400">Traditional desi murgh with crushed black pepper</span></div>
-                </div>
-                <div class="flex items-center gap-4 w-full sm:w-auto justify-between"><span class="text-amber-300 font-bold">Rs. 2,200</span><button onclick="addToCart('Desi Chicken Black Pepper Karahi', 2200)" class="px-4 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded-full">Add</button></div>
-              </div>
+        :root {
+            --gold: #d4a853;
+            --dark: #1a1208;
+            --cream: #f5f0e8;
+            --brown: #3d2b1f;
+            --accent: #c9302c;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--dark);
+            color: var(--cream);
+            overflow-x: hidden;
+        }
+        
+        /* 3D Canvas Background */
+        #bg-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 1rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(26, 18, 8, 0.85);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(212, 168, 83, 0.2);
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+            text-decoration: none;
+        }
+        
+        .logo span { color: var(--cream); font-size: 0.9rem; display: block; font-weight: 400; }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--cream);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:hover { color: var(--gold); }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px; left: 0;
+            width: 0; height: 2px;
+            background: var(--gold);
+            transition: width 0.3s;
+        }
+        .nav-links a:hover::after { width: 100%; }
+        
+        .nav-icons {
+            display: flex;
+            gap: 1.2rem;
+            align-items: center;
+        }
+        
+        .nav-icons button {
+            background: none;
+            border: none;
+            color: var(--cream);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .nav-icons button:hover { color: var(--gold); }
+        
+        .cart-badge {
+            position: absolute;
+            top: -8px; right: -8px;
+            background: var(--accent);
+            color: white;
+            font-size: 0.7rem;
+            width: 18px; height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
+        .cart-wrapper { position: relative; }
+        
+        /* Hero Section */
+        .hero {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+        }
+        
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            color: var(--gold);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 40px rgba(212, 168, 83, 0.3);
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero-content p {
+            font-size: 1.2rem;
+            color: rgba(245, 240, 232, 0.8);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+        
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+        
+        .btn {
+            padding: 0.9rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: var(--gold);
+            color: var(--dark);
+            border: 2px solid var(--gold);
+        }
+        
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--gold);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 168, 83, 0.3);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+        }
+        
+        .btn-outline:hover {
+            background: var(--gold);
+            color: var(--dark);
+            transform: translateY(-3px);
+        }
+        
+        /* Menu Section */
+        .menu-section {
+            position: relative;
+            z-index: 1;
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .menu-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            padding: 0.6rem 1.5rem;
+            background: rgba(212, 168, 83, 0.1);
+            border: 1px solid rgba(212, 168, 83, 0.3);
+            color: var(--cream);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .tab-btn.active, .tab-btn:hover {
+            background: var(--gold);
+            color: var(--dark);
+            border-color: var(--gold);
+        }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .menu-card {
+            background: rgba(61, 43, 31, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(212, 168, 83, 0.15);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .menu-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        
+        .menu-card-img {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .menu-card-img::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 60px;
+            background: linear-gradient(to top, rgba(61,43,31,0.9), transparent);
+        }
+        
+        .menu-card-body {
+            padding: 1.5rem;
+        }
+        
+        .menu-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+        
+        .menu-card p {
+            font-size: 0.85rem;
+            color: rgba(245, 240, 232, 0.7);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        
+        .menu-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .price {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--gold);
+        }
+        
+        .add-to-cart {
+            background: var(--gold);
+            color: var(--dark);
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        
+        .add-to-cart:hover {
+            background: var(--cream);
+            transform: scale(1.05);
+        }
+        
+        .add-to-cart.added {
+            background: #28a745;
+            color: white;
+        }
+        
+        /* Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            top: 0; right: -400px;
+            width: 380px;
+            max-width: 100%;
+            height: 100vh;
+            background: rgba(26, 18, 8, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 2000;
+            padding: 2rem;
+            transition: right 0.4s ease;
+            overflow-y: auto;
+            border-left: 1px solid rgba(212, 168, 83, 0.2);
+        }
+        
+        .cart-sidebar.open { right: 0; }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(212, 168, 83, 0.2);
+        }
+        
+        .cart-header h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+        }
+        
+        .close-cart {
+            background: none;
+            border: none;
+            color: var(--cream);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(212, 168, 83, 0.1);
+        }
+        
+        .cart-item-img {
+            width: 60px; height: 60px;
+            border-radius: 10px;
+            background-size: cover;
+            flex-shrink: 0;
+        }
+        
+        .cart-item-info { flex: 1; }
+        .cart-item-info h4 { color: var(--gold); font-size: 0.95rem; margin-bottom: 0.3rem; }
+        .cart-item-info .item-price { color: var(--cream); font-size: 0.9rem; }
+        
+        .qty-control {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .qty-control button {
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            border: 1px solid var(--gold);
+            background: none;
+            color: var(--gold);
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .qty-control span { color: var(--cream); font-weight: 500; min-width: 20px; text-align: center; }
+        
+        .remove-item {
+            background: none;
+            border: none;
+            color: var(--accent);
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .cart-total {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 2px solid var(--gold);
+        }
+        
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        .total-row.grand {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-top: 0.5rem;
+        }
+        
+        .whatsapp-order {
+            width: 100%;
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: #25D366;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+        
+        .whatsapp-order:hover {
+            background: #128C7E;
+            transform: translateY(-2px);
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: 3rem 0;
+            color: rgba(245, 240, 232, 0.5);
+        }
+        
+        .empty-cart i { font-size: 3rem; margin-bottom: 1rem; color: var(--gold); }
+        
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 1500;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+        
+        .overlay.active { opacity: 1; visibility: visible; }
+        
+        /* Music Player */
+        .music-player {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            z-index: 1000;
+            background: rgba(26, 18, 8, 0.9);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(212, 168, 83, 0.2);
+            border-radius: 50px;
+            padding: 0.6rem 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: all 0.3s;
+        }
+        
+        .music-player:hover {
+            border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(212, 168, 83, 0.2);
+        }
+        
+        .music-btn {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: var(--gold);
+            border: none;
+            color: var(--dark);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: transform 0.3s;
+        }
+        
+        .music-btn:hover { transform: scale(1.1); }
+        
+        .music-info {
+            color: var(--cream);
+            font-size: 0.8rem;
+        }
+        
+        .music-info span { display: block; color: var(--gold); font-weight: 500; }
+        
+        /* About Section */
+        .about-section {
+            position: relative;
+            z-index: 1;
+            padding: 5rem 2rem;
+            background: rgba(61, 43, 31, 0.4);
+        }
+        
+        .about-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .about-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+        
+        .about-text p {
+            color: rgba(245, 240, 232, 0.8);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        
+        .stat-box {
+            background: rgba(212, 168, 83, 0.1);
+            border: 1px solid rgba(212, 168, 83, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .stat-box h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--gold);
+        }
+        
+        .stat-box p { font-size: 0.85rem; color: rgba(245, 240, 232, 0.7); }
+        
+        /* Footer */
+        footer {
+            position: relative;
+            z-index: 1;
+            background: rgba(26, 18, 8, 0.95);
+            padding: 3rem 2rem 1rem;
+            border-top: 1px solid rgba(212, 168, 83, 0.2);
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-col h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+        
+        .footer-col p, .footer-col a {
+            color: rgba(245, 240, 232, 0.7);
+            text-decoration: none;
+            line-height: 2;
+            font-size: 0.9rem;
+            display: block;
+        }
+        
+        .footer-col a:hover { color: var(--gold); }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: rgba(212, 168, 83, 0.1);
+            border: 1px solid rgba(212, 168, 83, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--gold);
+            color: var(--dark);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(212, 168, 83, 0.1);
+            color: rgba(245, 240, 232, 0.5);
+            font-size: 0.85rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--gold);
+            color: var(--dark);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 500;
+            z-index: 3000;
+            transform: translateX(150%);
+            transition: transform 0.4s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .toast.show { transform: translateX(0); }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            nav { padding: 1rem; }
+            .nav-links { display: none; }
+            .about-content { grid-template-columns: 1fr; }
+            .hero-content h1 { font-size: 2.5rem; }
+            .cart-sidebar { width: 100%; }
+            .music-player { bottom: 1rem; left: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 3D Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
+    
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo">
+            Musa Cafe
+            <span>& Restaurant - Layyah</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-icons">
+            <button id="music-toggle-nav" title="Toggle Music"><i class="fas fa-music"></i></button>
+            <div class="cart-wrapper">
+                <button id="cart-btn" title="Cart"><i class="fas fa-shopping-bag"></i></button>
+                <span class="cart-badge" id="cart-count">0</span>
             </div>
-          </div>
         </div>
-
-        <!-- Category 2: Royal BBQ & Grill -->
-        <div class="glass rounded-xl border border-amber-400/20 overflow-hidden">
-          <div class="menu-toggle px-6 py-5 flex items-center justify-between cursor-pointer bg-zinc-950/40 hover:bg-zinc-900/60 transition">
-            <h3 class="font-display text-xl font-bold text-amber-300"><i class="fa-solid fa-utensils mr-2"></i> Royal BBQ & Grill</h3>
-            <i class="fa-solid fa-chevron-down chevron text-amber-300"></i>
-          </div>
-          <div class="menu-body px-6">
-            <div class="divide-y divide-amber-400/10 py-4 space-y-4">
-              <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <div class="flex items-center gap-4">
-                  <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=120&auto=format&fit=crop" class="w-16 h-16 rounded-lg object-cover border border-amber-400/30" alt="">
-                  <div><h4 class="font-bold text-sm text-amber-100">Musa Grand Royal Platter</h4><span class="text-xs text-zinc-400">Malai Boti, Seekh Kebab, Ribs & Grilled Fish</span></div>
-                </div>
-                <div class="flex items-center gap-4 w-full sm:w-auto justify-between"><span class="text-amber-300 font-bold">Rs. 3,500</span><button onclick="addToCart('Musa Grand Royal Platter', 3500)" class="px-4 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded-full">Add</button></div>
-              </div>
-              <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <div class="flex items-center gap-4">
-                  <img src="https://images.unsplash.com/photo-1599487484170-7c1e6e580812?q=80&w=120&auto=format&fit=crop" class="w-16 h-16 rounded-lg object-cover border border-amber-400/30" alt="">
-                  <div><h4 class="font-bold text-sm text-amber-100">Chicken Malai Boti (12pcs)</h4><span class="text-xs text-zinc-400">Juicy boneless chicken pieces marinated in cream</span></div>
-                </div>
-                <div class="flex items-center gap-4 w-full sm:w-auto justify-between"><span class="text-amber-300 font-bold">Rs. 1,150</span><button onclick="addToCart('Chicken Malai Boti', 1150)" class="px-4 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded-full">Add</button></div>
-              </div>
-              <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <div class="flex items-center gap-4">
-                  <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=120&auto=format&fit=crop" class="w-16 h-16 rounded-lg object-cover border border-amber-400/30" alt="">
-                  <div><h4 class="font-bold text-sm text-amber-100">Special Beef Seekh Kebab (4pcs)</h4><span class="text-xs text-zinc-400">Minced beef skewers infused with herbs</span></div>
-                </div>
-                <div class="flex items-center gap-4 w-full sm:w-auto justify-between"><span class="text-amber-300 font-bold">Rs. 950</span><button onclick="addToCart('Special Beef Seekh Kebab', 950)" class="px-4 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded-full">Add</button></div>
-              </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Taste the Tradition</h1>
+            <p>Experience the finest flavors of Layyah at Musa Cafe & Restaurant. Where every dish tells a story of passion and heritage.</p>
+            <div class="hero-btns">
+                <a href="#menu" class="btn btn-primary">Order Now</a>
+                <a href="#about" class="btn btn-outline">Our Story</a>
             </div>
-          </div>
         </div>
-
-        <!-- Category 3: Fast Food & Wood-Fired Pizzas -->
-        <div class="glass rounded-xl border border-amber-400/20 overflow-hidden">
-          <div class="menu-toggle px-6 py-5 flex items-center justify-between cursor-pointer bg-zinc-950/40 hover:bg-zinc-900/60 transition">
-            <h3 class="font-display text-xl font-bold text-amber-300"><i class="fa-solid fa-pizza-slice mr-2"></i> Fast Food & Wood-Fired Pizzas</h3>
-            <i class="fa-solid fa-chevron-down chevron text-amber-300"></i>
-          </div>
-          <div class="menu-body px-6">
-            <div class="divide-y divide-amber-400/10 py-4 space-y-4">
-              <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <div class="flex items-center gap-4">
-                  <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=120&auto=format&fit=crop" class="w-16 h-16 rounded-lg object-cover border border-amber-400/30" alt="">
-                  <div><h4 class="font-bold text-sm text-amber-100">Musa Supreme Pizza (Large)</h4><span class="text-xs text-zinc-400">Loaded with chicken tikka, mushrooms & extra cheese</span></div>
-                </div>
-                <div class="flex items-center gap-4 w-full sm:w-auto justify-between"><span class="text-amber-300 font-bold">Rs. 1,950</span><button onclick="addToCart('Musa Supreme Pizza', 1950)" class="px-4 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded-full">Add</button></div>
-              </div>
-              <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <div class="flex items-center gap-4">
-                  <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=120&auto=format&fit=crop" class="w-16 h-16 rounded-lg object-cover border border-amber-400/30" alt="">
-                  <div><h4 class="font-bold text-sm text-amber-100">Zinger Burger with Fries</h4><span class="text-xs text-zinc-400">Crispy fried chicken fillet with signature sauce</span></div>
-                </div>
-                <div class="flex items-center gap-4 w-full sm:w-auto justify-between"><span class="text-amber-300 font-bold">Rs. 680</span><button onclick="addToCart('Zinger Burger with Fries', 680)" class="px-4 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded-full">Add</button></div>
-              </div>
+    </section>
+    
+    <!-- Menu Section -->
+    <section class="menu-section" id="menu">
+        <h2 class="section-title">Our Menu</h2>
+        <div class="menu-tabs">
+            <button class="tab-btn active" data-category="all">All</button>
+            <button class="tab-btn" data-category="bbq">BBQ</button>
+            <button class="tab-btn" data-category="karahi">Karahi</button>
+            <button class="tab-btn" data-category="fastfood">Fast Food</button>
+            <button class="tab-btn" data-category="drinks">Drinks</button>
+        </div>
+        <div class="menu-grid" id="menu-grid"></div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="about-content">
+            <div class="about-text">
+                <h2>A Legacy of Flavor Since 2010</h2>
+                <p>Located in the heart of Layyah, Musa Cafe & Restaurant has been serving authentic Pakistani cuisine with a modern twist for over a decade. Our chefs bring generations of culinary expertise to every plate.</p>
+                <p>From sizzling BBQ to aromatic Karahi, every dish is prepared with the freshest ingredients and traditional spices that make Layyah's food culture legendary.</p>
             </div>
-          </div>
-        </div>
-
-        <!-- Category 4: Chinese & Rice Specialties -->
-        <div class="glass rounded-xl border border-amber-400/20 overflow-hidden">
-          <div class="menu-toggle px-6 py-5 flex items-center justify-between cursor-pointer bg-zinc-950/40 hover:bg-zinc-900/60 transition">
-            <h3 class="font-display text-xl font-bold text-amber-300"><i class="fa-solid fa-bowl-rice mr-2"></i> Chinese & Rice Specialties</h3>
-            <i class="fa-solid fa-chevron-down chevron text-amber-300"></i>
-          </div>
-          <div class="menu-body px-6">
-            <div class="divide-y divide-amber-400/10 py-4 space-y-4">
-              <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <div class="flex items-center gap-4">
-                  <img src="https://images.unsplash.com/photo-1525755662778-989d0524087e?q=80&w=120&auto=format&fit=crop" class="w-16 h-16 rounded-lg object-cover border border-amber-400/30" alt="">
-                  <div><h4 class="font-bold text-sm text-amber-100">Chicken Manchurian with Egg Fried Rice</h4><span class="text-xs text-zinc-400">Classic tangy chinese gravy served with fragrant rice</span></div>
+            <div class="about-stats">
+                <div class="stat-box">
+                    <h3>14+</h3>
+                    <p>Years of Service</p>
                 </div>
-                <div class="flex items-center gap-4 w-full sm:w-auto justify-between"><span class="text-amber-300 font-bold">Rs. 1,250</span><button onclick="addToCart('Chicken Manchurian with Rice', 1250)" class="px-4 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded-full">Add</button></div>
-              </div>
-              <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <div class="flex items-center gap-4">
-                  <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=120&auto=format&fit=crop" class="w-16 h-16 rounded-lg object-cover border border-amber-400/30" alt="">
-                  <div><h4 class="font-bold text-sm text-amber-100">Special Hyderabadi Chicken Biryani</h4><span class="text-xs text-zinc-400">Layered basmati rice with aromatic spices</span></div>
+                <div class="stat-box">
+                    <h3>50+</h3>
+                    <p>Menu Items</p>
                 </div>
-                <div class="flex items-center gap-4 w-full sm:w-auto justify-between"><span class="text-amber-300 font-bold">Rs. 550</span><button onclick="addToCart('Special Hyderabadi Chicken Biryani', 550)" class="px-4 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded-full">Add</button></div>
-              </div>
+                <div class="stat-box">
+                    <h3>10K+</h3>
+                    <p>Happy Customers</p>
+                </div>
+                <div class="stat-box">
+                    <h3>4.9</h3>
+                    <p>Star Rating</p>
+                </div>
             </div>
-          </div>
         </div>
-
-        <!-- Category 5: Desserts & Beverages -->
-        <div class="glass rounded-xl border border-amber-400/20 overflow-hidden">
-          <div class="menu-toggle px-6 py-5 flex items-center justify-between cursor-pointer bg-zinc-950/40 hover:bg-zinc-900/60 transition">
-            <h3 class="font-display text-xl font-bold text-amber-300"><i class="fa-solid fa-ice-cream mr-2"></i> Desserts & Beverages</h3>
-            <i class="fa-solid fa-chevron-down chevron text-amber-300"></i>
-          </div>
-          <div class="menu-body px-6">
-            <div class="divide-y divide-amber-400/10 py-4 space-y-4">
-              <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <div class="flex items-center gap-4">
-                  <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=120&auto=format&fit=crop" class="w-16 h-16 rounded-lg object-cover border border-amber-400/30" alt="">
-                  <div><h4 class="font-bold text-sm text-amber-100">Hot Molten Lava Cake with Ice Cream</h4><span class="text-xs text-zinc-400">Rich chocolate cake with gooey center</span></div>
+    </section>
+    
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-col">
+                <h3>Musa Cafe & Restaurant</h3>
+                <p>Serving the best taste in Layyah since 2010. Your satisfaction is our priority.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
                 </div>
-                <div class="flex items-center gap-4 w-full sm:w-auto justify-between"><span class="text-amber-300 font-bold">Rs. 480</span><button onclick="addToCart('Molten Lava Cake', 480)" class="px-4 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded-full">Add</button></div>
-              </div>
-              <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <div class="flex items-center gap-4">
-                  <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?q=80&w=120&auto=format&fit=crop" class="w-16 h-16 rounded-lg object-cover border border-amber-400/30" alt="">
-                  <div><h4 class="font-bold text-sm text-amber-100">Musa Special Mint Margarita</h4><span class="text-xs text-zinc-400">Refreshing citrus and fresh mint cooler</span></div>
-                </div>
-                <div class="flex items-center gap-4 w-full sm:w-auto justify-between"><span class="text-amber-300 font-bold">Rs. 350</span><button onclick="addToCart('Special Mint Margarita', 350)" class="px-4 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded-full">Add</button></div>
-              </div>
             </div>
-          </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <a href="#home">Home</a>
+                <a href="#menu">Menu</a>
+                <a href="#about">About Us</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-col">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Main Bazaar, Layyah</p>
+                <p><i class="fas fa-phone"></i> +92 300 1234567</p>
+                <p><i class="fas fa-clock"></i> Open: 11 AM - 12 AM</p>
+            </div>
         </div>
-
-      </div>
+        <div class="footer-bottom">
+            <p>Made with love by Musa Cafe & Restaurant Layyah</p>
+        </div>
+    </footer>
+    
+    <!-- Cart Sidebar -->
+    <div class="overlay" id="overlay"></div>
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>Your Order</h2>
+            <button class="close-cart" id="close-cart"><i class="fas fa-times"></i></button>
+        </div>
+        <div id="cart-items"></div>
+        <div class="cart-total" id="cart-total" style="display:none;">
+            <div class="total-row">
+                <span>Subtotal</span>
+                <span id="subtotal">Rs. 0</span>
+            </div>
+            <div class="total-row">
+                <span>Delivery</span>
+                <span>Free</span>
+            </div>
+            <div class="total-row grand">
+                <span>Total</span>
+                <span id="grand-total">Rs. 0</span>
+            </div>
+            <button class="whatsapp-order" id="whatsapp-order">
+                <i class="fab fa-whatsapp"></i> Order on WhatsApp
+            </button>
+        </div>
     </div>
-  </section>
-
-  <!-- About Section -->
-  <section id="about" class="py-24 px-6 bg-zinc-900/20">
-    <div class="max-w-4xl mx-auto glass p-8 sm:p-12 rounded-2xl border border-amber-400/20 text-center space-y-6">
-      <h2 class="font-display text-3xl sm:text-4xl font-bold text-amber-300">About MUSA Cafe & Restaurant</h2>
-      <p class="text-zinc-300 text-sm sm:text-base leading-relaxed font-light">
-        Located in the heart of Layyah, MUSA Cafe & Restaurant brings together supreme culinary artistry, unmatched hospitality, and an ambient atmosphere. Whether you are dining in with family or ordering our signature specialties, we ensure an unforgettable experience.
-      </p>
-    </div>
-  </section>
-
-  <!-- Reservation Section -->
-  <section id="reservation" class="py-24 px-6 relative">
-    <div class="max-w-3xl mx-auto glass p-8 sm:p-12 rounded-2xl border border-amber-400/30 space-y-6">
-      <div class="text-center space-y-2">
-        <h2 class="font-display text-3xl font-bold text-amber-300">Table Reservation</h2>
-        <p class="text-zinc-400 text-sm">MUSA Cafe & Restaurant, Layyah</p>
-      </div>
-      <form onsubmit="handleReservation(event)" class="space-y-4">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <input type="text" required placeholder="Full Name" class="w-full px-4 py-3 rounded-lg lux-input text-sm text-zinc-100">
-          <input type="tel" required placeholder="Phone Number" class="w-full px-4 py-3 rounded-lg lux-input text-sm text-zinc-100">
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <select class="w-full px-4 py-3 rounded-lg lux-input text-sm bg-zinc-900 text-zinc-200">
-            <option>2 Persons</option>
-            <option>4 Persons</option>
-            <option>6+ Persons</option>
-          </select>
-          <input type="date" required class="w-full px-4 py-3 rounded-lg lux-input text-sm text-zinc-200">
-          <input type="time" required class="w-full px-4 py-3 rounded-lg lux-input text-sm text-zinc-200">
-        </div>
-        <button type="submit" class="w-full py-4 rounded-full font-eyebrow text-xs tracking-[2px] bg-amber-400 text-zinc-950 font-bold btn-gold shadow-lg">
-          Confirm Reservation
+    
+    <!-- Music Player -->
+    <div class="music-player">
+        <button class="music-btn" id="music-toggle">
+            <i class="fas fa-play" id="music-icon"></i>
         </button>
-      </form>
+        <div class="music-info">
+            <span>Soft Cafe Music</span>
+            <small>Relaxing Tones</small>
+        </div>
     </div>
-  </section>
+    
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toast-msg">Added to cart!</span>
+    </div>
+    
+    <!-- Hidden Audio -->
+    <audio id="bg-music" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
 
-  <!-- Cart Floating & Drawer -->
-  <button id="cartBtn" onclick="toggleCart()">
-    <i class="fa-solid fa-bag-shopping text-lg"></i>
-    <span id="cartBadge">0</span>
-  </button>
-  <div id="cartOverlay" onclick="toggleCart()"></div>
-  <div id="cartDrawer">
-    <div class="p-6 border-b border-amber-400/20 flex items-center justify-between bg-zinc-950">
-      <h3 class="font-display text-xl font-bold text-amber-300">Your Order Summary</h3>
-      <button onclick="toggleCart()" class="text-zinc-400 hover:text-amber-300 text-xl"><i class="fa-solid fa-xmark"></i></button>
-    </div>
-    <div id="cartItemsContainer" class="flex-1 overflow-y-auto p-6 space-y-4">
-      <p class="text-zinc-400 text-sm text-center py-12">Your cart is empty.</p>
-    </div>
-    <div class="p-6 border-t border-amber-400/20 bg-zinc-950 space-y-4">
-      <div class="flex justify-between text-base font-bold">
-        <span class="text-zinc-300">Total:</span>
-        <span id="cartTotalPrice" class="text-amber-300">Rs. 0</span>
-      </div>
-      <button onclick="checkoutOrder()" class="w-full py-3.5 rounded-full font-eyebrow text-xs tracking-[2px] bg-amber-400 text-zinc-950 font-bold btn-gold">
-        Proceed to Checkout
-      </button>
-    </div>
-  </div>
-
-  <!-- JavaScript for Music Tone & Interactivity -->
-  <script>
-    // Music Toggle Logic
-    let isPlaying = false;
-    function toggleMusic() {
-      const music = document.getElementById('bgMusic');
-      const icon = document.getElementById('musicIcon');
-      if (isPlaying) {
-        music.pause();
-        icon.className = 'fa-solid fa-volume-xmark text-lg';
-        isPlaying = false;
-      } else {
-        music.play().then(() => {
-          icon.className = 'fa-solid fa-volume-high text-lg';
-          isPlaying = true;
-        }).catch(e => {
-          console.log("Audio playback error", e);
-          alert("Please click anywhere on the page first, then tap the speaker button.");
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // ===================== 3D BACKGROUND =====================
+        const canvas = document.getElementById('bg-canvas');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        
+        // Floating particles (like spices/steam)
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 1500;
+        const posArray = new Float32Array(particlesCount * 3);
+        const colorArray = new Float32Array(particlesCount * 3);
+        
+        for(let i = 0; i < particlesCount * 3; i += 3) {
+            posArray[i] = (Math.random() - 0.5) * 30;
+            posArray[i+1] = (Math.random() - 0.5) * 30;
+            posArray[i+2] = (Math.random() - 0.5) * 30;
+            
+            // Warm gold/brown colors
+            colorArray[i] = 0.8 + Math.random() * 0.2;
+            colorArray[i+1] = 0.6 + Math.random() * 0.3;
+            colorArray[i+2] = 0.3 + Math.random() * 0.2;
+        }
+        
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
+        
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.05,
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.6,
+            blending: THREE.AdditiveBlending
         });
-      }
-    }
-
-    // Scroll Progress
-    window.addEventListener('scroll', () => {
-      const winScroll = document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      document.getElementById('progressBar').style.width = (winScroll / height) * 100 + '%';
-    });
-
-    // Menu Accordion Toggles
-    document.querySelectorAll('.menu-toggle').forEach(toggle => {
-      toggle.addEventListener('click', () => {
-        const body = toggle.nextElementSibling;
-        const chevron = toggle.querySelector('.chevron');
-        body.classList.toggle('open');
-        chevron.classList.toggle('open');
-      });
-    });
-
-    // Cart System
-    let cart = [];
-    function toggleCart() {
-      document.getElementById('cartDrawer').classList.toggle('active');
-      document.getElementById('cartOverlay').classList.toggle('active');
-    }
-    function addToCart(name, price) {
-      const existing = cart.find(i => i.name === name);
-      if (existing) { existing.qty += 1; } else { cart.push({ name, price, qty: 1 }); }
-      updateCartUI();
-      if (!document.getElementById('cartDrawer').classList.contains('active')) toggleCart();
-    }
-    function updateQty(name, change) {
-      const item = cart.find(i => i.name === name);
-      if (item) {
-        item.qty += change;
-        if (item.qty <= 0) cart = cart.filter(i => i.name !== name);
-      }
-      updateCartUI();
-    }
-    function updateCartUI() {
-      const container = document.getElementById('cartItemsContainer');
-      const badge = document.getElementById('cartBadge');
-      const totalEl = document.getElementById('cartTotalPrice');
-      badge.textContent = cart.reduce((sum, i) => sum + i.qty, 0);
-
-      if (cart.length === 0) {
-        container.innerHTML = '<p class="text-zinc-400 text-sm text-center py-12">Your cart is empty.</p>';
-        totalEl.textContent = 'Rs. 0';
-        return;
-      }
-
-      let html = '';
-      let total = 0;
-      cart.forEach(i => {
-        total += i.price * i.qty;
-        html += `<div class="flex items-center justify-between gap-4 border-b border-amber-400/10 pb-3">
-          <div><h4 class="text-zinc-100 font-bold text-sm">${i.name}</h4><span class="text-amber-300 text-xs">Rs. ${i.price}</span></div>
-          <div class="flex items-center gap-3"><button onclick="updateQty('${i.name}', -1)" class="px-2 bg-zinc-800 rounded text-amber-300">-</button><span class="text-zinc-100">${i.qty}</span><button onclick="updateQty('${i.name}', 1)" class="px-2 bg-zinc-800 rounded text-amber-300">+</button></div>
-        </div>`;
-      });
-      container.innerHTML = html;
-      totalEl.textContent = 'Rs. ' + total.toLocaleString();
-    }
-    function checkoutOrder() {
-      if (cart.length === 0) { alert('Cart is empty!'); return; }
-      alert('Order placed successfully! We will contact you soon.');
-      cart = []; updateCartUI(); toggleCart();
-    }
-    function handleReservation(e) {
-      e.preventDefault();
-      alert('Table reserved successfully!');
-      e.target.reset();
-    }
-
-    // Scroll Reveal
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  </script>
+        
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
+        
+        // Floating geometric shapes (abstract plates/bowls)
+        const shapes = [];
+        const geometries = [
+            new THREE.TorusGeometry(1, 0.3, 16, 50),
+            new THREE.IcosahedronGeometry(0.8, 0),
+            new THREE.OctahedronGeometry(0.6, 0),
+            new THREE.TorusKnotGeometry(0.5, 0.2, 64, 8)
+        ];
+        
+        for(let i = 0; i < 8; i++) {
+            const geo = geometries[Math.floor(Math.random() * geometries.length)];
+            const mat = new THREE.MeshBasicMaterial({
+                color: new THREE.Color().setHSL(0.08 + Math.random() * 0.08, 0.7, 0.5),
+                wireframe: true,
+                transparent: true,
+                opacity: 0.15
+            });
+            const mesh = new THREE.Mesh(geo, mat);
+            mesh.position.set(
+                (Math.random() - 0.5) * 20,
+                (Math.random() - 0.5) * 15,
+                (Math.random() - 0.5) * 10 - 5
+            );
+            mesh.userData = {
+                rotSpeed: { x: (Math.random()-0.5)*0.01, y: (Math.random()-0.5)*0.01 },
+                floatSpeed: Math.random() * 0.005 + 0.002,
+                floatOffset: Math.random() * Math.PI * 2
+            };
+            scene.add(mesh);
+            shapes.push(mesh);
+        }
+        
+        camera.position.z = 8;
+        
+        // Mouse interaction
+        let mouseX = 0, mouseY = 0;
+        document.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+            mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+        });
+        
+        function animate3D() {
+            requestAnimationFrame(animate3D);
+            
+            particlesMesh.rotation.y += 0.0005;
+            particlesMesh.rotation.x += 0.0002;
+            
+            const time = Date.now() * 0.001;
+            shapes.forEach(shape => {
+                shape.rotation.x += shape.userData.rotSpeed.x;
+                shape.rotation.y += shape.userData.rotSpeed.y;
+                shape.position.y += Math.sin(time + shape.userData.floatOffset) * shape.userData.floatSpeed;
+            });
+            
+            camera.position.x += (mouseX * 2 - camera.position.x) * 0.02;
+            camera.position.y += (-mouseY * 2 - camera.position.y) * 0.02;
+            camera.lookAt(scene.position);
+            
+            renderer.render(scene, camera);
+        }
+        animate3D();
+        
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+        
+        // ===================== MENU DATA =====================
+        const menuItems = [
+            { id: 1, name: "Chicken Tikka", category: "bbq", price: 450, desc: "Marinated chicken grilled to perfection with our special spices", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400" },
+            { id: 2, name: "Mutton Karahi", category: "karahi", price: 1200, desc: "Traditional mutton karahi cooked in desi ghee with fresh tomatoes", img: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400" },
+            { id: 3, name: "Beef Burger", category: "fastfood", price: 350, desc: "Juicy beef patty with fresh veggies and secret sauce", img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400" },
+            { id: 4, name: "Special Karahi", category: "karahi", price: 1400, desc: "Chef's special recipe with extra masala and green chilies", img: "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=400" },
+            { id: 5, name: "Seekh Kabab", category: "bbq", price: 380, desc: "Minced beef seekh kababs with mint chutney", img: "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=400" },
+            { id: 6, name: "Chicken Shawarma", category: "fastfood", price: 250, desc: "Arabian style shawarma with garlic sauce and fries", img: "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=400" },
+            { id: 7, name: "Kashmiri Chai", category: "drinks", price: 120, desc: "Pink Kashmiri tea with crushed almonds and pistachios", img: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=400" },
+            { id: 8, name: "Malai Boti", category: "bbq", price: 420, desc: "Creamy chicken malai boti with special marinade", img: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=400" },
+            { id: 9, name: "Chicken Karahi", category: "karahi", price: 900, desc: "Classic chicken karahi with ginger and coriander", img: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400" },
+            { id: 10, name: "Zinger Burger", category: "fastfood", price: 400, desc: "Crispy fried chicken zinger with coleslaw", img: "https://images.unsplash.com/photo-1513185158878-8d8c2a2a3da3?w=400" },
+            { id: 11, name: "Mango Lassi", category: "drinks", price: 150, desc: "Thick and creamy mango lassi with real pulp", img: "https://images.unsplash.com/photo-1626202158825-3c5c9e8a8c0c?w=400" },
+            { id: 12, name: "Cold Drink", category: "drinks", price: 80, desc: "Chilled soft drink to refresh your meal", img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400" }
+        ];
+        
+        // ===================== CART FUNCTIONALITY =====================
+        let cart = [];
+        const cartCount = document.getElementById('cart-count');
+        const cartItems = document.getElementById('cart-items');
+        const cartTotal = document.getElementById('cart-total');
+        const subtotalEl = document.getElementById('subtotal');
+        const grandTotalEl = document.getElementById('grand-total');
+        
+        function renderMenu(category = 'all') {
+            const grid = document.getElementById('menu-grid');
+            grid.innerHTML = '';
+            const items = category === 'all' ? menuItems : menuItems.filter(i => i.category === category);
+            
+            items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'menu-card';
+                card.innerHTML = `
+                    <div class="menu-card-img" style="background-image: url('${item.img}')"></div>
+                    <div class="menu-card-body">
+                        <h3>${item.name}</h3>
+                        <p>${item.desc}</p>
+                        <div class="menu-card-footer">
+                            <span class="price">Rs. ${item.price}</span>
+                            <button class="add-to-cart" data-id="${item.id}">
+                                <i class="fas fa-plus"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            
+            document.querySelectorAll('.add-to-cart').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.dataset.id);
+                    addToCart(id);
+                    this.innerHTML = '<i class="fas fa-check"></i> Added';
+                    this.classList.add('added');
+                    setTimeout(() => {
+                        this.innerHTML = '<i class="fas fa-plus"></i> Add';
+                        this.classList.remove('added');
+                    }, 1500);
+                });
+            });
+        }
+        
+        function addToCart(id) {
+            const item = menuItems.find(i => i.id === id);
+            const existing = cart.find(c => c.id === id);
+            if(existing) {
+                existing.qty++;
+            } else {
+                cart.push({ ...item, qty: 1 });
+            }
+            updateCart();
+            showToast(`${item.name} added to cart!`);
+        }
+        
+        function updateCart() {
+            cartCount.textContent = cart.reduce((sum, c) => sum + c.qty, 0);
+            
+            if(cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-bag"></i>
+                        <p>Your cart is empty</p>
+                    </div>
+                `;
+                cartTotal.style.display = 'none';
+                return;
+            }
+            
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div class="cart-item-img" style="background-image: url('${item.img}')"></div>
+                    <div class="cart-item-info">
+                        <h4>${item.name}</h4>
+                        <span class="item-price">Rs. ${item.price}</span>
+                        <div class="qty-control">
+                            <button onclick="changeQty(${item.id}, -1)">-</button>
+                            <span>${item.qty}</span>
+                            <button onclick="changeQty(${item.id}, 1)">+</button>
+                        </div>
+                    </div>
+                    <button class="remove-item" onclick="removeItem(${item.id})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `).join('');
+            
+            const subtotal = cart.reduce((sum, c) => sum + c.price * c.qty, 0);
+            subtotalEl.textContent = `Rs. ${subtotal}`;
+            grandTotalEl.textContent = `Rs. ${subtotal}`;
+            cartTotal.style.display = 'block';
+        }
+        
+        window.changeQty = function(id, delta) {
+            const item = cart.find(c => c.id === id);
+            if(item) {
+                item.qty += delta;
+                if(item.qty <= 0) removeItem(id);
+                else updateCart();
+            }
+        };
+        
+        window.removeItem = function(id) {
+            cart = cart.filter(c => c.id !== id);
+            updateCart();
+        };
+        
+        // ===================== WHATSAPP ORDER =====================
+        document.getElementById('whatsapp-order').addEventListener('click', function() {
+            if(cart.length === 0) return;
+            
+            const phone = "923001234567"; // CHANGE THIS TO YOUR WHATSAPP NUMBER
+            let message = "*New Order from Musa Cafe Website*%0A%0A";
+            message += "*Customer:* ___________%0A";
+            message += "*Address:* ___________%0A%0A";
+            message += "*Order Details:*%0A";
+            message += "━━━━━━━━━━━━%0A";
+            
+            let total = 0;
+            cart.forEach(item => {
+                message += `• ${item.name} x${item.qty} = Rs. ${item.price * item.qty}%0A`;
+                total += item.price * item.qty;
+            });
+            
+            message += "━━━━━━━━━━━━%0A";
+            message += `*Total: Rs. ${total}*%0A%0A`;
+            message += "Please confirm my order. Thank you!";
+            
+            window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+        });
+        
+        // ===================== MUSIC PLAYER =====================
+        const music = document.getElementById('bg-music');
+        const musicToggle = document.getElementById('music-toggle');
+        const musicIcon = document.getElementById('music-icon');
+        const musicToggleNav = document.getElementById('music-toggle-nav');
+        let isPlaying = false;
+        
+        function toggleMusic() {
+            if(isPlaying) {
+                music.pause();
+                musicIcon.className = 'fas fa-play';
+            } else {
+                music.play().catch(e => console.log('Audio play failed:', e));
+                musicIcon.className = 'fas fa-pause';
+            }
+            isPlaying = !isPlaying;
+        }
+        
+        musicToggle.addEventListener('click', toggleMusic);
+        musicToggleNav.addEventListener('click', toggleMusic);
+        
+        // ===================== UI HANDLERS =====================
+        // Cart sidebar
+        const cartSidebar = document.getElementById('cart-sidebar');
+        const overlay = document.getElementById('overlay');
+        
+        document.getElementById('cart-btn').addEventListener('click', () => {
+            cartSidebar.classList.add('open');
+            overlay.classList.add('active');
+        });
+        
+        document.getElementById('close-cart').addEventListener('click', closeCart);
+        overlay.addEventListener('click', closeCart);
+        
+        function closeCart() {
+            cartSidebar.classList.remove('open');
+            overlay.classList.remove('active');
+        }
+        
+        // Tabs
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                renderMenu(this.dataset.category);
+            });
+        });
+        
+        // Toast
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Initialize
+        renderMenu();
+    </script>
 </body>
-</html>
+</html>'''
+
+# Save the file
+with open('/mnt/agents/output/musa_cafe_restaurant.html', 'w', encoding='utf-8') as f:
+    f.write(html_content)
+
+print("File saved successfully!")
+print(f"File size: {len(html_content)} characters")
 
 
 
