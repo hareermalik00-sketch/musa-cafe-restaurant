@@ -4,22 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Musa Cafe & Restaurant - Layyah</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         :root {
             --gold: #c9a96e;
             --gold-light: #e8d5a3;
-            --dark: #0d0d0d;
-            --dark-light: #1a1a1a;
-            --dark-card: #141414;
+            --dark: #0a0a0a;
+            --dark-sec: #111111;
+            --card: #141414;
             --text: #f0ebe3;
-            --text-muted: #8a8a8a;
-            --accent: #c9a96e;
+            --text-dim: #888888;
+            --border: rgba(201,169,110,0.12);
         }
-        
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Inter', sans-serif;
             background: var(--dark);
@@ -28,1217 +27,818 @@
             line-height: 1.6;
         }
         
-        /* 3D Canvas Background */
+        /* 3D Canvas */
         #bg-canvas {
-            position: fixed;
-            top: 0; left: 0;
+            position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-        
-        /* Navigation */
-        .top-nav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 1000;
-            padding: 1.2rem 2.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: linear-gradient(to bottom, rgba(13,13,13,0.95), transparent);
-        }
-        
-        .logo-text {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
-            font-weight: 600;
-            color: var(--text);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-        
-        .logo-text span {
-            display: block;
-            font-size: 0.55rem;
-            letter-spacing: 5px;
-            color: var(--gold);
-            font-family: 'Inter', sans-serif;
-            font-weight: 400;
-            margin-top: 2px;
-        }
-        
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-        
-        .nav-icon {
-            background: none;
-            border: none;
-            color: var(--text);
-            font-size: 1.3rem;
-            cursor: pointer;
-            transition: color 0.3s;
-            position: relative;
-        }
-        
-        .nav-icon:hover { color: var(--gold); }
-        
-        .cart-badge {
-            position: absolute;
-            top: -6px; right: -8px;
-            background: var(--gold);
-            color: var(--dark);
-            font-size: 0.6rem;
-            width: 16px; height: 16px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-        }
-        
-        /* Hero Section */
-        .hero {
-            position: relative;
-            z-index: 1;
-            min-height: 100vh;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            align-items: center;
-            padding: 6rem 3rem 3rem;
-            max-width: 1400px;
-            margin: 0 auto;
-            gap: 3rem;
-        }
-        
-        .hero-image {
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            height: 500px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-        }
-        
-        .hero-image img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s;
-        }
-        
-        .hero-image:hover img { transform: scale(1.05); }
-        
-        .hero-image::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(201,169,110,0.1), transparent);
-        }
-        
-        .hero-content {
-            padding-left: 1rem;
-        }
-        
-        .hero-content h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
-            font-weight: 400;
-            line-height: 1.1;
-            margin-bottom: 0.5rem;
-            letter-spacing: 2px;
-        }
-        
-        .hero-content .subtitle {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(1rem, 2vw, 1.3rem);
-            color: var(--gold);
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-        }
-        
-        .hero-content .tagline {
-            font-size: 1rem;
-            color: var(--text-muted);
-            max-width: 450px;
-            margin-bottom: 2rem;
-            line-height: 1.8;
-        }
-        
-        .btn-gold {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.9rem 2.2rem;
-            background: var(--gold);
-            color: var(--dark);
-            border: none;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-        }
-        
-        .btn-gold:hover {
-            background: var(--gold-light);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(201,169,110,0.3);
-        }
-        
-        /* Features Section */
-        .features {
-            position: relative;
-            z-index: 1;
-            padding: 5rem 2rem;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-        
-        .section-label {
-            text-align: center;
-            font-size: 0.8rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 3rem;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-        
-        .feature-card {
-            background: var(--dark-card);
-            border: 1px solid rgba(201,169,110,0.1);
-            border-radius: 16px;
-            padding: 2.5rem 2rem;
-            text-align: center;
-            transition: all 0.4s;
-        }
-        
-        .feature-card:hover {
-            border-color: rgba(201,169,110,0.3);
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
-        
-        .feature-icon {
-            font-size: 2rem;
-            color: var(--gold);
-            margin-bottom: 1.2rem;
-            opacity: 0.8;
-        }
-        
-        .feature-card h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.1rem;
-            margin-bottom: 0.8rem;
-            letter-spacing: 1px;
-        }
-        
-        .feature-card p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            line-height: 1.7;
-        }
-        
-        /* Menu Highlights */
-        .menu-highlights {
-            position: relative;
-            z-index: 1;
-            padding: 4rem 2rem 6rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .menu-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 0.8rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-        
-        .tab-btn {
-            padding: 0.5rem 1.5rem;
-            background: transparent;
-            border: 1px solid rgba(201,169,110,0.2);
-            color: var(--text-muted);
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-        
-        .tab-btn.active, .tab-btn:hover {
-            background: var(--gold);
-            color: var(--dark);
-            border-color: var(--gold);
-        }
-        
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-        
-        .menu-card {
-            background: var(--dark-card);
-            border: 1px solid rgba(201,169,110,0.08);
-            border-radius: 16px;
-            overflow: hidden;
-            transition: all 0.4s;
-        }
-        
-        .menu-card:hover {
-            border-color: rgba(201,169,110,0.2);
-            transform: translateY(-8px);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
-        }
-        
-        .menu-card-img {
-            width: 100%;
-            height: 220px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-        
-        .menu-card-img::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            height: 80px;
-            background: linear-gradient(to top, var(--dark-card), transparent);
-        }
-        
-        .menu-card-body {
-            padding: 1.5rem;
-        }
-        
-        .menu-card h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.15rem;
-            margin-bottom: 0.5rem;
-            letter-spacing: 1px;
-        }
-        
-        .menu-card p {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-            margin-bottom: 1.2rem;
-        }
-        
-        .menu-card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .price {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--gold);
-        }
-        
-        .add-btn {
-            width: 36px; height: 36px;
-            border-radius: 50%;
-            background: var(--gold);
-            border: none;
-            color: var(--dark);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            font-size: 0.9rem;
-        }
-        
-        .add-btn:hover {
-            background: var(--gold-light);
-            transform: scale(1.1);
-        }
-        
-        .add-btn.added {
-            background: #4caf50;
-            color: white;
-        }
-        
-        /* Our Craft Section */
-        .our-craft {
-            position: relative;
-            z-index: 1;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            min-height: 500px;
-            margin: 3rem 0;
-        }
-        
-        .craft-image {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .craft-image img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            transition: transform 0.8s;
-        }
-        
-        .craft-image:hover img { transform: scale(1.05); }
-        
-        .craft-content {
-            background: var(--dark-light);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 4rem;
-        }
-        
-        .craft-content h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 4vw, 3rem);
-            margin-bottom: 1.5rem;
-            letter-spacing: 2px;
-        }
-        
-        .craft-content p {
-            color: var(--text-muted);
-            line-height: 1.9;
-            margin-bottom: 2rem;
-            max-width: 450px;
-        }
-        
-        /* Cart Sidebar */
-        .overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.7);
-            z-index: 2000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s;
-        }
-        
-        .overlay.active { opacity: 1; visibility: visible; }
-        
-        .cart-sidebar {
-            position: fixed;
-            top: 0; right: -420px;
-            width: 400px;
-            max-width: 100%;
-            height: 100vh;
-            background: var(--dark-light);
-            z-index: 2001;
-            padding: 2rem;
-            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow-y: auto;
-            border-left: 1px solid rgba(201,169,110,0.1);
-        }
-        
-        .cart-sidebar.open { right: 0; }
-        
-        .cart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(201,169,110,0.15);
-        }
-        
-        .cart-header h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
-            letter-spacing: 2px;
-        }
-        
-        .close-cart {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.3rem;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-        
-        .close-cart:hover { color: var(--gold); }
-        
-        .cart-item {
-            display: flex;
-            gap: 1rem;
-            padding: 1.2rem 0;
-            border-bottom: 1px solid rgba(201,169,110,0.08);
-        }
-        
-        .cart-item-img {
-            width: 55px; height: 55px;
-            border-radius: 10px;
-            background-size: cover;
-            flex-shrink: 0;
-            border: 1px solid rgba(201,169,110,0.1);
-        }
-        
-        .cart-item-info { flex: 1; }
-        .cart-item-info h4 { font-size: 0.9rem; margin-bottom: 0.2rem; letter-spacing: 0.5px; }
-        .cart-item-info .item-price { color: var(--gold); font-size: 0.85rem; font-weight: 500; }
-        
-        .qty-control {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            margin-top: 0.5rem;
-        }
-        
-        .qty-control button {
-            width: 26px; height: 26px;
-            border-radius: 50%;
-            border: 1px solid rgba(201,169,110,0.3);
-            background: none;
-            color: var(--gold);
-            cursor: pointer;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-        
-        .qty-control button:hover { background: rgba(201,169,110,0.1); }
-        .qty-control span { color: var(--text); font-weight: 500; min-width: 20px; text-align: center; font-size: 0.9rem; }
-        
-        .remove-item {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: color 0.3s;
-            align-self: flex-start;
-            margin-top: 0.3rem;
-        }
-        
-        .remove-item:hover { color: #e74c3c; }
-        
-        .cart-total {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 2px solid var(--gold);
-        }
-        
-        .total-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.6rem;
-            font-size: 0.95rem;
-            color: var(--text-muted);
-        }
-        
-        .total-row.grand {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--gold);
-            margin-top: 0.8rem;
-        }
-        
-        .whatsapp-btn {
-            width: 100%;
-            margin-top: 1.5rem;
-            padding: 1rem;
-            background: #25D366;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.6rem;
-            transition: all 0.3s;
-            letter-spacing: 1px;
-        }
-        
-        .whatsapp-btn:hover {
-            background: #128C7E;
-            transform: translateY(-2px);
-        }
-        
-        .empty-cart {
-            text-align: center;
-            padding: 4rem 0;
-            color: var(--text-muted);
-        }
-        .empty-cart i { font-size: 2.5rem; margin-bottom: 1rem; color: var(--gold); opacity: 0.5; }
-        
-        /* Music Player */
-        .music-player {
-            position: fixed;
-            bottom: 2rem;
-            left: 2rem;
-            z-index: 1000;
-            background: rgba(20,20,20,0.9);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(201,169,110,0.15);
-            border-radius: 50px;
-            padding: 0.5rem 1.2rem 0.5rem 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            transition: all 0.3s;
-        }
-        
-        .music-player:hover { border-color: rgba(201,169,110,0.3); }
-        
-        .music-btn {
-            width: 38px; height: 38px;
-            border-radius: 50%;
-            background: var(--gold);
-            border: none;
-            color: var(--dark);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.85rem;
-            transition: all 0.3s;
-        }
-        
-        .music-btn:hover { transform: scale(1.1); background: var(--gold-light); }
-        
-        .music-info { color: var(--text-muted); font-size: 0.75rem; }
-        .music-info span { display: block; color: var(--text); font-weight: 500; font-size: 0.8rem; }
-        
-        /* Bottom Nav */
-        .bottom-nav {
-            position: relative;
-            z-index: 1;
-            background: var(--dark-light);
-            border-top: 1px solid rgba(201,169,110,0.1);
-            padding: 1.5rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        .bottom-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            letter-spacing: 2px;
-        }
-        
-        .bottom-logo span {
-            display: block;
-            font-size: 0.5rem;
-            letter-spacing: 3px;
-            color: var(--gold);
-            font-family: 'Inter', sans-serif;
-        }
-        
-        .bottom-links {
-            display: flex;
-            gap: 2.5rem;
-            list-style: none;
-        }
-        
-        .bottom-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: color 0.3s;
-        }
-        
-        .bottom-links a:hover { color: var(--gold); }
-        
-        .bottom-social {
-            display: flex;
-            gap: 1rem;
-        }
-        
-        .bottom-social a {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            transition: color 0.3s;
-        }
-        
-        .bottom-social a:hover { color: var(--gold); }
-        
-        /* Toast */
-        .toast {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: var(--gold);
-            color: var(--dark);
-            padding: 1rem 1.5rem;
-            border-radius: 10px;
-            font-weight: 500;
-            z-index: 3000;
-            transform: translateX(150%);
-            transition: transform 0.4s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            font-size: 0.9rem;
-        }
-        
-        .toast.show { transform: translateX(0); }
-        
-        /* Animations */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .animate-in {
-            opacity: 0;
-            animation: fadeInUp 0.8s ease forwards;
+            z-index: 0; pointer-events: none;
         }
         
         /* Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: var(--dark); }
-        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
         
-        /* Responsive */
-        @media (max-width: 900px) {
-            .hero { grid-template-columns: 1fr; padding-top: 5rem; }
-            .hero-image { height: 350px; }
-            .features-grid { grid-template-columns: 1fr; }
-            .menu-grid { grid-template-columns: 1fr; }
-            .our-craft { grid-template-columns: 1fr; }
-            .craft-content { padding: 3rem 2rem; }
-            .bottom-nav { flex-direction: column; gap: 1.5rem; text-align: center; }
-            .bottom-links { gap: 1.5rem; }
+        /* ===== NAVIGATION ===== */
+        .side-nav {
+            position: fixed; right: 0; top: 0;
+            height: 100vh; width: 70px;
+            z-index: 1000;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            gap: 2rem;
+            background: linear-gradient(to left, rgba(10,10,10,0.9), transparent);
+            padding: 2rem 0;
         }
-    </style>
-</head>
-<body>
-    <canvas id="bg-canvas"></canvas>
-    
-    <!-- Top Navigation -->
-    <nav class="top-nav">
-        <div class="logo-text">
-            Musa
-            <span>Cafe & Restaurant - Layyah</span>
-        </div>
-        <div class="nav-right">
-            <button class="nav-icon" id="music-toggle-nav" title="Music">
-                <i class="fas fa-music"></i>
-            </button>
-            <button class="nav-icon" id="cart-btn" title="Cart">
-                <i class="fas fa-shopping-bag"></i>
-                <span class="cart-badge" id="cart-count">0</span>
-            </button>
-            <button class="nav-icon" id="menu-toggle" title="Menu">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-    </nav>
-    
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-image animate-in">
-            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=800" alt="Delicious Food">
-        </div>
-        <div class="hero-content">
-            <h1>Taste the Tradition.</h1>
-            <p class="subtitle">Musa Cafe & Restaurant</p>
-            <p class="tagline">Experience the finest flavors of Layyah, where traditional recipes meet modern presentation. Every dish is crafted with passion and heritage.</p>
-            <a href="#menu" class="btn-gold">View Menu <i class="fas fa-arrow-right"></i></a>
-        </div>
-    </section>
-    
-    <!-- Features -->
-    <section class="features">
-        <p class="section-label">Features</p>
-        <div class="features-grid">
-            <div class="feature-card animate-in">
-                <div class="feature-icon"><i class="fas fa-fire-alt"></i></div>
-                <h3>Authentic BBQ</h3>
-                <p>Traditional tandoor and grill, marinated with secret family spices passed down through generations.</p>
-            </div>
-            <div class="feature-card animate-in" style="animation-delay: 0.15s">
-                <div class="feature-icon"><i class="fas fa-utensils"></i></div>
-                <h3>Master Chefs</h3>
-                <p>Expertly crafted by our seasoned chefs with decades of culinary experience in Pakistani cuisine.</p>
-            </div>
-            <div class="feature-card animate-in" style="animation-delay: 0.3s">
-                <div class="feature-icon"><i class="fas fa-leaf"></i></div>
-                <h3>Fresh Ingredients</h3>
-                <p>Daily sourced premium ingredients ensuring every bite delivers exceptional flavor and quality.</p>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Menu Highlights -->
-    <section class="menu-highlights" id="menu">
-        <p class="section-label">Menu Highlights</p>
-        <div class="menu-tabs">
-            <button class="tab-btn active" data-category="all">All</button>
-            <button class="tab-btn" data-category="bbq">BBQ</button>
-            <button class="tab-btn" data-category="karahi">Karahi</button>
-            <button class="tab-btn" data-category="fastfood">Fast Food</button>
-            <button class="tab-btn" data-category="drinks">Drinks</button>
-        </div>
-        <div class="menu-grid" id="menu-grid"></div>
-    </section>
-    
-    <!-- Our Craft -->
-    <section class="our-craft" id="about">
-        <div class="craft-image">
-            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800" alt="Restaurant Interior">
-        </div>
-        <div class="craft-content">
-            <h2>Our Craft</h2>
-            <p>Musa Cafe & Restaurant delivers an elevated dining experience in the heart of Layyah. Since 2010, we have been celebrating the rich flavors of Pakistani cuisine with meticulous technique and unwavering dedication to quality. Every dish tells a story of tradition, passion, and the warm hospitality that defines our culture.</p>
-            <a href="#menu" class="btn-gold">Our Story <i class="fas fa-arrow-right"></i></a>
-        </div>
-    </section>
-    
-    <!-- Bottom Navigation -->
-    <footer class="bottom-nav">
-        <div class="bottom-logo">
-            Musa
-            <span>Cafe & Restaurant</span>
-        </div>
-        <ul class="bottom-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#menu">Menu</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-        <div class="bottom-social">
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-whatsapp"></i></a>
-        </div>
-    </footer>
-    
-    <!-- Cart Sidebar -->
-    <div class="overlay" id="overlay"></div>
-    <div class="cart-sidebar" id="cart-sidebar">
-        <div class="cart-header">
-            <h2>Your Order</h2>
-            <button class="close-cart" id="close-cart"><i class="fas fa-times"></i></button>
-        </div>
-        <div id="cart-items"></div>
-        <div class="cart-total" id="cart-total" style="display:none;">
-            <div class="total-row">
-                <span>Subtotal</span>
-                <span id="subtotal">Rs. 0</span>
-            </div>
-            <div class="total-row">
-                <span>Delivery</span>
-                <span>Free</span>
-            </div>
-            <div class="total-row grand">
-                <span>Total</span>
-                <span id="grand-total">Rs. 0</span>
-            </div>
-            <button class="whatsapp-btn" id="whatsapp-order">
-                <i class="fab fa-whatsapp"></i> Order on WhatsApp
-            </button>
-        </div>
-    </div>
-    
-    <!-- Music Player -->
-    <div class="music-player">
-        <button class="music-btn" id="music-toggle">
-            <i class="fas fa-play" id="music-icon"></i>
-        </button>
-        <div class="music-info">
-            <span>Cafe Ambiance</span>
-            <small>Soft & Relaxing</small>
-        </div>
-    </div>
-    
-    <!-- Toast -->
-    <div class="toast" id="toast">
-        <i class="fas fa-check-circle"></i>
-        <span id="toast-msg">Added to cart</span>
-    </div>
-    
-    <!-- Audio -->
-    <audio id="bg-music" loop>
-        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=relaxing-mountains-rivers-streams-running-water-18178.mp3" type="audio/mpeg">
-    </audio>
+        .side-nav a {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        .side-nav a:hover, .side-nav a.active { color: var(--gold); }
+        .nav-logo {
+            position: fixed; top: 2rem; left: 2.5rem;
+            z-index: 1000;
+        }
+        .nav-logo h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem; font-weight: 600;
+            letter-spacing: 4px; color: var(--text);
+        }
+        .nav-logo span {
+            font-size: 0.55rem; letter-spacing: 3px;
+            color: var(--gold); text-transform: uppercase;
+        }
+        .nav-icons {
+            position: fixed; top: 2rem; right: 90px;
+            z-index: 1000;
+            display: flex; gap: 1.2rem;
+        }
+        .nav-icons button {
+            background: none; border: none;
+            color: var(--text); font-size: 1.1rem;
+            cursor: pointer; transition: color 0.3s;
+            position: relative;
+        }
+        .nav-icons button:hover { color: var(--gold); }
+        .cart-badge {
+            position: absolute; top: -6px; right: -8px;
+            background: var(--gold); color: var(--dark);
+            font-size: 0.6rem; width: 16px; height: 16px;
+            border-radius: 50%; display: flex;
+            align-items: center; justify-content: center;
+            font-weight: 700; display: none;
+        }
+        
+        /* ===== HERO ===== */
+        .hero {
+            position: relative; z-index: 1;
+            min-height: 100vh;
+            display: flex; align-items: center;
+            padding: 0 5rem 0 3rem;
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute; right: 0; top: 0;
+            width: 55%; height: 100%;
+            background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200') center/cover;
+            border-radius: 0 0 0 40px;
+            opacity: 0.7;
+        }
+        .hero-bg::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(to right, var(--dark), transparent 60%);
+        }
+        .hero-content {
+            position: relative; z-index: 2;
+            max-width: 550px;
+            animation: fadeInUp 1.2s ease;
+        }
+        .hero-content .shine {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem; color: var(--gold);
+            letter-spacing: 4px; text-transform: uppercase;
+            margin-bottom: 1rem; display: block;
+        }
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 400; line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+        .hero-content p {
+            color: var(--text-dim); font-size: 0.95rem;
+            line-height: 1.9; margin-bottom: 2.5rem;
+            max-width: 420px;
+        }
+        .btn-main {
+            display: inline-flex; align-items: center; gap: 0.6rem;
+            padding: 1rem 2.5rem; background: var(--gold);
+            color: var(--dark); border: none;
+            border-radius: 4px; font-size: 0.8rem;
+            font-weight: 600; letter-spacing: 2px;
+            text-transform: uppercase; cursor: pointer;
+            transition: all 0.4s; text-decoration: none;
+        }
+        .btn-main:hover {
+            background: var(--gold-light);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(201,169,110,0.25);
+        }
+        .scroll-indicator {
+            position: absolute; bottom: 3rem; left: 50%;
+            transform: translateX(-50%);
+            display: flex; flex-direction: column;
+            align-items: center; gap: 0.5rem;
+            color: var(--text-dim); font-size: 0.7rem;
+            letter-spacing: 3px; text-transform: uppercase;
+            animation: bounce 2s infinite;
+        }
+        .scroll-indicator i { font-size: 1.2rem; color: var(--gold); }
+        
+        /* ===== DISCOVER / EDEN SPACE ===== */
+        .discover {
+            position: relative; z-index: 1;
+            min-height: 100vh; display: flex;
+            align-items: center; padding: 6rem 5rem 6rem 3rem;
+            gap: 4rem;
+        }
+        .discover-img {
+            flex: 1; height: 500px;
+            border-radius: 20px; overflow: hidden;
+            position: relative;
+        }
+        .discover-img img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.8s;
+        }
+        .discover-img:hover img { transform: scale(1.05); }
+        .discover-img::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(10,10,10,0.6), transparent);
+        }
+        .discover-content {
+            flex: 1; max-width: 500px;
+        }
+        .discover-content .label {
+            font-size: 0.75rem; letter-spacing: 4px;
+            text-transform: uppercase; color: var(--gold);
+            margin-bottom: 1rem; display: block;
+        }
+        .discover-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400; margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        .discover-content p {
+            color: var(--text-dim); line-height: 2;
+            margin-bottom: 2rem; font-size: 0.9rem;
+        }
+        .info-boxes {
+            display: flex; gap: 2rem; margin-top: 2rem;
+        }
+        .info-box {
+            display: flex; align-items: center; gap: 0.8rem;
+        }
+        .info-box i {
+            width: 40px; height: 40px;
+            border-radius: 50%; border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--gold); font-size: 0.9rem;
+        }
+        .info-box div { font-size: 0.8rem; }
+        .info-box div strong { color: var(--text); display: block; }
+        .info-box div span { color: var(--text-dim); font-size: 0.75rem; }
+        
+        /* ===== MENU SECTION ===== */
+        .menu-section {
+            position: relative; z-index: 1;
+            padding: 5rem 3rem 5rem 3rem;
+        }
+        .section-header {
+            text-align: center; margin-bottom: 3rem;
+        }
+        .section-header .label {
+            font-size: 0.75rem; letter-spacing: 4px;
+            text-transform: uppercase; color: var(--gold);
+            margin-bottom: 0.8rem; display: block;
+        }
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+        }
+        .menu-categories {
+            display: flex; justify-content: center;
+            gap: 0.6rem; margin-bottom: 3rem;
+            flex-wrap: wrap; padding: 0 2rem;
+        }
+        .cat-btn {
+            padding: 0.5rem 1.2rem;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-dim); border-radius: 30px;
+            cursor: pointer; transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem; letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .cat-btn:hover, .cat-btn.active {
+            background: var(--gold); color: var(--dark);
+            border-color: var(--gold);
+        }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem; max-width: 1400px;
+            margin: 0 auto;
+        }
+        .menu-item {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px; overflow: hidden;
+            transition: all 0.4s; position: relative;
+        }
+        .menu-item:hover {
+            border-color: rgba(201,169,110,0.25);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .menu-item-img {
+            width: 100%; height: 200px;
+            background-size: cover; background-position: center;
+            position: relative;
+        }
+        .menu-item-img::after {
+            content: ''; position: absolute;
+            bottom: 0; left: 0; right: 0; height: 60px;
+            background: linear-gradient(to top, var(--card), transparent);
+        }
+        .menu-item-body { padding: 1.3rem; }
+        .menu-item h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem; margin-bottom: 0.4rem;
+        }
+        .menu-item p {
+            font-size: 0.8rem; color: var(--text-dim);
+            line-height: 1.5; margin-bottom: 1rem;
+        }
+        .menu-item-footer {
+            display: flex; justify-content: space-between;
+            align-items: center;
+        }
+        .menu-price {
+            font-size: 1.1rem; font-weight: 600;
+            color: var(--gold);
+        }
+        .menu-price .half { font-size: 0.8rem; color: var(--text-dim); margin-left: 0.5rem; }
+        .add-cart-btn {
+            width: 36px; height: 36px; border-radius: 50%;
+            background: var(--gold); border: none;
+            color: var(--dark); cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s; font-size: 0.9rem;
+        }
+        .add-cart-btn:hover { transform: scale(1.1); background: var(--gold-light); }
+        .add-cart-btn.added { background: #4caf50; color: white; }
+        
+        /* ===== POPULAR DISHES ===== */
+        .popular {
+            position: relative; z-index: 1;
+            padding: 5rem 3rem;
+            background: var(--dark-sec);
+        }
+        .popular-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem; max-width: 1200px;
+            margin: 3rem auto 0;
+        }
+        .popular-card {
+            position: relative; height: 400px;
+            border-radius: 20px; overflow: hidden;
+            cursor: pointer;
+        }
+        .popular-card img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.6s;
+        }
+        .popular-card:hover img { transform: scale(1.1); }
+        .popular-card::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(10,10,10,0.9) 20%, transparent 60%);
+        }
+        .popular-info {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            padding: 2rem; z-index: 2;
+        }
+        .popular-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem; margin-bottom: 0.5rem;
+        }
+        .popular-info p {
+            font-size: 0.8rem; color: var(--text-dim);
+            line-height: 1.6;
+        }
+        .popular-info .price {
+            color: var(--gold); font-weight: 600;
+            margin-top: 0.5rem; display: block;
+        }
+        
+        /* ===== TESTIMONIALS ===== */
+        .testimonials {
+            position: relative; z-index: 1;
+            padding: 5rem 3rem;
+            text-align: center;
+        }
+        .testi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem; max-width: 1100px;
+            margin: 3rem auto 0;
+        }
+        .testi-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px; padding: 2.5rem 2rem;
+            text-align: left; transition: all 0.4s;
+        }
+        .testi-card:hover {
+            border-color: rgba(201,169,110,0.2);
+            transform: translateY(-5px);
+        }
+        .stars { color: var(--gold); margin-bottom: 1rem; font-size: 0.85rem; }
+        .testi-card p {
+            font-size: 0.9rem; color: var(--text-dim);
+            line-height: 1.8; margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+        .testi-author {
+            display: flex; align-items: center; gap: 1rem;
+        }
+        .testi-author img {
+            width: 45px; height: 45px; border-radius: 50%;
+            object-fit: cover;
+        }
+        .testi-author div strong { color: var(--text); font-size: 0.9rem; }
+        .testi-author div span { color: var(--text-dim); font-size: 0.75rem; }
+        
+        /* ===== VISIT US / RESERVATION ===== */
+        .visit {
+            position: relative; z-index: 1;
+            display: grid; grid-template-columns: 1fr 1fr;
+            min-height: 500px;
+        }
+        .visit-map {
+            position: relative; overflow: hidden;
+        }
+        .visit-map iframe {
+            width: 100%; height: 100%; border: none;
+            filter: grayscale(0.6) brightness(0.7);
+        }
+        .visit-content {
+            background: var(--dark-sec);
+            display: flex; flex-direction: column;
+            justify-content: center; padding: 4rem;
+        }
+        .visit-content .label {
+            font-size: 0.75rem; letter-spacing: 4px;
+            text-transform: uppercase; color: var(--gold);
+            margin-bottom: 1rem;
+        }
+        .visit-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400; margin-bottom: 1.5rem;
+        }
+        .visit-content p {
+            color: var(--text-dim); line-height: 1.9;
+            margin-bottom: 2rem;
+        }
+        .visit-details {
+            display: flex; flex-direction: column;
+            gap: 1.2rem;
+        }
+        .visit-row {
+            display: flex; align-items: center; gap: 1rem;
+        }
+        .visit-row i {
+            width: 40px; height: 40px;
+            border-radius: 50%; border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--gold); font-size: 0.9rem;
+        }
+        .visit-row div { font-size: 0.85rem; }
+        .visit-row div strong { color: var(--text); display: block; }
+        .visit-row div span { color: var(--text-dim); }
+        
+        /* ===== FOOTER ===== */
+        footer {
+            position: relative; z-index: 1;
+            background: var(--dark-sec);
+            border-top: 1px solid var(--border);
+            padding: 3rem; text-align: center;
+        }
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem; letter-spacing: 3px;
+            margin-bottom: 0.5rem;
+        }
+        .footer-logo span {
+            display: block; font-size: 0.6rem;
+            letter-spacing: 4px; color: var(--gold);
+            font-family: 'Inter', sans-serif; margin-top: 0.3rem;
+        }
+        .footer-social {
+            display: flex; justify-content: center;
+            gap: 1.5rem; margin: 2rem 0;
+        }
+        .footer-social a {
+            width: 42px; height: 42px; border-radius: 50%;
+            border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-dim); font-size: 1rem;
+            transition: all 0.3s; text-decoration: none;
+        }
+        .footer-social a:hover {
+            border-color: var(--gold); color: var(--gold);
+            transform: translateY(-3px);
+        }
+        .copyright {
+            color: var(--text-dim); font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+        
+        /* ===== CART SIDEBAR ===== */
+        .overlay {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000; opacity: 0;
+            visibility: hidden; transition: all 0.4s;
+        }
+        .overlay.active { opacity: 1; visibility: visible; }
+        .cart-sidebar {
+            position: fixed; top: 0; right: -450px;
+            width: 420px; max-width: 100%;
+            height: 100vh; background: var(--dark-sec);
+            z-index: 2001; padding: 2rem;
+            transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+            border-left: 1px solid var(--border);
+        }
+        .cart-sidebar.open { right: 0; }
+        .cart-header {
+            display: flex; justify-content: space-between;
+            align-items: center; margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .cart-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem; letter-spacing: 2px;
+        }
+        .close-cart {
+            background: none; border: none;
+            color: var(--text-dim); font-size: 1.3rem;
+            cursor: pointer; transition: color 0.3s;
+        }
+        .close-cart:hover { color: var(--gold); }
+        .cart-item {
+            display: flex; gap: 1rem;
+            padding: 1.2rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .cart-item-img {
+            width: 55px; height: 55px;
+            border-radius: 10px; background-size: cover;
+            flex-shrink: 0; border: 1px solid var(--border);
+        }
+        .cart-item-info { flex: 1; }
+        .cart-item-info h4 { font-size: 0.9rem; margin-bottom: 0.2rem; }
+        .cart-item-info .item-price { color: var(--gold); font-size: 0.85rem; }
+        .qty-control {
+            display: flex; align-items: center;
+            gap: 0.6rem; margin-top: 0.5rem;
+        }
+        .qty-control button {
+            width: 26px; height: 26px; border-radius: 50%;
+            border: 1px solid var(--border); background: none;
+            color: var(--gold); cursor: pointer; font-size: 0.8rem;
+            display: flex; align-ite# Now the complete menu data and JavaScript
+js_code = '''
+        // ===================== COMPLETE MENU DATA =====================
+        const menuData = {
+            "Appetizer": [
+                { name: "Chicken Drum Stick", price: 1349, img: "chicken" },
+                { name: "Chicken Stripes (6 Pcs)", price: 999, img: "chicken" },
+                { name: "Dynamite Jumbo Prown (6 Pcs)", price: 1849, img: "shrimp" },
+                { name: "Dynamite Fries", price: 649, img: "fries" },
+                { name: "Cheese Bowl (4 Pcs)", price: 1049, img: "cheese" },
+                { name: "Honey Wings (12 Pcs)", price: 1149, img: "wings" },
+                { name: "Fish Cracker", price: 249, img: "fish" },
+                { name: "Dhaka Chicken", price: 899, img: "chicken" }
+            ],
+            "Soup": [
+                { name: "Musa Special Soup", priceF: 1249, priceH: 649, img: "soup" },
+                { name: "Chicken Corn Soup", priceF: 999, priceH: 649, img: "soup" },
+                { name: "Hot & Sour Soup", priceF: 1049, priceH: 699, img: "soup" },
+                { name: "Vegetable Soup", priceF: 849, priceH: 599, img: "soup" },
+                { name: "Thai Soup", priceF: 899, priceH: 599, img: "soup" },
+                { name: "Schezwan Soup", priceF: 1199, priceH: 649, img: "soup" }
+            ],
+            "Chinese Rice": [
+                { name: "Musa Special Rice", priceF: 1199, priceH: 649, img: "rice" },
+                { name: "Chicken Fried Rice", priceF: 1049, priceH: 599, img: "rice" },
+                { name: "Chicken Masala Rice", priceF: 1049, priceH: 599, img: "rice" },
+                { name: "Egg Fried Rice", priceF: 999, priceH: 549, img: "rice" },
+                { name: "Vegetable Rice", priceF: 799, priceH: 499, img: "rice" },
+                { name: "Garlic Rice", priceF: 949, priceH: 499, img: "rice" },
+                { name: "Plane Rice", priceF: 749, img: "rice" },
+                { name: "Shashlik with Rice", priceF: 1399, img: "rice" },
+                { name: "Chilli Dry With Rice", priceF: 1399, img: "rice" }
+            ],
+            "Chinese Gravy": [
+                { name: "Musa Special Chicken", price: 1199, img: "chicken" },
+                { name: "Chicken Cashewnut", price: 1199, img: "chicken" },
+                { name: "Kung Pao Chicken", price: 1049, img: "chicken" },
+                { name: "Chicken Manchurian", price: 1049, img: "chicken" },
+                { name: "Chicken with Almond", price: 1149, img: "chicken" },
+                { name: "Chicken Chilli Dry", price: 1249, img: "chicken" },
+                { name: "Chicken Black Pepper", price: 999, img: "chicken" },
+                { name: "Chicken Hot Garlic", price: 999, img: "chicken" },
+                { name: "Schezwan Chicken", price: 1049, img: "chicken" },
+                { name: "Sweet & Sour Chicken", price: 1049, img: "chicken" },
+                { name: "Honey Crunchy Chicken", price: 1199, img: "chicken" },
+                { name: "Red Dragon", price: 999, img: "chicken" },
+                { name: "Mongolian Beef", price: 1199, img: "beef" },
+                { name: "Sasmie Beef", price: 1199, img: "beef" }
+            ],
+            "Chow Mein": [
+                { name: "Musa Special Chow Mein", price: 1099, img: "noodles" },
+                { name: "Chicken Chow Mein", price: 999, img: "noodles" },
+                { name: "Vegetable Chow Mein", price: 949, img: "noodles" },
+                { name: "Thai Chow Mein", price: 949, img: "noodles" },
+                { name: "American Chopsuey", price: 999, img: "noodles" },
+                { name: "Thai Spicy Noodles", price: 1099, img: "noodles" },
+                { name: "Schezwan Chow Mein", price: 1199, img: "noodles" }
+            ],
+            "Pakistani Rice": [
+                { name: "Musa Special Jungli Pulao", price: 1299, img: "biryani" },
+                { name: "Mutton Afghani Pulao", price: 1599, img: "biryani" },
+                { name: "Chicken Pulao", price: 1199, img: "biryani" },
+                { name: "Mutton Pulao", price: 1599, img: "biryani" },
+                { name: "Chicken Biryani", price: 1199, img: "biryani" },
+                { name: "Mutton Biryani", price: 1599, img: "biryani" },
+                { name: "Batair Biryani", price: 1399, img: "biryani" },
+                { name: "Matka Biryani", price: 1649, img: "biryani" },
+                { name: "Mumbai Biryani", price: 1199, img: "biryani" },
+                { name: "Yakhani Pulao", price: 1149, img: "biryani" }
+            ],
+            "Chicken Karahi": [
+                { name: "Musa Special Chicken Karahi", priceF: 1999, priceH: 1249, img: "karahi" },
+                { name: "Chicken Lahori Karahi", priceF: 1799, priceH: 1099, img: "karahi" },
+                { name: "Chicken Peshawri Karahi", priceF: 1899, priceH: 1049, img: "karahi" },
+                { name: "Chicken Hari Mirch Karahi", priceF: 1949, priceH: 1099, img: "karahi" },
+                { name: "Chicken Butt Karahi", priceF: 1949, priceH: 1099, img: "karahi" },
+                { name: "Chicken White Karahi", priceF: 2049, priceH: 1299, img: "karahi" },
+                { name: "Chicken Sulemani Karahi", priceF: 1999, priceH: 1149, img: "karahi" },
+                { name: "Chicken Afghani Karahi", priceF: 1999, priceH: 1149, img: "karahi" },
+                { name: "Chicken Achari Karahi", priceF: 1849, priceH: 1099, img: "karahi" },
+                { name: "Special Desi Murgha Karahi", priceF: 3499, priceH: 1999, img: "karahi" }
+            ],
+            "Mutton Karahi": [
+                { name: "Musa Special Mutton Karahi", priceF: 3649, priceH: 2049, img: "mutton" },
+                { name: "Mutton Lahori Karahi", priceF: 3549, priceH: 1899, img: "mutton" },
+                { name: "Mutton Peshawri Karahi", priceF: 3549, priceH: 1999, img: "mutton" },
+                { name: "Mutton Hari Mirch Karahi", priceF: 3699, priceH: 1949, img: "mutton" },
+                { name: "Mutton Butt Karahi", priceF: 3549, priceH: 1899, img: "mutton" },
+                { name: "Mutton White Karahi", priceF: 3699, priceH: 2049, img: "mutton" },
+                { name: "Mutton Sulemani Karahi", priceF: 3699, priceH: 2049, img: "mutton" },
+                { name: "Mutton Koyla Karahi", priceF: 3599, priceH: 1949, img: "mutton" },
+                { name: "Mutton Achari Karahi", priceF: 3549, priceH: 1899, img: "mutton" },
+                { name: "Mutton Namkeen", priceF: 3499, priceH: 1899, img: "mutton" },
+                { name: "Mutton Afghani Karahi", priceF: 3649, priceH: 2049, img: "mutton" },
+                { name: "Mutton Kuna", priceF: 1999, img: "mutton" }
+            ],
+            "Chicken Boneless": [
+                { name: "Musa Special Chicken Handi", price: 1599, img: "handi" },
+                { name: "Chicken Lahori Handi", price: 1499, img: "handi" },
+                { name: "Chicken Achari Handi", price: 1549, img: "handi" },
+                { name: "Chicken White Handi", price: 1649, img: "handi" },
+                { name: "Chicken Reshmi Handi", price: 1649, img: "handi" },
+                { name: "Alovera Chicken Handi", price: 1649, img: "handi" },
+                { name: "Chicken Ginger", price: 1349, img: "handi" },
+                { name: "Chicken Jalfrezi", price: 1399, img: "handi" },
+                { name: "Chicken Shah Jahani", price: 1599, img: "handi" },
+                { name: "Chicken Madrasi Handi", price: 1599, img: "handi" },
+                { name: "Chicken Hari Mirch Handi", price: 1449, img: "handi" },
+                { name: "Chicken Pasandy Handi", price: 1549, img: "handi" },
+                { name: "Cheese Patiala Handi", price: 1549, img: "handi" },
+                { name: "Chef Kujha", price: 1599, img: "handi" },
+                { name: "Chicken Patayla", price: 1449, img: "handi" },
+                { name: "Chicken Green Chili Lemon", price: 1449, img: "handi" },
+                { name: "Chicken Makhni Handi", price: 1449, img: "handi" },
+                { name: "Kabab Masala", price: 1149, img: "handi" },
+                { name: "Mix Vegetable", price: 549, img: "vegetable" },
+                { name: "Shahi Dall", price: 699, img: "dall" },
+                { name: "Dall Makhni", price: 549, img: "dall" }
+            ],
+            "Desi Jungle": [
+                { name: "Desi Chicken White Karahai", price: 3549, img: "desi" },
+                { name: "Desi Chicken Achari Karahai", price: 3549, img: "desi" },
+                { name: "Desi Charga With Rice", price: 4199, img: "desi" },
+                { name: "Musa Special Batair Karahai", price: 2399, img: "desi" },
+                { name: "Batair Buttor Karahai", price: 2499, img: "desi" }
+            ],
+            "Special Plater": [
+                { name: "B.B.Q Plater", price: 5999, img: "bbq" },
+                { name: "Musa Special Family Plater (8 Person)", price: 11999, img: "plater" }
+            ],
+            "Chef Special": [
+                { name: "Musa Special Chicken", price: 1649, img: "chef" },
+                { name: "Mutton Candle", price: 2099, img: "mutton" },
+                { name: "Shahi Mutton", price: 2099, img: "mutton" },
+                { name: "Mutton Dhaba", price: 2099, img: "mutton" },
+                { name: "Mutton Bharta", price: 2049, img: "mutton" },
+                { name: "Mutton Filafil", price: 2049, img: "mutton" },
+                { name: "Mutton Patyala", price: 1899, img: "mutton" }
+            ],
+            "Tandoor": [
+                { name: "Musa Special Nan", price: 299, img: "nan" },
+                { name: "Afghani Nan", price: 219, img: "nan" },
+                { name: "Roghani Nan", price: 129, img: "nan" },
+                { name: "Garlic Nan", price: 129, img: "nan" },
+                { name: "Kalwanji Nan", price: 129, img: "nan" },
+                { name: "Chicken Nan", price: 399, img: "nan" },
+                { name: "Kandhari Nan", price: 199, img: "nan" },
+                { name: "Ginger Nan", price: 129, img: "nan" },
+                { name: "Khemri Roti", price: 49, img: "roti" },
+                { name: "Roti Per Head", price: 69, img: "roti" },
+                { name: "Tandoori Pratha", price: 149, img: "roti" },
+                { name: "Roti Sada", price: 19, img: "roti" }
+            ],
+            "BBQ": [
+                { name: "Musa Special BBQ Plater", priceF: 3599, priceH: 5999, img: "bbq" },
+                { name: "Malai Boti", price: 1249, img: "bbq" },
+                { name: "Cheese Boti", price: 1349, img: "bbq" },
+                { name: "Kastori Boti", price: 1349, img: "bbq" },
+                { name: "Chicken Kabab", price: 849, img: "bbq" },
+                { name: "Reshmi Kabab", price: 999, img: "bbq" },
+                { name: "Makhmali Kabab", price: 1049, img: "bbq" },
+                { name: "Mutton Kabab", price: 1249, img: "bbq" },
+                { name: "Mutton Tikka", price: 1999, img: "bbq" },
+                { name: "Mutton Chops", price: 1999, img: "bbq" },
+                { name: "Achari Boti", price: 1049, img: "bbq" },
+                { name: "Chicken Boti", price: 999, img: "bbq" },
+                { name: "Bateer Tikka", price: 2099, img: "bbq" },
+                { name: "Chicken Chest Piece", price: 449, img: "bbq" },
+                { name: "Chicken Leg Piece", price: 399, img: "bbq" },
+                { name: "Chicken Qalmi Tikka", price: 1299, img: "bbq" },
+                { name: "Malai Piece Leg", price: 449, img: "bbq" },
+                { name: "Malai Piece Chest", price: 479, img: "bbq" },
+                { name: "Cheese Kabab", price: 1149, img: "bbq" },
+                { name: "Chatkhara Boti", price: 1249, img: "bbq" }
+            ],
+            "Khada Verities": [
+                { name: "Salam Bakra (12 Kg) With Rice", price: 0, img: "mutton" },
+                { name: "Dam Pukht Per Kg", price: 4000, img: "mutton" },
+                { name: "Raan Roast Per Kg", price: 4000, img: "mutton" },
+                { name: "Namkeen Roast", price: 1600, img: "mutton" },
+                { name: "Mutton Joint", price: 1500, img: "mutton" }
+            ],
+            "Fish Corner": [
+                { name: "Musa Special Finger Fish (8 Pcs)", price: 1549, img: "fish" },
+                { name: "Fried Fish (4 Pcs)", price: 1549, img: "fish" },
+                { name: "Dhaka Fish (16 Pcs)", price: 1549, img: "fish" },
+                { name: "Grill Fish (1 Kg)", price: 1699, img: "fish" },
+                { name: "Fish Handi", price: 1799, img: "fish" },
+                { name: "Fish Chilli Dry", price: 1599, img: "fish" },
+                { name: "Fish Tikka (12 Pcs)", price: 1499, img: "fish" }
+            ],
+            "Pizza": [
+                { name: "Chicken Tikka Pizza (S/M/L)", priceS: 649, priceM: 1199, priceL: 1699, img: "pizza" },
+                { name: "Chicken Fajita Pizza (S/M/L)", priceS: 649, priceM: 1199, priceL: 1699, img: "pizza" },
+                { name: "Chicken Supreme Pizza (S/M/L)", priceS: 649, priceM: 1199, priceL: 1699, img: "pizza" },
+                { name: "Mughali Pizza (S/M/L)", priceS: 649, priceM: 1199, priceL: 1699, img: "pizza" },
+                { name: "Chicken Achari Pizza (S/M/L)", priceS: 649, priceM: 1199, priceL: 1699, img: "pizza" },
+                { name: "Cheese Lover Pizza (S/M/L)", priceS: 649, priceM: 1199, priceL: 1699, img: "pizza" },
+                { name: "Peri Peri Hot Pizza (S/M/L)", priceS: 649, priceM: 1199, priceL: 1699, img: "pizza" },
+                { name: "Musa Special Pizza (M/L)", priceM: 1299, priceL: 1999, img: "pizza" },
+                { name: "BBQ Pizza (M/L)", priceM: 1299, priceL: 1999, img: "pizza" },
+                { name: "Malai Boti Pizza (M/L)", priceM: 1299, priceL: 1899, img: "pizza" },
+                { name: "Bone Fire Pizza (M/L)", priceM: 1299, priceL: 1899, img: "pizza" },
+                { name: "Behari Kabab Pizza (M/L)", priceM: 1299, priceL: 1999, img: "pizza" }
+            ],
+            "Starters": [
+                { name: "Plane Fries", priceS: 299, priceL: 399, img: "fries" },
+                { name: "Nuggets (10pcs)", price: 649, img: "nuggets" },
+                { name: "Oven Baked Wings (10pcs)", price: 899, img: "wings" },
+                { name: "Hot Wings (10pcs)", price: 799, img: "wings" },
+                { name: "Dragon Shots (10pcs)", price: 449, img: "shots" },
+                { name: "Loaded Fries", price: 599, img: "fries" },
+                { name: "Pizza Fries", price: 899, img: "fries" }
+            ],
+            "Wrap & Burgers": [
+                { name: "B.B.Q Wrap", price: 599, img: "wrap" },
+                { name: "Crispy Wrap", price: 499, img: "wrap" },
+                { name: "Grill Wrap", price: 549, img: "wrap" },
+                { name: "Chipotle Wrap", price: 699, img: "wrap" },
+                { name: "Zinger Pratha Roll", price: 899, img: "roll" },
+                { name: "Malai Boti Roll", price: 449, img: "roll" },
+                { name: "Club Sandwich", price: 599, img: "sandwich" },
+                { name: "Mexican Sandwich", price: 999, img: "sandwich" },
+                { name: "Grill Sandwich", price: 450, img: "sandwich" },
+                { name: "Cheese Bake Sandwich", price: 650, img: "sandwich" },
+                { name: "Khameera Sandwich", price: 480, img: "sandwich" },
+                { name: "Zinger Burger", price: 449, img: "burger" },
+                { name: "Patty Burger", price: 349, img: "burger" },
+                { name: "Chhapli Patty Burger", price: 499, img: "burger" },
+                { name: "Crispy Stuff Burger", price: 649, img: "burger" },
+                { name: "Chipotle Burger", price: 599, img: "burger" },
+                { name: "Al-Chappo Beef", price: 979, img: "burger" },
+                { name: "Holy Chuck Plus", price: 819, img: "burger" },
+                { name: "Chicken Fillet Burger", price: 579, img: "burger" },
+                { name: "The Sloppy Joy", price: 799, img: "burger" },
+                { name: "Musa Chicken Madness", price: 1049, img: "burger" }
+            ],
+            "Sweets": [
+                { name: "Family Sweet Bowl", price: 999, img: "sweet" },
+                { name: "Lab-e-Shireen", price: 249, img: "sweet" },
+                { name: "Shahi Tukda", price: 249, img: "sweet" },
+                { name: "Fruit Truffle", price: 249, img: "sweet" },
+                { name: "Gulab Jamun", price: 249, img: "sweet" },
+                { name: "Shahi Kheer", price: 249, img: "sweet" }
+            ],
+            "Salad Bar": [
+                { name: "Musa Special Salad", price: 799, img: "salad" },
+                { name: "Chicken Pineapple Salad", price: 749, img: "salad" },
+                { name: "Russian Salad", price: 649, img: "salad" },
+                { name: "Kachumar Salad", price: 249, img: "salad" },
+                { name: "Fresh Salad", price: 119, img: "salad" },
+                { name: "Zera Raita", price: 99, img: "raita" },
+                { name: "Mint Raita", price: 99, img: "raita" }
+            ],
+            "Drinks": [
+                { name: "Mineral Water Small", price: 69, img: "drink" },
+                { name: "Mineral Water Large", price: 119, img: "drink" },
+                { name: "1.5 Ltr Drink", price: 249, img: "drink" },
+                { name: "Can", price: 149, img: "drink" },
+                { name: "Cold Coffee", price: 549, img: "coffee" },
+                { name: "Latte Over Ice", price: 599, img: "coffee" },
+                { name: "Spanish Latte", price: 599, img: "coffee" },
+                { name: "Leed Coffee", price: 599, img: "coffee" },
+                { name: "Ice Mocha", price: 599, img: "coffee" },
+                { name: "Ice Caramel", price: 599, img: "coffee" },
+                { name: "Honey Cinnamon Latte", price: 599, img: "coffee" },
+                { name: "Peach Mango Ice Tea", price: 599, img: "tea" },
+                { name: "Peach Ice Tea", price: 599, img: "tea" },
+                { name: "Diet", price: 179, img: "drink" },
+                { name: "Fresh Lam", price: 179, img: "drink" },
+                { name: "Power Shake", price: 649, img: "shake" },
+                { name: "Ice Cream Shake", price: 549, img: "shake" }
+            ]
+        };
+        
+        const imageMap = {
+            chicken: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=400",
+            shrimp: "https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?w=400",
+            fries: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=400",
+            cheese: "https://images.unsplash.com/photo-1486297678749-9044fd6d04db?w=400",
+            wings: "https://images.unsplash.com/photo-1567620832903-9fc6debc209f?w=400",
+            fish: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400",
+            soup: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400",
+            rice: "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=400",
+            biryani: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=400",
+            karahi: "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=400",
+            mutton: "https://images.unsplash.com/photo-1544025162-d76694265947?w=400",
+            handi: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400",
+            vegetable: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400",
+            dall: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400",
+            desi: "https://images.unsplash.com/photo-1544025162-d76694265947?w=400",
+            plater: "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=400",
+            chef: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=400",
+            nan: "https://images.unsplash.com/photo-1565557623262-b51# Combine both parts into final file
+with open('/mnt/agents/output/musa_cafe_part1.html', 'r', encoding='utf-8') as f:
+    part1 = f.read()
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script>
-        // ===================== 3D AMBIENT BACKGROUND =====================
-        const canvas = document.getElementById('bg-canvas');
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        
-        // Warm ambient particles (like floating spices/steam in a cafe)
-        const particlesCount = 2000;
-        const posArray = new Float32Array(particlesCount * 3);
-        const colorArray = new Float32Array(particlesCount * 3);
-        
-        for(let i = 0; i < particlesCount * 3; i += 3) {
-            posArray[i] = (Math.random() - 0.5) * 40;
-            posArray[i+1] = (Math.random() - 0.5) * 40;
-            posArray[i+2] = (Math.random() - 0.5) * 30 - 5;
-            
-            // Warm gold/amber tones
-            const hue = 0.08 + Math.random() * 0.06; // gold to amber
-            const color = new THREE.Color().setHSL(hue, 0.6, 0.4 + Math.random() * 0.3);
-            colorArray[i] = color.r;
-            colorArray[i+1] = color.g;
-            colorArray[i+2] = color.b;
-        }
-        
-        const particlesGeo = new THREE.BufferGeometry();
-        particlesGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-        particlesGeo.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
-        
-        const particlesMat = new THREE.PointsMaterial({
-            size: 0.06,
-            vertexColors: true,
-            transparent: true,
-            opacity: 0.5,
-            blending: THREE.AdditiveBlending
-        });
-        
-        const particles = new THREE.Points(particlesGeo, particlesMat);
-        scene.add(particles);
-        
-        // Floating golden orbs (like warm lights in a restaurant)
-        const orbs = [];
-        for(let i = 0; i < 15; i++) {
-            const geo = new THREE.SphereGeometry(0.15 + Math.random() * 0.2, 16, 16);
-            const mat = new THREE.MeshBasicMaterial({
-                color: new THREE.Color().setHSL(0.1, 0.8, 0.5),
-                transparent: true,
-                opacity: 0.2 + Math.random() * 0.2
-            });
-            const orb = new THREE.Mesh(geo, mat);
-            orb.position.set(
-                (Math.random() - 0.5) * 25,
-                (Math.random() - 0.5) * 20,
-                (Math.random() - 0.5) * 15 - 5
-            );
-            orb.userData = {
-                speed: Math.random() * 0.003 + 0.001,
-                offset: Math.random() * Math.PI * 2,
-                radius: 0.5 + Math.random() * 1
-            };
-            scene.add(orb);
-            orbs.push(orb);
-        }
-        
-        // Subtle wireframe rings (like elegant plate rims)
-        const rings = [];
-        for(let i = 0; i < 5; i++) {
-            const geo = new THREE.TorusGeometry(1.5 + i * 0.8, 0.02, 8, 60);
-            const mat = new THREE.MeshBasicMaterial({
-                color: new THREE.Color().setHSL(0.1, 0.5, 0.3),
-                transparent: true,
-                opacity: 0.08
-            });
-            const ring = new THREE.Mesh(geo, mat);
-            ring.position.set(
-                (Math.random() - 0.5) * 20,
-                (Math.random() - 0.5) * 15,
-                (Math.random() - 0.5) * 10 - 8
-            );
-            ring.rotation.x = Math.random() * Math.PI;
-            ring.rotation.y = Math.random() * Math.PI;
-            ring.userData = { rotSpeed: { x: (Math.random()-0.5)*0.003, y: (Math.random()-0.5)*0.003 } };
-            scene.add(ring);
-            rings.push(ring);
-        }
-        
-        camera.position.z = 10;
-        
-        let mouseX = 0, mouseY = 0;
-        document.addEventListener('mousemove', (e) => {
-            mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-            mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
-        });
-        
-        function animate3D() {
-            requestAnimationFrame(animate3D);
-            const time = Date.now() * 0.001;
-            
-            particles.rotation.y += 0.0003;
-            particles.rotation.x += 0.0001;
-            
-            orbs.forEach(orb => {
-                orb.position.y += Math.sin(time * orb.userData.speed * 100 + orb.userData.offset) * 0.002;
-                orb.material.opacity = 0.15 + Math.sin(time + orb.userData.offset) * 0.1;
-            });
-            
-            rings.forEach(ring => {
-                ring.rotation.x += ring.userData.rotSpeed.x;
-                ring.rotation.y += ring.userData.rotSpeed.y;
-            });
-            
-            camera.position.x += (mouseX * 1.5 - camera.position.x) * 0.015;
-            camera.position.y += (-mouseY * 1.5 - camera.position.y) * 0.015;
-            camera.lookAt(scene.position);
-            
-            renderer.render(scene, camera);
-        }
-        animate3D();
-        
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-        
-        // ===================== MENU DATA =====================
-        const menuItems = [
-            { id: 1, name: "Chicken Tikka", category: "bbq", price: 450, desc: "Marinated chicken grilled to perfection with our special spices", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400" },
-            { id: 2, name: "Mutton Karahi", category: "karahi", price: 1200, desc: "Traditional mutton karahi cooked in desi ghee with fresh tomatoes", img: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400" },
-            { id: 3, name: "Beef Burger", category: "fastfood", price: 350, desc: "Juicy beef patty with fresh veggies and secret sauce", img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400" },
-            { id: 4, name: "Special Karahi", category: "karahi", price: 1400, desc: "Chef's special recipe with extra masala and green chilies", img: "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=400" },
-            { id: 5, name: "Seekh Kabab", category: "bbq", price: 380, desc: "Minced beef seekh kababs with mint chutney", img: "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=400" },
-            { id: 6, name: "Chicken Shawarma", category: "fastfood", price: 250, desc: "Arabian style shawarma with garlic sauce and fries", img: "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=400" },
-            { id: 7, name: "Kashmiri Chai", category: "drinks", price: 120, desc: "Pink Kashmiri tea with crushed almonds and pistachios", img: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=400" },
-            { id: 8, name: "Malai Boti", category: "bbq", price: 420, desc: "Creamy chicken malai boti with special marinade", img: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=400" },
-            { id: 9, name: "Chicken Karahi", category: "karahi", price: 900, desc: "Classic chicken karahi with ginger and coriander", img: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400" },
-            { id: 10, name: "Zinger Burger", category: "fastfood", price: 400, desc: "Crispy fried chicken zinger with coleslaw", img: "https://images.unsplash.com/photo-1513185158878-8d8c2a2a3da3?w=400" },
-            { id: 11, name: "Mango Lassi", category: "drinks", price: 150, desc: "Thick and creamy mango lassi with real pulp", img: "https://images.unsplash.com/photo-1626202158825-3c5c9e8a8c0c?w=400" },
-            { id: 12, name: "Cold Drink", category: "drinks", price: 80, desc: "Chilled soft drink to refresh your meal", img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400" }
-        ];
-        
-        // ===================== CART =====================
-        let cart = [];
-        const cartCount = document.getElementById('cart-count');
-        const cartItems = document.getElementById('cart-items');
-        const cartTotal = document.getElementById('cart-total');
-        const subtotalEl = document.getElementById('subtotal');
-        const grandTotalEl = document.getElementById('grand-total');
-        
-        function renderMenu(category = 'all') {
-            const grid = document.getElementById('menu-grid');
-            grid.innerHTML = '';
-            const items = category === 'all' ? menuItems : menuItems.filter(i => i.category === category);
-            
-            items.forEach((item, idx) => {
-                const card = document.createElement('div');
-                card.className = 'menu-card animate-in';
-                card.style.animationDelay = `${idx * 0.1}s`;
-                card.innerHTML = `
-                    <div class="menu-card-img" style="background-image: url('${item.img}')"></div>
-                    <div class="menu-card-body">
-                        <h3>${item.name}</h3>
-                        <p>${item.desc}</p>
-                        <div class="menu-card-footer">
-                            <span class="price">Rs. ${item.price}</span>
-                            <button class="add-btn" data-id="${item.id}">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-            
-            document.querySelectorAll('.add-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const id = parseInt(this.dataset.id);
-                    addToCart(id);
-                    this.innerHTML = '<i class="fas fa-check"></i>';
-                    this.classList.add('added');
-                    setTimeout(() => {
-                        this.innerHTML = '<i class="fas fa-plus"></i>';
-                        this.classList.remove('added');
-                    }, 1500);
-                });
-            });
-        }
-        
-        function addToCart(id) {
-            const item = menuItems.find(i => i.id === id);
-            const existing = cart.find(c => c.id === id);
-            if(existing) existing.qty++;
-            else cart.push({ ...item, qty: 1 });
-            updateCart();
-            showToast(`${item.name} added`);
-        }
-        
-        function updateCart() {
-            const totalQty = cart.reduce((sum, c) => sum + c.qty, 0);
-            cartCount.textContent = totalQty;
-            cartCount.style.display = totalQty > 0 ? 'flex' : 'none';
-            
-            if(cart.length === 0) {
-                cartItems.innerHTML = `
-                    <div class="empty-cart">
-                        <i class="fas fa-shopping-bag"></i>
-                        <p>Your cart is empty</p>
-                    </div>
-                `;
-                cartTotal.style.display = 'none';
-                return;
-            }
-            
-            cartItems.innerHTML = cart.map(item => `
-                <div class="cart-item">
-                    <div class="cart-item-img" style="background-image: url('${item.img}')"></div>
-                    <div class="cart-item-info">
-                        <h4>${item.name}</h4>
-                        <span class="item-price">Rs. ${item.price}</span>
-                        <div class="qty-control">
-                            <button onclick="changeQty(${item.id}, -1)">-</button>
-                            <span>${item.qty}</span>
-                            <button onclick="changeQty(${item.id}, 1)">+</button>
-                        </div>
-                    </div>
-                    <button class="remove-item" onclick="removeItem(${item.id})">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </div>
-            `).join('');
-            
-            const subtotal = cart.reduce((sum, c) => sum + c.price * c.qty, 0);
-            subtotalEl.textContent = `Rs. ${subtotal}`;
-            grandTotalEl.textContent = `Rs. ${subtotal}`;
-            cartTotal.style.display = 'block';
-        }
-        
-        window.changeQty = function(id, delta) {
-            const item = cart.find(c => c.id === id);
-            if(item) {
-                item.qty += delta;
-                if(item.qty <= 0) removeItem(id);
-                else updateCart();
-            }
-        };
-        
-        window.removeItem = function(id) {
-            cart = cart.filter(c => c.id !== id);
-            updateCart();
-        };
-        
-        // ===================== WHATSAPP ORDER =====================
-        document.getElementById('whatsapp-order').addEventListener('click', function() {
-            if(cart.length === 0) return;
-            const phone = "923001234567"; // CHANGE THIS
-            let message = "*New Order - Musa Cafe & Restaurant*%0A%0A";
-            message += "*Customer Name:* ___________%0A";
-            message += "*Delivery Address:* ___________%0A%0A";
-            message += "*Order Details:*%0A";
-            message += "━━━━━━━━━━━━%0A";
-            let total = 0;
-            cart.forEach(item => {
-                message += `• ${item.name} x${item.qty} = Rs. ${item.price * item.qty}%0A`;
-                total += item.price * item.qty;
-            });
-            message += "━━━━━━━━━━━━%0A";
-            message += `*Total Amount: Rs. ${total}*%0A%0A`;
-            message += "Please confirm my order. Shukriya!";
-            window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
-        });
-        
-        // ===================== MUSIC =====================
-        const music = document.getElementById('bg-music');
-        music.volume = 0.15; // Very soft volume
-        const musicToggle = document.getElementById('music-toggle');
-        const musicIcon = document.getElementById('music-icon');
-        const musicToggleNav = document.getElementById('music-toggle-nav');
-        let isPlaying = false;
-        
-        function toggleMusic() {
-            if(isPlaying) {
-                music.pause();
-                musicIcon.className = 'fas fa-play';
-            } else {
-                music.play().catch(e => console.log('Audio play failed:', e));
-                musicIcon.className = 'fas fa-pause';
-            }
-            isPlaying = !isPlaying;
-        }
-        
-        musicToggle.addEventListener('click', toggleMusic);
-        musicToggleNav.addEventListener('click', toggleMusic);
-        
-        // ===================== UI HANDLERS =====================
-        const cartSidebar = document.getElementById('cart-sidebar');
-        const overlay = document.getElementById('overlay');
-        
-        document.getElementById('cart-btn').addEventListener('click', () => {
-            cartSidebar.classList.add('open');
-            overlay.classList.add('active');
-        });
-        
-        document.getElementById('close-cart').addEventListener('click', closeCart);
-        overlay.addEventListener('click', closeCart);
-        
-        function closeCart() {
-            cartSidebar.classList.remove('open');
-            overlay.classList.remove('active');
-        }
-        
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                renderMenu(this.dataset.category);
-            });
-        });
-        
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toast-msg').textContent = msg;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 2500);
-        }
-        
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-            });
-        });
-        
-        // Scroll animations
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting) {
-                    entry.target.style.animationPlayState = 'running';
-                }
-            });
-        }, { threshold: 0.1 });
-        
-        document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
-        
-        renderMenu();
-        updateCart();
-    </script>
-</body>
-</html>'''
+with open('/mnt/agents/output/musa_cafe_part2.html', 'r', encoding='utf-8') as f:
+    part2 = f.read()
+
+final = part1 + part2
 
 with open('/mnt/agents/output/musa_cafe_restaurant.html', 'w', encoding='utf-8') as f:
-    f.write(html_content)
+    f.write(final)
 
-print("File saved successfully!")
-print(f"File size: {len(html_content)} characters")
+print(f"FINAL FILE SAVED!")
+print(f"Total size: {len(final):,} characters")
+print(f"Approx: {len(final)/1024:.1f} KB")
 
 
 
