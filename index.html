@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MUSA Cafe & Restaurant | Luxury 3D Dining Experience in Layyah</title>
+  <title>MUSA Cafe & Restaurant | Luxury Dining in Layyah</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -22,10 +21,10 @@
     ::-webkit-scrollbar-thumb { background: #b45309; border-radius: 4px; }
     ::-webkit-scrollbar-thumb:hover { background: #d97706; }
     .glass {
-      background: rgba(18, 18, 22, 0.75);
+      background: rgba(18, 18, 22, 0.85);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(217, 119, 6, 0.15);
+      border: 1px solid rgba(217, 119, 6, 0.2);
     }
     .shimmer {
       background: linear-gradient(90deg, #f59e0b, #fbbf24, #fef3c7, #fbbf24, #f59e0b);
@@ -45,21 +44,29 @@
       background: linear-gradient(90deg, #d97706, #fbbf24);
       z-index: 100; width: 0%; transition: width 0.1s;
     }
-    .dish-3d-container {
+    .food-img-card {
       position: relative;
       width: 100%;
-      height: 300px;
+      height: 240px;
       border-radius: 1rem;
       overflow: hidden;
-      background: radial-gradient(circle, rgba(24,24,27,0.9) 0%, rgba(9,9,11,0.95) 100%);
       border: 1px solid rgba(217, 119, 6, 0.3);
+    }
+    .food-img-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .food-img-card:hover img {
+      transform: scale(1.08);
     }
     .menu-body {
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .menu-body.open { max-height: 1200px; }
+    .menu-body.open { max-height: 1500px; }
     .chevron { transition: transform 0.3s ease; }
     .chevron.open { transform: rotate(180deg); }
     #cartDrawer {
@@ -87,13 +94,13 @@
       font-size: 11px; font-weight: bold; width: 24px; height: 24px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center; border: 2px solid #09090b;
     }
-    /* Music Control Button */
     #musicBtn {
       position: fixed; bottom: 30px; left: 30px; z-index: 90;
-      background: rgba(18, 18, 22, 0.85); border: 1px solid rgba(217, 119, 6, 0.4); color: #f59e0b;
+      background: rgba(18, 18, 22, 0.9); border: 1px solid rgba(217, 119, 6, 0.5); color: #f59e0b;
       width: 50px; height: 50px; border-radius: 50%; display: flex;
       align-items: center; justify-content: center; cursor: pointer;
       backdrop-filter: blur(10px); transition: all 0.3s ease;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.5);
     }
     #musicBtn:hover { background: #d97706; color: #09090b; transform: scale(1.1); }
     .lux-input {
@@ -110,13 +117,13 @@
 
   <div id="progressBar"></div>
 
-  <!-- Background Ambient Audio (Soft Instrumental Cafe Music Tone) -->
-  <audio id="bgMusic" loop>
-    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
+  <!-- Reliable Background Audio (Soft Instrumental Cafe Music) -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=chill-abstract-intention-12099.mp3" type="audio/mpeg">
   </audio>
 
   <!-- Music Toggle Floating Button -->
-  <button id="musicBtn" onclick="toggleMusic()" title="Play Soft Music Tone">
+  <button id="musicBtn" onclick="toggleMusic()" title="Play / Pause Background Music">
     <i id="musicIcon" class="fa-solid fa-volume-xmark text-lg"></i>
   </button>
 
@@ -124,7 +131,7 @@
   <header id="nav" class="fixed top-0 left-0 right-0 z-50 px-6 py-4 glass border-b border-amber-400/20">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
       <a href="#" class="flex items-center gap-3">
-        <div class="w-10 h-10 flex items-center justify-center border border-amber-400/40 rounded-full">
+        <div class="w-10 h-10 flex items-center justify-center border border-amber-400/40 rounded-full bg-amber-400/10">
           <span class="font-display text-amber-400 font-bold text-lg">M</span>
         </div>
         <div class="flex flex-col">
@@ -133,7 +140,7 @@
         </div>
       </a>
       <nav class="hidden lg:flex items-center gap-8 text-sm font-medium tracking-wide">
-        <a href="#featured-3d" class="text-amber-300 font-bold">3D Steam Dishes</a>
+        <a href="#featured" class="text-amber-300 font-bold">Featured Dishes</a>
         <a href="#menu" class="text-zinc-300 hover:text-amber-300 transition">Complete Menu</a>
         <a href="#about" class="text-zinc-300 hover:text-amber-300 transition">About Us</a>
         <a href="#reservation" class="text-zinc-300 hover:text-amber-300 transition">Reservation</a>
@@ -150,13 +157,13 @@
     <div class="absolute inset-0 bg-gradient-to-b from-zinc-950/60 via-zinc-950/80 to-zinc-950"></div>
     <div class="relative z-10 max-w-4xl mx-auto space-y-6 reveal">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border border-amber-400/30 text-amber-300 text-xs font-eyebrow tracking-[3px]">
-        <i class="fa-solid fa-music"></i> Soft Music Tone & 3D Steam Experience in Layyah
+        <i class="fa-solid fa-music"></i> Soft Music Tone & Real Food Experience in Layyah
       </div>
       <h1 class="font-display text-5xl sm:text-7xl font-bold tracking-tight">
         MUSA Cafe & <span class="shimmer italic">Restaurant</span>
       </h1>
       <p class="text-zinc-300 text-base sm:text-lg max-w-2xl mx-auto font-light">
-        Lambi smooth-scrolling website jismein har dish par real-time 3D steam dhuwa, soft background music, aur pura khana menu shaamil hai.
+        Lambi smooth-scrolling website jismein asli aur khubsurat food pictures, soft background music, aur pura khana menu shaamil hai.
       </p>
       <div class="flex justify-center gap-4 pt-4">
         <a href="#menu" class="px-8 py-4 rounded-full font-eyebrow text-xs tracking-[2px] bg-gradient-to-r from-amber-600 to-amber-400 text-zinc-950 font-bold btn-gold shadow-xl">
@@ -166,51 +173,57 @@
     </div>
   </section>
 
-  <!-- Featured 3D Dishes with Live Steam (Dhuwa) -->
-  <section id="featured-3d" class="py-24 px-6 relative bg-zinc-900/30">
+  <!-- Featured Dishes with Real Pictures -->
+  <section id="featured" class="py-24 px-6 relative bg-zinc-900/30">
     <div class="max-w-7xl mx-auto space-y-12">
       <div class="text-center space-y-4 reveal">
         <div class="inline-flex items-center gap-2 text-amber-300 text-xs font-eyebrow tracking-[3px] uppercase">
-          <span class="w-8 h-[1px] bg-amber-400"></span> Live 3D Smoke Effect <span class="w-8 h-[1px] bg-amber-400"></span>
+          <span class="w-8 h-[1px] bg-amber-400"></span> Chef's Special Specials <span class="w-8 h-[1px] bg-amber-400"></span>
         </div>
-        <h2 class="font-display text-4xl sm:text-5xl font-bold">Hot Dishes with <span class="shimmer italic">Rising Steam</span></h2>
-        <p class="text-zinc-400 text-sm max-w-xl mx-auto">Har 3D plate ke upar real-time steaming smoke particle simulation active hai.</p>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold">Popular <span class="shimmer italic">Masterpieces</span></h2>
+        <p class="text-zinc-400 text-sm max-w-xl mx-auto">Asli tasveeron ke sath MUSA Cafe ki sab se maqbool dishes.</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal">
-        <!-- Dish 3D 1 -->
-        <div class="glass p-6 rounded-2xl border border-amber-400/20 space-y-4">
-          <div class="dish-3d-container" id="canvas-dish-1"></div>
+        <!-- Dish 1 -->
+        <div class="glass p-5 rounded-2xl border border-amber-400/20 space-y-4">
+          <div class="food-img-card">
+            <img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?q=80&w=800&auto=format&fit=crop" alt="Shinwari Mutton Karahi">
+          </div>
           <div class="flex justify-between items-center">
             <div>
-              <h3 class="font-display text-xl font-bold text-amber-300">Shinwari Mutton Karahi</h3>
-              <p class="text-xs text-zinc-400">Fresh hot steam karahi</p>
+              <h3 class="font-display text-lg font-bold text-amber-300">Shinwari Mutton Karahi</h3>
+              <p class="text-xs text-zinc-400">Fresh cooked in pure butter</p>
             </div>
             <span class="text-amber-400 font-bold">Rs. 2,490</span>
           </div>
           <button onclick="addToCart('Shinwari Mutton Karahi', 2490)" class="w-full py-2.5 rounded-full text-xs font-eyebrow bg-amber-400 text-zinc-950 font-bold hover:bg-amber-300 transition">Add to Order</button>
         </div>
 
-        <!-- Dish 3D 2 -->
-        <div class="glass p-6 rounded-2xl border border-amber-400/20 space-y-4">
-          <div class="dish-3d-container" id="canvas-dish-2"></div>
+        <!-- Dish 2 -->
+        <div class="glass p-5 rounded-2xl border border-amber-400/20 space-y-4">
+          <div class="food-img-card">
+            <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=800&auto=format&fit=crop" alt="Royal BBQ Platter">
+          </div>
           <div class="flex justify-between items-center">
             <div>
-              <h3 class="font-display text-xl font-bold text-amber-300">Royal BBQ Platter</h3>
-              <p class="text-xs text-zinc-400">Charcoal smoke grilled</p>
+              <h3 class="font-display text-lg font-bold text-amber-300">Royal BBQ Platter</h3>
+              <p class="text-xs text-zinc-400">Charcoal smoke grilled tikka</p>
             </div>
             <span class="text-amber-400 font-bold">Rs. 3,500</span>
           </div>
           <button onclick="addToCart('Royal BBQ Platter', 3500)" class="w-full py-2.5 rounded-full text-xs font-eyebrow bg-amber-400 text-zinc-950 font-bold hover:bg-amber-300 transition">Add to Order</button>
         </div>
 
-        <!-- Dish 3D 3 -->
-        <div class="glass p-6 rounded-2xl border border-amber-400/20 space-y-4">
-          <div class="dish-3d-container" id="canvas-dish-3"></div>
+        <!-- Dish 3 -->
+        <div class="glass p-5 rounded-2xl border border-amber-400/20 space-y-4">
+          <div class="food-img-card">
+            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=800&auto=format&fit=crop" alt="Musa Supreme Pizza">
+          </div>
           <div class="flex justify-between items-center">
             <div>
-              <h3 class="font-display text-xl font-bold text-amber-300">Musa Supreme Pizza</h3>
-              <p class="text-xs text-zinc-400">Oven baked hot steam</p>
+              <h3 class="font-display text-lg font-bold text-amber-300">Musa Supreme Pizza</h3>
+              <p class="text-xs text-zinc-400">Oven baked extra cheese</p>
             </div>
             <span class="text-amber-400 font-bold">Rs. 1,950</span>
           </div>
@@ -220,7 +233,7 @@
     </div>
   </section>
 
-  <!-- Complete Menu Section (Pura ka pura menu - Lambi Website Layout) -->
+  <!-- Complete Menu Section (Pura ka pura menu with real dish pictures) -->
   <section id="menu" class="py-24 px-6 relative">
     <div class="max-w-4xl mx-auto space-y-8">
       <div class="text-center space-y-4 reveal">
@@ -228,7 +241,7 @@
           <span class="w-8 h-[1px] bg-amber-400"></span> Complete Gastronomic Catalog <span class="w-8 h-[1px] bg-amber-400"></span>
         </div>
         <h2 class="font-display text-4xl sm:text-5xl font-bold">Pura MUSA <span class="shimmer italic">Menu</span></h2>
-        <p class="text-zinc-400 text-sm">Click any category below to expand and order items instantly.</p>
+        <p class="text-zinc-400 text-sm">Click any category below to expand, check items with real pictures, and order instantly.</p>
       </div>
 
       <div class="space-y-4 reveal">
@@ -240,18 +253,27 @@
             <i class="fa-solid fa-chevron-down chevron text-amber-300"></i>
           </div>
           <div class="menu-body px-6">
-            <div class="divide-y divide-amber-400/10 py-4">
-              <div class="py-3 flex justify-between items-center">
-                <div><h4 class="font-bold text-sm">Shinwari Mutton Karahi</h4><span class="text-xs text-zinc-400">Tender mutton cooked in pure butter</span></div>
-                <div class="flex items-center gap-4"><span class="text-amber-300 font-bold">Rs. 2,490</span><button onclick="addToCart('Shinwari Mutton Karahi', 2490)" class="px-3 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded">Add</button></div>
+            <div class="divide-y divide-amber-400/10 py-4 space-y-4">
+              <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div class="flex items-center gap-4">
+                  <img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?q=80&w=120&auto=format&fit=crop" class="w-16 h-16 rounded-lg object-cover border border-amber-400/30" alt="">
+                  <div><h4 class="font-bold text-sm text-amber-100">Shinwari Mutton Karahi</h4><span class="text-xs text-zinc-400">Tender mutton cooked in pure butter</span></div>
+                </div>
+                <div class="flex items-center gap-4 w-full sm:w-auto justify-between"><span class="text-amber-300 font-bold">Rs. 2,490</span><button onclick="addToCart('Shinwari Mutton Karahi', 2490)" class="px-4 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded-full">Add</button></div>
               </div>
-              <div class="py-3 flex justify-between items-center">
-                <div><h4 class="font-bold text-sm">Chicken White Karahi</h4><span class="text-xs text-zinc-400">Rich creamy yogurt and white pepper gravy</span></div>
-                <div class="flex items-center gap-4"><span class="text-amber-300 font-bold">Rs. 1,850</span><button onclick="addToCart('Chicken White Karahi', 1850)" class="px-3 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded">Add</button></div>
+              <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div class="flex items-center gap-4">
+                  <img src="https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=120&auto=format&fit=crop" class="w-16 h-16 rounded-lg object-cover border border-amber-400/30" alt="">
+                  <div><h4 class="font-bold text-sm text-amber-100">Chicken White Karahi</h4><span class="text-xs text-zinc-400">Rich creamy yogurt and white pepper gravy</span></div>
+                </div>
+                <div class="flex items-center gap-4 w-full sm:w-auto justify-between"><span class="text-amber-300 font-bold">Rs. 1,850</span><button onclick="addToCart('Chicken White Karahi', 1850)" class="px-4 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded-full">Add</button></div>
               </div>
-              <div class="py-3 flex justify-between items-center">
-                <div><h4 class="font-bold text-sm">Desi Chicken Black Pepper Karahi</h4><span class="text-xs text-zinc-400">Traditional desi murgh with crushed black pepper</span></div>
-                <div class="flex items-center gap-4"><span class="text-amber-300 font-bold">Rs. 2,200</span><button onclick="addToCart('Desi Chicken Black Pepper Karahi', 2200)" class="px-3 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded">Add</button></div>
+              <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div class="flex items-center gap-4">
+                  <img src="https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?q=80&w=120&auto=format&fit=crop" class="w-16 h-16 rounded-lg object-cover border border-amber-400/30" alt="">
+                  <div><h4 class="font-bold text-sm text-amber-100">Desi Chicken Black Pepper Karahi</h4><span class="text-xs text-zinc-400">Traditional desi murgh with crushed black pepper</span></div>
+                </div>
+                <div class="flex items-center gap-4 w-full sm:w-auto justify-between"><span class="text-amber-300 font-bold">Rs. 2,200</span><button onclick="addToCart('Desi Chicken Black Pepper Karahi', 2200)" class="px-4 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded-full">Add</button></div>
               </div>
             </div>
           </div>
@@ -264,18 +286,27 @@
             <i class="fa-solid fa-chevron-down chevron text-amber-300"></i>
           </div>
           <div class="menu-body px-6">
-            <div class="divide-y divide-amber-400/10 py-4">
-              <div class="py-3 flex justify-between items-center">
-                <div><h4 class="font-bold text-sm">Musa Grand Royal Platter</h4><span class="text-xs text-zinc-400">Malai Boti, Seekh Kebab, Ribs & Grilled Fish</span></div>
-                <div class="flex items-center gap-4"><span class="text-amber-300 font-bold">Rs. 3,500</span><button onclick="addToCart('Musa Grand Royal Platter', 3500)" class="px-3 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded">Add</button></div>
+            <div class="divide-y divide-amber-400/10 py-4 space-y-4">
+              <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div class="flex items-center gap-4">
+                  <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=120&auto=format&fit=crop" class="w-16 h-16 rounded-lg object-cover border border-amber-400/30" alt="">
+                  <div><h4 class="font-bold text-sm text-amber-100">Musa Grand Royal Platter</h4><span class="text-xs text-zinc-400">Malai Boti, Seekh Kebab, Ribs & Grilled Fish</span></div>
+                </div>
+                <div class="flex items-center gap-4 w-full sm:w-auto justify-between"><span class="text-amber-300 font-bold">Rs. 3,500</span><button onclick="addToCart('Musa Grand Royal Platter', 3500)" class="px-4 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded-full">Add</button></div>
               </div>
-              <div class="py-3 flex justify-between items-center">
-                <div><h4 class="font-bold text-sm">Chicken Malai Boti (12pcs)</h4><span class="text-xs text-zinc-400">Juicy boneless chicken pieces marinated in cream</span></div>
-                <div class="flex items-center gap-4"><span class="text-amber-300 font-bold">Rs. 1,150</span><button onclick="addToCart('Chicken Malai Boti', 1150)" class="px-3 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded">Add</button></div>
+              <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div class="flex items-center gap-4">
+                  <img src="https://images.unsplash.com/photo-1599487484170-7c1e6e580812?q=80&w=120&auto=format&fit=crop" class="w-16 h-16 rounded-lg object-cover border border-amber-400/30" alt="">
+                  <div><h4 class="font-bold text-sm text-amber-100">Chicken Malai Boti (12pcs)</h4><span class="text-xs text-zinc-400">Juicy boneless chicken pieces marinated in cream</span></div>
+                </div>
+                <div class="flex items-center gap-4 w-full sm:w-auto justify-between"><span class="text-amber-300 font-bold">Rs. 1,150</span><button onclick="addToCart('Chicken Malai Boti', 1150)" class="px-4 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded-full">Add</button></div>
               </div>
-              <div class="py-3 flex justify-between items-center">
-                <div><h4 class="font-bold text-sm">Special Beef Seekh Kebab (4pcs)</h4><span class="text-xs text-zinc-400">Minced beef skewers infused with herbs</span></div>
-                <div class="flex items-center gap-4"><span class="text-amber-300 font-bold">Rs. 950</span><button onclick="addToCart('Special Beef Seekh Kebab', 950)" class="px-3 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded">Add</button></div>
+              <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div class="flex items-center gap-4">
+                  <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=120&auto=format&fit=crop" class="w-16 h-16 rounded-lg object-cover border border-amber-400/30" alt="">
+                  <div><h4 class="font-bold text-sm text-amber-100">Special Beef Seekh Kebab (4pcs)</h4><span class="text-xs text-zinc-400">Minced beef skewers infused with herbs</span></div>
+                </div>
+                <div class="flex items-center gap-4 w-full sm:w-auto justify-between"><span class="text-amber-300 font-bold">Rs. 950</span><button onclick="addToCart('Special Beef Seekh Kebab', 950)" class="px-4 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded-full">Add</button></div>
               </div>
             </div>
           </div>
@@ -288,14 +319,20 @@
             <i class="fa-solid fa-chevron-down chevron text-amber-300"></i>
           </div>
           <div class="menu-body px-6">
-            <div class="divide-y divide-amber-400/10 py-4">
-              <div class="py-3 flex justify-between items-center">
-                <div><h4 class="font-bold text-sm">Musa Supreme Pizza (Large)</h4><span class="text-xs text-zinc-400">Loaded with chicken tikka, mushrooms & extra cheese</span></div>
-                <div class="flex items-center gap-4"><span class="text-amber-300 font-bold">Rs. 1,950</span><button onclick="addToCart('Musa Supreme Pizza', 1950)" class="px-3 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded">Add</button></div>
+            <div class="divide-y divide-amber-400/10 py-4 space-y-4">
+              <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div class="flex items-center gap-4">
+                  <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=120&auto=format&fit=crop" class="w-16 h-16 rounded-lg object-cover border border-amber-400/30" alt="">
+                  <div><h4 class="font-bold text-sm text-amber-100">Musa Supreme Pizza (Large)</h4><span class="text-xs text-zinc-400">Loaded with chicken tikka, mushrooms & extra cheese</span></div>
+                </div>
+                <div class="flex items-center gap-4 w-full sm:w-auto justify-between"><span class="text-amber-300 font-bold">Rs. 1,950</span><button onclick="addToCart('Musa Supreme Pizza', 1950)" class="px-4 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded-full">Add</button></div>
               </div>
-              <div class="py-3 flex justify-between items-center">
-                <div><h4 class="font-bold text-sm">Zinger Burger with Fries</h4><span class="text-xs text-zinc-400">Crispy fried chicken fillet with signature sauce</span></div>
-                <div class="flex items-center gap-4"><span class="text-amber-300 font-bold">Rs. 680</span><button onclick="addToCart('Zinger Burger with Fries', 680)" class="px-3 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded">Add</button></div>
+              <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div class="flex items-center gap-4">
+                  <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=120&auto=format&fit=crop" class="w-16 h-16 rounded-lg object-cover border border-amber-400/30" alt="">
+                  <div><h4 class="font-bold text-sm text-amber-100">Zinger Burger with Fries</h4><span class="text-xs text-zinc-400">Crispy fried chicken fillet with signature sauce</span></div>
+                </div>
+                <div class="flex items-center gap-4 w-full sm:w-auto justify-between"><span class="text-amber-300 font-bold">Rs. 680</span><button onclick="addToCart('Zinger Burger with Fries', 680)" class="px-4 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded-full">Add</button></div>
               </div>
             </div>
           </div>
@@ -308,14 +345,20 @@
             <i class="fa-solid fa-chevron-down chevron text-amber-300"></i>
           </div>
           <div class="menu-body px-6">
-            <div class="divide-y divide-amber-400/10 py-4">
-              <div class="py-3 flex justify-between items-center">
-                <div><h4 class="font-bold text-sm">Chicken Manchurian with Egg Fried Rice</h4><span class="text-xs text-zinc-400">Classic tangy chinese gravy served with fragrant rice</span></div>
-                <div class="flex items-center gap-4"><span class="text-amber-300 font-bold">Rs. 1,250</span><button onclick="addToCart('Chicken Manchurian with Rice', 1250)" class="px-3 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded">Add</button></div>
+            <div class="divide-y divide-amber-400/10 py-4 space-y-4">
+              <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div class="flex items-center gap-4">
+                  <img src="https://images.unsplash.com/photo-1525755662778-989d0524087e?q=80&w=120&auto=format&fit=crop" class="w-16 h-16 rounded-lg object-cover border border-amber-400/30" alt="">
+                  <div><h4 class="font-bold text-sm text-amber-100">Chicken Manchurian with Egg Fried Rice</h4><span class="text-xs text-zinc-400">Classic tangy chinese gravy served with fragrant rice</span></div>
+                </div>
+                <div class="flex items-center gap-4 w-full sm:w-auto justify-between"><span class="text-amber-300 font-bold">Rs. 1,250</span><button onclick="addToCart('Chicken Manchurian with Rice', 1250)" class="px-4 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded-full">Add</button></div>
               </div>
-              <div class="py-3 flex justify-between items-center">
-                <div><h4 class="font-bold text-sm">Special Hyderabadi Chicken Biryani</h4><span class="text-xs text-zinc-400">Layered basmati rice with aromatic spices</span></div>
-                <div class="flex items-center gap-4"><span class="text-amber-300 font-bold">Rs. 550</span><button onclick="addToCart('Special Hyderabadi Chicken Biryani', 550)" class="px-3 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded">Add</button></div>
+              <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div class="flex items-center gap-4">
+                  <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=120&auto=format&fit=crop" class="w-16 h-16 rounded-lg object-cover border border-amber-400/30" alt="">
+                  <div><h4 class="font-bold text-sm text-amber-100">Special Hyderabadi Chicken Biryani</h4><span class="text-xs text-zinc-400">Layered basmati rice with aromatic spices</span></div>
+                </div>
+                <div class="flex items-center gap-4 w-full sm:w-auto justify-between"><span class="text-amber-300 font-bold">Rs. 550</span><button onclick="addToCart('Special Hyderabadi Chicken Biryani', 550)" class="px-4 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded-full">Add</button></div>
               </div>
             </div>
           </div>
@@ -328,14 +371,20 @@
             <i class="fa-solid fa-chevron-down chevron text-amber-300"></i>
           </div>
           <div class="menu-body px-6">
-            <div class="divide-y divide-amber-400/10 py-4">
-              <div class="py-3 flex justify-between items-center">
-                <div><h4 class="font-bold text-sm">Hot Molten Lava Cake with Ice Cream</h4><span class="text-xs text-zinc-400">Rich chocolate cake with gooey center</span></div>
-                <div class="flex items-center gap-4"><span class="text-amber-300 font-bold">Rs. 480</span><button onclick="addToCart('Molten Lava Cake', 480)" class="px-3 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded">Add</button></div>
+            <div class="divide-y divide-amber-400/10 py-4 space-y-4">
+              <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div class="flex items-center gap-4">
+                  <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=120&auto=format&fit=crop" class="w-16 h-16 rounded-lg object-cover border border-amber-400/30" alt="">
+                  <div><h4 class="font-bold text-sm text-amber-100">Hot Molten Lava Cake with Ice Cream</h4><span class="text-xs text-zinc-400">Rich chocolate cake with gooey center</span></div>
+                </div>
+                <div class="flex items-center gap-4 w-full sm:w-auto justify-between"><span class="text-amber-300 font-bold">Rs. 480</span><button onclick="addToCart('Molten Lava Cake', 480)" class="px-4 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded-full">Add</button></div>
               </div>
-              <div class="py-3 flex justify-between items-center">
-                <div><h4 class="font-bold text-sm">Musa Special Mint Margarita</h4><span class="text-xs text-zinc-400">Refreshing citrus and fresh mint cooler</span></div>
-                <div class="flex items-center gap-4"><span class="text-amber-300 font-bold">Rs. 350</span><button onclick="addToCart('Special Mint Margarita', 350)" class="px-3 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded">Add</button></div>
+              <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div class="flex items-center gap-4">
+                  <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?q=80&w=120&auto=format&fit=crop" class="w-16 h-16 rounded-lg object-cover border border-amber-400/30" alt="">
+                  <div><h4 class="font-bold text-sm text-amber-100">Musa Special Mint Margarita</h4><span class="text-xs text-zinc-400">Refreshing citrus and fresh mint cooler</span></div>
+                </div>
+                <div class="flex items-center gap-4 w-full sm:w-auto justify-between"><span class="text-amber-300 font-bold">Rs. 350</span><button onclick="addToCart('Special Mint Margarita', 350)" class="px-4 py-1.5 bg-amber-400 text-zinc-950 text-xs font-bold rounded-full">Add</button></div>
               </div>
             </div>
           </div>
@@ -408,7 +457,7 @@
     </div>
   </div>
 
-  <!-- JavaScript for 3D Steam Simulation, Music Tone & Interactivity -->
+  <!-- JavaScript for Music Tone & Interactivity -->
   <script>
     // Music Toggle Logic
     let isPlaying = false;
@@ -420,137 +469,15 @@
         icon.className = 'fa-solid fa-volume-xmark text-lg';
         isPlaying = false;
       } else {
-        music.play().catch(e => console.log("Audio play blocked", e));
-        icon.className = 'fa-solid fa-volume-high text-lg';
-        isPlaying = true;
-      }
-    }
-
-    // Three.js 3D Dish + Smoke Particle Animation Setup
-    function init3DDishScene(containerId, dishType) {
-      const container = document.getElementById(containerId);
-      if (!container) return;
-
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 1000);
-      camera.position.set(0, 3, 5);
-      camera.lookAt(0, 0, 0);
-
-      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-      renderer.setSize(container.clientWidth, container.clientHeight);
-      renderer.setPixelRatio(window.devicePixelRatio);
-      container.appendChild(renderer.domElement);
-
-      const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
-      scene.add(ambientLight);
-      const pointLight = new THREE.DirectionalLight(0xf59e0b, 2);
-      pointLight.position.set(5, 5, 5);
-      scene.add(pointLight);
-
-      // Plate
-      const plateGeo = new THREE.CylinderGeometry(1.8, 1.2, 0.3, 32);
-      const plateMat = new THREE.MeshStandardMaterial({ color: 0x27272a, roughness: 0.3, metalness: 0.8 });
-      const plate = new THREE.Mesh(plateGeo, plateMat);
-      scene.add(plate);
-
-      // Food centerpiece
-      let foodMesh;
-      if (dishType === 'karahi') {
-        const foodGeo = new THREE.SphereGeometry(1.2, 16, 16, 0, Math.PI * 2, 0, Math.PI * 0.5);
-        const foodMat = new THREE.MeshStandardMaterial({ color: 0xb45309, roughness: 0.5 });
-        foodMesh = new THREE.Mesh(foodGeo, foodMat);
-        foodMesh.position.y = 0.15;
-        scene.add(foodMesh);
-      } else if (dishType === 'bbq') {
-        const foodGeo = new THREE.CylinderGeometry(1.1, 1.1, 0.4, 16);
-        const foodMat = new THREE.MeshStandardMaterial({ color: 0x78350f, roughness: 0.7 });
-        foodMesh = new THREE.Mesh(foodGeo, foodMat);
-        foodMesh.position.y = 0.2;
-        scene.add(foodMesh);
-      } else {
-        const foodGeo = new THREE.CylinderGeometry(1.3, 1.3, 0.25, 32);
-        const foodMat = new THREE.MeshStandardMaterial({ color: 0xd97706, roughness: 0.4 });
-        foodMesh = new THREE.Mesh(foodGeo, foodMat);
-        foodMesh.position.y = 0.18;
-        scene.add(foodMesh);
-      }
-
-      // Steam / Smoke Particle Simulation (Dhuwa)
-      const particleCount = 70;
-      const particleGeometry = new THREE.BufferGeometry();
-      const positions = new Float32Array(particleCount * 3);
-      const velocities = [];
-
-      for (let i = 0; i < particleCount * 3; i += 3) {
-        positions[i] = (Math.random() - 0.5) * 0.8;
-        positions[i + 1] = Math.random() * 0.5 + 0.3;
-        positions[i + 2] = (Math.random() - 0.5) * 0.8;
-        velocities.push({
-          x: (Math.random() - 0.5) * 0.01,
-          y: Math.random() * 0.02 + 0.015,
-          z: (Math.random() - 0.5) * 0.01
+        music.play().then(() => {
+          icon.className = 'fa-solid fa-volume-high text-lg';
+          isPlaying = true;
+        }).catch(e => {
+          console.log("Audio playback error", e);
+          alert("Please click anywhere on the page first, then tap the speaker button.");
         });
       }
-
-      particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-      const canvasTex = document.createElement('canvas');
-      canvasTex.width = 64; canvasTex.height = 64;
-      const ctx = canvasTex.getContext('2d');
-      const gradient = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
-      gradient.addColorStop(0, 'rgba(255, 255, 255, 0.7)');
-      gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, 64, 64);
-
-      const texture = new THREE.CanvasTexture(canvasTex);
-      const particleMaterial = new THREE.PointsMaterial({
-        size: 0.7,
-        map: texture,
-        transparent: true,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false
-      });
-
-      const smokeParticles = new THREE.Points(particleGeometry, particleMaterial);
-      scene.add(smokeParticles);
-
-      function animate() {
-        requestAnimationFrame(animate);
-        plate.rotation.y += 0.005;
-        if (foodMesh) foodMesh.rotation.y += 0.005;
-
-        const posAttr = particleGeometry.attributes.position;
-        const arr = posAttr.array;
-
-        for (let i = 0; i < particleCount; i++) {
-          let idx = i * 3;
-          arr[idx + 1] += velocities[i].y;
-          arr[idx] += velocities[i].x + Math.sin(arr[idx + 1] * 3) * 0.005;
-
-          if (arr[idx + 1] > 3.2) {
-            arr[idx] = (Math.random() - 0.5) * 0.8;
-            arr[idx + 1] = 0.3;
-            arr[idx + 2] = (Math.random() - 0.5) * 0.8;
-          }
-        }
-        posAttr.needsUpdate = true;
-        renderer.render(scene, camera);
-      }
-      animate();
-
-      window.addEventListener('resize', () => {
-        camera.aspect = container.clientWidth / container.clientHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(container.clientWidth, container.clientHeight);
-      });
     }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      init3DDishScene('canvas-dish-1', 'karahi');
-      init3DDishScene('canvas-dish-2', 'bbq');
-      init3DDishScene('canvas-dish-3', 'pizza');
-    });
 
     // Scroll Progress
     window.addEventListener('scroll', () => {
