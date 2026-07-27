@@ -4,24 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Musa Cafe & Restaurant - Layyah</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         :root {
-            --gold: #d4a853;
-            --dark: #1a1208;
-            --cream: #f5f0e8;
-            --brown: #3d2b1f;
-            --accent: #c9302c;
+            --gold: #c9a96e;
+            --gold-light: #e8d5a3;
+            --dark: #0d0d0d;
+            --dark-light: #1a1a1a;
+            --dark-card: #141414;
+            --text: #f0ebe3;
+            --text-muted: #8a8a8a;
+            --accent: #c9a96e;
         }
         
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', sans-serif;
             background: var(--dark);
-            color: var(--cream);
+            color: var(--text);
             overflow-x: hidden;
+            line-height: 1.6;
         }
         
         /* 3D Canvas Background */
@@ -34,193 +38,247 @@
         }
         
         /* Navigation */
-        nav {
+        .top-nav {
             position: fixed;
             top: 0; left: 0; right: 0;
             z-index: 1000;
-            padding: 1rem 3rem;
+            padding: 1.2rem 2.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(26, 18, 8, 0.85);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(212, 168, 83, 0.2);
+            background: linear-gradient(to bottom, rgba(13,13,13,0.95), transparent);
         }
         
-        .logo {
+        .logo-text {
             font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            font-weight: 700;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--text);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        
+        .logo-text span {
+            display: block;
+            font-size: 0.55rem;
+            letter-spacing: 5px;
             color: var(--gold);
-            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            margin-top: 2px;
         }
         
-        .logo span { color: var(--cream); font-size: 0.9rem; display: block; font-weight: 400; }
-        
-        .nav-links {
+        .nav-right {
             display: flex;
-            gap: 2rem;
-            list-style: none;
+            align-items: center;
+            gap: 1.5rem;
         }
         
-        .nav-links a {
-            color: var(--cream);
-            text-decoration: none;
-            font-size: 0.95rem;
+        .nav-icon {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.3rem;
+            cursor: pointer;
             transition: color 0.3s;
             position: relative;
         }
         
-        .nav-links a:hover { color: var(--gold); }
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px; left: 0;
-            width: 0; height: 2px;
-            background: var(--gold);
-            transition: width 0.3s;
-        }
-        .nav-links a:hover::after { width: 100%; }
-        
-        .nav-icons {
-            display: flex;
-            gap: 1.2rem;
-            align-items: center;
-        }
-        
-        .nav-icons button {
-            background: none;
-            border: none;
-            color: var(--cream);
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-        
-        .nav-icons button:hover { color: var(--gold); }
+        .nav-icon:hover { color: var(--gold); }
         
         .cart-badge {
             position: absolute;
-            top: -8px; right: -8px;
-            background: var(--accent);
-            color: white;
-            font-size: 0.7rem;
-            width: 18px; height: 18px;
+            top: -6px; right: -8px;
+            background: var(--gold);
+            color: var(--dark);
+            font-size: 0.6rem;
+            width: 16px; height: 16px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 600;
+            font-weight: 700;
         }
-        
-        .cart-wrapper { position: relative; }
         
         /* Hero Section */
         .hero {
             position: relative;
             z-index: 1;
             min-height: 100vh;
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 8rem 2rem 4rem;
+            padding: 6rem 3rem 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 3rem;
+        }
+        
+        .hero-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 500px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+        
+        .hero-image img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s;
+        }
+        
+        .hero-image:hover img { transform: scale(1.05); }
+        
+        .hero-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(201,169,110,0.1), transparent);
+        }
+        
+        .hero-content {
+            padding-left: 1rem;
         }
         
         .hero-content h1 {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+        }
+        
+        .hero-content .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1rem, 2vw, 1.3rem);
             color: var(--gold);
-            margin-bottom: 1rem;
-            text-shadow: 0 0 40px rgba(212, 168, 83, 0.3);
-            animation: fadeInUp 1s ease;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
         }
         
-        .hero-content p {
-            font-size: 1.2rem;
-            color: rgba(245, 240, 232, 0.8);
-            margin-bottom: 2rem;
-            max-width: 600px;
-            animation: fadeInUp 1s ease 0.2s both;
-        }
-        
-        .hero-btns {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            animation: fadeInUp 1s ease 0.4s both;
-        }
-        
-        .btn {
-            padding: 0.9rem 2.5rem;
-            border-radius: 50px;
+        .hero-content .tagline {
             font-size: 1rem;
-            font-weight: 500;
+            color: var(--text-muted);
+            max-width: 450px;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        
+        .btn-gold {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9rem 2.2rem;
+            background: var(--gold);
+            color: var(--dark);
+            border: none;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
             cursor: pointer;
             transition: all 0.3s;
             text-decoration: none;
-            display: inline-block;
         }
         
-        .btn-primary {
-            background: var(--gold);
-            color: var(--dark);
-            border: 2px solid var(--gold);
+        .btn-gold:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(201,169,110,0.3);
         }
         
-        .btn-primary:hover {
-            background: transparent;
-            color: var(--gold);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(212, 168, 83, 0.3);
-        }
-        
-        .btn-outline {
-            background: transparent;
-            color: var(--gold);
-            border: 2px solid var(--gold);
-        }
-        
-        .btn-outline:hover {
-            background: var(--gold);
-            color: var(--dark);
-            transform: translateY(-3px);
-        }
-        
-        /* Menu Section */
-        .menu-section {
+        /* Features Section */
+        .features {
             position: relative;
             z-index: 1;
             padding: 5rem 2rem;
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
         }
         
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            color: var(--gold);
+        .section-label {
             text-align: center;
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
             margin-bottom: 3rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: var(--dark-card);
+            border: 1px solid rgba(201,169,110,0.1);
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: all 0.4s;
+        }
+        
+        .feature-card:hover {
+            border-color: rgba(201,169,110,0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 1.2rem;
+            opacity: 0.8;
+        }
+        
+        .feature-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            letter-spacing: 1px;
+        }
+        
+        .feature-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+        
+        /* Menu Highlights */
+        .menu-highlights {
+            position: relative;
+            z-index: 1;
+            padding: 4rem 2rem 6rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
         .menu-tabs {
             display: flex;
             justify-content: center;
-            gap: 1rem;
+            gap: 0.8rem;
             margin-bottom: 3rem;
             flex-wrap: wrap;
         }
         
         .tab-btn {
-            padding: 0.6rem 1.5rem;
-            background: rgba(212, 168, 83, 0.1);
-            border: 1px solid rgba(212, 168, 83, 0.3);
-            color: var(--cream);
+            padding: 0.5rem 1.5rem;
+            background: transparent;
+            border: 1px solid rgba(201,169,110,0.2);
+            color: var(--text-muted);
             border-radius: 30px;
             cursor: pointer;
             transition: all 0.3s;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
         
         .tab-btn.active, .tab-btn:hover {
@@ -231,27 +289,27 @@
         
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
         }
         
         .menu-card {
-            background: rgba(61, 43, 31, 0.6);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
+            background: var(--dark-card);
+            border: 1px solid rgba(201,169,110,0.08);
+            border-radius: 16px;
             overflow: hidden;
-            border: 1px solid rgba(212, 168, 83, 0.15);
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.4s;
         }
         
         .menu-card:hover {
+            border-color: rgba(201,169,110,0.2);
             transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
         }
         
         .menu-card-img {
             width: 100%;
-            height: 200px;
+            height: 220px;
             background-size: cover;
             background-position: center;
             position: relative;
@@ -261,8 +319,8 @@
             content: '';
             position: absolute;
             bottom: 0; left: 0; right: 0;
-            height: 60px;
-            background: linear-gradient(to top, rgba(61,43,31,0.9), transparent);
+            height: 80px;
+            background: linear-gradient(to top, var(--dark-card), transparent);
         }
         
         .menu-card-body {
@@ -271,16 +329,16 @@
         
         .menu-card h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            color: var(--gold);
+            font-size: 1.15rem;
             margin-bottom: 0.5rem;
+            letter-spacing: 1px;
         }
         
         .menu-card p {
-            font-size: 0.85rem;
-            color: rgba(245, 240, 232, 0.7);
-            margin-bottom: 1rem;
-            line-height: 1.5;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 1.2rem;
         }
         
         .menu-card-footer {
@@ -290,49 +348,105 @@
         }
         
         .price {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: 600;
             color: var(--gold);
         }
         
-        .add-to-cart {
+        .add-btn {
+            width: 36px; height: 36px;
+            border-radius: 50%;
             background: var(--gold);
-            color: var(--dark);
             border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 25px;
+            color: var(--dark);
             cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s;
             display: flex;
             align-items: center;
-            gap: 0.4rem;
+            justify-content: center;
+            transition: all 0.3s;
+            font-size: 0.9rem;
         }
         
-        .add-to-cart:hover {
-            background: var(--cream);
-            transform: scale(1.05);
+        .add-btn:hover {
+            background: var(--gold-light);
+            transform: scale(1.1);
         }
         
-        .add-to-cart.added {
-            background: #28a745;
+        .add-btn.added {
+            background: #4caf50;
             color: white;
         }
         
+        /* Our Craft Section */
+        .our-craft {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 500px;
+            margin: 3rem 0;
+        }
+        
+        .craft-image {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .craft-image img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s;
+        }
+        
+        .craft-image:hover img { transform: scale(1.05); }
+        
+        .craft-content {
+            background: var(--dark-light);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem;
+        }
+        
+        .craft-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+        }
+        
+        .craft-content p {
+            color: var(--text-muted);
+            line-height: 1.9;
+            margin-bottom: 2rem;
+            max-width: 450px;
+        }
+        
         /* Cart Sidebar */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s;
+        }
+        
+        .overlay.active { opacity: 1; visibility: visible; }
+        
         .cart-sidebar {
             position: fixed;
-            top: 0; right: -400px;
-            width: 380px;
+            top: 0; right: -420px;
+            width: 400px;
             max-width: 100%;
             height: 100vh;
-            background: rgba(26, 18, 8, 0.98);
-            backdrop-filter: blur(20px);
-            z-index: 2000;
+            background: var(--dark-light);
+            z-index: 2001;
             padding: 2rem;
-            transition: right 0.4s ease;
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             overflow-y: auto;
-            border-left: 1px solid rgba(212, 168, 83, 0.2);
+            border-left: 1px solid rgba(201,169,110,0.1);
         }
         
         .cart-sidebar.open { right: 0; }
@@ -343,134 +457,133 @@
             align-items: center;
             margin-bottom: 2rem;
             padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(212, 168, 83, 0.2);
+            border-bottom: 1px solid rgba(201,169,110,0.15);
         }
         
         .cart-header h2 {
             font-family: 'Playfair Display', serif;
-            color: var(--gold);
+            font-size: 1.4rem;
+            letter-spacing: 2px;
         }
         
         .close-cart {
             background: none;
             border: none;
-            color: var(--cream);
-            font-size: 1.5rem;
+            color: var(--text-muted);
+            font-size: 1.3rem;
             cursor: pointer;
+            transition: color 0.3s;
         }
+        
+        .close-cart:hover { color: var(--gold); }
         
         .cart-item {
             display: flex;
             gap: 1rem;
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(212, 168, 83, 0.1);
+            padding: 1.2rem 0;
+            border-bottom: 1px solid rgba(201,169,110,0.08);
         }
         
         .cart-item-img {
-            width: 60px; height: 60px;
+            width: 55px; height: 55px;
             border-radius: 10px;
             background-size: cover;
             flex-shrink: 0;
+            border: 1px solid rgba(201,169,110,0.1);
         }
         
         .cart-item-info { flex: 1; }
-        .cart-item-info h4 { color: var(--gold); font-size: 0.95rem; margin-bottom: 0.3rem; }
-        .cart-item-info .item-price { color: var(--cream); font-size: 0.9rem; }
+        .cart-item-info h4 { font-size: 0.9rem; margin-bottom: 0.2rem; letter-spacing: 0.5px; }
+        .cart-item-info .item-price { color: var(--gold); font-size: 0.85rem; font-weight: 500; }
         
         .qty-control {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.6rem;
             margin-top: 0.5rem;
         }
         
         .qty-control button {
-            width: 28px; height: 28px;
+            width: 26px; height: 26px;
             border-radius: 50%;
-            border: 1px solid var(--gold);
+            border: 1px solid rgba(201,169,110,0.3);
             background: none;
             color: var(--gold);
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 0.8rem;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.2s;
         }
         
-        .qty-control span { color: var(--cream); font-weight: 500; min-width: 20px; text-align: center; }
+        .qty-control button:hover { background: rgba(201,169,110,0.1); }
+        .qty-control span { color: var(--text); font-weight: 500; min-width: 20px; text-align: center; font-size: 0.9rem; }
         
         .remove-item {
             background: none;
             border: none;
-            color: var(--accent);
+            color: var(--text-muted);
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+            align-self: flex-start;
+            margin-top: 0.3rem;
         }
+        
+        .remove-item:hover { color: #e74c3c; }
         
         .cart-total {
             margin-top: 2rem;
-            padding-top: 1rem;
+            padding-top: 1.5rem;
             border-top: 2px solid var(--gold);
         }
         
         .total-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
+            margin-bottom: 0.6rem;
+            font-size: 0.95rem;
+            color: var(--text-muted);
         }
         
         .total-row.grand {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 600;
             color: var(--gold);
-            margin-top: 0.5rem;
+            margin-top: 0.8rem;
         }
         
-        .whatsapp-order {
+        .whatsapp-btn {
             width: 100%;
             margin-top: 1.5rem;
             padding: 1rem;
             background: #25D366;
             color: white;
             border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
+            border-radius: 8px;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
+            gap: 0.6rem;
             transition: all 0.3s;
+            letter-spacing: 1px;
         }
         
-        .whatsapp-order:hover {
+        .whatsapp-btn:hover {
             background: #128C7E;
             transform: translateY(-2px);
         }
         
         .empty-cart {
             text-align: center;
-            padding: 3rem 0;
-            color: rgba(245, 240, 232, 0.5);
+            padding: 4rem 0;
+            color: var(--text-muted);
         }
-        
-        .empty-cart i { font-size: 3rem; margin-bottom: 1rem; color: var(--gold); }
-        
-        /* Overlay */
-        .overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
-            z-index: 1500;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s;
-        }
-        
-        .overlay.active { opacity: 1; visibility: visible; }
+        .empty-cart i { font-size: 2.5rem; margin-bottom: 1rem; color: var(--gold); opacity: 0.5; }
         
         /* Music Player */
         .music-player {
@@ -478,24 +591,21 @@
             bottom: 2rem;
             left: 2rem;
             z-index: 1000;
-            background: rgba(26, 18, 8, 0.9);
+            background: rgba(20,20,20,0.9);
             backdrop-filter: blur(15px);
-            border: 1px solid rgba(212, 168, 83, 0.2);
+            border: 1px solid rgba(201,169,110,0.15);
             border-radius: 50px;
-            padding: 0.6rem 1.2rem;
+            padding: 0.5rem 1.2rem 0.5rem 0.5rem;
             display: flex;
             align-items: center;
             gap: 0.8rem;
             transition: all 0.3s;
         }
         
-        .music-player:hover {
-            border-color: var(--gold);
-            box-shadow: 0 0 20px rgba(212, 168, 83, 0.2);
-        }
+        .music-player:hover { border-color: rgba(201,169,110,0.3); }
         
         .music-btn {
-            width: 40px; height: 40px;
+            width: 38px; height: 38px;
             border-radius: 50%;
             background: var(--gold);
             border: none;
@@ -504,143 +614,74 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
-            transition: transform 0.3s;
-        }
-        
-        .music-btn:hover { transform: scale(1.1); }
-        
-        .music-info {
-            color: var(--cream);
-            font-size: 0.8rem;
-        }
-        
-        .music-info span { display: block; color: var(--gold); font-weight: 500; }
-        
-        /* About Section */
-        .about-section {
-            position: relative;
-            z-index: 1;
-            padding: 5rem 2rem;
-            background: rgba(61, 43, 31, 0.4);
-        }
-        
-        .about-content {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-        
-        .about-text h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            color: var(--gold);
-            margin-bottom: 1.5rem;
-        }
-        
-        .about-text p {
-            color: rgba(245, 240, 232, 0.8);
-            line-height: 1.8;
-            margin-bottom: 1rem;
-        }
-        
-        .about-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-        
-        .stat-box {
-            background: rgba(212, 168, 83, 0.1);
-            border: 1px solid rgba(212, 168, 83, 0.2);
-            border-radius: 15px;
-            padding: 1.5rem;
-            text-align: center;
-        }
-        
-        .stat-box h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            color: var(--gold);
-        }
-        
-        .stat-box p { font-size: 0.85rem; color: rgba(245, 240, 232, 0.7); }
-        
-        /* Footer */
-        footer {
-            position: relative;
-            z-index: 1;
-            background: rgba(26, 18, 8, 0.95);
-            padding: 3rem 2rem 1rem;
-            border-top: 1px solid rgba(212, 168, 83, 0.2);
-        }
-        
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-        
-        .footer-col h3 {
-            font-family: 'Playfair Display', serif;
-            color: var(--gold);
-            margin-bottom: 1rem;
-        }
-        
-        .footer-col p, .footer-col a {
-            color: rgba(245, 240, 232, 0.7);
-            text-decoration: none;
-            line-height: 2;
-            font-size: 0.9rem;
-            display: block;
-        }
-        
-        .footer-col a:hover { color: var(--gold); }
-        
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        
-        .social-links a {
-            width: 40px; height: 40px;
-            border-radius: 50%;
-            background: rgba(212, 168, 83, 0.1);
-            border: 1px solid rgba(212, 168, 83, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gold);
+            font-size: 0.85rem;
             transition: all 0.3s;
         }
         
-        .social-links a:hover {
-            background: var(--gold);
-            color: var(--dark);
+        .music-btn:hover { transform: scale(1.1); background: var(--gold-light); }
+        
+        .music-info { color: var(--text-muted); font-size: 0.75rem; }
+        .music-info span { display: block; color: var(--text); font-weight: 500; font-size: 0.8rem; }
+        
+        /* Bottom Nav */
+        .bottom-nav {
+            position: relative;
+            z-index: 1;
+            background: var(--dark-light);
+            border-top: 1px solid rgba(201,169,110,0.1);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
         }
         
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            margin-top: 2rem;
-            border-top: 1px solid rgba(212, 168, 83, 0.1);
-            color: rgba(245, 240, 232, 0.5);
+        .bottom-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+        }
+        
+        .bottom-logo span {
+            display: block;
+            font-size: 0.5rem;
+            letter-spacing: 3px;
+            color: var(--gold);
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .bottom-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+        
+        .bottom-links a {
+            color: var(--text-muted);
+            text-decoration: none;
             font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.3s;
         }
         
-        /* Animations */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        .bottom-links a:hover { color: var(--gold); }
+        
+        .bottom-social {
+            display: flex;
+            gap: 1rem;
         }
         
-        /* Toast Notification */
+        .bottom-social a {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+        
+        .bottom-social a:hover { color: var(--gold); }
+        
+        /* Toast */
         .toast {
             position: fixed;
             bottom: 2rem;
@@ -648,69 +689,109 @@
             background: var(--gold);
             color: var(--dark);
             padding: 1rem 1.5rem;
-            border-radius: 12px;
+            border-radius: 10px;
             font-weight: 500;
             z-index: 3000;
             transform: translateX(150%);
             transition: transform 0.4s ease;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.6rem;
+            font-size: 0.9rem;
         }
         
         .toast.show { transform: translateX(0); }
         
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            nav { padding: 1rem; }
-            .nav-links { display: none; }
-            .about-content { grid-template-columns: 1fr; }
-            .hero-content h1 { font-size: 2.5rem; }
-            .cart-sidebar { width: 100%; }
-            .music-player { bottom: 1rem; left: 1rem; }
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-in {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--dark); }
+        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+        
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero { grid-template-columns: 1fr; padding-top: 5rem; }
+            .hero-image { height: 350px; }
+            .features-grid { grid-template-columns: 1fr; }
+            .menu-grid { grid-template-columns: 1fr; }
+            .our-craft { grid-template-columns: 1fr; }
+            .craft-content { padding: 3rem 2rem; }
+            .bottom-nav { flex-direction: column; gap: 1.5rem; text-align: center; }
+            .bottom-links { gap: 1.5rem; }
         }
     </style>
 </head>
 <body>
-    <!-- 3D Background Canvas -->
     <canvas id="bg-canvas"></canvas>
     
-    <!-- Navigation -->
-    <nav>
-        <a href="#" class="logo">
-            Musa Cafe
-            <span>& Restaurant - Layyah</span>
-        </a>
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#menu">Menu</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-        <div class="nav-icons">
-            <button id="music-toggle-nav" title="Toggle Music"><i class="fas fa-music"></i></button>
-            <div class="cart-wrapper">
-                <button id="cart-btn" title="Cart"><i class="fas fa-shopping-bag"></i></button>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="logo-text">
+            Musa
+            <span>Cafe & Restaurant - Layyah</span>
+        </div>
+        <div class="nav-right">
+            <button class="nav-icon" id="music-toggle-nav" title="Music">
+                <i class="fas fa-music"></i>
+            </button>
+            <button class="nav-icon" id="cart-btn" title="Cart">
+                <i class="fas fa-shopping-bag"></i>
                 <span class="cart-badge" id="cart-count">0</span>
-            </div>
+            </button>
+            <button class="nav-icon" id="menu-toggle" title="Menu">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </nav>
     
     <!-- Hero Section -->
     <section class="hero" id="home">
+        <div class="hero-image animate-in">
+            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=800" alt="Delicious Food">
+        </div>
         <div class="hero-content">
-            <h1>Taste the Tradition</h1>
-            <p>Experience the finest flavors of Layyah at Musa Cafe & Restaurant. Where every dish tells a story of passion and heritage.</p>
-            <div class="hero-btns">
-                <a href="#menu" class="btn btn-primary">Order Now</a>
-                <a href="#about" class="btn btn-outline">Our Story</a>
+            <h1>Taste the Tradition.</h1>
+            <p class="subtitle">Musa Cafe & Restaurant</p>
+            <p class="tagline">Experience the finest flavors of Layyah, where traditional recipes meet modern presentation. Every dish is crafted with passion and heritage.</p>
+            <a href="#menu" class="btn-gold">View Menu <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+    
+    <!-- Features -->
+    <section class="features">
+        <p class="section-label">Features</p>
+        <div class="features-grid">
+            <div class="feature-card animate-in">
+                <div class="feature-icon"><i class="fas fa-fire-alt"></i></div>
+                <h3>Authentic BBQ</h3>
+                <p>Traditional tandoor and grill, marinated with secret family spices passed down through generations.</p>
+            </div>
+            <div class="feature-card animate-in" style="animation-delay: 0.15s">
+                <div class="feature-icon"><i class="fas fa-utensils"></i></div>
+                <h3>Master Chefs</h3>
+                <p>Expertly crafted by our seasoned chefs with decades of culinary experience in Pakistani cuisine.</p>
+            </div>
+            <div class="feature-card animate-in" style="animation-delay: 0.3s">
+                <div class="feature-icon"><i class="fas fa-leaf"></i></div>
+                <h3>Fresh Ingredients</h3>
+                <p>Daily sourced premium ingredients ensuring every bite delivers exceptional flavor and quality.</p>
             </div>
         </div>
     </section>
     
-    <!-- Menu Section -->
-    <section class="menu-section" id="menu">
-        <h2 class="section-title">Our Menu</h2>
+    <!-- Menu Highlights -->
+    <section class="menu-highlights" id="menu">
+        <p class="section-label">Menu Highlights</p>
         <div class="menu-tabs">
             <button class="tab-btn active" data-category="all">All</button>
             <button class="tab-btn" data-category="bbq">BBQ</button>
@@ -721,63 +802,34 @@
         <div class="menu-grid" id="menu-grid"></div>
     </section>
     
-    <!-- About Section -->
-    <section class="about-section" id="about">
-        <div class="about-content">
-            <div class="about-text">
-                <h2>A Legacy of Flavor Since 2010</h2>
-                <p>Located in the heart of Layyah, Musa Cafe & Restaurant has been serving authentic Pakistani cuisine with a modern twist for over a decade. Our chefs bring generations of culinary expertise to every plate.</p>
-                <p>From sizzling BBQ to aromatic Karahi, every dish is prepared with the freshest ingredients and traditional spices that make Layyah's food culture legendary.</p>
-            </div>
-            <div class="about-stats">
-                <div class="stat-box">
-                    <h3>14+</h3>
-                    <p>Years of Service</p>
-                </div>
-                <div class="stat-box">
-                    <h3>50+</h3>
-                    <p>Menu Items</p>
-                </div>
-                <div class="stat-box">
-                    <h3>10K+</h3>
-                    <p>Happy Customers</p>
-                </div>
-                <div class="stat-box">
-                    <h3>4.9</h3>
-                    <p>Star Rating</p>
-                </div>
-            </div>
+    <!-- Our Craft -->
+    <section class="our-craft" id="about">
+        <div class="craft-image">
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800" alt="Restaurant Interior">
+        </div>
+        <div class="craft-content">
+            <h2>Our Craft</h2>
+            <p>Musa Cafe & Restaurant delivers an elevated dining experience in the heart of Layyah. Since 2010, we have been celebrating the rich flavors of Pakistani cuisine with meticulous technique and unwavering dedication to quality. Every dish tells a story of tradition, passion, and the warm hospitality that defines our culture.</p>
+            <a href="#menu" class="btn-gold">Our Story <i class="fas fa-arrow-right"></i></a>
         </div>
     </section>
     
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="footer-content">
-            <div class="footer-col">
-                <h3>Musa Cafe & Restaurant</h3>
-                <p>Serving the best taste in Layyah since 2010. Your satisfaction is our priority.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-whatsapp"></i></a>
-                </div>
-            </div>
-            <div class="footer-col">
-                <h3>Quick Links</h3>
-                <a href="#home">Home</a>
-                <a href="#menu">Menu</a>
-                <a href="#about">About Us</a>
-                <a href="#contact">Contact</a>
-            </div>
-            <div class="footer-col">
-                <h3>Contact Us</h3>
-                <p><i class="fas fa-map-marker-alt"></i> Main Bazaar, Layyah</p>
-                <p><i class="fas fa-phone"></i> +92 300 1234567</p>
-                <p><i class="fas fa-clock"></i> Open: 11 AM - 12 AM</p>
-            </div>
+    <!-- Bottom Navigation -->
+    <footer class="bottom-nav">
+        <div class="bottom-logo">
+            Musa
+            <span>Cafe & Restaurant</span>
         </div>
-        <div class="footer-bottom">
-            <p>Made with love by Musa Cafe & Restaurant Layyah</p>
+        <ul class="bottom-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="bottom-social">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
         </div>
     </footer>
     
@@ -802,7 +854,7 @@
                 <span>Total</span>
                 <span id="grand-total">Rs. 0</span>
             </div>
-            <button class="whatsapp-order" id="whatsapp-order">
+            <button class="whatsapp-btn" id="whatsapp-order">
                 <i class="fab fa-whatsapp"></i> Order on WhatsApp
             </button>
         </div>
@@ -814,25 +866,25 @@
             <i class="fas fa-play" id="music-icon"></i>
         </button>
         <div class="music-info">
-            <span>Soft Cafe Music</span>
-            <small>Relaxing Tones</small>
+            <span>Cafe Ambiance</span>
+            <small>Soft & Relaxing</small>
         </div>
     </div>
     
     <!-- Toast -->
     <div class="toast" id="toast">
         <i class="fas fa-check-circle"></i>
-        <span id="toast-msg">Added to cart!</span>
+        <span id="toast-msg">Added to cart</span>
     </div>
     
-    <!-- Hidden Audio -->
+    <!-- Audio -->
     <audio id="bg-music" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=relaxing-mountains-rivers-streams-running-water-18178.mp3" type="audio/mpeg">
     </audio>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        // ===================== 3D BACKGROUND =====================
+        // ===================== 3D AMBIENT BACKGROUND =====================
         const canvas = document.getElementById('bg-canvas');
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -840,72 +892,87 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         
-        // Floating particles (like spices/steam)
-        const particlesGeometry = new THREE.BufferGeometry();
-        const particlesCount = 1500;
+        // Warm ambient particles (like floating spices/steam in a cafe)
+        const particlesCount = 2000;
         const posArray = new Float32Array(particlesCount * 3);
         const colorArray = new Float32Array(particlesCount * 3);
         
         for(let i = 0; i < particlesCount * 3; i += 3) {
-            posArray[i] = (Math.random() - 0.5) * 30;
-            posArray[i+1] = (Math.random() - 0.5) * 30;
-            posArray[i+2] = (Math.random() - 0.5) * 30;
+            posArray[i] = (Math.random() - 0.5) * 40;
+            posArray[i+1] = (Math.random() - 0.5) * 40;
+            posArray[i+2] = (Math.random() - 0.5) * 30 - 5;
             
-            // Warm gold/brown colors
-            colorArray[i] = 0.8 + Math.random() * 0.2;
-            colorArray[i+1] = 0.6 + Math.random() * 0.3;
-            colorArray[i+2] = 0.3 + Math.random() * 0.2;
+            // Warm gold/amber tones
+            const hue = 0.08 + Math.random() * 0.06; // gold to amber
+            const color = new THREE.Color().setHSL(hue, 0.6, 0.4 + Math.random() * 0.3);
+            colorArray[i] = color.r;
+            colorArray[i+1] = color.g;
+            colorArray[i+2] = color.b;
         }
         
-        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-        particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
+        const particlesGeo = new THREE.BufferGeometry();
+        particlesGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        particlesGeo.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
         
-        const particlesMaterial = new THREE.PointsMaterial({
-            size: 0.05,
+        const particlesMat = new THREE.PointsMaterial({
+            size: 0.06,
             vertexColors: true,
             transparent: true,
-            opacity: 0.6,
+            opacity: 0.5,
             blending: THREE.AdditiveBlending
         });
         
-        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-        scene.add(particlesMesh);
+        const particles = new THREE.Points(particlesGeo, particlesMat);
+        scene.add(particles);
         
-        // Floating geometric shapes (abstract plates/bowls)
-        const shapes = [];
-        const geometries = [
-            new THREE.TorusGeometry(1, 0.3, 16, 50),
-            new THREE.IcosahedronGeometry(0.8, 0),
-            new THREE.OctahedronGeometry(0.6, 0),
-            new THREE.TorusKnotGeometry(0.5, 0.2, 64, 8)
-        ];
-        
-        for(let i = 0; i < 8; i++) {
-            const geo = geometries[Math.floor(Math.random() * geometries.length)];
+        // Floating golden orbs (like warm lights in a restaurant)
+        const orbs = [];
+        for(let i = 0; i < 15; i++) {
+            const geo = new THREE.SphereGeometry(0.15 + Math.random() * 0.2, 16, 16);
             const mat = new THREE.MeshBasicMaterial({
-                color: new THREE.Color().setHSL(0.08 + Math.random() * 0.08, 0.7, 0.5),
-                wireframe: true,
+                color: new THREE.Color().setHSL(0.1, 0.8, 0.5),
                 transparent: true,
-                opacity: 0.15
+                opacity: 0.2 + Math.random() * 0.2
             });
-            const mesh = new THREE.Mesh(geo, mat);
-            mesh.position.set(
+            const orb = new THREE.Mesh(geo, mat);
+            orb.position.set(
+                (Math.random() - 0.5) * 25,
                 (Math.random() - 0.5) * 20,
-                (Math.random() - 0.5) * 15,
-                (Math.random() - 0.5) * 10 - 5
+                (Math.random() - 0.5) * 15 - 5
             );
-            mesh.userData = {
-                rotSpeed: { x: (Math.random()-0.5)*0.01, y: (Math.random()-0.5)*0.01 },
-                floatSpeed: Math.random() * 0.005 + 0.002,
-                floatOffset: Math.random() * Math.PI * 2
+            orb.userData = {
+                speed: Math.random() * 0.003 + 0.001,
+                offset: Math.random() * Math.PI * 2,
+                radius: 0.5 + Math.random() * 1
             };
-            scene.add(mesh);
-            shapes.push(mesh);
+            scene.add(orb);
+            orbs.push(orb);
         }
         
-        camera.position.z = 8;
+        // Subtle wireframe rings (like elegant plate rims)
+        const rings = [];
+        for(let i = 0; i < 5; i++) {
+            const geo = new THREE.TorusGeometry(1.5 + i * 0.8, 0.02, 8, 60);
+            const mat = new THREE.MeshBasicMaterial({
+                color: new THREE.Color().setHSL(0.1, 0.5, 0.3),
+                transparent: true,
+                opacity: 0.08
+            });
+            const ring = new THREE.Mesh(geo, mat);
+            ring.position.set(
+                (Math.random() - 0.5) * 20,
+                (Math.random() - 0.5) * 15,
+                (Math.random() - 0.5) * 10 - 8
+            );
+            ring.rotation.x = Math.random() * Math.PI;
+            ring.rotation.y = Math.random() * Math.PI;
+            ring.userData = { rotSpeed: { x: (Math.random()-0.5)*0.003, y: (Math.random()-0.5)*0.003 } };
+            scene.add(ring);
+            rings.push(ring);
+        }
         
-        // Mouse interaction
+        camera.position.z = 10;
+        
         let mouseX = 0, mouseY = 0;
         document.addEventListener('mousemove', (e) => {
             mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
@@ -914,19 +981,23 @@
         
         function animate3D() {
             requestAnimationFrame(animate3D);
-            
-            particlesMesh.rotation.y += 0.0005;
-            particlesMesh.rotation.x += 0.0002;
-            
             const time = Date.now() * 0.001;
-            shapes.forEach(shape => {
-                shape.rotation.x += shape.userData.rotSpeed.x;
-                shape.rotation.y += shape.userData.rotSpeed.y;
-                shape.position.y += Math.sin(time + shape.userData.floatOffset) * shape.userData.floatSpeed;
+            
+            particles.rotation.y += 0.0003;
+            particles.rotation.x += 0.0001;
+            
+            orbs.forEach(orb => {
+                orb.position.y += Math.sin(time * orb.userData.speed * 100 + orb.userData.offset) * 0.002;
+                orb.material.opacity = 0.15 + Math.sin(time + orb.userData.offset) * 0.1;
             });
             
-            camera.position.x += (mouseX * 2 - camera.position.x) * 0.02;
-            camera.position.y += (-mouseY * 2 - camera.position.y) * 0.02;
+            rings.forEach(ring => {
+                ring.rotation.x += ring.userData.rotSpeed.x;
+                ring.rotation.y += ring.userData.rotSpeed.y;
+            });
+            
+            camera.position.x += (mouseX * 1.5 - camera.position.x) * 0.015;
+            camera.position.y += (-mouseY * 1.5 - camera.position.y) * 0.015;
             camera.lookAt(scene.position);
             
             renderer.render(scene, camera);
@@ -955,7 +1026,7 @@
             { id: 12, name: "Cold Drink", category: "drinks", price: 80, desc: "Chilled soft drink to refresh your meal", img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400" }
         ];
         
-        // ===================== CART FUNCTIONALITY =====================
+        // ===================== CART =====================
         let cart = [];
         const cartCount = document.getElementById('cart-count');
         const cartItems = document.getElementById('cart-items');
@@ -968,9 +1039,10 @@
             grid.innerHTML = '';
             const items = category === 'all' ? menuItems : menuItems.filter(i => i.category === category);
             
-            items.forEach(item => {
+            items.forEach((item, idx) => {
                 const card = document.createElement('div');
-                card.className = 'menu-card';
+                card.className = 'menu-card animate-in';
+                card.style.animationDelay = `${idx * 0.1}s`;
                 card.innerHTML = `
                     <div class="menu-card-img" style="background-image: url('${item.img}')"></div>
                     <div class="menu-card-body">
@@ -978,8 +1050,8 @@
                         <p>${item.desc}</p>
                         <div class="menu-card-footer">
                             <span class="price">Rs. ${item.price}</span>
-                            <button class="add-to-cart" data-id="${item.id}">
-                                <i class="fas fa-plus"></i> Add
+                            <button class="add-btn" data-id="${item.id}">
+                                <i class="fas fa-plus"></i>
                             </button>
                         </div>
                     </div>
@@ -987,14 +1059,14 @@
                 grid.appendChild(card);
             });
             
-            document.querySelectorAll('.add-to-cart').forEach(btn => {
+            document.querySelectorAll('.add-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const id = parseInt(this.dataset.id);
                     addToCart(id);
-                    this.innerHTML = '<i class="fas fa-check"></i> Added';
+                    this.innerHTML = '<i class="fas fa-check"></i>';
                     this.classList.add('added');
                     setTimeout(() => {
-                        this.innerHTML = '<i class="fas fa-plus"></i> Add';
+                        this.innerHTML = '<i class="fas fa-plus"></i>';
                         this.classList.remove('added');
                     }, 1500);
                 });
@@ -1004,17 +1076,16 @@
         function addToCart(id) {
             const item = menuItems.find(i => i.id === id);
             const existing = cart.find(c => c.id === id);
-            if(existing) {
-                existing.qty++;
-            } else {
-                cart.push({ ...item, qty: 1 });
-            }
+            if(existing) existing.qty++;
+            else cart.push({ ...item, qty: 1 });
             updateCart();
-            showToast(`${item.name} added to cart!`);
+            showToast(`${item.name} added`);
         }
         
         function updateCart() {
-            cartCount.textContent = cart.reduce((sum, c) => sum + c.qty, 0);
+            const totalQty = cart.reduce((sum, c) => sum + c.qty, 0);
+            cartCount.textContent = totalQty;
+            cartCount.style.display = totalQty > 0 ? 'flex' : 'none';
             
             if(cart.length === 0) {
                 cartItems.innerHTML = `
@@ -1068,29 +1139,26 @@
         // ===================== WHATSAPP ORDER =====================
         document.getElementById('whatsapp-order').addEventListener('click', function() {
             if(cart.length === 0) return;
-            
-            const phone = "923001234567"; // CHANGE THIS TO YOUR WHATSAPP NUMBER
-            let message = "*New Order from Musa Cafe Website*%0A%0A";
-            message += "*Customer:* ___________%0A";
-            message += "*Address:* ___________%0A%0A";
+            const phone = "923001234567"; // CHANGE THIS
+            let message = "*New Order - Musa Cafe & Restaurant*%0A%0A";
+            message += "*Customer Name:* ___________%0A";
+            message += "*Delivery Address:* ___________%0A%0A";
             message += "*Order Details:*%0A";
             message += "━━━━━━━━━━━━%0A";
-            
             let total = 0;
             cart.forEach(item => {
                 message += `• ${item.name} x${item.qty} = Rs. ${item.price * item.qty}%0A`;
                 total += item.price * item.qty;
             });
-            
             message += "━━━━━━━━━━━━%0A";
-            message += `*Total: Rs. ${total}*%0A%0A`;
-            message += "Please confirm my order. Thank you!";
-            
+            message += `*Total Amount: Rs. ${total}*%0A%0A`;
+            message += "Please confirm my order. Shukriya!";
             window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
         });
         
-        // ===================== MUSIC PLAYER =====================
+        // ===================== MUSIC =====================
         const music = document.getElementById('bg-music');
+        music.volume = 0.15; // Very soft volume
         const musicToggle = document.getElementById('music-toggle');
         const musicIcon = document.getElementById('music-icon');
         const musicToggleNav = document.getElementById('music-toggle-nav');
@@ -1111,7 +1179,6 @@
         musicToggleNav.addEventListener('click', toggleMusic);
         
         // ===================== UI HANDLERS =====================
-        // Cart sidebar
         const cartSidebar = document.getElementById('cart-sidebar');
         const overlay = document.getElementById('overlay');
         
@@ -1128,7 +1195,6 @@
             overlay.classList.remove('active');
         }
         
-        // Tabs
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -1137,7 +1203,6 @@
             });
         });
         
-        // Toast
         function showToast(msg) {
             const toast = document.getElementById('toast');
             document.getElementById('toast-msg').textContent = msg;
@@ -1145,23 +1210,30 @@
             setTimeout(() => toast.classList.remove('show'), 2500);
         }
         
-        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
             });
         });
         
-        // Initialize
+        // Scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+        
         renderMenu();
+        updateCart();
     </script>
 </body>
 </html>'''
 
-# Save the file
 with open('/mnt/agents/output/musa_cafe_restaurant.html', 'w', encoding='utf-8') as f:
     f.write(html_content)
 
