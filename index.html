@@ -3,145 +3,276 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bushra's 3D Cyber Deck</title>
+    <title>Bushra's Elite Mobile Zone</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
-        
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
         body {
-            font-family: 'Poppins', sans-serif;
-            background: #090d16;
-            color: #f1f5f9;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #09090b;
+            color: #f4f4f5;
             overflow-x: hidden;
-            perspective: 1000px;
         }
 
-        /* 3D Card Hover Effect */
+        /* 3D Card Hover & Depth Effects */
         .card-3d {
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transform-style: preserve-style;
         }
         .card-3d:hover {
-            transform: translateY(-8px) rotateX(4deg) rotateY(4deg);
-            box-shadow: 0 20px 40px rgba(168, 85, 247, 0.25);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 30px -5px rgba(34, 197, 94, 0.15);
+            border-color: rgba(34, 197, 94, 0.4);
         }
 
-        /* Neon Glow Text */
-        .neon-title {
-            text-shadow: 0 0 15px rgba(168, 85, 247, 0.7), 0 0 30px rgba(59, 130, 246, 0.5);
+        /* Neon Green Glows */
+        .neon-glow {
+            text-shadow: 0 0 20px rgba(34, 197, 94, 0.6), 0 0 40px rgba(34, 197, 94, 0.3);
+        }
+        .box-glow {
+            box-shadow: 0 0 25px -5px rgba(34, 197, 94, 0.2);
         }
 
-        /* Animated Background Gradients */
-        .bg-glow {
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(147, 51, 234, 0.15) 0%, rgba(9, 13, 22, 0) 70%);
-            z-index: -1;
-            border-radius: 50%;
+        /* Custom Scrollbar for Long View */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #09090b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272a;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #22c55e;
         }
     </style>
 </head>
-<body class="min-h-screen relative p-4 md:p-8">
+<body class="bg-zinc-950 min-h-screen py-6 px-3 flex justify-center">
 
-    <!-- Background Glow Blobs -->
-    <div class="bg-glow top-10 left-10"></div>
-    <div class="bg-glow bottom-10 right-10"></div>
+    {/* Mobile Frame Container */}
+    <div class="w-full max-w-sm space-y-6 pb-12">
 
-    <div class="max-w-4xl mx-auto space-y-8">
-        
-        <!-- Header Section -->
-        <header class="text-center space-y-3 py-6 card-3d bg-slate-900/60 backdrop-blur-md border border-slate-800 rounded-3xl p-6 shadow-2xl">
-            <span class="bg-purple-500/20 text-purple-400 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-widest border border-purple-500/30">Command Center</span>
-            <h1 class="text-4xl md:text-5xl font-extrabold neon-title tracking-wide">Bushra Sultan's Zone</h1>
-            <p class="text-slate-400 text-sm md:text-base">"Zindagi lambi nahi, bari honi chahiye... Aur kaam waqt par hona chahiye!" 🚀</p>
+        {/* Header Profile Section */}
+        <header class="card-3d bg-zinc-900/80 backdrop-blur-xl border border-zinc-800 rounded-3xl p-5 text-center box-glow relative overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-28 h-28 bg-green-500/10 rounded-full blur-2xl"></div>
+            <span class="inline-block bg-green-500/10 text-green-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-green-500/20 mb-2">
+                🟢 Elite Mode Active
+            </span>
+            <h1 class="text-2xl font-extrabold text-zinc-100 neon-title tracking-tight">Bushra Sultan</h1>
+            <p class="text-xs text-zinc-400 mt-1">"Discipline is choosing between what you want now and what you want most."</p>
             
-            <!-- Dynamic Motivation Button -->
-            <div class="pt-2">
-                <button onclick="triggerMotivation()" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold px-6 py-3 rounded-xl shadow-lg transform active:scale-95 transition-all">
-                    ⚡ Yawrr Kaam Karo! (Click Me)
-                </button>
-                <p id="motivation-text" class="mt-3 text-sm text-purple-300 font-medium italic min-h-[24px]"></p>
-            </div>
+            {/* Global Emergency Motivation Button */}
+            <button onclick="triggerGlobalMotivation()" class="mt-4 w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-zinc-950 font-extrabold py-2.5 px-4 rounded-xl text-xs tracking-wide shadow-lg transition-all active:scale-95">
+                ⚡ YAWWRR WAKE UP! (Master Boost)
+            </button>
+            <div id="global-msg" class="mt-2 text-xs text-green-300 font-medium italic min-h-[30px] transition-all duration-300"></div>
         </header>
 
-        <!-- Main Grid Layout -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Timetable Section Header */}
+        <div class="flex items-center justify-between px-2">
+            <h2 class="text-sm font-bold text-zinc-200 uppercase tracking-wider flex items-center gap-2">
+                <span>📅</span> Master Daily Routine
+            </h2>
+            <span class="text-[10px] bg-zinc-800 text-zinc-400 px-2 py-0.5 rounded-md">Tap each for Wisdom</span>
+        </div>
 
-            <!-- Timetable Section -->
-            <div class="card-3d bg-slate-900/70 backdrop-blur-md border border-slate-800 rounded-3xl p-6 shadow-xl">
-                <div class="flex items-center space-x-3 mb-4">
-                    <span class="text-2xl">📅</span>
-                    <h2 class="text-xl font-bold text-slate-100">Daily Routine & Timetable</h2>
+        {/* Timetable Cards - Every item has its own button & long quote */}
+        <div class="space-y-3">
+
+            {/* Item 1 */}
+            <div class="card-3d bg-zinc-900/70 border border-zinc-800 rounded-2xl p-4">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <span class="text-[10px] text-green-400 font-semibold tracking-wider">04:30 AM</span>
+                        <h3 class="text-sm font-bold text-zinc-100">Fajr & Spiritual Power</h3>
+                    </div>
+                    <button onclick="showQuote(1)" class="bg-zinc-800 hover:bg-green-600 hover:text-zinc-950 text-green-400 text-xs font-bold px-3 py-1.5 rounded-lg transition-all">
+                        Open 🔓
+                    </button>
                 </div>
-                <div class="space-y-3 text-sm">
-                    <div class="flex justify-between items-center p-3 bg-slate-800/50 rounded-xl border border-slate-700/50">
-                        <span class="font-medium text-purple-300">Morning/Study</span>
-                        <span class="text-slate-400">School & Focus Time</span>
-                    </div>
-                    <div class="flex justify-between items-center p-3 bg-slate-800/50 rounded-xl border border-slate-700/50">
-                        <span class="font-medium text-purple-300">02:00 PM - 07:00 PM</span>
-                        <span class="text-slate-400">Academy Sessions</span>
-                    </div>
-                    <div class="flex justify-between items-center p-3 bg-slate-800/50 rounded-xl border border-slate-700/50">
-                        <span class="font-medium text-purple-300">Evening / Night</span>
-                        <span class="text-slate-400">Graphic Designing & Writing Hub</span>
-                    </div>
-                </div>
+                <p id="quote-1" class="hidden mt-3 text-xs text-zinc-300 bg-zinc-950/60 p-3 rounded-xl border border-green-500/30 leading-relaxed italic"></p>
             </div>
 
-            <!-- Quick Focus / Goals Section -->
-            <div class="card-3d bg-slate-900/70 backdrop-blur-md border border-slate-800 rounded-3xl p-6 shadow-xl">
-                <div class="flex items-center space-x-3 mb-4">
-                    <span class="text-2xl">🎯</span>
-                    <h2 class="text-xl font-bold text-slate-100">Active Missions</h2>
+            {/* Item 2 */}
+            <div class="card-3d bg-zinc-900/70 border border-zinc-800 rounded-2xl p-4">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <span class="text-[10px] text-green-400 font-semibold tracking-wider">Morning Routine</span>
+                        <h3 class="text-sm font-bold text-zinc-100">Tilawat & 20 Mins Walk</h3>
+                    </div>
+                    <button onclick="showQuote(2)" class="bg-zinc-800 hover:bg-green-600 hover:text-zinc-950 text-green-400 text-xs font-bold px-3 py-1.5 rounded-lg transition-all">
+                        Open 🔓
+                    </button>
                 </div>
-                <ul class="space-y-3 text-sm text-slate-300">
-                    <li class="flex items-center space-x-2 bg-slate-800/50 p-3 rounded-xl border border-slate-700/50">
-                        <span class="text-purple-400 font-bold">✨</span>
-                        <span>Graphic Design Business Orders & Branding</span>
-                    </li>
-                    <li class="flex items-center space-x-2 bg-slate-800/50 p-3 rounded-xl border border-slate-700/50">
-                        <span class="text-purple-400 font-bold">✍️</span>
-                        <span>Episodic Fiction & Thriller Novels Writing</span>
-                    </li>
-                    <li class="flex items-center space-x-2 bg-slate-800/50 p-3 rounded-xl border border-slate-700/50">
-                        <span class="text-purple-400 font-bold">🌐</span>
-                        <span>Web Development & Digital Layout Projects</span>
-                    </li>
-                </ul>
+                <p id="quote-2" class="hidden mt-3 text-xs text-zinc-300 bg-zinc-950/60 p-3 rounded-xl border border-green-500/30 leading-relaxed italic"></p>
+            </div>
+
+            {/* Item 3 */}
+            <div class="card-3d bg-zinc-900/70 border border-zinc-800 rounded-2xl p-4">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <span class="text-[10px] text-green-400 font-semibold tracking-wider">08:00 AM - 01:30 PM</span>
+                        <h3 class="text-sm font-bold text-zinc-100">School & Focus Hours</h3>
+                    </div>
+                    <button onclick="showQuote(3)" class="bg-zinc-800 hover:bg-green-600 hover:text-zinc-950 text-green-400 text-xs font-bold px-3 py-1.5 rounded-lg transition-all">
+                        Open 🔓
+                    </button>
+                </div>
+                <p id="quote-3" class="hidden mt-3 text-xs text-zinc-300 bg-zinc-950/60 p-3 rounded-xl border border-green-500/30 leading-relaxed italic"></p>
+            </div>
+
+            {/* Item 4 */}
+            <div class="card-3d bg-zinc-900/70 border border-zinc-800 rounded-2xl p-4">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <span class="text-[10px] text-green-400 font-semibold tracking-wider">Midday Break</span>
+                        <h3 class="text-sm font-bold text-zinc-100">Back Home, Lunch & Fresh</h3>
+                    </div>
+                    <button onclick="showQuote(4)" class="bg-zinc-800 hover:bg-green-600 hover:text-zinc-950 text-green-400 text-xs font-bold px-3 py-1.5 rounded-lg transition-all">
+                        Open 🔓
+                    </button>
+                </div>
+                <p id="quote-4" class="hidden mt-3 text-xs text-zinc-300 bg-zinc-950/60 p-3 rounded-xl border border-green-500/30 leading-relaxed italic"></p>
+            </div>
+
+            {/* Item 5 */}
+            <div class="card-3d bg-zinc-900/70 border border-zinc-800 rounded-2xl p-4">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <span class="text-[10px] text-green-400 font-semibold tracking-wider">03:00 PM - 07:00 PM</span>
+                        <h3 class="text-sm font-bold text-zinc-100">Academy Sessions</h3>
+                    </div>
+                    <button onclick="showQuote(5)" class="bg-zinc-800 hover:bg-green-600 hover:text-zinc-950 text-green-400 text-xs font-bold px-3 py-1.5 rounded-lg transition-all">
+                        Open 🔓
+                    </button>
+                </div>
+                <p id="quote-5" class="hidden mt-3 text-xs text-zinc-300 bg-zinc-950/60 p-3 rounded-xl border border-green-500/30 leading-relaxed italic"></p>
+            </div>
+
+            {/* Item 6 */}
+            <div class="card-3d bg-zinc-900/70 border border-zinc-800 rounded-2xl p-4">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <span class="text-[10px] text-green-400 font-semibold tracking-wider">08:00 PM</span>
+                        <h3 class="text-sm font-bold text-zinc-100">Dinner, Break & Mobile</h3>
+                    </div>
+                    <button onclick="showQuote(6)" class="bg-zinc-800 hover:bg-green-600 hover:text-zinc-950 text-green-400 text-xs font-bold px-3 py-1.5 rounded-lg transition-all">
+                        Open 🔓
+                    </button>
+                </div>
+                <p id="quote-6" class="hidden mt-3 text-xs text-zinc-300 bg-zinc-950/60 p-3 rounded-xl border border-green-500/30 leading-relaxed italic"></p>
+            </div>
+
+            {/* Item 7 */}
+            <div class="card-3d bg-zinc-900/70 border border-zinc-800 rounded-2xl p-4">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <span class="text-[10px] text-green-400 font-semibold tracking-wider">09:00 PM - 10:00 PM</span>
+                        <h3 class="text-sm font-bold text-zinc-100">Light Revision Time</h3>
+                    </div>
+                    <button onclick="showQuote(7)" class="bg-zinc-800 hover:bg-green-600 hover:text-zinc-950 text-green-400 text-xs font-bold px-3 py-1.5 rounded-lg transition-all">
+                        Open 🔓
+                    </button>
+                </div>
+                <p id="quote-7" class="hidden mt-3 text-xs text-zinc-300 bg-zinc-950/60 p-3 rounded-xl border border-green-500/30 leading-relaxed italic"></p>
+            </div>
+
+            {/* Item 8 */}
+            <div class="card-3d bg-zinc-900/70 border border-zinc-800 rounded-2xl p-4">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <span class="text-[10px] text-green-400 font-semibold tracking-wider">10:30 PM</span>
+                        <h3 class="text-sm font-bold text-zinc-100">Deep Peaceful Sleep</h3>
+                    </div>
+                    <button onclick="showQuote(8)" class="bg-zinc-800 hover:bg-green-600 hover:text-zinc-950 text-green-400 text-xs font-bold px-3 py-1.5 rounded-lg transition-all">
+                        Open 🔓
+                    </button>
+                </div>
+                <p id="quote-8" class="hidden mt-3 text-xs text-zinc-300 bg-zinc-950/60 p-3 rounded-xl border border-green-500/30 leading-relaxed italic"></p>
             </div>
 
         </div>
 
-        <!-- Footer / Vibe Note -->
-        <footer class="text-center text-xs text-slate-500 py-4">
-            Custom-built 3D Workspace for Bushra Sultan ⚡ Stay Focused, Stay Creative.
+        {/* Extra Long Section: Creative Hustle Log */}
+        <div class="card-3d bg-zinc-900/70 border border-zinc-800 rounded-3xl p-5 space-y-3">
+            <h2 class="text-sm font-bold text-zinc-200 uppercase tracking-wider flex items-center gap-2">
+                <span>🚀</span> Creative & Business Vault
+            </h2>
+            <p class="text-xs text-zinc-400 leading-relaxed">
+                Remember Bushra, every single line you write for your novels and every graphic design order you manage builds your independent empire. Do not let temporary laziness steal your permanent success!
+            </p>
+            <button onclick="showBonusQuote()" class="w-full bg-zinc-800 hover:bg-zinc-700 text-green-400 text-xs font-bold py-2.5 rounded-xl border border-green-500/30 transition-all">
+                Unlock Extra Motivation ✨
+            </button>
+            <div id="bonus-msg" class="text-xs text-green-300 font-medium italic mt-2 leading-relaxed"></div>
+        </div>
+
+        {/* Footer Note */}
+        <footer class="text-center text-[10px] text-zinc-500 pt-4">
+            Designed exclusively for Bushra Sultan 🌿 Zinc & Green Edition.
         </footer>
 
     </div>
 
     <script>
-        const quotes = [
-            "Yawrr, utho! Procrastination chorou aur designs/stories par lag jao!",
-            "Bore hone ka koi scene nahi hai! Boss level achievements unlock karni hain abhi!",
-            "Socho mat, execute karo! Bushra, you've got this! 🔥",
-            "Ajj ka kaam kal par mat choro, warna deadline rula degi! Let's gooo!",
-            "Focus level 100% on! Phone side par rakho aur hustle shuru karo!"
+        // Long English Motivational Lines for each specific task button
+        const taskQuotes = {
+            1: "“The morning breeze has secrets to tell you. Do not go back to sleep. Waking up for Fajr is your first victory of the day over your own comfort zone. Win the morning, win the entire battlefield of life!”",
+            2: "“Nourishing your soul with Tilawat and refreshing your body with a brisk walk is the ultimate secret recipe for high performance. A sharp mind lives in an active body—keep moving forward!”",
+            3: "“School hours are not just classes; they are the stepping stones of your future mastery. Absorb every concept, stay completely locked in, and prove to yourself that your potential has no ceiling.”",
+            4: "“Recharge your energy with intention! A mindful break lets you reset your momentum so you can dive back into your afternoon challenges with total clarity and unstoppable power.”",
+            5: "“Four solid hours at the academy require supreme mental grit. Do not let distractions creep in. Push through every single complex problem because the mastery you build today will define your absolute greatness tomorrow.”",
+            6: "“You have earned this peaceful break! Enjoy your dinner, relax your mind, and let your creativity breathe before the final stretch of the evening.”",
+            7: "“Light revision at night seals your knowledge into permanent memory. Reviewing what you learned today makes tomorrow a hundred times easier. Small daily habits create monumental achievements.”",
+            8: "“A restful, deep sleep is the reward of an honest day's hard work. Rest well, recover your strength, and prepare to wake up tomorrow even more unstoppable than today. Good night!”"
+        };
+
+        const globalQuotes = [
+            "“Yawrr, wake up! Procrastination is a thief of time, and you have an empire to build! Stop scrolling, open your books or design tools, and let your actions speak louder than any excuse. You've got this!”",
+            "“Look at how far you've come! Giving up right now is not an option for someone as talented and focused as Bushra. Stand up, shake off the laziness, and crush your goals with 100% intensity right this second!”",
+            "“Greatness is never handed to anyone on a silver platter; it is forged through intense daily hustle. Channel your inner power, silence the doubts, and make today legendary!”"
         ];
 
-        function triggerMotivation() {
-            const randomIndex = Math.floor(Math.random() * quotes.length);
-            const textEl = document.getElementById("motivation-text");
-            textEl.style.opacity = 0;
+        const bonusQuotes = [
+            "“Your episodic thrillers and graphic design business are proof of your limitless creative energy. Keep creating, keep innovating, and never let anyone make you doubt the scale of your ambitions!”",
+            "“Every single project you finish brings you closer to your ultimate dreams. Stay consistent when no one is watching, because your future self is banking entirely on what you do right now.”"
+        ];
+
+        function showQuote(id) {
+            // Hide all other quotes first for neatness
+            for(let i=1; i<=8; i++) {
+                let el = document.getElementById(`quote-${i}`);
+                if(i === id) {
+                    el.classList.toggle('hidden');
+                    el.innerText = taskQuotes[id];
+                } else {
+                    el.classList.add('hidden');
+                }
+            }
+        }
+
+        function triggerGlobalMotivation() {
+            const randomMsg = globalQuotes[Math.floor(Math.random() * globalQuotes.length)];
+            const msgEl = document.getElementById("global-msg");
+            msgEl.style.opacity = 0;
             setTimeout(() => {
-                textEl.innerText = quotes[randomIndex];
-                textEl.style.opacity = 1;
-            }, 150);
+                msgEl.innerText = randomMsg;
+                msgEl.style.opacity = 1;
+            }, 100);
+        }
+
+        function showBonusQuote() {
+            const randomBonus = bonusQuotes[Math.floor(Math.random() * bonusQuotes.length)];
+            const bonusEl = document.getElementById("bonus-msg");
+            bonusEl.innerText = randomBonus;
         }
     </script>
 </body>
-            </html>
+</html>
+
                         
 
 
