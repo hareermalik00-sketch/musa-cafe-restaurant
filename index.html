@@ -1,449 +1,261 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bushra Sultan - 3D App Zone</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Three.js (3D Books & Particles Engine) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <!-- Vanilla Tilt (3D Interactive Cards) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
-    
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            user-select: none;
-        }
-
-        html, body {
-            width: 100%;
-            min-height: 100vh;
-            background-color: #050807;
-            color: #f4f4f5;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            overflow-x: hidden;
-        }
-
-        /* 3D Canvas Background */
-        #canvas-3d {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        /* Glassmorphism 3D Style */
-        .glass-card {
-            background: rgba(12, 20, 16, 0.82);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(34, 197, 94, 0.25);
-            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.9), 0 0 15px rgba(34, 197, 94, 0.15);
-        }
-
-        .neon-glow-text {
-            text-shadow: 0 0 15px rgba(34, 197, 94, 0.8), 0 0 30px rgba(34, 197, 94, 0.4);
-        }
-
-        /* Splash Screen Game Intro Animation */
-        #splash-screen {
-            position: fixed;
-            inset: 0;
-            background: #050807;
-            z-index: 100;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
-        }
-
-        .fade-out {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        /* Modal Popup Animation */
-        .modal-active {
-            opacity: 1 !important;
-            pointer-events: auto !important;
-            transform: scale(1) translateY(0) !important;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mall of Layyah | Premium 3D Shopping Experience</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{ --gold:#C9A86A; --gold-dark:#B8965A; --charcoal:#1A1A1A; --offwhite:#FAF8F5; }
+body{ font-family:'Inter',sans-serif; background:var(--offwhite); }
+h1,h2,h3{ font-family:'Playfair Display',serif; }
+.gold-gradient{ background: linear-gradient(135deg, #D4AF37 0%, #C9A86A 50%, #B8965A 100%); }
+.glass{ backdrop-filter: blur(16px); background: rgba(255,255,255,0.8); border:1px solid rgba(201,168,106,0.2); }
+.drone-overlay{ background: radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.8) 100%); }
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+.float{ animation: float 4s ease-in-out infinite; }
+</style>
 </head>
-<body class="relative flex flex-col items-center">
+<body class="text-[#1A1A1A]">
 
-    <!-- GAME SPLASH INTRO SCREEN -->
-    <div id="splash-screen">
-        <div class="text-center space-y-3 px-6">
-            <span class="inline-block text-4xl animate-bounce">⚡</span>
-            <h1 class="text-3xl md:text-4xl font-extrabold text-emerald-400 neon-glow-text tracking-wider">Bushra Sultan</h1>
-            <p class="text-xs text-zinc-400 uppercase tracking-widest font-semibold">Loading 3D Elite Command App...</p>
-            <div class="w-48 h-1.5 bg-zinc-800 rounded-full mx-auto overflow-hidden mt-4">
-                <div id="loading-bar" class="h-full bg-emerald-500 w-0 transition-all duration-700"></div>
-            </div>
-        </div>
+<!-- CINEMATIC DRONE INTRO -->
+<div id="intro" class="fixed inset-0 z-[999] bg-black flex items-center justify-center overflow-hidden">
+  <img src="https://images.unsplash.com/photo-1519567241046-7f570eee3a33?q=80&w=2000" class="absolute inset-0 w-full h-full object-cover scale-125" id="droneImg">
+  <div class="drone-overlay absolute inset-0"></div>
+  <div class="relative z-10 text-center text-white p-6" id="introText">
+    <p class="tracking-[0.4em] text-[#C9A86A] text-sm mb-4">CINEMATIC DRONE VIEW</p>
+    <h1 class="text-6xl md:text-8xl font-extrabold leading-none">MALL OF<br><span class="text-[#C9A86A]">LAYYAH</span></h1>
+    <p class="mt-6 text-white/70 max-w-md mx-auto">Real Architecture • Luxury Shopping • Ghar Baithe Shopping</p>
+    <button onclick="enterMall()" class="mt-10 px-10 py-4 gold-gradient text-black font-bold rounded-full hover:scale-105 transition">ENTER MALL ✨</button>
+  </div>
+</div>
+
+<!-- TOP BAR -->
+<div class="bg-[#1A1A1A] text-white text-[12px] py-2 px-6 flex justify-between">
+  <span>📞 Help: <b class="text-[#C9A86A]">03007419633</b> | 10AM - 10PM Open</span>
+  <span class="hidden md:block">Cash on Delivery Available in Layyah • Free Delivery on Rs.5000+</span>
+</div>
+
+<!-- HEADER -->
+<header class="sticky top-0 z-50 glass">
+  <div class="max-w-[1400px] mx-auto px-6 py-4 flex items-center justify-between">
+    <h2 class="text-2xl font-extrabold tracking-tight">MALL OF <span class="text-[#C9A86A]">LAYYAH</span></h2>
+    <div class="hidden lg:flex gap-8 text-sm font-medium">
+      <a href="#stores" class="hover:text-[#C9A86A]">Stores</a>
+      <a href="#products" class="hover:text-[#C9A86A]">Shop Online</a>
+      <a href="#explore" class="hover:text-[#C9A86A]">Explore 3D</a>
+      <a href="#food" class="hover:text-[#C9A86A]">Food Court</a>
     </div>
-
-    <!-- REAL 3D CANVAS BACKGROUND -->
-    <canvas id="canvas-3d"></canvas>
-
-    <!-- MAIN APP MOBILE CONTAINER -->
-    <main class="w-full max-w-md min-h-screen px-4 py-6 relative z-10 space-y-5 pb-20">
-
-        <!-- APP HEADER & DYNAMIC MOOD SELECTOR -->
-        <header class="glass-card rounded-3xl p-5 text-center card-3d relative overflow-hidden" data-tilt data-tilt-max="10">
-            <div class="flex justify-between items-center mb-3">
-                <span class="bg-emerald-500/15 text-emerald-400 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-emerald-500/30">
-                    🟢 App Active v3.0
-                </span>
-                <span id="live-time" class="text-[10px] text-zinc-400 font-mono"></span>
-            </div>
-
-            <h1 class="text-2xl font-extrabold text-white neon-glow-text">Bushra Sultan's Zone</h1>
-            
-            {/* Dynamic Mood Bar */}
-            <div class="mt-4 pt-3 border-t border-zinc-800">
-                <p class="text-[11px] text-zinc-400 mb-2 font-medium">How are you feeling right now? Tap your mood:</p>
-                <div class="grid grid-cols-4 gap-2">
-                    <button onclick="setMood('bored')" class="bg-zinc-900 hover:bg-emerald-500 hover:text-zinc-950 text-emerald-400 border border-emerald-500/20 text-[11px] font-bold py-2 rounded-xl transition-all">
-                        Bored 🥱
-                    </button>
-                    <button onclick="setMood('lazy')" class="bg-zinc-900 hover:bg-emerald-500 hover:text-zinc-950 text-emerald-400 border border-emerald-500/20 text-[11px] font-bold py-2 rounded-xl transition-all">
-                        Lazy 🔋
-                    </button>
-                    <button onclick="setMood('stressed')" class="bg-zinc-900 hover:bg-emerald-500 hover:text-zinc-950 text-emerald-400 border border-emerald-500/20 text-[11px] font-bold py-2 rounded-xl transition-all">
-                        Stressed 🌪️
-                    </button>
-                    <button onclick="setMood('hustle')" class="bg-zinc-900 hover:bg-emerald-500 hover:text-zinc-950 text-emerald-400 border border-emerald-500/20 text-[11px] font-bold py-2 rounded-xl transition-all">
-                        Hustle 🔥
-                    </button>
-                </div>
-            </div>
-
-            <div id="mood-output" class="mt-3 text-xs text-emerald-300 font-medium italic bg-zinc-950/70 p-3 rounded-2xl border border-emerald-500/30 text-left leading-relaxed">
-                "Welcome back, Bushra! Select your mood above or tap any timetable slot below to unlock fresh motivation."
-            </div>
-        </header>
-
-        {/* TIMETABLE HEADER */}
-        <div class="flex items-center justify-between px-1">
-            <h2 class="text-xs font-extrabold text-emerald-400 uppercase tracking-widest flex items-center gap-2">
-                <span>📅</span> Master Daily Timetable
-            </h2>
-            <span class="text-[10px] bg-zinc-900 border border-emerald-500/20 text-zinc-400 px-2.5 py-1 rounded-full">Tap to Open</span>
-        </div>
-
-        {/* TIMETABLE CARDS LIST (Exact User Schedule) */}
-        <div class="space-y-3">
-
-            <!-- 1. FAJR -->
-            <div class="glass-card rounded-2xl p-4 flex items-center justify-between gap-3" data-tilt data-tilt-max="6">
-                <div>
-                    <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">04:30 AM</span>
-                    <h3 class="text-sm font-bold text-zinc-100">Fajr Prayer</h3>
-                </div>
-                <button onclick="openModal('fajr')" class="bg-emerald-500/10 hover:bg-emerald-500 text-emerald-400 hover:text-zinc-950 border border-emerald-500/30 text-xs font-bold px-3.5 py-2 rounded-xl transition-all">
-                    Open 🔓
-                </button>
-            </div>
-
-            <!-- 2. TILAWAT & WALK -->
-            <div class="glass-card rounded-2xl p-4 flex items-center justify-between gap-3" data-tilt data-tilt-max="6">
-                <div>
-                    <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Morning Routine</span>
-                    <h3 class="text-sm font-bold text-zinc-100">Tilawat & 20 Mins Walk</h3>
-                </div>
-                <button onclick="openModal('walk')" class="bg-emerald-500/10 hover:bg-emerald-500 text-emerald-400 hover:text-zinc-950 border border-emerald-500/30 text-xs font-bold px-3.5 py-2 rounded-xl transition-all">
-                    Open 🔓
-                </button>
-            </div>
-
-            <!-- 3. SCHOOL -->
-            <div class="glass-card rounded-2xl p-4 flex items-center justify-between gap-3" data-tilt data-tilt-max="6">
-                <div>
-                    <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">08:00 AM - 01:30 PM</span>
-                    <h3 class="text-sm font-bold text-zinc-100">School Hours</h3>
-                </div>
-                <button onclick="openModal('school')" class="bg-emerald-500/10 hover:bg-emerald-500 text-emerald-400 hover:text-zinc-950 border border-emerald-500/30 text-xs font-bold px-3.5 py-2 rounded-xl transition-all">
-                    Open 🔓
-                </button>
-            </div>
-
-            <!-- 4. LUNCH & FRESH -->
-            <div class="glass-card rounded-2xl p-4 flex items-center justify-between gap-3" data-tilt data-tilt-max="6">
-                <div>
-                    <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Midday Break</span>
-                    <h3 class="text-sm font-bold text-zinc-100">Back Home, Lunch & Fresh</h3>
-                </div>
-                <button onclick="openModal('lunch')" class="bg-emerald-500/10 hover:bg-emerald-500 text-emerald-400 hover:text-zinc-950 border border-emerald-500/30 text-xs font-bold px-3.5 py-2 rounded-xl transition-all">
-                    Open 🔓
-                </button>
-            </div>
-
-            <!-- 5. ACADEMY -->
-            <div class="glass-card rounded-2xl p-4 flex items-center justify-between gap-3" data-tilt data-tilt-max="6">
-                <div>
-                    <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">03:00 PM - 07:00 PM</span>
-                    <h3 class="text-sm font-bold text-zinc-100">Academy Sessions</h3>
-                </div>
-                <button onclick="openModal('academy')" class="bg-emerald-500/10 hover:bg-emerald-500 text-emerald-400 hover:text-zinc-950 border border-emerald-500/30 text-xs font-bold px-3.5 py-2 rounded-xl transition-all">
-                    Open 🔓
-                </button>
-            </div>
-
-            <!-- 6. DINNER & MOBILE -->
-            <div class="glass-card rounded-2xl p-4 flex items-center justify-between gap-3" data-tilt data-tilt-max="6">
-                <div>
-                    <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">08:00 PM</span>
-                    <h3 class="text-sm font-bold text-zinc-100">Dinner Break & Mobile Time</h3>
-                </div>
-                <button onclick="openModal('dinner')" class="bg-emerald-500/10 hover:bg-emerald-500 text-emerald-400 hover:text-zinc-950 border border-emerald-500/30 text-xs font-bold px-3.5 py-2 rounded-xl transition-all">
-                    Open 🔓
-                </button>
-            </div>
-
-            <!-- 7. REVISION -->
-            <div class="glass-card rounded-2xl p-4 flex items-center justify-between gap-3" data-tilt data-tilt-max="6">
-                <div>
-                    <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">09:00 PM - 10:00 PM</span>
-                    <h3 class="text-sm font-bold text-zinc-100">Light Revision</h3>
-                </div>
-                <button onclick="openModal('revision')" class="bg-emerald-500/10 hover:bg-emerald-500 text-emerald-400 hover:text-zinc-950 border border-emerald-500/30 text-xs font-bold px-3.5 py-2 rounded-xl transition-all">
-                    Open 🔓
-                </button>
-            </div>
-
-            <!-- 8. SLEEP -->
-            <div class="glass-card rounded-2xl p-4 flex items-center justify-between gap-3" data-tilt data-tilt-max="6">
-                <div>
-                    <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">10:30 PM</span>
-                    <h3 class="text-sm font-bold text-zinc-100">Deep Sleep</h3>
-                </div>
-                <button onclick="openModal('sleep')" class="bg-emerald-500/10 hover:bg-emerald-500 text-emerald-400 hover:text-zinc-950 border border-emerald-500/30 text-xs font-bold px-3.5 py-2 rounded-xl transition-all">
-                    Open 🔓
-                </button>
-            </div>
-
-        </div>
-
-        <!-- FOOTER -->
-        <footer class="text-center text-[11px] text-zinc-500 pt-4">
-            Bushra Sultan 3D App Edition 🌿 Built for Elite Execution.
-        </footer>
-
-    </main>
-
-    <!-- 3D POPUP MODAL -->
-    <div id="modal-overlay" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300">
-        <div class="glass-card w-full max-w-sm rounded-3xl p-6 text-center space-y-4 border border-emerald-500/40 shadow-[0_0_50px_rgba(34,197,94,0.3)] transform scale-90 translateY-4 transition-all duration-300">
-            <span class="text-3xl">✨</span>
-            <h3 id="modal-title" class="text-base font-extrabold text-emerald-400 uppercase tracking-wider">Fresh Wisdom</h3>
-            <p id="modal-text" class="text-xs text-zinc-200 leading-relaxed italic bg-zinc-950/70 p-4 rounded-2xl border border-emerald-500/20 text-left"></p>
-            <button onclick="closeModal()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-black py-2.5 rounded-xl text-xs uppercase tracking-wide transition-all">
-                Let's Go! Back To Work 🚀
-            </button>
-        </div>
+    <div class="flex items-center gap-3">
+      <div class="relative"><input id="search" placeholder="Search..." class="w-40 md:w-64 px-4 py-2.5 rounded-full bg-white border border-[#E8E0D0] text-sm"><span class="absolute right-3 top-2.5">🔍</span></div>
+      <button onclick="toggleCart()" class="relative w-11 h-11 rounded-full bg-black text-white">🛒<span id="cartCount" class="absolute -top-1 -right-1 bg-[#C9A86A] text-black text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold">0</span></button>
     </div>
+  </div>
+</header>
 
-    <!-- SCRIPT LOGIC (Dynamic Random Quotes & Three.js 3D Books) -->
-    <script>
-        // Splash Screen Loading Simulation
-        window.addEventListener('DOMContentLoaded', () => {
-            const bar = document.getElementById('loading-bar');
-            setTimeout(() => { bar.style.width = '70%'; }, 200);
-            setTimeout(() => { 
-                bar.style.width = '100%';
-                setTimeout(() => {
-                    document.getElementById('splash-screen').classList.add('fade-out');
-                }, 300);
-            }, 800);
-        });
+<!-- HERO 3D -->
+<section class="max-w-[1400px] mx-auto px-6 py-12 grid lg:grid-cols-2 gap-10 items-center">
+  <div>
+    <span class="inline-block px-4 py-1 rounded-full border border-[#C9A86A] text-[#C9A86A] text-xs tracking-widest mb-4">PREMIUM LUXURY MALL EXPERIENCE</span>
+    <h1 class="text-5xl lg:text-7xl font-extrabold leading-[0.9]">Ghar Baithe<br><span class="text-[#C9A86A]">Shopping</span><br>Karen</h1>
+    <p class="mt-6 text-gray-500 max-w-lg">Mall of Layyah ka complete online version. Real stores, real products, 3D explore, add to cart or ghar pe delivery — Call: 03007419633</p>
+    <div class="mt-8 flex gap-4">
+      <button onclick="document.getElementById('explore').scrollIntoView({behavior:'smooth'})" class="px-8 py-4 gold-gradient rounded-full font-bold shadow-lg">Explore Mall 3D</button>
+      <button onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})" class="px-8 py-4 bg-white border border-black rounded-full font-bold">Shop Online</button>
+    </div>
+    <div class="mt-10 flex gap-10">
+      <div><b class="text-2xl">50+</b><p class="text-xs text-gray-400">Stores</p></div>
+      <div><b class="text-2xl">1000+</b><p class="text-xs text-gray-400">Products</p></div>
+      <div><b class="text-2xl">03007419633</b><p class="text-xs text-gray-400">Helpline</p></div>
+    </div>
+  </div>
+  <div class="relative h-[600px] rounded-[2.5rem] overflow-hidden bg-white shadow-2xl border border-[#F0E6D3]">
+    <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?q=80&w=1000" class="absolute inset-0 w-full h-full object-cover">
+    <div class="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent"></div>
+    <div class="absolute bottom-6 left-6 right-6 glass rounded-[1.5rem] p-5 flex gap-4 items-center">
+      <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=200" class="w-20 h-20 rounded-xl object-cover">
+      <div><p class="text-xs text-[#C9A86A]">LIVE FROM MALL</p><b>Ground Floor Entrance - 3D View</b><p class="text-xs text-gray-500 mt-1">Mouse move pe 3D parallax</p></div>
+    </div>
+    <div class="absolute top-10 right-10 w-24 h-24 rounded-full bg-[#C9A86A]/20 blur-2xl float"></div>
+  </div>
+</section>
 
-        // Dynamic Random Quotations Pools for Every App Launch / Mood
-        const moodQuotes = {
-            bored: [
-                "“Yawrr, boredom is just an illusion when you have an empire to construct! Stop staring at the blank screen, open your notes or design software, and create something legendary right now!”",
-                "“Feeling bored? That means your brain is craving a challenge! Dive into your writing projects or graphic design orders and watch how instantly your boredom vanishes into pure productivity.”",
-                "“Boredom is the playground of lazy thoughts. Chase your big goals with 100% intensity—Bushra, you have too much talent to waste a single minute feeling idle!”"
-            ],
-            lazy: [
-                "“Yawrr, wake up! Laziness is a silent thief stealing your future success. Stand up, stretch your body, take a deep breath, and show everyone what your true potential looks like!”",
-                "“Comfort zones never built any empires. Shake off that heaviness, open your books, and let your actions speak louder than any excuse today!”",
-                "“The distance between who you are and who you want to be is bridged by hard work, not laziness. Get up and crush your routine right this second!”"
-            ],
-            stressed: [
-                "“Take a deep breath, Bushra! You are handling school, academy, writing, and design businesses like an absolute boss. One step at a time—you've got complete control over this!”",
-                "“Stress happens when you look at the whole mountain at once. Just focus on the next single step. You are stronger than any obstacle standing in your way!”"
-            ],
-            hustle: [
-                "“Elite mode activated! Your focus is unmatched right now. Channel this massive energy into your studies, novels, and designs. Let's make today an absolute masterclass in productivity!”",
-                "“Unstoppable momentum! When you are in the hustle zone, nothing can distract you. Keep pushing forward and lock in your greatness!”"
-            ]
-        };
+<!-- CATEGORIES -->
+<section id="categories" class="max-w-[1400px] mx-auto px-6 py-10">
+  <h2 class="text-3xl font-bold mb-6">Shop by Category</h2>
+  <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4" id="catGrid"></div>
+</section>
 
-        const taskQuotesData = {
-            fajr: [
-                "“Waking up for Fajr at 04:30 AM is your ultimate victory over sleep! Winning the morning gives you an unfair advantage over the rest of the world. Dominate your day right from the start!”",
-                "“The quiet of dawn holds secret powers for your soul and focus. Fajr is your spiritual armor—wear it proudly and step into your day as a champion!”"
-            ],
-            walk: [
-                "“Tilawat cleanses your heart while a 20-minute morning walk sharpens your brain. A brilliant mind needs an active body. Keep moving forward toward your dreams!”",
-                "“Fresh morning air and sacred verses are the ultimate recipe for high-performance thinking. Energize your system and get ready to conquer your classes!”"
-            ],
-            school: [
-                "“School hours are your intellectual training ground. Absorb every concept with complete curiosity and prove to yourself that your academic potential has no ceiling!”",
-                "“Stay locked in during school! Every lesson you master today becomes a tool for your independent empire tomorrow.”"
-            ],
-            lunch: [
-                "“Midday recharge! Eat well, hydrate, and clear your mental slate. You are resetting your energy for the powerful second half of your day.”",
-                "“A smart break prevents burnout. Refresh your mind so you can return to your afternoon challenges with total clarity and vigor.”"
-            ],
-            academy: [
-                "“Four solid hours at the academy (3:00 PM to 7:00 PM) require supreme grit. Push through every complex problem because champions are forged in these exact tough hours!”",
-                "“Do not let afternoon fatigue slow you down. Stay focused, solve every problem, and make these academy hours count toward your ultimate success!”"
-            ],
-            dinner: [
-                "“You've earned this peaceful evening break! Enjoy your dinner, check your mobile, and let your creativity breathe before the final revision stretch.”",
-                "“A well-balanced evening break relaxes your nervous system so you can finish your day's tasks with a clear and happy mind.”"
-            ],
-            revision: [
-                "“Night revision locks today's knowledge into permanent memory. Just one focused hour now makes tomorrow effortless. Small daily habits create monumental success!”",
-                "“Reviewing your lessons at night is the secret weapon of top achievers. Secure your knowledge before you sleep!”"
-            ],
-            sleep: [
-                "“10:30 PM is time to shut down all screens and grant your mind deep, restorative recovery. Rest well so you can wake up tomorrow at 4:30 AM unstoppable. Good night!”",
-                "“A peaceful sleep is the sweet reward of an honest day's hustle. Recharge your strength for an even greater tomorrow!”"
-            ]
-        };
+<!-- STORES -->
+<section id="stores" class="max-w-[1400px] mx-auto px-6 py-12">
+  <div class="flex justify-between items-end mb-6"><h2 class="text-4xl font-bold">Featured Stores</h2><p class="text-sm text-gray-400">All stores support online order via 03007419633</p></div>
+  <div class="grid md:grid-cols-4 gap-5" id="storeGrid"></div>
+</section>
 
-        function setMood(moodKey) {
-            const list = moodQuotes[moodKey];
-            const randomMsg = list[Math.floor(Math.random() * list.length)];
-            const output = document.getElementById('mood-output');
-            output.style.opacity = 0;
-            setTimeout(() => {
-                output.innerText = randomMsg;
-                output.style.opacity = 1;
-            }, 150);
-        }
+<!-- PRODUCTS -->
+<section id="products" class="bg-white py-16 border-y border-[#F0E6D3]">
+  <div class="max-w-[1400px] mx-auto px-6">
+    <h2 class="text-4xl font-bold mb-8">Featured Products • New Arrivals</h2>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6" id="productGrid"></div>
+  </div>
+</section>
 
-        function openModal(taskKey) {
-            const list = taskQuotesData[taskKey];
-            // Pick a random quote every single time it's opened!
-            const randomMsg = list[Math.floor(Math.random() * list.length)];
-            
-            document.getElementById('modal-title').innerText = "⚡ Fresh Motivation (" + taskKey.toUpperCase() + ")";
-            document.getElementById('modal-text').innerText = randomMsg;
-            document.getElementById('modal-overlay').classList.add('modal-active');
-        }
+<!-- EXPLORE 3D -->
+<section id="explore" class="max-w-[1400px] mx-auto px-6 py-16">
+  <h2 class="text-4xl font-bold">Explore The Mall — Interactive 3D</h2>
+  <div class="mt-8 grid lg:grid-cols-3 gap-6">
+    <div class="lg:col-span-2 h-[500px] bg-[#1A1A1A] rounded-[2rem] p-6 relative overflow-hidden">
+      <div class="flex gap-2 mb-6">
+        <button onclick="setFloor('GF')" id="btnGF" class="px-5 py-2 rounded-full bg-[#C9A86A] text-black font-bold text-sm">Ground Floor</button>
+        <button onclick="setFloor('FF')" id="btnFF" class="px-5 py-2 rounded-full bg-white/10 text-white text-sm">First Floor</button>
+        <button onclick="setFloor('SF')" id="btnSF" class="px-5 py-2 rounded-full bg-white/10 text-white text-sm">Second Floor</button>
+      </div>
+      <div id="floorMap" class="grid grid-cols-3 gap-3"></div>
+      <p class="absolute bottom-4 left-6 text-[10px] text-white/40 tracking-widest">MALL OF LAYYAH • REAL FLOOR PLAN • ELEVATORS • FOOD COURT • KIDS AREA • PARKING</p>
+    </div>
+    <div class="bg-white rounded-[2rem] p-8 border border-[#F0E6D3]">
+      <h3 class="font-bold text-xl">Visit Info</h3>
+      <p class="mt-4 text-sm text-gray-500">📍 Mall of Layyah, Main Road, Layyah, Punjab<br>📞 03007419633<br>🕒 10AM - 10PM Daily<br>🅿️ Parking Available<br>🛗 Elevator / Lift / Food Court / Kids Zone</p>
+      <img src="https://images.unsplash.com/photo-1555529771-7888783a18d3?q=80&w=600" class="mt-6 rounded-2xl w-full h-40 object-cover">
+      <button onclick="window.open('tel:03007419633')" class="mt-6 w-full py-3 gold-gradient rounded-full font-bold">Call 03007419633</button>
+    </div>
+  </div>
+</section>
 
-        function closeModal() {
-            document.getElementById('modal-overlay').classList.remove('modal-active');
-        }
+<!-- CART DRAWER -->
+<div id="cartDrawer" class="fixed inset-0 z-[80] hidden"><div class="absolute inset-0 bg-black/40" onclick="toggleCart()"></div>
+<div class="absolute right-0 top-0 h-full w-[420px] max-w-[90vw] bg-white shadow-2xl p-6 flex flex-col">
+  <div class="flex justify-between items-center"><h3 class="text-2xl font-bold">Your Cart</h3><button onclick="toggleCart()" class="w-9 h-9 rounded-full bg-black text-white">✕</button></div>
+  <div id="cartItems" class="mt-6 flex-1 overflow-auto space-y-4"></div>
+  <div class="border-t pt-4 space-y-2 text-sm"><div class="flex justify-between"><span>Subtotal</span><span id="subtotal">Rs.0</span></div><div class="flex justify-between"><span>Delivery</span><span>Rs.150</span></div><div class="flex justify-between font-bold text-lg"><span>Total</span><span id="total">Rs.150</span></div></div>
+  <button onclick="checkout()" class="mt-4 w-full py-4 gold-gradient rounded-full font-bold">Checkout • Cash on Delivery</button>
+  <p class="text-[11px] text-center mt-3 text-gray-400">Order Confirm: 03007419633 pe call ayegi</p>
+</div></div>
 
-        // Live Clock in Header
-        function updateClock() {
-            const now = new Date();
-            let timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            document.getElementById('live-time').innerText = timeString;
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
+<!-- CHECKOUT MODAL -->
+<div id="checkoutModal" class="fixed inset-0 z-[90] hidden items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeCheckout()"></div>
+<div class="relative bg-white rounded-[2rem] w-full max-w-lg p-8">
+  <h3 class="text-2xl font-bold">Checkout</h3>
+  <input id="cName" placeholder="Full Name" class="mt-6 w-full px-4 py-3 rounded-full border">
+  <input id="cPhone" placeholder="Phone 03XX-XXXXXXX" class="mt-3 w-full px-4 py-3 rounded-full border">
+  <input id="cAddress" placeholder="Delivery Address, Layyah" class="mt-3 w-full px-4 py-3 rounded-full border">
+  <select class="mt-3 w-full px-4 py-3 rounded-full border"><option>Cash on Delivery</option><option>JazzCash</option><option>EasyPaisa</option></select>
+  <button onclick="placeOrder()" class="mt-6 w-full py-4 gold-gradient rounded-full font-bold">Place Order - 03007419633</button>
+</div></div>
 
-        // THREE.JS 3D FLOATING BOOKS BACKGROUND
-        const canvas = document.getElementById('canvas-3d');
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+<footer class="bg-[#111] text-white py-12 text-center"><h2 class="text-3xl font-bold">MALL OF <span class="text-[#C9A86A]">LAYYAH</span></h2><p class="mt-3 text-white/50 text-sm">Premium Online Mall • 03007419633 • Layyah, Pakistan</p></footer>
 
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+<script>
+const categories = [
+ {name:"Fashion", img:"https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=400"},
+ {name:"Shoes", img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=400"},
+ {name:"Beauty", img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=400"},
+ {name:"Electronics", img:"https://images.unsplash.com/photo-1498049794561-7780e7231666?q=80&w=400"},
+ {name:"Mobiles", img:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=400"},
+ {name:"Home", img:"https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=400"},
+ {name:"Furniture", img:"https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=400"},
+ {name:"Grocery", img:"https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=400"},
+ {name:"Kids & Toys", img:"https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?q=80&w=400"},
+ {name:"Jewelry", img:"https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=400"},
+ {name:"Bags", img:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=400"},
+ {name:"Sports", img:"https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=400"},
+ {name:"Gifts", img:"https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=400"},
+ {name:"Food", img:"https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=400"},
+ {name:"Offers", img:"https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=400"},
+ {name:"Baby", img:"https://images.unsplash.com/photo-1522771930-78848d9293e?q=80&w=400"},
+];
+const stores = [
+ {name:"StyleHub Fashion", cat:"Fashion", rating:"4.8", img:"https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=400"},
+ {name:"TechZone", cat:"Electronics", rating:"4.9", img:"https://images.unsplash.com/photo-1498049794561-7780e7231666?q=80&w=400"},
+ {name:"Beauty Palace", cat:"Beauty", rating:"4.7", img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=400"},
+ {name:"Kids World", cat:"Kids & Toys", rating:"4.8", img:"https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?q=80&w=400"},
+];
+const products = [
+ {id:1,name:"Premium Khaddar Kurta",price:2999,old:4500,store:"StyleHub",cat:"Fashion",img:"https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=600",rating:4.8},
+ {id:2,name:"Nike Air Sneakers",price:5499,old:7999,store:"Footwear Hub",cat:"Shoes",img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=600",rating:4.9},
+ {id:3,name:"Matte Lipstick Set 12pcs",price:1999,old:2999,store:"Beauty Palace",cat:"Beauty",img:"https://images.unsplash.com/photo-1586495777744-4413f21062fa?q=80&w=600",rating:4.7},
+ {id:4,name:"Wireless Earbuds Pro",price:3499,old:5999,store:"TechZone",cat:"Electronics",img:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=600",rating:4.8},
+ {id:5,name:"Kids Teddy Bear",price:1499,old:2199,store:"Kids World",cat:"Kids & Toys",img:"https://images.unsplash.com/photo-1551698618-1dfe5d97d256?q=80&w=600",rating:5.0},
+ {id:6,name:"Gold Plated Jhumka",price:899,old:1599,store:"Jewelry Corner",cat:"Jewelry",img:"https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=600",rating:4.6},
+ {id:7,name:"Leather Handbag",price:3999,old:5999,store:"StyleHub",cat:"Bags",img:"https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=600",rating:4.7},
+ {id:8,name:"Smart Watch Series 8",price:6999,old:10999,store:"TechZone",cat:"Electronics",img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600",rating:4.9},
+];
 
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
-        scene.add(ambientLight);
+let cart=[];
+const catGrid=document.getElementById('catGrid');
+categories.forEach(c=>{
+ catGrid.innerHTML+=`<div class="group bg-white rounded-[1.5rem] p-3 border border-[#F0E6D3] hover:shadow-xl hover:-translate-y-1 transition"><img src="${c.img}" class="w-full h-24 rounded-xl object-cover"><p class="mt-3 font-bold text-sm text-center">${c.name}</p></div>`;
+});
+const storeGrid=document.getElementById('storeGrid');
+stores.forEach(s=>{
+ storeGrid.innerHTML+=`<div class="bg-white rounded-[1.8rem] overflow-hidden border border-[#F0E6D3] shadow-sm"><img src="${s.img}" class="h-36 w-full object-cover"><div class="p-4"><p class="text-[11px] text-[#C9A86A] tracking-widest">${s.cat} • ⭐ ${s.rating}</p><b>${s.name}</b><button class="mt-3 w-full py-2.5 rounded-full bg-black text-white text-sm">Visit Store</button></div></div>`;
+});
+const productGrid=document.getElementById('productGrid');
+function renderProducts(list){
+ productGrid.innerHTML="";
+ list.forEach(p=>{
+  productGrid.innerHTML+=`<div class="bg-[#FAF8F5] rounded-[1.8rem] p-3 border border-[#F0E6D3] group hover:shadow-xl transition"><div class="relative overflow-hidden rounded-[1.2rem]"><img src="${p.img}" class="w-full h-56 object-cover group-hover:scale-105 transition duration-700"><span class="absolute top-3 left-3 bg-black text-white text-[11px] px-3 py-1 rounded-full">-${Math.round((1-p.price/p.old)*100)}% OFF</span></div><div class="p-3"><p class="text-[11px] text-[#C9A86A]">${p.store} • ⭐ ${p.rating}</p><b class="text-[15px] leading-tight block mt-1">${p.name}</b><div class="flex items-center gap-2 mt-2"><b>Rs.${p.price}</b><span class="text-xs line-through text-gray-400">Rs.${p.old}</span></div><button onclick="addToCart(${p.id})" class="mt-3 w-full py-2.5 gold-gradient rounded-full font-bold text-sm">Add to Cart</button></div></div>`;
+ });
+}
+renderProducts(products);
 
-        const pointLight = new THREE.PointLight(0x22c55e, 2, 50);
-        pointLight.position.set(0, 5, 5);
-        scene.add(pointLight);
-
-        const books = [];
-        function create3DBook() {
-            const bookGroup = new THREE.Group();
-            const coverGeo = new THREE.BoxGeometry(0.9, 1.2, 0.18);
-            const coverMat = new THREE.MeshStandardMaterial({ 
-                color: Math.random() > 0.5 ? 0x15803d : 0x065f46, 
-                roughness: 0.3 
-            });
-            const cover = new THREE.Mesh(coverGeo, coverMat);
-            bookGroup.add(cover);
-
-            const pagesGeo = new THREE.BoxGeometry(0.82, 1.12, 0.14);
-            const pagesMat = new THREE.MeshStandardMaterial({ color: 0xf4f4f5, roughness: 0.9 });
-            const pages = new THREE.Mesh(pagesGeo, pagesMat);
-            pages.position.x = 0.03;
-            bookGroup.add(pages);
-
-            return bookGroup;
-        }
-
-        for(let i = 0; i < 9; i++) {
-            const book = create3DBook();
-            book.position.x = (Math.random() - 0.5) * 12;
-            book.position.y = (Math.random() - 0.5) * 16;
-            book.position.z = (Math.random() - 0.5) * 8 - 2;
-            book.rotation.x = Math.random() * Math.PI;
-            book.rotation.y = Math.random() * Math.PI;
-
-            scene.add(book);
-            books.push({
-                mesh: book,
-                rotSpeedX: (Math.random() - 0.5) * 0.01,
-                rotSpeedY: (Math.random() - 0.5) * 0.01,
-            });
-        }
-
-        camera.position.z = 6;
-
-        let clock = new THREE.Clock();
-        function animate() {
-            requestAnimationFrame(animate);
-            let elapsedTime = clock.getElapsedTime();
-
-            books.forEach((b, index) => {
-                b.mesh.rotation.x += b.rotSpeedX;
-                b.mesh.rotation.y += b.rotSpeedY;
-                b.mesh.position.y += Math.sin(elapsedTime + index) * 0.003;
-            });
-
-            renderer.render(scene, camera);
-        }
-        animate();
-
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-
-        // Initialize 3D Tilt Cards
-        VanillaTilt.init(document.querySelectorAll(".glass-card"), {
-            max: 6,
-            speed: 400,
-            glare: true,
-            "max-glare": 0.15,
-        });
-    </script>
+function addToCart(id){
+ const p=products.find(x=>x.id===id);
+ const f=cart.find(x=>x.id===id);
+ if(f) f.qty++; else cart.push({...p,qty:1});
+ updateCart();
+}
+function updateCart(){
+ document.getElementById('cartCount').innerText=cart.reduce((a,b)=>a+b.qty,0);
+ const wrap=document.getElementById('cartItems');
+ let sub=0; wrap.innerHTML="";
+ cart.forEach(i=>{
+  sub+=i.price*i.qty;
+  wrap.innerHTML+=`<div class="flex gap-3"><img src="${i.img}" class="w-16 h-16 rounded-xl object-cover"><div class="flex-1"><b class="text-sm">${i.name}</b><p class="text-xs text-gray-400">${i.store}</p><div class="flex gap-2 mt-1"><button onclick="changeQty(${i.id},-1)" class="w-6 h-6 rounded-full border">-</button><span class="text-sm">${i.qty}</span><button onclick="changeQty(${i.id},1)" class="w-6 h-6 rounded-full border">+</button></div></div><b class="text-sm">Rs.${i.price*i.qty}</b></div>`;
+ });
+ document.getElementById('subtotal').innerText="Rs."+sub;
+ document.getElementById('total').innerText="Rs."+(sub+150);
+}
+function changeQty(id,d){
+ const it=cart.find(x=>x.id===id); if(!it) return;
+ it.qty+=d; if(it.qty<=0) cart=cart.filter(x=>x.id!==id);
+ updateCart();
+}
+function toggleCart(){ document.getElementById('cartDrawer').classList.toggle('hidden'); }
+function checkout(){
+ if(cart.length===0) return alert("Cart empty!");
+ document.getElementById('checkoutModal').classList.remove('hidden');
+ document.getElementById('checkoutModal').classList.add('flex');
+}
+function closeCheckout(){ document.getElementById('checkoutModal').classList.add('hidden'); }
+function placeOrder(){
+ alert("✅ Order Placed! Hamari team 03007419633 se apko call karegi. Shukria!");
+ cart=[]; updateCart(); closeCheckout(); toggleCart();
+}
+function setFloor(f){
+ document.getElementById('btnGF').className = f==='GF'? 'px-5 py-2 rounded-full bg-[#C9A86A] text-black font-bold text-sm' : 'px-5 py-2 rounded-full bg-white/10 text-white text-sm';
+ document.getElementById('btnFF').className = f==='FF'? 'px-5 py-2 rounded-full bg-[#C9A86A] text-black font-bold text-sm' : 'px-5 py-2 rounded-full bg-white/10 text-white text-sm';
+ document.getElementById('btnSF').className = f==='SF'? 'px-5 py-2 rounded-full bg-[#C9A86A] text-black font-bold text-sm' : 'px-5 py-2 rounded-full bg-white/10 text-white text-sm';
+ const map=document.getElementById('floorMap');
+ const shops = f==='GF'? ['Entrance','StyleHub','TechZone','Food Court','Kids World','Parking'] : f==='FF'? ['Beauty Palace','Jewelry Corner','Shoes Hub','Bags World','Prayer Area','Elevator'] : ['Home Comfort','Furniture','Grocery','Sports','Gifts','Cinema'];
+ map.innerHTML=""; shops.forEach(s=>{ map.innerHTML+=`<div class="h-24 bg-white/10 rounded-xl border border-white/10 flex items-center justify-center text-white text-sm font-bold hover:bg-[#C9A86A] hover:text-black cursor-pointer transition">${s}</div>`; });
+}
+setFloor('GF');
+document.getElementById('search').addEventListener('input',e=>{
+ const v=e.target.value.toLowerCase();
+ renderProducts(products.filter(p=>p.name.toLowerCase().includes(v)));
+});
+function enterMall(){
+ const intro=document.getElementById('intro');
+ intro.style.transition="all 1s ease";
+ intro.style.transform="translateY(-100%)";
+ setTimeout(()=>intro.remove(),1000);
+ // drone zoom effect
+ document.getElementById('droneImg').style.transform="scale(1)";
+}
+setTimeout(()=>{ document.getElementById('droneImg').style.transition="transform 5s ease"; document.getElementById('droneImg').style.transform="scale(1)"; },200);
+</script>
 </body>
 </html>
 
