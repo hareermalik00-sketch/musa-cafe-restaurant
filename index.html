@@ -2,227 +2,801 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mall of Layyah | Premium 3D Mall - Official Online Store</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-:root{ --gold:#C9A86A; --gold2:#D4AF37; --charcoal:#1A1A1A; --offwhite:#FAF8F5; }
-body{ font-family:'Inter',sans-serif; background:#FAF8F5; }
-h1,h2,h3{ font-family:'Playfair Display',serif; }
-.gold-gradient{ background: linear-gradient(135deg, #D4AF37 0%, #C9A86A 50%, #B8965A 100%); }
-.glass{ backdrop-filter: blur(20px); background: rgba(255,255,255,0.85); border:1px solid rgba(201,168,106,0.25); }
-@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
-.float{ animation: float 4s ease-in-out infinite; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Dearest Teacher! ✨📚</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pastel: {
+                            cream: '#FFFBF7',
+                            blush: '#FCE7F1',
+                            pink: '#FBCFE8',
+                            lavender: '#F3E8FF',
+                            purple: '#E9D5FF',
+                            mint: '#E6F4EA',
+                            peach: '#FFE8D6',
+                            gold: '#D97706',
+                            rose: '#E11D48',
+                            dark: '#3B322C',
+                            muted: '#6E6259'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        script: ['Dancing Script', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Global Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #FFFBF7;
+            color: #3B322C;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Fixed Three.js Background Canvas */
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Glassmorphism Styling */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 30px -10px rgba(225, 29, 72, 0.08);
+        }
+
+        .glass-card-hover {
+            transition: all 0.4s ease;
+        }
+        .glass-card-hover:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 35px -10px rgba(225, 29, 72, 0.15);
+        }
+
+        /* 3D Flip Card Effect */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .transform-style-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .flipped {
+            transform: rotateY(180deg);
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+
+        /* Candle Flame Animation */
+        @keyframes flicker {
+            0%, 100% { transform: scale(1) rotate(-1deg); opacity: 0.9; }
+            25% { transform: scale(1.1) rotate(1deg); opacity: 1; }
+            50% { transform: scale(0.95) rotate(-2deg); opacity: 0.85; }
+            75% { transform: scale(1.15) rotate(2deg); opacity: 1; }
+        }
+        .flame-anim {
+            animation: flicker 0.8s infinite ease-in-out;
+            transform-origin: bottom center;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFFBF7;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #FBCFE8;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #F472B6;
+        }
+    </style>
 </head>
-<body class="text-[#1A1A1A]">
+<body class="relative min-h-screen">
 
-<!-- CINEMATIC DRONE INTRO -->
-<div id="intro" class="fixed inset-0 z-[999] bg-black flex items-center justify-center overflow-hidden">
-  <img id="droneImg" src="https://images.unsplash.com/photo-1519567241046-7f570eee3a33?q=80&w=2000" class="absolute inset-0 w-full h-full object-cover scale-[1.3] transition-transform duration-[5s]">
-  <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,rgba(0,0,0,0.85)_100%)]"></div>
-  <div class="relative z-10 text-center text-white p-6">
-    <p class="tracking-[0.5em] text-[#C9A86A] text-xs mb-4">CINEMATIC DRONE SHOT • LAYYAH</p>
-    <h1 class="text-6xl md:text-8xl font-extrabold leading-[0.9]">MALL OF<br><span class="text-[#C9A86A]">LAYYAH</span></h1>
-    <p class="mt-6 text-white/60 max-w-md mx-auto text-sm">Real Building • Luxury White & Gold • Ghar Baithe Shopping</p>
-    <button onclick="enterMall()" class="mt-10 px-10 py-4 gold-gradient text-black font-bold rounded-full shadow-xl hover:scale-105 transition">ENTER MALL ✨</button>
-    <p class="mt-4 text-[11px] text-white/40">Helpline: 03007419633</p>
-  </div>
-</div>
+    <!-- 3D Background Canvas -->
+    <canvas id="three-canvas"></canvas>
 
-<!-- TOP BAR -->
-<div class="bg-[#111] text-white text-[11px] py-2 px-6 flex justify-between">
-  <span>📞 Helpline: <b class="text-[#C9A86A]">03007419633</b> | WhatsApp Order Available</span>
-  <span class="hidden md:block">Cash on Delivery in Layyah • Free Delivery on Rs.5000+</span>
-</div>
+    <!-- Navigation Bar -->
+    <nav class="sticky top-0 z-50 glass-card border-b border-pink-100/60 px-4 sm:px-8 py-3 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <a href="#hero" class="font-script text-2xl sm:text-3xl font-bold text-pastel-rose flex items-center gap-2">
+                <i class="fa-solid fa-feather-pointed text-pink-400"></i> Best Teacher Ever
+            </a>
+            
+            <div class="hidden lg:flex items-center space-x-6 text-xs sm:text-sm font-medium text-pastel-muted">
+                <a href="#letter" class="hover:text-pastel-rose transition-colors">Letter</a>
+                <a href="#treasure" class="hover:text-pastel-rose transition-colors">Literary Quotes</a>
+                <a href="#timeline" class="hover:text-pastel-rose transition-colors">Class Moments</a>
+                <a href="#vocab" class="hover:text-pastel-rose transition-colors">Vocab 3D Cards</a>
+                <a href="#wishes" class="hover:text-pastel-rose transition-colors">Wish Wall</a>
+                <a href="#quiz" class="hover:text-pastel-rose transition-colors">Fun Quiz</a>
+                <a href="#unboxing" class="hover:text-pastel-rose transition-colors">Unboxing</a>
+            </div>
 
-<!-- HEADER -->
-<header class="sticky top-0 z-50 glass">
-  <div class="max-w-[1400px] mx-auto px-6 py-4 flex items-center justify-between">
-    <h2 class="text-2xl font-extrabold">MALL OF <span class="text-[#C9A86A]">LAYYAH</span></h2>
-    <nav class="hidden lg:flex gap-7 text-[13px] font-medium">
-      <a href="#stores">Stores</a><a href="#products">Shop</a><a href="#explore">Explore 3D</a><a href="#food">Food</a><a href="#contact">Contact</a>
+            <div class="flex items-center gap-3">
+                <!-- Audio Toggle Button -->
+                <button id="audio-toggle" onclick="toggleAudio()" class="w-9 h-9 rounded-full bg-pastel-blush hover:bg-pastel-pink text-pastel-rose flex items-center justify-center transition-all shadow-sm">
+                    <i id="audio-icon" class="fa-solid fa-music"></i>
+                </button>
+                <button onclick="triggerEpicConfetti()" class="px-4 py-2 text-xs sm:text-sm font-semibold text-rose-700 bg-gradient-to-r from-pink-200 to-purple-200 hover:from-pink-300 hover:to-purple-300 rounded-full transition-all duration-300 shadow-sm flex items-center gap-2">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Celebrate!
+                </button>
+            </div>
+        </div>
     </nav>
-    <div class="flex items-center gap-2">
-      <div class="relative"><input id="search" placeholder="Search products..." class="w-40 md:w-64 px-4 py-2.5 rounded-full bg-white border border-[#E8E0D0] text-sm"><span class="absolute right-3 top-2.5 text-xs">🔍</span></div>
-      <button onclick="toggleCart()" class="relative w-11 h-11 rounded-full bg-black text-white">🛒<span id="cartCount" class="absolute -top-1 -right-1 bg-[#C9A86A] text-black text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold">0</span></button>
-    </div>
-  </div>
-</header>
 
-<!-- HERO -->
-<section class="max-w-[1400px] mx-auto px-6 py-12 grid lg:grid-cols-2 gap-10 items-center">
-  <div>
-    <span class="inline-block px-4 py-1 rounded-full border border-[#C9A86A]/40 text-[#C9A86A] text-[11px] tracking-widest">LUXURY WHITE & GOLD EDITION</span>
-    <h1 class="mt-4 text-5xl lg:text-[68px] font-extrabold leading-[0.9]">Ghar Baithe<br><span class="text-[#C9A86A]">Shopping</span><br>Karen</h1>
-    <p class="mt-5 text-gray-500 max-w-lg text-sm">Mall of Layyah ka official online mall. Real stores, real products, 3D floor explore, or order seedha WhatsApp pe 03007419633 par.</p>
-    <div class="mt-7 flex gap-3">
-      <button onclick="document.getElementById('explore').scrollIntoView({behavior:'smooth'})" class="px-7 py-3.5 gold-gradient rounded-full font-bold text-sm">Explore Mall 3D</button>
-      <button onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})" class="px-7 py-3.5 bg-white border border-black rounded-full font-bold text-sm">Shop Online</button>
-    </div>
-  </div>
-  <div class="relative h-[580px] rounded-[2.2rem] overflow-hidden bg-white shadow-2xl border border-[#F0E6D3]">
-    <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?q=80&w=1000" class="absolute inset-0 w-full h-full object-cover">
-    <div class="absolute inset-0 bg-gradient-to-t from-white via-white/30 to-transparent"></div>
-    <div class="absolute bottom-5 left-5 right-5 glass rounded-[1.3rem] p-4 flex gap-3 items-center">
-      <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=200" class="w-16 h-16 rounded-xl object-cover">
-      <div><p class="text-[10px] text-[#C9A86A] tracking-widest">LIVE 3D VIEW</p><b class="text-sm">Main Entrance - Mall of Layyah</b><p class="text-[11px] text-gray-500">White & Gold Premium Look</p></div>
-    </div>
-  </div>
-</section>
+    <!-- SECTION 1: HERO SECTION -->
+    <section id="hero" class="relative min-h-[90vh] flex flex-col items-center justify-center text-center px-4 py-16 max-w-5xl mx-auto z-10">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-pastel-blush text-pastel-rose rounded-full text-xs sm:text-sm font-semibold mb-6 shadow-sm border border-pink-200">
+            <i class="fa-solid fa-sparkles"></i> Dedicated to Our Incredible English Teacher
+        </div>
 
-<!-- CATEGORIES -->
-<section class="max-w-[1400px] mx-auto px-6 py-8">
-  <h2 class="text-2xl font-bold mb-5">Shop by Category</h2>
-  <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4" id="catGrid"></div>
-</section>
+        <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl font-bold text-pastel-dark leading-tight mb-6">
+            Happy Birthday, <br/>
+            <span class="font-script text-pastel-rose font-normal text-5xl sm:text-7xl md:text-8xl block mt-2">Respected Ma'am! ✨</span>
+        </h1>
 
-<!-- STORES -->
-<section id="stores" class="max-w-[1400px] mx-auto px-6 py-10">
-  <h2 class="text-3xl font-bold">Featured Stores of Mall</h2>
-  <div class="grid md:grid-cols-4 gap-5 mt-6" id="storeGrid"></div>
-</section>
+        <p class="text-base sm:text-xl text-pastel-muted max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+            Thank you for inspiring us with the beauty of literature, teaching us the power of eloquence, and guiding us with endless warmth and wisdom!
+        </p>
 
-<!-- PRODUCTS -->
-<section id="products" class="bg-white py-14 border-y border-[#F0E6D3]">
-  <div class="max-w-[1400px] mx-auto px-6">
-    <h2 class="text-3xl font-bold">Featured Products - Add to Cart</h2>
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 mt-7" id="productGrid"></div>
-  </div>
-</section>
+        <!-- 3D Interactive Cake Header Component -->
+        <div class="glass-card p-6 sm:p-8 rounded-3xl border border-pink-200 max-w-lg w-full shadow-lg relative overflow-hidden">
+            <p class="text-xs font-bold uppercase tracking-widest text-pink-500 mb-2">Interactive Cake & Candle</p>
+            <p class="text-xs text-pastel-muted mb-6">Click or tap on the candle flame to blow it out and unlock the celebration!</p>
 
-<!-- 3D EXPLORE -->
-<section id="explore" class="max-w-[1400px] mx-auto px-6 py-14">
-  <h2 class="text-3xl font-bold">Explore Mall - Interactive 3D Floor</h2>
-  <div class="mt-6 grid lg:grid-cols-3 gap-5">
-    <div class="lg:col-span-2 h-[460px] bg-[#1A1A1A] rounded-[1.8rem] p-5">
-      <div class="flex gap-2 mb-5">
-        <button onclick="setFloor('GF')" id="btnGF" class="px-4 py-2 rounded-full bg-[#C9A86A] text-black font-bold text-xs">Ground Floor</button>
-        <button onclick="setFloor('FF')" id="btnFF" class="px-4 py-2 rounded-full bg-white/10 text-white text-xs">First Floor</button>
-        <button onclick="setFloor('SF')" id="btnSF" class="px-4 py-2 rounded-full bg-white/10 text-white text-xs">Second Floor</button>
-      </div>
-      <div id="floorMap" class="grid grid-cols-3 gap-3"></div>
-    </div>
-    <div id="contact" class="bg-white rounded-[1.8rem] p-7 border border-[#F0E6D3]">
-      <h3 class="font-bold text-lg">Visit Mall of Layyah</h3>
-      <p class="mt-3 text-sm text-gray-500 leading-6">📍 Mall of Layyah, Layyah, Punjab, Pakistan<br>📞 03007419633<br>💬 WhatsApp: 03007419633<br>🕒 10AM - 10PM Daily<br>🅿️ Parking • 🛗 Lift • 🍔 Food Court • 🧒 Kids Area</p>
-      <img src="https://images.unsplash.com/photo-1555529771-7888783a18d3?q=80&w=600" class="mt-5 rounded-xl w-full h-36 object-cover">
-      <a href="https://wa.me/923007419633" target="_blank" class="mt-4 block text-center py-3 bg-[#25D366] text-white rounded-full font-bold text-sm">Chat on WhatsApp - 03007419633</a>
-    </div>
-  </div>
-</section>
+            <!-- Virtual 3D Candle & Cake Graphic -->
+            <div class="relative w-48 h-44 mx-auto flex flex-col items-center justify-end mb-4">
+                <!-- Candle Container -->
+                <div id="candle-wrapper" class="cursor-pointer relative z-20 flex flex-col items-center group" onclick="blowCandle()">
+                    <!-- Flame -->
+                    <div id="cake-flame" class="w-5 h-7 bg-amber-400 rounded-full flame-anim shadow-[0_0_20px_#f59e0b] border border-yellow-200"></div>
+                    <!-- Wick -->
+                    <div class="w-1 h-2.5 bg-gray-700"></div>
+                    <!-- Candle Body -->
+                    <div class="w-4 h-10 bg-gradient-to-r from-pink-300 via-white to-pink-300 rounded-t-sm shadow-inner"></div>
+                </div>
 
-<!-- CART -->
-<div id="cartDrawer" class="fixed inset-0 z-[80] hidden"><div class="absolute inset-0 bg-black/40" onclick="toggleCart()"></div>
-<div class="absolute right-0 top-0 h-full w-[410px] max-w-[92vw] bg-white shadow-2xl p-6 flex flex-col">
-  <div class="flex justify-between"><h3 class="text-xl font-bold">Your Cart</h3><button onclick="toggleCart()" class="w-8 h-8 rounded-full bg-black text-white">✕</button></div>
-  <div id="cartItems" class="mt-5 flex-1 overflow-auto space-y-3"></div>
-  <div class="border-t pt-3 text-sm space-y-1"><div class="flex justify-between"><span>Subtotal</span><span id="subtotal">Rs.0</span></div><div class="flex justify-between"><span>Delivery</span><span>Rs.150</span></div><div class="flex justify-between font-bold text-[16px]"><span>Total</span><span id="total">Rs.150</span></div></div>
-  <button onclick="checkout()" class="mt-4 w-full py-3.5 gold-gradient rounded-full font-bold">Checkout - WhatsApp Order</button>
-</div></div>
+                <!-- Cake Top Layer -->
+                <div class="w-36 h-10 bg-pastel-blush rounded-t-2xl border-b-4 border-pink-200 relative flex items-center justify-around px-2 shadow-inner">
+                    <div class="w-3.5 h-3.5 rounded-full bg-rose-400 -mt-6 shadow"></div>
+                    <div class="w-3.5 h-3.5 rounded-full bg-rose-400 -mt-6 shadow"></div>
+                    <div class="w-3.5 h-3.5 rounded-full bg-rose-400 -mt-6 shadow"></div>
+                </div>
 
-<!-- CHECKOUT -->
-<div id="checkoutModal" class="fixed inset-0 z-[90] hidden items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeCheckout()"></div>
-<div class="relative bg-white rounded-[1.8rem] w-full max-w-md p-7">
-  <h3 class="text-xl font-bold">Checkout Details</h3><p class="text-xs text-gray-400 mt-1">Order seedha 03007419633 WhatsApp pe jayega</p>
-  <input id="cName" placeholder="Full Name" class="mt-5 w-full px-4 py-3 rounded-full border text-sm">
-  <input id="cPhone" placeholder="Phone Number 03XX-XXXXXXX" class="mt-3 w-full px-4 py-3 rounded-full border text-sm">
-  <input id="cAddress" placeholder="Full Delivery Address, Layyah" class="mt-3 w-full px-4 py-3 rounded-full border text-sm">
-  <select id="cPay" class="mt-3 w-full px-4 py-3 rounded-full border text-sm"><option>Cash on Delivery</option><option>JazzCash</option><option>EasyPaisa</option></select>
-  <button onclick="placeOrder()" class="mt-5 w-full py-3.5 bg-[#25D366] text-white rounded-full font-bold flex items-center justify-center gap-2">📲 Place Order on WhatsApp - 03007419633</button>
-  <p class="text-[10px] text-center mt-3 text-gray-400">Click pe WhatsApp khulega, bas Send dabana hai</p>
-</div></div>
+                <!-- Cake Middle Layer -->
+                <div class="w-44 h-12 bg-pastel-cream rounded-t-lg border-b-4 border-pink-100 relative flex items-center justify-center">
+                    <span class="font-script text-pastel-rose font-bold text-base">Happy Birthday!</span>
+                </div>
 
-<footer class="bg-black text-white py-10 text-center"><h2 class="text-2xl font-bold">MALL OF <span class="text-[#C9A86A]">LAYYAH</span></h2><p class="text-white/40 text-xs mt-2">Official Online Store • 03007419633 • All Rights Reserved</p></footer>
+                <!-- Cake Bottom Layer -->
+                <div class="w-52 h-12 bg-pink-100 rounded-t-lg border-b-8 border-pink-300 shadow-md"></div>
+                <!-- Plate -->
+                <div class="w-60 h-3 bg-gray-200/90 rounded-full shadow-lg"></div>
+            </div>
 
-<script>
-const categories=[
- {name:"Fashion",img:"https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=400"},
- {name:"Shoes",img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=400"},
- {name:"Beauty",img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=400"},
- {name:"Electronics",img:"https://images.unsplash.com/photo-1498049794561-7780e7231666?q=80&w=400"},
- {name:"Mobiles",img:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=400"},
- {name:"Home",img:"https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=400"},
- {name:"Kids",img:"https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?q=80&w=400"},
- {name:"Jewelry",img:"https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=400"},
-];
-const stores=[
- {name:"StyleHub Fashion",cat:"Fashion",rating:"4.8",img:"https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=400"},
- {name:"TechZone",cat:"Electronics",rating:"4.9",img:"https://images.unsplash.com/photo-1498049794561-7780e7231666?q=80&w=400"},
- {name:"Beauty Palace",cat:"Beauty",rating:"4.7",img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=400"},
- {name:"Kids World",cat:"Kids",rating:"4.8",img:"https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?q=80&w=400"},
-];
-const products=[
- {id:1,name:"Premium Khaddar Kurta - White Gold",price:2999,old:4500,store:"StyleHub",img:"https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=600",rating:4.8},
- {id:2,name:"Nike Air Max Sneakers",price:5499,old:7999,store:"Footwear Hub",img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=600",rating:4.9},
- {id:3,name:"Matte Lipstick Set 12pcs",price:1999,old:2999,store:"Beauty Palace",img:"https://images.unsplash.com/photo-1586495777744-4413f21062fa?q=80&w=600",rating:4.7},
- {id:4,name:"Wireless Earbuds Pro Gold",price:3499,old:5999,store:"TechZone",img:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=600",rating:4.8},
- {id:5,name:"Kids Teddy Bear Large",price:1499,old:2199,store:"Kids World",img:"https://images.unsplash.com/photo-1551698618-1dfe5d97d256?q=80&w=600",rating:5.0},
- {id:6,name:"Gold Plated Jhumka Set",price:899,old:1599,store:"Jewelry Corner",img:"https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=600",rating:4.6},
- {id:7,name:"Luxury Leather Handbag",price:3999,old:5999,store:"StyleHub",img:"https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=600",rating:4.7},
- {id:8,name:"Smart Watch Series 8 Gold",price:6999,old:10999,store:"TechZone",img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600",rating:4.9},
-];
-let cart=[];
-const catGrid=document.getElementById('catGrid');
-categories.forEach(c=>{catGrid.innerHTML+=`<div class="bg-white rounded-[1.2rem] p-2 border border-[#F0E6D3] hover:shadow-lg transition"><img src="${c.img}" class="w-full h-24 rounded-xl object-cover"><p class="mt-2 font-bold text-[12px] text-center">${c.name}</p></div>`;});
-const storeGrid=document.getElementById('storeGrid');
-stores.forEach(s=>{storeGrid.innerHTML+=`<div class="bg-white rounded-[1.5rem] overflow-hidden border border-[#F0E6D3]"><img src="${s.img}" class="h-32 w-full object-cover"><div class="p-3"><p class="text-[10px] text-[#C9A86A]">${s.cat} • ⭐ ${s.rating}</p><b class="text-sm">${s.name}</b></div></div>`;});
-const productGrid=document.getElementById('productGrid');
-function renderProducts(list){
- productGrid.innerHTML="";
- list.forEach(p=>{
-  productGrid.innerHTML+=`<div class="bg-[#FFFCF8] rounded-[1.5rem] p-2.5 border border-[#F0E6D3] hover:shadow-xl transition"><div class="relative rounded-[1rem] overflow-hidden"><img src="${p.img}" class="w-full h-52 object-cover"><span class="absolute top-2 left-2 bg-black text-white text-[10px] px-2 py-1 rounded-full">-${Math.round((1-p.price/p.old)*100)}% OFF</span></div><div class="p-2"><p class="text-[10px] text-[#C9A86A]">${p.store} • ⭐ ${p.rating}</p><b class="text-[13px] block mt-1 leading-tight">${p.name}</b><div class="flex gap-2 mt-1"><b class="text-sm">Rs.${p.price}</b><span class="text-[11px] line-through text-gray-400">Rs.${p.old}</span></div><button onclick="addToCart(${p.id})" class="mt-2 w-full py-2 gold-gradient rounded-full font-bold text-xs">Add to Cart</button></div></div>`;
- });
-}
-renderProducts(products);
-function addToCart(id){const p=products.find(x=>x.id===id);const f=cart.find(x=>x.id===id);if(f)f.qty++;else cart.push({...p,qty:1});updateCart();toggleCartIfClosed();}
-function toggleCartIfClosed(){if(document.getElementById('cartDrawer').classList.contains('hidden'))toggleCart();}
-function updateCart(){
- document.getElementById('cartCount').innerText=cart.reduce((a,b)=>a+b.qty,0);
- const wrap=document.getElementById('cartItems');let sub=0;wrap.innerHTML="";
- cart.forEach(i=>{sub+=i.price*i.qty;wrap.innerHTML+=`<div class="flex gap-3"><img src="${i.img}" class="w-14 h-14 rounded-xl object-cover"><div class="flex-1"><b class="text-xs">${i.name}</b><p class="text-[10px] text-gray-400">${i.store}</p><div class="flex gap-2 mt-1"><button onclick="changeQty(${i.id},-1)" class="w-5 h-5 rounded-full border text-xs">-</button><span class="text-xs">${i.qty}</span><button onclick="changeQty(${i.id},1)" class="w-5 h-5 rounded-full border text-xs">+</button></div></div><b class="text-xs">Rs.${i.price*i.qty}</b></div>`;});
- document.getElementById('subtotal').innerText="Rs."+sub;document.getElementById('total').innerText="Rs."+(sub+150);
-}
-function changeQty(id,d){const it=cart.find(x=>x.id===id);if(!it)return;it.qty+=d;if(it.qty<=0)cart=cart.filter(x=>x.id!==id);updateCart();}
-function toggleCart(){document.getElementById('cartDrawer').classList.toggle('hidden');}
-function checkout(){if(cart.length===0)return alert("Cart empty hai!");document.getElementById('checkoutModal').classList.remove('hidden');document.getElementById('checkoutModal').classList.add('flex');}
-function closeCheckout(){document.getElementById('checkoutModal').classList.add('hidden');document.getElementById('checkoutModal').classList.remove('flex');}
-function placeOrder(){
- const name=document.getElementById('cName').value.trim();
- const phone=document.getElementById('cPhone').value.trim();
- const address=document.getElementById('cAddress').value.trim();
- const pay=document.getElementById('cPay').value;
- if(!name||!phone||!address){alert("Naam, Phone, Address likhna zaroori hai!");return;}
- let subtotal=cart.reduce((a,b)=>a+b.price*b.qty,0);
- let total=subtotal+150;
- let msg=`*NEW ORDER - MALL OF LAYYAH* %0A%0A*Customer:*%0AName: ${name}%0APhone: ${phone}%0AAddress: ${address}%0APayment: ${pay}%0A%0A*Items:*%0A`;
- cart.forEach((it,i)=>{msg+=`${i+1}. ${it.name} (${it.store}) x${it.qty} = Rs.${it.price*it.qty}%0A`;});
- msg+=`%0A*Bill:*%0ASubtotal: Rs.${subtotal}%0ADelivery: Rs.150%0A*Total: Rs.${total}*%0A%0APlease confirm my order - 03007419633`;
- const url=`https://wa.me/923007419633?text=${msg}`;
- window.open(url,'_blank');
- alert("✅ WhatsApp khul gaya! Bas SEND dabao, order 03007419633 pe aa jayega.");
- cart=[];updateCart();closeCheckout();document.getElementById('cartDrawer').classList.add('hidden');
-}
-function setFloor(f){
- document.getElementById('btnGF').className=f==='GF'?'px-4 py-2 rounded-full bg-[#C9A86A] text-black font-bold text-xs':'px-4 py-2 rounded-full bg-white/10 text-white text-xs';
- document.getElementById('btnFF').className=f==='FF'?'px-4 py-2 rounded-full bg-[#C9A86A] text-black font-bold text-xs':'px-4 py-2 rounded-full bg-white/10 text-white text-xs';
- document.getElementById('btnSF').className=f==='SF'?'px-4 py-2 rounded-full bg-[#C9A86A] text-black font-bold text-xs':'px-4 py-2 rounded-full bg-white/10 text-white text-xs';
- const map=document.getElementById('floorMap');
- const shops=f==='GF'?['Entrance Gate','StyleHub Fashion','TechZone','Food Court','Kids World','Parking Area']:f==='FF'?['Beauty Palace','Jewelry Corner','Shoes Hub','Bags World','Prayer Area','Elevator']:['Home Comfort','Furniture Gallery','Grocery Mart','Sports Zone','Gifts Shop','Fun City'];
- map.innerHTML="";shops.forEach(s=>{map.innerHTML+=`<div class="h-20 bg-white/10 rounded-xl border border-white/10 flex items-center justify-center text-white text-xs font-bold hover:bg-[#C9A86A] hover:text-black cursor-pointer transition">${s}</div>`;});
-}
-setFloor('GF');
-document.getElementById('search').addEventListener('input',e=>{
- const v=e.target.value.toLowerCase();
- renderProducts(products.filter(p=>p.name.toLowerCase().includes(v)||p.store.toLowerCase().includes(v)));
-});
-function enterMall(){const intro=document.getElementById('intro');intro.style.transform="translateY(-100%)";intro.style.transition="1s";setTimeout(()=>intro.remove(),1000);}
-setTimeout(()=>{document.getElementById('droneImg').style.transform="scale(1)";},100);
-</script>
+            <div id="candle-message" class="text-xs sm:text-sm font-semibold text-rose-600">
+                🔥 The candle is lit! Make a birthday wish & tap the flame!
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: HEARTFELT TRIBUTE LETTER -->
+    <section id="letter" class="py-20 px-4 sm:px-6 max-w-4xl mx-auto z-10 relative">
+        <div class="text-center mb-10">
+            <span class="text-xs uppercase tracking-widest text-pink-500 font-bold">A Heartfelt Tribute</span>
+            <h2 class="font-serif text-3xl sm:text-5xl font-bold text-pastel-dark mt-1">A Letter of Gratitude</h2>
+            <div class="w-16 h-1 bg-pastel-pink mx-auto mt-3 rounded-full"></div>
+        </div>
+
+        <div class="glass-card p-8 sm:p-14 rounded-3xl border border-pink-200/70 shadow-xl relative bg-gradient-to-br from-white/90 via-pink-50/20 to-purple-50/20">
+            <div class="absolute top-6 right-6 text-pink-200/50 text-7xl select-none">
+                <i class="fa-solid fa-envelope-open-text"></i>
+            </div>
+
+            <div class="font-serif text-pastel-dark space-y-6 text-base sm:text-lg leading-relaxed relative z-10">
+                <p class="font-script text-3xl sm:text-4xl text-pastel-rose font-bold">Respected Ma'am,</p>
+                <p>
+                    On this very special occasion of your birthday, I wanted to create a small digital corner filled with appreciation, respect, and warmth to show you how much you mean to us as our mentor and teacher.
+                </p>
+                <p>
+                    English was just another subject until we joined your classroom. The way you make words feel alive, the passion with which you share literature, and the gentle patience you show every single day turned learning into a joyful experience. You didn't just teach us grammar and vocabulary; you taught us how to express our thoughts with confidence and clarity.
+                </p>
+                <p>
+                    Thank you for always encouraging us, for correcting our tiny blunders with a warm smile, and for being such a wonderful role model. May your year ahead be blessed with infinite joy, serenity, good health, and all the happiness you bring into our lives!
+                </p>
+                <div class="pt-8 border-t border-pink-100/80 text-right">
+                    <p class="font-script text-3xl text-pastel-rose font-bold">With utmost respect & admiration,</p>
+                    <p class="text-xs sm:text-sm font-sans text-pastel-muted font-semibold mt-1">Your Devoted Student 🌸</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: LITERARY TREASURE BOX -->
+    <section id="treasure" class="py-20 px-4 sm:px-6 max-w-6xl mx-auto z-10 relative">
+        <div class="text-center mb-12">
+            <span class="text-xs uppercase tracking-widest text-purple-500 font-bold">Literary Aesthetic</span>
+            <h2 class="font-serif text-3xl sm:text-4xl font-bold text-pastel-dark mt-1">Literary Treasure Box</h2>
+            <p class="text-xs sm:text-sm text-pastel-muted mt-2">Timeless quotes curated for an extraordinary teacher</p>
+            <div class="w-16 h-1 bg-pastel-purple mx-auto mt-3 rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Quote Card 1 -->
+            <div class="glass-card p-8 rounded-3xl border border-purple-200/80 glass-card-hover flex flex-col justify-between">
+                <div>
+                    <i class="fa-solid fa-quote-left text-3xl text-purple-300 mb-4 block"></i>
+                    <p class="font-serif italic text-base text-pastel-dark leading-relaxed mb-6">
+                        "The art of teaching is the art of assisting discovery."
+                    </p>
+                </div>
+                <div>
+                    <span class="text-xs font-bold text-purple-700 bg-purple-100 px-3 py-1 rounded-full">— Mark Van Doren</span>
+                </div>
+            </div>
+
+            <!-- Quote Card 2 -->
+            <div class="glass-card p-8 rounded-3xl border border-pink-200/80 glass-card-hover flex flex-col justify-between">
+                <div>
+                    <i class="fa-solid fa-quote-left text-3xl text-pink-300 mb-4 block"></i>
+                    <p class="font-serif italic text-base text-pastel-dark leading-relaxed mb-6">
+                        "Words are, in my not-so-humble opinion, our most inexhaustible source of magic."
+                    </p>
+                </div>
+                <div>
+                    <span class="text-xs font-bold text-rose-700 bg-pink-100 px-3 py-1 rounded-full">— J.K. Rowling</span>
+                </div>
+            </div>
+
+            <!-- Quote Card 3 -->
+            <div class="glass-card p-8 rounded-3xl border border-amber-200/80 glass-card-hover flex flex-col justify-between">
+                <div>
+                    <i class="fa-solid fa-quote-left text-3xl text-amber-300 mb-4 block"></i>
+                    <p class="font-serif italic text-base text-pastel-dark leading-relaxed mb-6">
+                        "There is no frigate like a book to take us lands away."
+                    </p>
+                </div>
+                <div>
+                    <span class="text-xs font-bold text-amber-800 bg-amber-100 px-3 py-1 rounded-full">— Emily Dickinson</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: A DAY IN ENGLISH CLASS TIMELINE -->
+    <section id="timeline" class="py-20 px-4 sm:px-6 max-w-4xl mx-auto z-10 relative">
+        <div class="text-center mb-14">
+            <span class="text-xs uppercase tracking-widest text-emerald-600 font-bold">Classroom Memories</span>
+            <h2 class="font-serif text-3xl sm:text-4xl font-bold text-pastel-dark mt-1">A Day in English Class</h2>
+            <div class="w-16 h-1 bg-pastel-mint mx-auto mt-3 rounded-full"></div>
+        </div>
+
+        <div class="relative border-l-2 border-emerald-200/80 ml-4 sm:ml-32 space-y-10">
+            <!-- Timeline Item 1 -->
+            <div class="relative pl-8 sm:pl-10">
+                <div class="absolute -left-[17px] top-1.5 w-8 h-8 rounded-full bg-pastel-mint border-2 border-emerald-400 flex items-center justify-center text-emerald-700 text-xs shadow-sm">
+                    <i class="fa-solid fa-sun"></i>
+                </div>
+                <div class="glass-card p-6 rounded-2xl border border-emerald-100 shadow-sm">
+                    <span class="text-xs font-bold text-emerald-700 bg-emerald-100 px-2.5 py-0.5 rounded-full">8:30 AM • The Warm Greeting</span>
+                    <h3 class="font-serif text-lg font-bold text-pastel-dark mt-2">A Welcoming Smile</h3>
+                    <p class="text-xs sm:text-sm text-pastel-muted mt-1 leading-relaxed">
+                        Class starts with your bright greeting that instantly sets a positive and warm mood for the entire day.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Timeline Item 2 -->
+            <div class="relative pl-8 sm:pl-10">
+                <div class="absolute -left-[17px] top-1.5 w-8 h-8 rounded-full bg-pastel-blush border-2 border-rose-400 flex items-center justify-center text-rose-700 text-xs shadow-sm">
+                    <i class="fa-solid fa-book-open"></i>
+                </div>
+                <div class="glass-card p-6 rounded-2xl border border-pink-100 shadow-sm">
+                    <span class="text-xs font-bold text-rose-700 bg-pink-100 px-2.5 py-0.5 rounded-full">9:00 AM • Storytelling & Literature</span>
+                    <h3 class="font-serif text-lg font-bold text-pastel-dark mt-2">Bringing Words to Life</h3>
+                    <p class="text-xs sm:text-sm text-pastel-muted mt-1 leading-relaxed">
+                        Explaining classic poetry and literature with so much emotion and eloquence that everyone listens in awe.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Timeline Item 3 -->
+            <div class="relative pl-8 sm:pl-10">
+                <div class="absolute -left-[17px] top-1.5 w-8 h-8 rounded-full bg-pastel-lavender border-2 border-purple-400 flex items-center justify-center text-purple-700 text-xs shadow-sm">
+                    <i class="fa-solid fa-pen-nib"></i>
+                </div>
+                <div class="glass-card p-6 rounded-2xl border border-purple-100 shadow-sm">
+                    <span class="text-xs font-bold text-purple-700 bg-purple-100 px-2.5 py-0.5 rounded-full">10:00 AM • Grammar & Patience</span>
+                    <h3 class="font-serif text-lg font-bold text-pastel-dark mt-2">Gentle Guidance</h3>
+                    <p class="text-xs sm:text-sm text-pastel-muted mt-1 leading-relaxed">
+                        Patiently clearing every student's doubts and correcting syntax errors with encouragement rather than criticism.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: 3D VOCABULARY FLASHCARDS -->
+    <section id="vocab" class="py-20 px-4 sm:px-6 max-w-6xl mx-auto z-10 relative">
+        <div class="text-center mb-12">
+            <span class="text-xs uppercase tracking-widest text-pink-500 font-bold">Interactive 3D Cards</span>
+            <h2 class="font-serif text-3xl sm:text-4xl font-bold text-pastel-dark mt-1">Vocabulary of Inspiration</h2>
+            <p class="text-xs sm:text-sm text-pastel-muted mt-2">Tap any card to flip it in 3D and reveal a hidden note!</p>
+            <div class="w-16 h-1 bg-pastel-pink mx-auto mt-3 rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Flashcard 1 -->
+            <div class="h-64 perspective-1000 cursor-pointer" onclick="flip3DCard(this)">
+                <div class="relative w-full h-full transform-style-3d glass-card rounded-2xl p-6 border border-pink-200 shadow-sm hover:shadow-md transition-shadow">
+                    <!-- Front -->
+                    <div class="absolute inset-0 backface-hidden p-6 flex flex-col justify-between items-center text-center bg-white rounded-2xl">
+                        <div class="w-12 h-12 rounded-full bg-pastel-blush flex items-center justify-center text-rose-500 text-xl font-bold"><i class="fa-solid fa-feather"></i></div>
+                        <div>
+                            <h3 class="font-serif text-2xl text-pastel-dark font-bold mb-1">Eloquence</h3>
+                            <p class="text-xs text-pastel-muted italic">/ˈel.ə.kwəns/</p>
+                            <p class="text-xs text-pastel-muted mt-2">Fluent or persuasive speaking or writing.</p>
+                        </div>
+                        <span class="text-xs text-pink-500 font-semibold">Click to flip 🔄</span>
+                    </div>
+                    <!-- Back -->
+                    <div class="absolute inset-0 backface-hidden rotate-y-180 p-6 flex flex-col justify-center items-center text-center bg-pastel-blush rounded-2xl text-pastel-dark">
+                        <p class="text-sm font-medium leading-relaxed">"Your eloquence in every lecture makes English feel like pure poetry."</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flashcard 2 -->
+            <div class="h-64 perspective-1000 cursor-pointer" onclick="flip3DCard(this)">
+                <div class="relative w-full h-full transform-style-3d glass-card rounded-2xl p-6 border border-purple-200 shadow-sm hover:shadow-md transition-shadow">
+                    <!-- Front -->
+                    <div class="absolute inset-0 backface-hidden p-6 flex flex-col justify-between items-center text-center bg-white rounded-2xl">
+                        <div class="w-12 h-12 rounded-full bg-pastel-lavender flex items-center justify-center text-purple-600 text-xl font-bold"><i class="fa-solid fa-gem"></i></div>
+                        <div>
+                            <h3 class="font-serif text-2xl text-pastel-dark font-bold mb-1">Ethereal</h3>
+                            <p class="text-xs text-pastel-muted italic">/ɪˈθɪə.ri.əl/</p>
+                            <p class="text-xs text-pastel-muted mt-2">Extremely delicate, light, and heavenly.</p>
+                        </div>
+                        <span class="text-xs text-purple-500 font-semibold">Click to flip 🔄</span>
+                    </div>
+                    <!-- Back -->
+                    <div class="absolute inset-0 backface-hidden rotate-y-180 p-6 flex flex-col justify-center items-center text-center bg-pastel-lavender rounded-2xl text-pastel-dark">
+                        <p class="text-sm font-medium leading-relaxed">"You bring an ethereal calm and grace to our everyday school routine."</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flashcard 3 -->
+            <div class="h-64 perspective-1000 cursor-pointer" onclick="flip3DCard(this)">
+                <div class="relative w-full h-full transform-style-3d glass-card rounded-2xl p-6 border border-emerald-200 shadow-sm hover:shadow-md transition-shadow">
+                    <!-- Front -->
+                    <div class="absolute inset-0 backface-hidden p-6 flex flex-col justify-between items-center text-center bg-white rounded-2xl">
+                        <div class="w-12 h-12 rounded-full bg-pastel-mint flex items-center justify-center text-emerald-600 text-xl font-bold"><i class="fa-solid fa-seedling"></i></div>
+                        <div>
+                            <h3 class="font-serif text-2xl text-pastel-dark font-bold mb-1">Resilience</h3>
+                            <p class="text-xs text-pastel-muted italic">/rɪˈzɪl.jəns/</p>
+                            <p class="text-xs text-pastel-muted mt-2">The capacity to withstand and recover quickly.</p>
+                        </div>
+                        <span class="text-xs text-emerald-600 font-semibold">Click to flip 🔄</span>
+                    </div>
+                    <!-- Back -->
+                    <div class="absolute inset-0 backface-hidden rotate-y-180 p-6 flex flex-col justify-center items-center text-center bg-pastel-mint rounded-2xl text-pastel-dark">
+                        <p class="text-sm font-medium leading-relaxed">"Thank you for teaching us resilience both in studies and in life!"</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flashcard 4 -->
+            <div class="h-64 perspective-1000 cursor-pointer" onclick="flip3DCard(this)">
+                <div class="relative w-full h-full transform-style-3d glass-card rounded-2xl p-6 border border-amber-200 shadow-sm hover:shadow-md transition-shadow">
+                    <!-- Front -->
+                    <div class="absolute inset-0 backface-hidden p-6 flex flex-col justify-between items-center text-center bg-white rounded-2xl">
+                        <div class="w-12 h-12 rounded-full bg-amber-50 flex items-center justify-center text-amber-500 text-xl font-bold"><i class="fa-solid fa-sun"></i></div>
+                        <div>
+                            <h3 class="font-serif text-2xl text-pastel-dark font-bold mb-1">Sempiternal</h3>
+                            <p class="text-xs text-pastel-muted italic">/ˌsem.pɪˈtɜː.nəl/</p>
+                            <p class="text-xs text-pastel-muted mt-2">Everlasting and eternal in time.</p>
+                        </div>
+                        <span class="text-xs text-amber-600 font-semibold">Click to flip 🔄</span>
+                    </div>
+                    <!-- Back -->
+                    <div class="absolute inset-0 backface-hidden rotate-y-180 p-6 flex flex-col justify-center items-center text-center bg-amber-100 rounded-2xl text-pastel-dark">
+                        <p class="text-sm font-medium leading-relaxed">"Wishing you sempiternal happiness, good health, and peace on your birthday!"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: INTERACTIVE GRATITUDE JAR -->
+    <section id="jar" class="py-20 px-4 sm:px-6 max-w-3xl mx-auto z-10 relative">
+        <div class="glass-card p-8 sm:p-12 rounded-3xl border border-pink-200/80 text-center shadow-lg bg-gradient-to-b from-white/90 to-pink-50/30">
+            <div class="w-16 h-16 bg-pastel-blush text-rose-500 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl shadow-sm">
+                <i class="fa-solid fa-jar"></i>
+            </div>
+            <h2 class="font-serif text-3xl font-bold text-pastel-dark mb-2">The Interactive Gratitude Jar</h2>
+            <p class="text-xs sm:text-sm text-pastel-muted mb-6">Click the jar button to draw glowing notes of gratitude!</p>
+
+            <div id="jar-box" class="min-h-[100px] p-6 bg-white rounded-2xl border border-pink-100 shadow-inner flex items-center justify-center mb-6 transition-all duration-300">
+                <p id="jar-text" class="font-serif italic text-base sm:text-lg text-pastel-rose font-medium">"Click below to draw a blessing note..."</p>
+            </div>
+
+            <button onclick="drawJarNote()" class="px-6 py-3 bg-gradient-to-r from-pink-400 to-rose-400 hover:from-pink-500 hover:to-rose-500 text-white font-semibold rounded-2xl shadow-md hover:shadow-lg transition-all text-sm inline-flex items-center gap-2">
+                <i class="fa-solid fa-clover"></i> Draw Gratitude Note
+            </button>
+        </div>
+    </section>
+
+    <!-- SECTION 7: STUDENT WISH WALL -->
+    <section id="wishes" class="py-20 px-4 sm:px-6 max-w-6xl mx-auto z-10 relative">
+        <div class="text-center mb-12">
+            <span class="text-xs uppercase tracking-widest text-pink-500 font-bold">Pastel Sticky Notes</span>
+            <h2 class="font-serif text-3xl sm:text-4xl font-bold text-pastel-dark mt-1">Student Wish Wall</h2>
+            <div class="w-16 h-1 bg-pastel-pink mx-auto mt-3 rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Sticky 1 -->
+            <div class="bg-amber-50/90 p-6 rounded-2xl shadow-sm border border-amber-200/80 transform -rotate-1 hover:rotate-0 transition-transform">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-xs font-bold text-amber-800 bg-amber-200/60 px-2.5 py-0.5 rounded-full">💛 Classroom Vibes</span>
+                    <i class="fa-solid fa-thumbtack text-amber-400"></i>
+                </div>
+                <p class="font-serif text-pastel-dark italic text-sm leading-relaxed mb-4">
+                    "Happy Birthday ma'am! Thank you for turning every English lecture into a peaceful, creative journey."
+                </p>
+                <span class="text-xs text-amber-800 font-semibold">— Student Note</span>
+            </div>
+
+            <!-- Sticky 2 -->
+            <div class="bg-pink-50/90 p-6 rounded-2xl shadow-sm border border-pink-200/80 transform rotate-1 hover:rotate-0 transition-transform">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-xs font-bold text-rose-800 bg-pink-200/60 px-2.5 py-0.5 rounded-full">🌸 Best Wishes</span>
+                    <i class="fa-solid fa-thumbtack text-pink-400"></i>
+                </div>
+                <p class="font-serif text-pastel-dark italic text-sm leading-relaxed mb-4">
+                    "May your year ahead be as sweet, cheerful, and inspiring as your teaching!"
+                </p>
+                <span class="text-xs text-rose-800 font-semibold">— English Club</span>
+            </div>
+
+            <!-- Sticky 3 -->
+            <div class="bg-purple-50/90 p-6 rounded-2xl shadow-sm border border-purple-200/80 transform -rotate-1 hover:rotate-0 transition-transform">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-xs font-bold text-purple-800 bg-purple-200/60 px-2.5 py-0.5 rounded-full">✨ Mentorship</span>
+                    <i class="fa-solid fa-thumbtack text-purple-400"></i>
+                </div>
+                <p class="font-serif text-pastel-dark italic text-sm leading-relaxed mb-4">
+                    "To the teacher who always saw potential in us even when we doubted ourselves. Have the happiest birthday!"
+                </p>
+                <span class="text-xs text-purple-800 font-semibold">— Grateful Heart</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 8: INTERACTIVE TRIVIA QUIZ -->
+    <section id="quiz" class="py-20 px-4 sm:px-6 max-w-3xl mx-auto z-10 relative">
+        <div class="glass-card p-8 sm:p-10 rounded-3xl border border-purple-200/80 shadow-lg">
+            <div class="text-center mb-8">
+                <span class="text-xs uppercase tracking-widest text-purple-500 font-bold">Fun Activity</span>
+                <h2 class="font-serif text-3xl font-bold text-pastel-dark mt-1">Teacher Special Trivia</h2>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Q1 -->
+                <div class="bg-white/80 p-5 rounded-2xl border border-pink-100">
+                    <p class="font-semibold text-pastel-dark text-xs sm:text-sm mb-3">1. What makes our English teacher's class unique?</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                        <button onclick="checkQuiz(this, true)" class="p-3 text-left rounded-xl bg-pastel-cream hover:bg-pastel-blush transition-colors border border-pink-100">A) Her patience and inspiring words ✨</button>
+                        <button onclick="checkQuiz(this, false)" class="p-3 text-left rounded-xl bg-pastel-cream hover:bg-pastel-blush transition-colors border border-pink-100">B) Strict surprise tests only</button>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="bg-white/80 p-5 rounded-2xl border border-pink-100">
+                    <p class="font-semibold text-pastel-dark text-xs sm:text-sm mb-3">2. Which month holds this special birthday celebration?</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                        <button onclick="checkQuiz(this, false)" class="p-3 text-left rounded-xl bg-pastel-cream hover:bg-pastel-blush transition-colors border border-pink-100">A) December</button>
+                        <button onclick="checkQuiz(this, true)" class="p-3 text-left rounded-xl bg-pastel-cream hover:bg-pastel-blush transition-colors border border-pink-100">B) August 🎈</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 9: VIRTUAL GIFT UNBOXING -->
+    <section id="unboxing" class="py-20 px-4 sm:px-6 max-w-2xl mx-auto text-center z-10 relative">
+        <div class="glass-card p-8 sm:p-12 rounded-3xl border border-pink-200 shadow-xl bg-gradient-to-b from-white to-pink-50/50">
+            <span class="text-xs uppercase tracking-widest text-pink-500 font-bold">Grand Finale</span>
+            <h2 class="font-serif text-3xl font-bold text-pastel-dark mt-1 mb-6">Virtual Gift Box</h2>
+
+            <div id="gift-box" class="cursor-pointer my-6 inline-block transform hover:scale-105 transition-transform" onclick="openGiftBox()">
+                <div class="w-32 h-32 bg-gradient-to-tr from-pink-300 to-purple-300 rounded-2xl shadow-lg border-2 border-white flex items-center justify-center relative mx-auto">
+                    <!-- Ribbon -->
+                    <div class="absolute inset-x-0 h-6 bg-rose-400/80 top-13"></div>
+                    <div class="absolute inset-y-0 w-6 bg-rose-400/80 left-13"></div>
+                    <i class="fa-solid fa-gift text-5xl text-white z-10 drop-shadow"></i>
+                </div>
+                <p class="text-xs text-pink-600 font-semibold mt-4">Tap to unbox your final message 🎁</p>
+            </div>
+
+            <div id="gift-message" class="hidden mt-6 p-6 bg-white rounded-2xl border border-pink-200 text-pastel-rose font-serif text-lg leading-relaxed shadow-inner">
+                🌸 "May your birthday be as warm, bright, and beautiful as the wisdom you share with us every day! Thank you for being the absolute best teacher!" 🌸
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-10 text-center border-t border-pink-100 glass-card mt-12 relative z-10">
+        <p class="font-script text-2xl sm:text-3xl text-pastel-rose font-bold mb-1">Happy Birthday Once Again!</p>
+        <p class="text-xs text-pastel-muted">Crafted with respect, admiration, and gratitude for our favorite English Teacher.</p>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC & THREE.JS ENGINE -->
+    <script>
+        /* --- 1. THREE.JS 3D BACKGROUND ENGINE --- */
+        let scene, camera, renderer, bookMeshGroup, particlesMesh;
+
+        function init3D() {
+            const canvas = document.getElementById('three-canvas');
+            scene = new THREE.Scene();
+
+            // Camera setup
+            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 15;
+
+            // Renderer setup
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            // Ambient Light & Directional Light
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+            scene.add(ambientLight);
+
+            const dirLight = new THREE.DirectionalLight(0xfbcfe8, 1);
+            dirLight.position.set(5, 10, 7);
+            scene.add(dirLight);
+
+            // Group for 3D Books/Geometries
+            bookMeshGroup = new THREE.Group();
+
+            // Create Floating 3D Book Geometries
+            const bookGeo = new THREE.BoxGeometry(1.5, 2, 0.4);
+            const bookMaterials = [
+                new THREE.MeshStandardMaterial({ color: 0xfbcfe8 }), // Pink
+                new THREE.MeshStandardMaterial({ color: 0xf3e8ff }), // Lavender
+                new THREE.MeshStandardMaterial({ color: 0xe6f4ea }), // Mint
+                new THREE.MeshStandardMaterial({ color: 0xffe8d6 }), // Peach
+            ];
+
+            for (let i = 0; i < 18; i++) {
+                const mat = bookMaterials[i % bookMaterials.length];
+                const book = new THREE.Mesh(bookGeo, mat);
+
+                book.position.x = (Math.random() - 0.5) * 25;
+                book.position.y = (Math.random() - 0.5) * 25;
+                book.position.z = (Math.random() - 0.5) * 15;
+
+                book.rotation.x = Math.random() * Math.PI;
+                book.rotation.y = Math.random() * Math.PI;
+
+                bookMeshGroup.add(book);
+            }
+            scene.add(bookMeshGroup);
+
+            // Floating Golden Particles
+            const particleGeo = new THREE.BufferGeometry();
+            const particleCount = 120;
+            const posArray = new Float32Array(particleCount * 3);
+
+            for (let i = 0; i < particleCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 30;
+            }
+
+            particleGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            const particleMat = new THREE.PointsMaterial({
+                size: 0.12,
+                color: 0xd97706,
+                transparent: true,
+                opacity: 0.6
+            });
+
+            particlesMesh = new THREE.Points(particleGeo, particleMat);
+            scene.add(particlesMesh);
+
+            // Mouse Move Parallax Listener
+            window.addEventListener('mousemove', onMouseMove);
+            window.addEventListener('resize', onWindowResize);
+
+            // Start Animation Loop
+            animate3D();
+        }
+
+        let mouseX = 0, mouseY = 0;
+        function onMouseMove(event) {
+            mouseX = (event.clientX / window.innerWidth - 0.5) * 2;
+            mouseY = (event.clientY / window.innerHeight - 0.5) * 2;
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function animate3D() {
+            requestAnimationFrame(animate3D);
+
+            // Rotate book elements slowly
+            if (bookMeshGroup) {
+                bookMeshGroup.children.forEach((child, index) => {
+                    child.rotation.x += 0.003 + index * 0.0001;
+                    child.rotation.y += 0.004 + index * 0.0001;
+                });
+            }
+
+            // Rotate particles
+            if (particlesMesh) {
+                particlesMesh.rotation.y += 0.001;
+            }
+
+            // Subtle Camera movement based on mouse
+            camera.position.x += (mouseX * 2 - camera.position.x) * 0.03;
+            camera.position.y += (-mouseY * 2 - camera.position.y) * 0.03;
+            camera.lookAt(scene.position);
+
+            renderer.render(scene, camera);
+        }
+
+        // Initialize Three.js on Window Load
+        window.onload = function() {
+            init3D();
+        };
+
+        /* --- 2. INTERACTIVE UI FUNCTIONS --- */
+
+        // Candle Blow Function
+        let isCandleLit = true;
+        function blowCandle() {
+            const flame = document.getElementById('cake-flame');
+            const msg = document.getElementById('candle-message');
+
+            if (isCandleLit) {
+                flame.style.display = 'none';
+                msg.innerText = "✨ Woohoo! Candle blown! May all your wishes come true! 🎉";
+                triggerEpicConfetti();
+                isCandleLit = false;
+            } else {
+                flame.style.display = 'block';
+                msg.innerText = "🔥 The candle is lit! Make a birthday wish & tap the flame!";
+                isCandleLit = true;
+            }
+        }
+
+        // 3D Card Flip
+        function flip3DCard(card) {
+            const innerCard = card.querySelector('.transform-style-3d');
+            innerCard.classList.toggle('flipped');
+        }
+
+        // Gratitude Jar Generator
+        const jarNotes = [
+            "🌸 May your day be as inspiring as your lectures!",
+            "☕ Wishing you peaceful mornings with a perfect cup of tea and a good book.",
+            "📚 Thank you for making literature feel magical and alive.",
+            "✨ Your gentle patience leaves a lasting footprint on every student's heart.",
+            "🎁 Wishing you endless blessings, health, and peace this year!"
+        ];
+
+        function drawJarNote() {
+            const jarText = document.getElementById('jar-text');
+            const random = jarNotes[Math.floor(Math.random() * jarNotes.length)];
+            jarText.style.opacity = '0';
+            setTimeout(() => {
+                jarText.innerText = `"${random}"`;
+                jarText.style.opacity = '1';
+            }, 200);
+            triggerEpicConfetti();
+        }
+
+        // Quiz Check
+        function checkQuiz(btn, isCorrect) {
+            if (isCorrect) {
+                btn.classList.remove('bg-pastel-cream');
+                btn.classList.add('bg-emerald-100', 'text-emerald-800', 'font-bold');
+                triggerEpicConfetti();
+            } else {
+                btn.classList.remove('bg-pastel-cream');
+                btn.classList.add('bg-rose-100', 'text-rose-800');
+            }
+        }
+
+        // Gift Box Unboxing
+        function openGiftBox() {
+            const giftMsg = document.getElementById('gift-message');
+            giftMsg.classList.toggle('hidden');
+            triggerEpicConfetti();
+        }
+
+        // Audio Toggle Placeholder
+        let isPlaying = false;
+        function toggleAudio() {
+            const icon = document.getElementById('audio-icon');
+            isPlaying = !isPlaying;
+            if (isPlaying) {
+                icon.classList.remove('fa-music');
+                icon.classList.add('fa-volume-high');
+            } else {
+                icon.classList.remove('fa-volume-high');
+                icon.classList.add('fa-music');
+            }
+        }
+
+        // Canvas Confetti
+        function triggerEpicConfetti() {
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 80,
+                    spread: 80,
+                    origin: { y: 0.6 },
+                    colors: ['#FBCFE8', '#F3E8FF', '#E6F4EA', '#D97706', '#E11D48']
+                });
+            }
+        }
+    </script>
 </body>
 </html>
+
 
                         
 
