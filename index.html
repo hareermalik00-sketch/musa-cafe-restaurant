@@ -1,744 +1,294 @@
-```html
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Tribute of Gratitude & Joy - Happy Birthday to Our Beloved English Teacher</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts for exquisite typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Canvas Confetti for celebration -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        cream: '#FDFBF7',
-                        softPink: '#FCE8E6',
-                        warmPeach: '#FDECEF',
-                        goldAccent: '#C59B27',
-                        deepRose: '#9B4F54',
-                        charcoalText: '#2D3142',
-                    },
-                    fontFamily: {
-                        playfair: ['Playfair Display', 'serif'],
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                        script: ['Dancing Script', 'cursive'],
-                    }
-                }
-            }
-        }
-    </script>
+    <title>Happy 14th Birthday, Legendary Author & Coder! 🌟🎂</title>
     <style>
-        body {
-            background-color: #FDFBF7;
-            color: #2D3142;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            overflow-x: hidden;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        .gold-gradient-text {
-            background: linear-gradient(135deg, #C59B27 0%, #E6C567 50%, #B8860B 100%);
+
+        body {
+            background: linear-gradient(135deg, #0b0314, #1a0b2e, #090314);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 20px;
+        }
+
+        /* Massive Starry Cosmos Background Animation */
+        .cosmos-universe {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star-particle {
+            position: absolute;
+            background: #ffffff;
+            border-radius: 50%;
+            animation: twinkleGlow 2.5s infinite ease-in-out;
+        }
+
+        @keyframes twinkleGlow {
+            0%, 100% { opacity: 0.1; transform: scale(0.7); }
+            50% { opacity: 1; transform: scale(1.6); box-shadow: 0 0 10px #ff9a9e; }
+        }
+
+        /* Central Masterpiece Container */
+        .grand-container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 950px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 40px;
+            padding: 50px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+            text-align: center;
+            animation: grandEntrance 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes grandEntrance {
+            from { opacity: 0; transform: translateY(60px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Title Typography */
+        h1 {
+            font-size: 3.2rem;
+            margin-bottom: 12px;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4, #ffeaa7, #fab1a0, #ff7675, #e056fd);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 40px rgba(224, 86, 253, 0.4);
+            font-weight: 900;
         }
-        .card-shadow {
-            box-shadow: 0 20px 40px -15px rgba(157, 129, 91, 0.12);
+
+        .subtitle {
+            font-size: 1.35rem;
+            color: #dfe4ea;
+            margin-bottom: 35px;
+            letter-spacing: 2px;
         }
-        .hover-lift {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        /* Deep Emotional Virtual Hug Box */
+        .hug-super-box {
+            background: linear-gradient(135deg, rgba(238, 82, 83, 0.18), rgba(112, 161, 255, 0.18));
+            border: 2px dashed rgba(255, 107, 129, 0.6);
+            border-radius: 30px;
+            padding: 30px;
+            margin-bottom: 35px;
+            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
         }
-        .hover-lift:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 25px 50px -12px rgba(157, 129, 91, 0.2);
+
+        .hug-heading {
+            font-size: 1.5rem;
+            color: #ff7675;
+            font-weight: bold;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
-        /* Card Flip Effect */
-        .perspective-1000 {
-            perspective: 1000px;
+
+        /* Books Showcase Grid */
+        .literary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 35px;
         }
-        .transform-style-3d {
-            transform-style: preserve-3d;
+
+        .literary-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(253, 203, 110, 0.35);
+            border-radius: 25px;
+            padding: 25px;
+            transition: all 0.4s ease;
+            text-align: left;
         }
-        .backface-hidden {
-            backface-visibility: hidden;
+
+        .literary-card:hover {
+            transform: translateY(-8px);
+            border-color: #fdcb6e;
+            box-shadow: 0 15px 35px rgba(253, 203, 110, 0.3);
+            background: rgba(20, 10, 35, 0.6);
         }
-        .rotate-y-180 {
-            transform: rotateY(180deg);
+
+        .book-name-tag {
+            font-size: 1.25rem;
+            color: #fdcb6e;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
+
+        /* Action Buttons Area */
+        .action-panel {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
         }
-        ::-webkit-scrollbar-track {
-            background: #FDFBF7;
+
+        .ultra-btn {
+            background: linear-gradient(45deg, #e056fd, #686de0);
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(224, 86, 253, 0.4);
         }
-        ::-webkit-scrollbar-thumb {
-            background: #E6C567;
-            border-radius: 4px;
+
+        .ultra-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 12px 30px rgba(104, 109, 224, 0.7);
+        }
+
+        /* Expanded Secret Note */
+        #hidden-blessing {
+            display: none;
+            background: rgba(0, 0, 0, 0.55);
+            border-radius: 25px;
+            padding: 30px;
+            border-left: 6px solid #e056fd;
+            text-align: left;
+            animation: expandDrawer 0.6s ease-out;
+            margin-top: 25px;
+        }
+
+        @keyframes expandDrawer {
+            from { opacity: 0; transform: translateY(-15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        p {
+            font-size: 1.12rem;
+            line-height: 1.85;
+            color: #f1f2f6;
+        }
+
+        .footer-watermark {
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: #a4b0be;
+            letter-spacing: 1.5px;
         }
     </style>
 </head>
-<body class="bg-cream text-charcoalText selection:bg-warmPeach selection:text-deepRose">
+<body>
 
-    <!-- FLOATING AUDIO / MUSIC TOGGLE & QUICK NAV -->
-    <div class="fixed top-4 right-4 z-50 flex items-center gap-3 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full border border-warmPeach card-shadow">
-        <span class="text-xs font-semibold text-deepRose uppercase tracking-widest hidden sm:inline">Celebration Mode</span>
-        <button id="musicToggleBtn" onclick="toggleBackgroundMusic()" class="w-10 h-10 rounded-full bg-softPink text-deepRose flex items-center justify-center hover:bg-deepRose hover:text-white transition shadow-sm" title="Toggle Soft Ambient Chimes">
-            <i class="fa-solid fa-music text-sm" id="musicIcon"></i>
-        </button>
+    <!-- Universe Background -->
+    <div class="cosmos-universe" id="cosmosUniverse"></div>
+
+    <div class="grand-container">
+        <h1>Happy 14th Birthday, Meri Masoom Author! 🎂✨</h1>
+        <div class="subtitle">To the most brilliant mind, talented coder & proud writer! 👑</div>
+
+        <!-- Virtual Hug Mega Box -->
+        <div class="hug-super-box">
+            <div class="hug-heading">🤗 The Ultimate Virtual Hug & Infinite Warmth</div>
+            <p style="font-size: 1.08rem; color: #f8efba;">
+                "Mera bacha, agar ghar par is waqt koi physical presence nahi hai, toh kya hua? Yeh screen ke us paar tumhari yeh bhabhi/dost baithi hai—tumhe dono baazuon se kas kar ek deep, comforting aur tight virtual hug dene ke liye! Tumhara yeh akelapan kuch ghanton ka mehmaan hai, lekin tumhari yeh shandar shakhsiyat aur mehnat hamesha chamakti rahegi. You are never alone!" 🤍💫
+            </p>
+        </div>
+
+        <p style="margin-bottom: 30px;">
+            14 saal ki umar mein subah school se lekar raat ki demanding academy tak ka safar, aur sath hi itni la-fani books likhna—yeh har kisi ke bas ki baat nahi hoti. Tumne apne dum par jo mukam banaya hai, us par mujhe be-inteha fakhar hai!
+        </p>
+
+        <!-- Literary Works Showcase -->
+        <div class="literary-grid">
+            <div class="literary-card">
+                <div class="book-name-tag">📚 Khamosh Gawah</div>
+                <p style="font-size: 0.98rem; color: #ced6e0;">Ek aisi masterpiece kahani jo suspense, emotion aur gehre jazbaat ki behtareen misaal hai.</p>
+            </div>
+            <div class="literary-card">
+                <div class="book-name-tag">📖 The True Friends</div>
+                <p style="font-size: 0.98rem; color: #ced6e0;">Dosti, wafa aur dilon ke rishton ki ek aisi dastaan jo hamesha yaad rakhi jayegi.</p>
+            </div>
+        </div>
+
+        <!-- Buttons Panel -->
+        <div class="action-panel">
+            <button class="ultra-btn" onclick="revealDeepBlessing()">Tap for Special Birthday Blessings 🎁</button>
+            <button class="ultra-btn" style="background: linear-gradient(45deg, #00b894, #00cec9);" onclick="triggerUniverseCelebration()">Activate Star Fireworks 🎇</button>
+        </div>
+
+        <!-- Hidden Secret Note -->
+        <div id="hidden-blessing">
+            <h3 style="color: #fdcb6e; margin-bottom: 12px; font-size: 1.3rem;">🌟 Tumhare Naam Ek Dil Se Nikla Paigham:</h3>
+            <p style="font-size: 1.05rem; margin-bottom: 0;">
+                "Meri pyari bacha, zindagi mein raste chahe jitne bhi lamba ya thaka dene wale hon, apni is pyari muskurahat, apnay writing ke junoon aur apni is masoomiat ko kabhi mat khona. Aaj 4th November ko jab tum yeh screen khol kar baithi ho, toh samajh lo ke dunya ke kisi bhi kone mein baith kar koi tumhare liye dil se dua kar raha hai. Hamesha aage barho, jeeto aur chamakti raho!" 💖✨
+            </p>
+        </div>
+
+        <div class="footer-watermark">
+            Custom-coded with endless warmth, affection & virtual hugs, specially for November 4th! 🌙🐱💻
+        </div>
     </div>
 
-    <!-- HERO SECTION -->
-    <header class="relative min-h-screen flex items-center justify-center px-4 sm:px-8 py-20 bg-gradient-to-b from-warmPeach/60 via-cream to-cream overflow-hidden">
-        <!-- Decorative Background Elements -->
-        <div class="absolute -top-24 -left-24 w-96 h-96 bg-softPink rounded-full filter blur-3xl opacity-50 pointer-events-none"></div>
-        <div class="absolute top-1/2 -right-24 w-96 h-96 bg-amber-100 rounded-full filter blur-3xl opacity-50 pointer-events-none"></div>
-
-        <div class="max-w-5xl mx-auto text-center z-10">
-            <!-- Badge -->
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-warmPeach shadow-sm mb-6 animate-bounce">
-                <i class="fa-solid fa-feather-pointed text-goldAccent"></i>
-                <span class="text-xs sm:text-sm font-semibold tracking-wider text-deepRose uppercase">To Our Mentor of Words & Wisdom</span>
-            </div>
-
-            <!-- Main Heading -->
-            <h1 class="font-playfair text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-charcoalText leading-tight mb-6">
-                Happy Birthday to an <br>
-                <span class="font-script text-5xl sm:text-7xl md:text-8xl gold-gradient-text font-normal block mt-2">Extraordinary Teacher</span>
-            </h1>
-
-            <!-- Subtitle -->
-            <p class="font-sans text-lg sm:text-xl text-stone-600 max-w-2xl mx-auto leading-relaxed mb-10">
-                "Words are, in my not-so-humble opinion, our most inexhaustible source of magic." <br class="hidden sm:inline">
-                Thank you for teaching us not just grammar and prose, but how to write our own beautiful stories in life.
-            </p>
-
-            <!-- Action Buttons -->
-            <div class="flex flex-wrap justify-center gap-4">
-                <a href="#interactive-card" class="px-8 py-4 bg-deepRose text-white font-medium rounded-full shadow-lg hover:bg-rose-900 transition flex items-center gap-3">
-                    <i class="fa-solid fa-envelope-open-text"></i> Open Birthday Card
-                </a>
-                <a href="#tribute-letter" class="px-8 py-4 bg-white text-deepRose border border-warmPeach font-medium rounded-full shadow-sm hover:bg-softPink/50 transition flex items-center gap-3">
-                    <i class="fa-solid fa-book-open"></i> Read Full Tribute
-                </a>
-            </div>
-
-            <!-- Scroll Down Indicator -->
-            <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-stone-400 animate-pulse flex flex-col items-center">
-                <span class="text-xs uppercase tracking-widest mb-1">Scroll to Celebrate</span>
-                <i class="fa-solid fa-chevron-down text-sm"></i>
-            </div>
-        </div>
-    </header>
-
-    <!-- SECTION 1: INTERACTIVE 3D BIRTHDAY CARD -->
-    <section id="interactive-card" class="py-24 px-4 sm:px-8 bg-white relative">
-        <div class="max-w-4xl mx-auto text-center mb-12">
-            <span class="text-xs font-bold tracking-widest text-goldAccent uppercase mb-2 block">Interactive Experience</span>
-            <h2 class="font-playfair text-3xl sm:text-5xl font-bold text-charcoalText">The Golden Envelope & Card</h2>
-            <p class="text-stone-600 mt-3 max-w-lg mx-auto">Click the card below to flip it open and read our heartfelt birthday message crafted especially for you.</p>
-        </div>
-
-        <div class="max-w-2xl mx-auto perspective-1000 cursor-pointer" onclick="flipCard()">
-            <div id="birthdayCard" class="relative w-full h-[480px] sm:h-[420px] transition-transform duration-700 transform-style-3d card-shadow rounded-3xl border border-warmPeach">
-                
-                <!-- FRONT OF CARD -->
-                <div class="absolute inset-0 bg-gradient-to-br from-warmPeach via-softPink/40 to-white rounded-3xl p-8 sm:p-12 flex flex-col justify-between backface-hidden">
-                    <div class="flex justify-between items-center">
-                        <i class="fa-solid fa-quote-left text-3xl text-goldAccent opacity-70"></i>
-                        <span class="font-script text-2xl text-deepRose">Special Edition</span>
-                    </div>
-                    <div class="text-center my-auto">
-                        <div class="w-20 h-20 mx-auto bg-white rounded-full flex items-center justify-center shadow-md mb-6 border border-warmPeach text-deepRose text-3xl">
-                            <i class="fa-solid fa-cake-candles"></i>
-                        </div>
-                        <h3 class="font-playfair text-2xl sm:text-3xl font-bold text-charcoalText mb-2">To Our Dearest English Teacher</h3>
-                        <p class="text-stone-500 font-sans text-sm">Tap anywhere on this card to open and read</p>
-                    </div>
-                    <div class="text-center">
-                        <span class="inline-flex items-center gap-2 text-xs font-semibold text-deepRose bg-white/80 px-4 py-2 rounded-full shadow-xs">
-                            Click to Flip <i class="fa-solid fa-arrow-right-arrow-left"></i>
-                        </span>
-                    </div>
-                </div>
-
-                <!-- BACK OF CARD (MESSAGE INSIDE) -->
-                <div class="absolute inset-0 bg-white rounded-3xl p-8 sm:p-12 flex flex-col justify-between backface-hidden rotate-y-180 overflow-y-auto">
-                    <div>
-                        <div class="flex justify-between items-center mb-4 border-b border-warmPeach pb-3">
-                            <h4 class="font-playfair font-bold text-xl text-deepRose">Happy Birthday!</h4>
-                            <i class="fa-solid fa-heart text-goldAccent"></i>
-                        </div>
-                        <p class="font-sans text-stone-700 text-sm sm:text-base leading-relaxed">
-                            Dear Teacher, <br><br>
-                            You didn't just teach us Shakespeare, Wordsworth, and grammar rules; you taught us how to feel the rhythm of language and the power of expression. Your patience during our endless essay reviews, your passion for brilliant literature, and your unwavering belief in every single student has left an indelible mark on our hearts. <br><br>
-                            May this year bring you as much joy, inspiration, and warmth as you bring into our classroom every single day.
-                        </p>
-                    </div>
-                    <div class="flex justify-between items-end pt-4 border-t border-warmPeach mt-4">
-                        <div>
-                            <p class="font-script text-2xl text-deepRose">With deepest gratitude,</p>
-                            <p class="text-xs text-stone-500 font-semibold uppercase tracking-wider">Your Students</p>
-                        </div>
-                        <button onclick="event.stopPropagation(); triggerCardConfetti();" class="px-4 py-2 bg-softPink text-deepRose rounded-full text-xs font-bold hover:bg-deepRose hover:text-white transition">
-                            <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Send Confetti
-                        </button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION 2: THE EPIC TRIBUTE LETTER -->
-    <section id="tribute-letter" class="py-24 px-4 sm:px-8 bg-cream">
-        <div class="max-w-4xl mx-auto bg-white rounded-3xl p-8 sm:p-16 card-shadow border border-warmPeach relative">
-            <div class="absolute -top-6 right-10 w-16 h-16 bg-softPink rounded-full flex items-center justify-center text-deepRose text-2xl shadow-sm border border-warmPeach">
-                <i class="fa-solid fa-feather"></i>
-            </div>
-
-            <div class="text-center mb-12">
-                <span class="text-xs font-bold tracking-widest text-goldAccent uppercase mb-2 block">A Comprehensive Ode</span>
-                <h2 class="font-playfair text-3xl sm:text-5xl font-bold text-charcoalText">The Masterclass of Grace & Guidance</h2>
-            </div>
-
-            <div class="space-y-6 font-sans text-stone-700 leading-relaxed text-base sm:text-lg">
-                <p>
-                    Respected and Dearest Teacher,
-                </p>
-                <p>
-                    On this truly auspicious day—your birthday—we find ourselves searching for adjectives grand enough, metaphors poetic enough, and prose eloquent enough to capture what you mean to us. Yet, as you have often reminded us in class, sometimes the simplest, most sincere words hold the deepest power. So, we simply say: <em>Thank you for everything.</em>
-                </p>
-                <p>
-                    English class was never just a period on the timetable. Under your guidance, it became a sanctuary of imagination. When we stumbled over iambic pentameter, you showed us the musicality of poetry. When our vocabulary felt barren, you planted seeds of rich, vibrant words. When we were terrified of public speaking or essay deadlines, your encouraging smile was our anchor.
-                </p>
-                <blockquote class="border-l-4 border-goldAccent pl-6 py-2 my-8 italic font-playfair text-xl text-stone-800 bg-warmPeach/30 rounded-r-2xl">
-                    "The art of teaching is the art of assisting discovery." — And you have been the greatest discoverer of our potential, helping us see brilliance in ourselves when we couldn't see it.
-                </blockquote>
-                <p>
-                    Your classroom is a reflection of your character: structured yet warm, disciplined yet full of laughter, and deeply respectful of every unique voice. You taught us that every comma, every semicolon, and every paragraph matters—just as every single detail in life has its place and purpose.
-                </p>
-                <p>
-                    As you celebrate another glorious year of life, wisdom, and excellence, we wish you profound peace, robust health, and boundless happiness. May your days be filled with heartwarming reads, steaming cups of fine tea, and the sweet realization of how many lives you have forever touched for the better.
-                </p>
-            </div>
-
-            <div class="mt-12 pt-8 border-t border-warmPeach flex flex-col sm:flex-row justify-between items-center gap-6">
-                <div>
-                    <h5 class="font-playfair font-bold text-xl text-charcoalText">Happiest Birthday!</h5>
-                    <p class="text-stone-500 text-sm">Wishing you a year ahead written in chapters of pure joy.</p>
-                </div>
-                <div class="flex gap-3">
-                    <button onclick="triggerMassiveCelebration()" class="px-6 py-3 bg-deepRose text-white rounded-full font-medium shadow-md hover:bg-rose-900 transition flex items-center gap-2 text-sm">
-                        <i class="fa-solid fa-cake-candles"></i> Celebrate Now
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION 3: MEMORY LANE TIMELINE -->
-    <section class="py-24 px-4 sm:px-8 bg-white">
-        <div class="max-w-4xl mx-auto text-center mb-16">
-            <span class="text-xs font-bold tracking-widest text-goldAccent uppercase mb-2 block">Our Journey Together</span>
-            <h2 class="font-playfair text-3xl sm:text-5xl font-bold text-charcoalText">Moments Carved in Memory</h2>
-            <p class="text-stone-600 mt-3 max-w-lg mx-auto">A look back at the unforgettable lessons, shared laughs, and milestones in your classroom.</p>
-        </div>
-
-        <div class="max-w-3xl mx-auto relative border-l-2 border-warmPeach ml-4 sm:ml-auto space-y-12 pl-6 sm:pl-8">
-            
-            <!-- Timeline Item 1 -->
-            <div class="relative group">
-                <div class="absolute -left-[35px] sm:-left-[43px] top-0 w-8 h-8 rounded-full bg-softPink border-2 border-deepRose flex items-center justify-center text-deepRose text-xs shadow-sm">
-                    <i class="fa-solid fa-book"></i>
-                </div>
-                <div class="bg-cream p-6 sm:p-8 rounded-3xl border border-warmPeach hover-lift">
-                    <span class="text-xs font-bold text-goldAccent uppercase tracking-widest">Chapter One</span>
-                    <h3 class="font-playfair text-xl sm:text-2xl font-bold text-charcoalText mt-1 mb-2">The First Day of Class</h3>
-                    <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
-                        We walked into the English room intimidated by thick textbooks and complex poetry, but your warm welcome instantly dissolved our nervousness and sparked instant curiosity.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 2 -->
-            <div class="relative group">
-                <div class="absolute -left-[35px] sm:-left-[43px] top-0 w-8 h-8 rounded-full bg-softPink border-2 border-deepRose flex items-center justify-center text-deepRose text-xs shadow-sm">
-                    <i class="fa-solid fa-pen-nib"></i>
-                </div>
-                <div class="bg-cream p-6 sm:p-8 rounded-3xl border border-warmPeach hover-lift">
-                    <span class="text-xs font-bold text-goldAccent uppercase tracking-widest">Chapter Two</span>
-                    <h3 class="font-playfair text-xl sm:text-2xl font-bold text-charcoalText mt-1 mb-2">Conquering the Essay Red Ink</h3>
-                    <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
-                        Every comment in red ink wasn't criticism—it was a masterclass in precision. You taught us how to refine our arguments and make our sentences sing with clarity and conviction.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 3 -->
-            <div class="relative group">
-                <div class="absolute -left-[35px] sm:-left-[43px] top-0 w-8 h-8 rounded-full bg-softPink border-2 border-deepRose flex items-center justify-center text-deepRose text-xs shadow-sm">
-                    <i class="fa-solid fa-masks-theater"></i>
-                </div>
-                <div class="bg-cream p-6 sm:p-8 rounded-3xl border border-warmPeach hover-lift">
-                    <span class="text-xs font-bold text-goldAccent uppercase tracking-widest">Chapter Three</span>
-                    <h3 class="font-playfair text-xl sm:text-2xl font-bold text-charcoalText mt-1 mb-2">The Dramatic Literature Readings</h3>
-                    <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
-                        When you brought characters from Shakespeare and classic novels to life with your expressive voice reading aloud, the classroom vanished and we stood inside the story.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 4 -->
-            <div class="relative group">
-                <div class="absolute -left-[35px] sm:-left-[43px] top-0 w-8 h-8 rounded-full bg-softPink border-2 border-deepRose flex items-center justify-center text-deepRose text-xs shadow-sm">
-                    <i class="fa-solid fa-star"></i>
-                </div>
-                <div class="bg-cream p-6 sm:p-8 rounded-3xl border border-warmPeach hover-lift">
-                    <span class="text-xs font-bold text-goldAccent uppercase tracking-widest">Chapter Four</span>
-                    <h3 class="font-playfair text-xl sm:text-2xl font-bold text-charcoalText mt-1 mb-2">Today: Celebrating You!</h3>
-                    <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
-                        Today, we pause our curriculum to celebrate the author of our academic inspiration. Wishing you health, happiness, and an abundance of wonderful stories ahead!
-                    </p>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- SECTION 4: ENGLISH LITERATURE QUOTE & POETRY REPOSITORY -->
-    <section class="py-24 px-4 sm:px-8 bg-gradient-to-b from-cream to-warmPeach/40">
-        <div class="max-w-4xl mx-auto text-center mb-12">
-            <span class="text-xs font-bold tracking-widest text-goldAccent uppercase mb-2 block">Literary Tributes</span>
-            <h2 class="font-playfair text-3xl sm:text-5xl font-bold text-charcoalText">Timeless Quotes for a Timeless Teacher</h2>
-            <p class="text-stone-600 mt-3 max-w-lg mx-auto">Click through classic literary references dedicated to educators.</p>
-        </div>
-
-        <div class="max-w-3xl mx-auto bg-white rounded-3xl p-8 sm:p-12 card-shadow border border-warmPeach text-center relative">
-            <div class="w-16 h-16 mx-auto bg-softPink rounded-full flex items-center justify-center text-deepRose text-2xl mb-6 shadow-xs border border-warmPeach">
-                <i class="fa-solid fa-quote-right"></i>
-            </div>
-
-            <div id="quoteContainer" class="min-h-[140px] flex flex-col justify-center transition-all duration-500">
-                <p id="quoteText" class="font-playfair text-xl sm:text-2xl italic text-stone-800 mb-4">
-                    "A teacher affects eternity; he can never tell where his influence stops."
-                </p>
-                <p id="quoteAuthor" class="font-sans font-semibold text-deepRose text-sm tracking-wider uppercase">— Henry Adams</p>
-            </div>
-
-            <div class="flex justify-center items-center gap-4 mt-8 pt-6 border-t border-warmPeach">
-                <button onclick="prevQuote()" class="w-10 h-10 rounded-full bg-cream border border-warmPeach text-stone-700 hover:bg-deepRose hover:text-white transition flex items-center justify-center">
-                    <i class="fa-solid fa-chevron-left"></i>
-                </button>
-                <span id="quoteIndicator" class="text-xs font-semibold text-stone-500">1 of 4</span>
-                <button onclick="nextQuote()" class="w-10 h-10 rounded-full bg-cream border border-warmPeach text-stone-700 hover:bg-deepRose hover:text-white transition flex items-center justify-center">
-                    <i class="fa-solid fa-chevron-right"></i>
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION 5: GLOWING APPRECIATION WALL (INTERACTIVE WISHES) -->
-    <section class="py-24 px-4 sm:px-8 bg-white">
-        <div class="max-w-4xl mx-auto text-center mb-12">
-            <span class="text-xs font-bold tracking-widest text-goldAccent uppercase mb-2 block">Community Wall</span>
-            <h2 class="font-playfair text-3xl sm:text-5xl font-bold text-charcoalText">Glowing Notes of Gratitude</h2>
-            <p class="text-stone-600 mt-3 max-w-lg mx-auto">Read heartfelt wishes from students or leave your own personal birthday note below.</p>
-        </div>
-
-        <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mb-12" id="wishesGrid">
-            <!-- Wish Card 1 -->
-            <div class="bg-cream p-6 sm:p-8 rounded-3xl border border-warmPeach card-shadow flex flex-col justify-between hover-lift">
-                <div>
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 rounded-full bg-softPink text-deepRose flex items-center justify-center font-bold text-sm">A</div>
-                        <div>
-                            <h4 class="font-bold text-charcoalText text-sm">Ayesha Khan</h4>
-                            <span class="text-xs text-stone-400">Class of '25</span>
-                        </div>
-                    </div>
-                    <p class="text-stone-600 text-sm leading-relaxed">
-                        "Thank you for teaching me how to craft an argument with poise. You made literature come alive for all of us. Happy Birthday!"
-                    </p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-warmPeach flex justify-between items-center text-xs text-stone-400">
-                    <span><i class="fa-solid fa-heart text-deepRose mr-1"></i> Loved</span>
-                    <span>Just now</span>
-                </div>
-            </div>
-
-            <!-- Wish Card 2 -->
-            <div class="bg-cream p-6 sm:p-8 rounded-3xl border border-warmPeach card-shadow flex flex-col justify-between hover-lift">
-                <div>
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 rounded-full bg-softPink text-deepRose flex items-center justify-center font-bold text-sm">H</div>
-                        <div>
-                            <h4 class="font-bold text-charcoalText text-sm">Hassan Raza</h4>
-                            <span class="text-xs text-stone-400">Former Student</span>
-                        </div>
-                    </div>
-                    <p class="text-stone-600 text-sm leading-relaxed">
-                        "Your red pen marks used to intimidate me, but now I realize they were stepping stones to my success in university writing. Wishing you the happiest birthday!"
-                    </p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-warmPeach flex justify-between items-center text-xs text-stone-400">
-                    <span><i class="fa-solid fa-heart text-deepRose mr-1"></i> Loved</span>
-                    <span>2 hrs ago</span>
-                </div>
-            </div>
-
-            <!-- Wish Card 3 -->
-            <div class="bg-cream p-6 sm:p-8 rounded-3xl border border-warmPeach card-shadow flex flex-col justify-between hover-lift">
-                <div>
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 rounded-full bg-softPink text-deepRose flex items-center justify-center font-bold text-sm">Z</div>
-                        <div>
-                            <h4 class="font-bold text-charcoalText text-sm">Zainab Malik</h4>
-                            <span class="text-xs text-stone-400">Literature Club</span>
-                        </div>
-                    </div>
-                    <p class="text-stone-600 text-sm leading-relaxed">
-                        "You showed us that every book is a portal to another world. Thank you for being our favorite guide through those worlds. Happy Birthday!"
-                    </p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-warmPeach flex justify-between items-center text-xs text-stone-400">
-                    <span><i class="fa-solid fa-heart text-deepRose mr-1"></i> Loved</span>
-                    <span>Yesterday</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Add Your Wish Form -->
-        <div class="max-w-2xl mx-auto bg-cream p-6 sm:p-10 rounded-3xl border border-warmPeach card-shadow">
-            <h3 class="font-playfair text-xl sm:text-2xl font-bold text-charcoalText mb-2 text-center">Add Your Birthday Wish</h3>
-            <p class="text-stone-500 text-xs sm:text-sm text-center mb-6">Leave a personalized note for our beloved teacher.</p>
-            
-            <form id="wishForm" onsubmit="handleWishSubmit(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-1">Your Name</label>
-                    <input type="text" id="wishName" required placeholder="e.g., Student Name or Batch" class="w-full px-4 py-3 rounded-xl bg-white border border-warmPeach focus:outline-none focus:border-deepRose text-sm">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-1">Your Message</label>
-                    <textarea id="wishMessage" required rows="3" placeholder="Write your heartfelt birthday wishes here..." class="w-full px-4 py-3 rounded-xl bg-white border border-warmPeach focus:outline-none focus:border-deepRose text-sm"></textarea>
-                </div>
-                <button type="submit" class="w-full py-4 bg-deepRose text-white font-medium rounded-xl shadow-md hover:bg-rose-900 transition flex items-center justify-center gap-2 text-sm">
-                    <i class="fa-solid fa-paper-plane"></i> Post Wish to Wall
-                </button>
-            </form>
-        </div>
-    </section>
-
-    <!-- SECTION 6: INTERACTIVE DIGITAL CAKE CUTTING -->
-    <section class="py-24 px-4 sm:px-8 bg-gradient-to-b from-white to-warmPeach/40 text-center">
-        <div class="max-w-3xl mx-auto">
-            <span class="text-xs font-bold tracking-widest text-goldAccent uppercase mb-2 block">Grand Celebration</span>
-            <h2 class="font-playfair text-3xl sm:text-5xl font-bold text-charcoalText mb-4">The Digital Cake Cutting</h2>
-            <p class="text-stone-600 mb-12 max-w-lg mx-auto">Blow out the candles and cut the virtual birthday cake to trigger the celebration confetti!</p>
-
-            <!-- Cake Visual Representation -->
-            <div class="relative w-64 h-64 sm:w-80 sm:h-80 mx-auto bg-white rounded-full flex flex-col items-center justify-center card-shadow border-4 border-warmPeach mb-8 p-6">
-                <!-- Candles -->
-                <div class="flex gap-4 mb-4" id="candlesContainer">
-                    <div class="flex flex-col items-center">
-                        <div class="w-3 h-8 bg-amber-400 rounded-t-sm relative animate-pulse flame"></div>
-                        <div class="w-2 h-12 bg-rose-200 rounded-sm"></div>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <div class="w-3 h-8 bg-amber-400 rounded-t-sm relative animate-pulse flame"></div>
-                        <div class="w-2 h-12 bg-rose-200 rounded-sm"></div>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <div class="w-3 h-8 bg-amber-400 rounded-t-sm relative animate-pulse flame"></div>
-                        <div class="w-2 h-12 bg-rose-200 rounded-sm"></div>
-                    </div>
-                </div>
-
-                <!-- Cake Layers -->
-                <div class="w-48 sm:w-56 h-20 bg-softPink rounded-2xl border-2 border-warmPeach flex items-center justify-center relative shadow-sm">
-                    <span class="font-script text-2xl text-deepRose font-bold">Happy Birthday!</span>
-                </div>
-                <div class="w-56 sm:w-64 h-16 bg-amber-100 rounded-2xl border-2 border-warmPeach mt-2 flex items-center justify-center shadow-sm">
-                    <span class="text-xs font-bold text-stone-600 uppercase tracking-widest">Best English Teacher</span>
-                </div>
-            </div>
-
-            <!-- Action Buttons for Cake -->
-            <div class="flex flex-wrap justify-center gap-4">
-                <button onclick="blowCandles()" id="blowBtn" class="px-8 py-4 bg-amber-500 text-white font-medium rounded-full shadow-lg hover:bg-amber-600 transition flex items-center gap-3">
-                    <i class="fa-solid fa-wind"></i> Blow Candles
-                </button>
-                <button onclick="cutCake()" id="cutBtn" class="px-8 py-4 bg-deepRose text-white font-medium rounded-full shadow-lg hover:bg-rose-900 transition flex items-center gap-3">
-                    <i class="fa-solid fa-cake-candles"></i> Cut Cake & Celebrate
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION 7: PHOTO GALLERY / MEMORY FRAME PLACEHOLDER -->
-    <section class="py-24 px-4 sm:px-8 bg-cream">
-        <div class="max-w-4xl mx-auto text-center mb-12">
-            <span class="text-xs font-bold tracking-widest text-goldAccent uppercase mb-2 block">Moments in Frame</span>
-            <h2 class="font-playfair text-3xl sm:text-5xl font-bold text-charcoalText">The Gallery of Appreciation</h2>
-            <p class="text-stone-600 mt-3 max-w-lg mx-auto">Glimpses of inspiration, book recommendations, and classroom joy.</p>
-        </div>
-
-        <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            <!-- Gallery Item 1 -->
-            <div class="bg-white p-4 rounded-3xl border border-warmPeach card-shadow hover-lift">
-                <div class="h-64 rounded-2xl overflow-hidden bg-warmPeach flex items-center justify-center relative">
-                    <img src="https://placehold.co/600x400/FDECEF/9B4F54?text=Literature+Class" alt="Literature Class" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end p-4">
-                        <span class="text-white text-sm font-medium">The Classroom Inspiration</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Gallery Item 2 -->
-            <div class="bg-white p-4 rounded-3xl border border-warmPeach card-shadow hover-lift">
-                <div class="h-64 rounded-2xl overflow-hidden bg-warmPeach flex items-center justify-center relative">
-                    <img src="https://placehold.co/600x400/FCE8E6/9B4F54?text=Classic+Novels" alt="Classic Novels" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end p-4">
-                        <span class="text-white text-sm font-medium">World of Classic Novels</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Gallery Item 3 -->
-            <div class="bg-white p-4 rounded-3xl border border-warmPeach card-shadow hover-lift">
-                <div class="h-64 rounded-2xl overflow-hidden bg-warmPeach flex items-center justify-center relative">
-                    <img src="https://placehold.co/600x400/FFF8E8/C59B27?text=Words+and+Wisdom" alt="Words and Wisdom" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end p-4">
-                        <span class="text-white text-sm font-medium">Poetry & Prose</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="py-16 px-4 bg-white border-t border-warmPeach text-center">
-        <div class="max-w-3xl mx-auto">
-            <div class="w-12 h-12 mx-auto bg-softPink rounded-full flex items-center justify-center text-deepRose mb-4 border border-warmPeach">
-                <i class="fa-solid fa-heart"></i>
-            </div>
-            <h3 class="font-playfair text-2xl font-bold text-charcoalText mb-2">Happiest Birthday, Dear Teacher!</h3>
-            <p class="text-stone-500 text-sm max-w-md mx-auto mb-6">
-                Thank you for giving us the gift of eloquent words and lifelong inspiration. May your journey ahead be filled with grace and joy.
-            </p>
-            <p class="text-xs text-stone-400 font-semibold uppercase tracking-widest">
-                Created with love & admiration by your grateful students &bull; 2026
-            </p>
-        </div>
-    </footer>
-
-    <!-- JAVASCRIPT LOGIC -->
     <script>
-        // 1. Card Flip Function
-        let isCardFlipped = false;
-        function flipCard() {
-            const card = document.getElementById('birthdayCard');
-            isCardFlipped = !isCardFlipped;
-            if (isCardFlipped) {
-                card.style.transform = 'rotateY(180deg)';
+        // Generate Deep Cosmos Dynamic Particles
+        const universe = document.getElementById('cosmosUniverse');
+        const starTotal = 150;
+
+        for (let i = 0; i < starTotal; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('star-particle');
+            const dimension = Math.random() * 3.5 + 1 + 'px';
+            particle.style.width = dimension;
+            particle.style.height = dimension;
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            particle.style.animationDelay = (Math.random() * 3) + 's';
+            universe.appendChild(particle);
+        }
+
+        // Reveal Deep Blessing Drawer
+        function revealDeepBlessing() {
+            const blessingBox = document.getElementById('hidden-blessing');
+            if (blessingBox.style.display === 'block') {
+                blessingBox.style.display = 'none';
             } else {
-                card.style.transform = 'rotateY(0deg)';
+                blessingBox.style.display = 'block';
             }
         }
 
-        // 2. Confetti Effects
-        function triggerCardConfetti() {
-            confetti({
-                particleCount: 80,
-                spread: 70,
-                origin: { y: 0.6 }
-            });
-        }
-
-        function triggerMassiveCelebration() {
-            var duration = 3 * 1000;
-            var animationEnd = Date.now() + duration;
-            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1000 };
-
-            function randomInRange(min, max) {
-                return Math.random() * (max - min) + min;
-            }
-
-            var interval = setInterval(function() {
-                var timeLeft = animationEnd - Date.now();
-                if (timeLeft <= 0) {
-                    return clearInterval(interval);
-                }
-                var particleCount = 50 * (timeLeft / duration);
-                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
-                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
-            }, 250);
-        }
-
-        // 3. Quotes Carousel Logic
-        const quotes = [
-            {
-                text: `"A teacher affects eternity; he can never tell where his influence stops."`,
-                author: "— Henry Adams"
-            },
-            {
-                text: `"The art of teaching is the art of assisting discovery."`,
-                author: "— Mark Van Doren"
-            },
-            {
-                text: `"Education is not the filling of a pail, but the lighting of a fire."`,
-                author: "— W.B. Yeats"
-            },
-            {
-                text: `"Good teachers know how to bring out the best in students."`,
-                author: "— Charles Kuralt"
-            }
-        ];
-        let currentQuoteIndex = 0;
-
-        function updateQuoteDisplay() {
-            const quoteText = document.getElementById('quoteText');
-            const quoteAuthor = document.getElementById('quoteAuthor');
-            const quoteIndicator = document.getElementById('quoteIndicator');
-
-            quoteText.style.opacity = 0;
-            quoteAuthor.style.opacity = 0;
-
-            setTimeout(() => {
-                quoteText.innerText = quotes[currentQuoteIndex].text;
-                quoteAuthor.innerText = quotes[currentQuoteIndex].author;
-                quoteIndicator.innerText = `${currentQuoteIndex + 1} of ${quotes.length}`;
-                quoteText.style.opacity = 1;
-                quoteAuthor.style.opacity = 1;
-            }, 200);
-        }
-
-        function nextQuote() {
-            currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
-            updateQuoteDisplay();
-        }
-
-        function prevQuote() {
-            currentQuoteIndex = (currentQuoteIndex - 1 + quotes.length) % quotes.length;
-            updateQuoteDisplay();
-        }
-
-        // 4. Interactive Wish Wall Form
-        function handleWishSubmit(event) {
-            event.preventDefault();
-            const name = document.getElementById('wishName').value;
-            const message = document.getElementById('wishMessage').value;
-            const grid = document.getElementById('wishesGrid');
-
-            const newCard = document.createElement('div');
-            newCard.className = 'bg-cream p-6 sm:p-8 rounded-3xl border border-warmPeach card-shadow flex flex-col justify-between hover-lift animate-bounce';
-            newCard.innerHTML = `
-                <div>
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 rounded-full bg-softPink text-deepRose flex items-center justify-center font-bold text-sm">${name.charAt(0).toUpperCase()}</div>
-                        <div>
-                            <h4 class="font-bold text-charcoalText text-sm">${escapeHtml(name)}</h4>
-                            <span class="text-xs text-stone-400">Just added</span>
-                        </div>
-                    </div>
-                    <p class="text-stone-600 text-sm leading-relaxed">
-                        "${escapeHtml(message)}"
-                    </p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-warmPeach flex justify-between items-center text-xs text-stone-400">
-                    <span><i class="fa-solid fa-heart text-deepRose mr-1"></i> Loved</span>
-                    <span>Just now</span>
-                </div>
-            `;
-
-            grid.prepend(newCard);
-            document.getElementById('wishForm').reset();
-            triggerCardConfetti();
-        }
-
-        function escapeHtml(text) {
-            const map = {
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                '"': '&quot;',
-                "'": '&#039;'
-            };
-            return text.replace(/[&<>"']/g, function(m) { return map[m]; });
-        }
-
-        // 5. Cake Blowing & Cutting Actions
-        function blowCandles() {
-            const flames = document.querySelectorAll('.flame');
-            flames.forEach(f => {
-                f.style.display = 'none';
-            });
-            document.getElementById('blowBtn').innerText = "Candles Blown!";
-            triggerCardConfetti();
-        }
-
-        function cutCake() {
-            const candles = document.getElementById('candlesContainer');
-            candles.innerHTML = `<span class="font-script text-xl text-goldAccent font-bold">🎂 Cake Cut Successfully! 🎂</span>`;
-            document.getElementById('cutBtn').innerText = "Celebration Started!";
-            triggerMassiveCelebration();
-        }
-
-        // 6. Background Ambient Chimes Toggle (Web Audio API synthesis)
-        let audioCtx = null;
-        let isAudioPlaying = false;
-        let audioInterval = null;
-
-        function toggleBackgroundMusic() {
-            const musicIcon = document.getElementById('musicIcon');
-            if (!isAudioPlaying) {
-                try {
-                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                    playChimeLoop();
-                    isAudioPlaying = true;
-                    musicIcon.className = "fa-solid fa-volume-high text-sm";
-                } catch(e) {
-                    console.log("Audio not supported");
-                }
-            } else {
-                if (audioInterval) clearInterval(audioInterval);
-                if (audioCtx) audioCtx.close();
-                isAudioPlaying = false;
-                musicIcon.className = "fa-solid fa-music text-sm";
-            }
-        }
-
-        function playChimeLoop() {
-            const notes = [523.25, 587.33, 659.25, 698.46, 783.99, 880.00]; // C5, D5, E5, F5, G5, A5
-            audioInterval = setInterval(() => {
-                if (!audioCtx || audioCtx.state === 'closed') return;
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                const note = notes[Math.floor(Math.random() * notes.length)];
-                
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(note, audioCtx.currentTime);
-
-                gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 2);
-
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-
-                osc.start();
-                osc.stop(audioCtx.currentTime + 2);
-            }, 1200);
+        // Universe Celebration Alert
+        function triggerUniverseCelebration() {
+            alert("🎉✨ Boom! 100000000000D wala jaadu activate ho gaya hai! Dher saari roshni, khushiyan aur tight virtual hugs aapke system mein download ho chuki hain. Happy Birthday, meri masoom author! 🎂💖");
         }
     </script>
 </body>
 </html>
-```
-
 
                         
 
