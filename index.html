@@ -4,291 +4,468 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy 14th Birthday, Legendary Author & Coder! 🌟🎂</title>
+    <title>Happy Birthday Ma'am Laraib 🌸</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
         body {
-            background: linear-gradient(135deg, #0b0314, #1a0b2e, #090314);
-            color: #ffffff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #FAF5EF 0%, #F8EBEA 50%, #F5EFF9 100%);
             min-height: 100vh;
             overflow-x: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            padding: 20px;
+            color: #4A4453;
         }
 
-        /* Massive Starry Cosmos Background Animation */
-        .cosmos-universe {
+        .font-serif-title {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .font-handwriting {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        /* Background floating bubbles */
+        .ambient-bg-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(50px);
+            opacity: 0.6;
+            z-index: 0;
+            animation: floatOrb 12s infinite ease-in-out alternate;
+        }
+
+        @keyframes floatOrb {
+            0% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-30px) scale(1.08); }
+            100% { transform: translateY(15px) scale(0.95); }
+        }
+
+        /* Interactive Envelope CSS */
+        .envelope-wrapper {
+            perspective: 1000px;
+        }
+
+        .envelope {
+            width: 320px;
+            height: 220px;
+            position: relative;
+            background-color: #FDFBF7;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(200, 180, 195, 0.25);
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+
+        @media (min-width: 640px) {
+            .envelope {
+                width: 420px;
+                height: 280px;
+            }
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 130px solid #F3E5E3;
+            transform-origin: top center;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 3;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.04));
+        }
+
+        @media (min-width: 640px) {
+            .envelope-flap {
+                border-left-width: 210px;
+                border-right-width: 210px;
+                border-top-width: 160px;
+            }
+        }
+
+        .envelope.open .envelope-flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .envelope-pocket {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom right, #FAF0EE, #F4E8EE);
+            border-radius: 12px;
+            clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 0, 50% 55%);
+            z-index: 2;
+        }
+
+        .letter-preview {
+            position: absolute;
+            bottom: 12px;
+            left: 5%;
+            width: 90%;
+            height: 85%;
+            background: #FFFFFF;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #F6EBEA;
+        }
+
+        .envelope.open .letter-preview {
+            transform: translateY(-90px) scale(1.02);
+            z-index: 4;
+        }
+
+        @media (min-width: 640px) {
+            .envelope.open .letter-preview {
+                transform: translateY(-110px) scale(1.02);
+            }
+        }
+
+        /* Particle Canvas overlay */
+        #particleCanvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 1;
+            z-index: 40;
         }
 
-        .star-particle {
-            position: absolute;
-            background: #ffffff;
-            border-radius: 50%;
-            animation: twinkleGlow 2.5s infinite ease-in-out;
-        }
-
-        @keyframes twinkleGlow {
-            0%, 100% { opacity: 0.1; transform: scale(0.7); }
-            50% { opacity: 1; transform: scale(1.6); box-shadow: 0 0 10px #ff9a9e; }
-        }
-
-        /* Central Masterpiece Container */
-        .grand-container {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            max-width: 950px;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            border-radius: 40px;
-            padding: 50px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
-            text-align: center;
-            animation: grandEntrance 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        @keyframes grandEntrance {
-            from { opacity: 0; transform: translateY(60px) scale(0.9); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
-        /* Title Typography */
-        h1 {
-            font-size: 3.2rem;
-            margin-bottom: 12px;
-            background: linear-gradient(45deg, #ff9a9e, #fad0c4, #ffeaa7, #fab1a0, #ff7675, #e056fd);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 40px rgba(224, 86, 253, 0.4);
-            font-weight: 900;
-        }
-
-        .subtitle {
-            font-size: 1.35rem;
-            color: #dfe4ea;
-            margin-bottom: 35px;
-            letter-spacing: 2px;
-        }
-
-        /* Deep Emotional Virtual Hug Box */
-        .hug-super-box {
-            background: linear-gradient(135deg, rgba(238, 82, 83, 0.18), rgba(112, 161, 255, 0.18));
-            border: 2px dashed rgba(255, 107, 129, 0.6);
-            border-radius: 30px;
-            padding: 30px;
-            margin-bottom: 35px;
-            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.05);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hug-heading {
-            font-size: 1.5rem;
-            color: #ff7675;
-            font-weight: bold;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        /* Books Showcase Grid */
-        .literary-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 35px;
-        }
-
-        .literary-card {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(253, 203, 110, 0.35);
-            border-radius: 25px;
-            padding: 25px;
-            transition: all 0.4s ease;
-            text-align: left;
-        }
-
-        .literary-card:hover {
-            transform: translateY(-8px);
-            border-color: #fdcb6e;
-            box-shadow: 0 15px 35px rgba(253, 203, 110, 0.3);
-            background: rgba(20, 10, 35, 0.6);
-        }
-
-        .book-name-tag {
-            font-size: 1.25rem;
-            color: #fdcb6e;
-            font-weight: bold;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* Action Buttons Area */
-        .action-panel {
-            display: flex;
-            justify-content: center;
-            gap: 18px;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
-        }
-
-        .ultra-btn {
-            background: linear-gradient(45deg, #e056fd, #686de0);
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 40px;
-            cursor: pointer;
+        /* Soft Glow Button Effect */
+        .glow-btn {
+            box-shadow: 0 4px 15px rgba(224, 187, 201, 0.4);
             transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(224, 86, 253, 0.4);
         }
 
-        .ultra-btn:hover {
-            transform: scale(1.08);
-            box-shadow: 0 12px 30px rgba(104, 109, 224, 0.7);
+        .glow-btn:hover {
+            box-shadow: 0 6px 22px rgba(224, 187, 201, 0.65);
+            transform: translateY(-2px);
         }
 
-        /* Expanded Secret Note */
-        #hidden-blessing {
-            display: none;
-            background: rgba(0, 0, 0, 0.55);
-            border-radius: 25px;
-            padding: 30px;
-            border-left: 6px solid #e056fd;
-            text-align: left;
-            animation: expandDrawer 0.6s ease-out;
-            margin-top: 25px;
+        /* Custom Scrollbar for Card Modal */
+        .custom-scroll::-webkit-scrollbar {
+            width: 5px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #F8EBEA;
+            border-radius: 10px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #E2C4D3;
+            border-radius: 10px;
         }
 
-        @keyframes expandDrawer {
-            from { opacity: 0; transform: translateY(-15px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Typing cursor effect */
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 0.8s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
 
-        p {
-            font-size: 1.12rem;
-            line-height: 1.85;
-            color: #f1f2f6;
+        /* Accordion transition */
+        .tab-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out, opacity 0.3s ease;
+            opacity: 0;
         }
-
-        .footer-watermark {
-            margin-top: 40px;
-            font-size: 0.9rem;
-            color: #a4b0be;
-            letter-spacing: 1.5px;
+        .tab-content.active {
+            max-height: 350px;
+            opacity: 1;
         }
     </style>
 </head>
-<body>
+<body class="relative flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 overflow-x-hidden selection:bg-pink-100 selection:text-pink-700">
 
-    <!-- Universe Background -->
-    <div class="cosmos-universe" id="cosmosUniverse"></div>
+    <!-- Ambient Glowing Orbs Background -->
+    <div class="ambient-bg-orb w-72 h-72 bg-pink-200 top-10 left-10"></div>
+    <div class="ambient-bg-orb w-96 h-96 bg-purple-200 bottom-10 right-10" style="animation-delay: -4s;"></div>
+    <div class="ambient-bg-orb w-80 h-80 bg-amber-100 top-1/2 left-1/3" style="animation-delay: -8s;"></div>
 
-    <div class="grand-container">
-        <h1>Happy 14th Birthday, Meri Masoom Author! 🎂✨</h1>
-        <div class="subtitle">To the most brilliant mind, talented coder & proud writer! 👑</div>
+    <!-- Canvas for Floating Flowers/Hearts/Sparkles -->
+    <canvas id="particleCanvas"></canvas>
 
-        <!-- Virtual Hug Mega Box -->
-        <div class="hug-super-box">
-            <div class="hug-heading">🤗 The Ultimate Virtual Hug & Infinite Warmth</div>
-            <p style="font-size: 1.08rem; color: #f8efba;">
-                "Mera bacha, agar ghar par is waqt koi physical presence nahi hai, toh kya hua? Yeh screen ke us paar tumhari yeh bhabhi/dost baithi hai—tumhe dono baazuon se kas kar ek deep, comforting aur tight virtual hug dene ke liye! Tumhara yeh akelapan kuch ghanton ka mehmaan hai, lekin tumhari yeh shandar shakhsiyat aur mehnat hamesha chamakti rahegi. You are never alone!" 🤍💫
+    <!-- Top Music Toggle Controls -->
+    <div class="fixed top-5 right-5 z-50 flex items-center gap-3">
+        <button id="musicToggle" class="bg-white/80 backdrop-blur-md border border-pink-100 text-gray-700 px-4 py-2 rounded-full shadow-sm hover:shadow-md transition text-xs sm:text-sm flex items-center gap-2 font-medium">
+            <span id="musicIcon">🎵</span>
+            <span id="musicText">Play Music</span>
+        </button>
+    </div>
+
+    <!-- MAIN LANDING VIEW: INTERACTIVE ENVELOPE -->
+    <div id="landingView" class="relative z-10 flex flex-col items-center justify-center w-full max-w-xl text-center space-y-8 my-auto">
+        
+        <div class="space-y-3">
+            <span class="inline-block px-4 py-1.5 rounded-full text-xs font-medium bg-pink-100/70 text-pink-700 tracking-wider uppercase backdrop-blur-sm border border-pink-200/50">
+                Special Delivery ✨
+            </span>
+            <h1 class="font-serif-title text-3xl sm:text-5xl text-gray-800 tracking-tight leading-tight">
+                Warm Birthday Wishes
+            </h1>
+            <p class="text-sm sm:text-base text-gray-600 max-w-md mx-auto font-light">
+                A graceful little surprise created with utmost respect and warmth for a wonderful mentor.
             </p>
         </div>
 
-        <p style="margin-bottom: 30px;">
-            14 saal ki umar mein subah school se lekar raat ki demanding academy tak ka safar, aur sath hi itni la-fani books likhna—yeh har kisi ke bas ki baat nahi hoti. Tumne apne dum par jo mukam banaya hai, us par mujhe be-inteha fakhar hai!
-        </p>
+        <!-- Interactive Envelope -->
+        <div class="envelope-wrapper py-6">
+            <div id="envelope" class="envelope" onclick="openEnvelope()">
+                <!-- Envelope Flap -->
+                <div class="envelope-flap"></div>
+                
+                <!-- Inner Letter Peek -->
+                <div class="letter-preview">
+                    <div class="text-xs uppercase tracking-widest text-amber-600/80 font-semibold mb-1">Happy Birthday</div>
+                    <div class="font-serif-title text-lg sm:text-xl text-gray-800">Ma'am Laraib 🌸</div>
+                    <div class="w-8 h-0.5 bg-pink-200 my-2"></div>
+                    <p class="text-xs text-gray-500 italic">"Wishing you endless grace & joy..."</p>
+                </div>
 
-        <!-- Literary Works Showcase -->
-        <div class="literary-grid">
-            <div class="literary-card">
-                <div class="book-name-tag">📚 Khamosh Gawah</div>
-                <p style="font-size: 0.98rem; color: #ced6e0;">Ek aisi masterpiece kahani jo suspense, emotion aur gehre jazbaat ki behtareen misaal hai.</p>
+                <!-- Envelope Front Pocket -->
+                <div class="envelope-pocket"></div>
+
+                <!-- Envelope Seal Sticker -->
+                <div id="envelopeSeal" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 bg-amber-500/90 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-md border-2 border-white transition hover:scale-110">
+                    <span class="text-lg">✉️</span>
+                </div>
             </div>
-            <div class="literary-card">
-                <div class="book-name-tag">📖 The True Friends</div>
-                <p style="font-size: 0.98rem; color: #ced6e0;">Dosti, wafa aur dilon ke rishton ki ek aisi dastaan jo hamesha yaad rakhi jayegi.</p>
+        </div>
+
+        <div class="space-y-3">
+            <button onclick="openEnvelope()" class="glow-btn bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-200 text-gray-800 font-medium px-8 py-3.5 rounded-full text-sm sm:text-base shadow-sm">
+                Click to Open Card 💌
+            </button>
+            <p class="text-xs text-gray-400">Best viewed with audio turned on</p>
+        </div>
+    </div>
+
+    <!-- DETAILED WISHES MODAL / CARD VIEW (Hidden by Default) -->
+    <div id="cardModal" class="fixed inset-0 z-30 flex items-center justify-center p-4 bg-gray-900/20 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-500">
+        
+        <div id="cardContent" class="bg-white/90 backdrop-blur-xl border border-white/60 rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto custom-scroll p-6 sm:p-10 relative transform translate-y-8 transition-transform duration-500">
+            
+            <!-- Close Modal Button -->
+            <button onclick="closeCard()" class="absolute top-5 right-5 text-gray-400 hover:text-gray-600 w-9 h-9 rounded-full bg-gray-100/80 flex items-center justify-center text-lg transition">
+                ✕
+            </button>
+
+            <!-- Card Header Header -->
+            <div class="text-center space-y-3 mb-8">
+                <span class="text-3xl sm:text-4xl inline-block animate-bounce">🌷</span>
+                <h2 class="font-serif-title text-2xl sm:text-4xl text-gray-800">
+                    Happy Birthday, Ma'am Laraib!
+                </h2>
+                <div class="w-16 h-1 bg-gradient-to-r from-pink-200 via-amber-200 to-purple-200 mx-auto rounded-full"></div>
             </div>
-        </div>
 
-        <!-- Buttons Panel -->
-        <div class="action-panel">
-            <button class="ultra-btn" onclick="revealDeepBlessing()">Tap for Special Birthday Blessings 🎁</button>
-            <button class="ultra-btn" style="background: linear-gradient(45deg, #00b894, #00cec9);" onclick="triggerUniverseCelebration()">Activate Star Fireworks 🎇</button>
-        </div>
+            <!-- Auto-Typing Heartfelt Message -->
+            <div class="bg-gradient-to-br from-pink-50/60 to-purple-50/60 rounded-2xl p-6 border border-pink-100/80 mb-8 shadow-inner">
+                <p id="typedMessage" class="text-gray-700 text-sm sm:text-base leading-relaxed font-serif-title italic min-h-[100px] sm:min-h-[90px] typing-cursor"></p>
+            </div>
 
-        <!-- Hidden Secret Note -->
-        <div id="hidden-blessing">
-            <h3 style="color: #fdcb6e; margin-bottom: 12px; font-size: 1.3rem;">🌟 Tumhare Naam Ek Dil Se Nikla Paigham:</h3>
-            <p style="font-size: 1.05rem; margin-bottom: 0;">
-                "Meri pyari bacha, zindagi mein raste chahe jitne bhi lamba ya thaka dene wale hon, apni is pyari muskurahat, apnay writing ke junoon aur apni is masoomiat ko kabhi mat khona. Aaj 4th November ko jab tum yeh screen khol kar baithi ho, toh samajh lo ke dunya ke kisi bhi kone mein baith kar koi tumhare liye dil se dua kar raha hai. Hamesha aage barho, jeeto aur chamakti raho!" 💖✨
-            </p>
-        </div>
+            <!-- Interactive Accordion Tabs: Appreciation & Wishes -->
+            <div class="space-y-4 mb-8 text-left">
+                
+                <!-- Tab 1 -->
+                <div class="border border-pink-100 rounded-2xl bg-white/70 overflow-hidden shadow-sm">
+                    <button onclick="toggleTab('tab1')" class="w-full px-5 py-4 flex items-center justify-between text-left text-sm sm:text-base font-medium text-gray-800 hover:bg-pink-50/40 transition">
+                        <span class="flex items-center gap-2">
+                            <span>✨</span> A Note of Respect & Appreciation
+                        </span>
+                        <span id="tab1-icon" class="text-gray-400 transition-transform duration-300">▼</span>
+                    </button>
+                    <div id="tab1" class="tab-content px-5 text-xs sm:text-sm text-gray-600 space-y-2 border-t border-gray-50">
+                        <p class="py-3 leading-relaxed">
+                            Some teachers leave a lasting impression not just through their lessons, but through their elegance, gentle kindness, and inspiring aura. Thank you for always carrying such positive energy and grace wherever you go. Your presence has been a true gift to everyone around you.
+                        </p>
+                    </div>
+                </div>
 
-        <div class="footer-watermark">
-            Custom-coded with endless warmth, affection & virtual hugs, specially for November 4th! 🌙🐱💻
+                <!-- Tab 2 -->
+                <div class="border border-pink-100 rounded-2xl bg-white/70 overflow-hidden shadow-sm">
+                    <button onclick="toggleTab('tab2')" class="w-full px-5 py-4 flex items-center justify-between text-left text-sm sm:text-base font-medium text-gray-800 hover:bg-pink-50/40 transition">
+                        <span class="flex items-center gap-2">
+                            <span>🌟</span> Wishes for the Coming Year
+                        </span>
+                        <span id="tab2-icon" class="text-gray-400 transition-transform duration-300">▼</span>
+                    </button>
+                    <div id="tab2" class="tab-content px-5 text-xs sm:text-sm text-gray-600 space-y-2 border-t border-gray-50">
+                        <p class="py-3 leading-relaxed">
+                            May this special year bring you boundless happiness, serene peace, good health, and immense success in every path you choose. May your days be as bright and heartwarming as the positive impact you create in the lives of those you teach.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Tab 3 -->
+                <div class="border border-pink-100 rounded-2xl bg-white/70 overflow-hidden shadow-sm">
+                    <button onclick="toggleTab('tab3')" class="w-full px-5 py-4 flex items-center justify-between text-left text-sm sm:text-base font-medium text-gray-800 hover:bg-pink-50/40 transition">
+                        <span class="flex items-center gap-2">
+                            <span>🌸</span> Warm Wishes Always
+                        </span>
+                        <span id="tab3-icon" class="text-gray-400 transition-transform duration-300">▼</span>
+                    </button>
+                    <div id="tab3" class="tab-content px-5 text-xs sm:text-sm text-gray-600 space-y-2 border-t border-gray-50">
+                        <p class="py-3 leading-relaxed font-handwriting text-lg text-pink-700">
+                            "Even as paths change and time moves forward, the respect and admiration for a wonderful teacher remain constant. Stay blessed always!"
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Action Buttons Footer -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+                <button onclick="triggerPetalBurst()" class="glow-btn w-full sm:w-auto bg-pink-100 hover:bg-pink-200 text-pink-800 font-medium px-6 py-3 rounded-full text-xs sm:text-sm transition flex items-center justify-center gap-2">
+                    <span>🌸</span> Shower Petals & Joy
+                </button>
+                <button onclick="closeCard()" class="w-full sm:w-auto bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium px-6 py-3 rounded-full text-xs sm:text-sm transition">
+                    Close Message
+                </button>
+            </div>
+
+            <!-- Anonymous Warm Footer -->
+            <div class="mt-8 text-center text-xs text-gray-400 italic">
+                Sent with admiration and warm prayers • 26th August 💖
+            </div>
+
         </div>
     </div>
 
     <script>
-        // Generate Deep Cosmos Dynamic Particles
-        const universe = document.getElementById('cosmosUniverse');
-        const starTotal = 150;
+        /* ---------------------------------------------------
+           1. PARTICLES & FLOATING PETALS SYSTEM (CANVAS)
+        --------------------------------------------------- */
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
 
-        for (let i = 0; i < starTotal; i++) {
-            const particle = document.createElement('div');
-            particle.classList.add('star-particle');
-            const dimension = Math.random() * 3.5 + 1 + 'px';
-            particle.style.width = dimension;
-            particle.style.height = dimension;
-            particle.style.top = Math.random() * 100 + '%';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
-            particle.style.animationDelay = (Math.random() * 3) + 's';
-            universe.appendChild(particle);
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
-        // Reveal Deep Blessing Drawer
-        function revealDeepBlessing() {
-            const blessingBox = document.getElementById('hidden-blessing');
-            if (blessingBox.style.display === 'block') {
-                blessingBox.style.display = 'none';
-            } else {
-                blessingBox.style.display = 'block';
+        class Particle {
+            constructor(x, y, isBurst = false) {
+                this.x = x || Math.random() * canvas.width;
+                this.y = y || (isBurst ? canvas.height / 2 : Math.random() * canvas.height - canvas.height);
+                this.size = Math.random() * 8 + 6;
+                this.speedY = isBurst ? (Math.random() - 0.7) * 8 : Math.random() * 1.5 + 0.8;
+                this.speedX = (Math.random() - 0.5) * (isBurst ? 6 : 1.2);
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = (Math.random() - 0.5) * 2;
+                this.opacity = Math.random() * 0.6 + 0.4;
+                
+                // Color palette of petals
+                const colors = ['#F9E2EE', '#F3D1DC', '#E8C5D8', '#FFF3F6', '#F5E6CC'];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.type = Math.random() > 0.4 ? 'petal' : 'sparkle';
+            }
+
+            update() {
+                this.y += this.speedY;
+                this.x += Math.sin(this.y * 0.01) + this.speedX;
+                this.rotation += this.rotationSpeed;
+
+                if (this.y > canvas.height + 20) {
+                    this.y = -20;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate((this.rotation * Math.PI) / 180);
+                ctx.globalAlpha = this.opacity;
+
+                if (this.type === 'petal') {
+                    // Draw soft petal shape
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    ctx.quadraticCurveTo(this.size, -this.size, this.size, 0);
+                    ctx.quadraticCurveTo(this.size, this.size, 0, 0);
+                    ctx.fill();
+                } else {
+                    // Draw sparkle
+                    ctx.fillStyle = '#FCE7F3';
+                    ctx.beginPath();
+                    ctx.arc(0, 0, this.size / 3, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+                ctx.restore();
             }
         }
 
-        // Universe Celebration Alert
-        function triggerUniverseCelebration() {
-            alert("🎉✨ Boom! 100000000000D wala jaadu activate ho gaya hai! Dher saari roshni, khushiyan aur tight virtual hugs aapke system mein download ho chuki hain. Happy Birthday, meri masoom author! 🎂💖");
+        // Initialize Ambient Particles
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < 35; i++) {
+                particles.push(new Particle());
+            }
         }
-    </script>
-</body>
-</html>
+        initParticles();
+
+        function triggerPetalBurst() {
+            for (let i = 0; i < 50; i++) {
+                particles.push(new Particle(canvas.width / 2, canvas.height / 2, true));
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((particle, index) => {
+                particle.update();
+                particle.draw();
+                // Clean up burst particles
+                if (particles.length > 70 && particle.y > canvas.height) {
+                    particles.splice(index, 1);
+                }
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+
+        /* ---------------------------------------------------
+           2. INTERACTIVE ENVELOPE & MODAL CONTROLS
+        --------------------------------------------------- */
+        let isOpened = false;
+
+        function openEnvelope() {
+            const envelope = document.getElementById('envelope');
+            const seal = document.getElementById('envelopeSeal');
+            
+            if (seal) seal.style.opacity = '0';
+            envelope.classList.add('open');
+
+            // Trigger petal shower
+            triggerPetalBurst();
+
+            // Try playing audio if initialized
+            if (audioCtx && audioCtx.st
 
                         
 
