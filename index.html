@@ -1,471 +1,198 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Ma'am Laraib 🌸</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: linear-gradient(135deg, #FAF5EF 0%, #F8EBEA 50%, #F5EFF9 100%);
-            min-height: 100vh;
-            overflow-x: hidden;
-            color: #4A4453;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dear Teacher Laraib 💜</title>
 
-        .font-serif-title {
-            font-family: 'Playfair Display', serif;
-        }
+<style>
+* {
+  box-sizing: border-box;
+}
 
-        .font-handwriting {
-            font-family: 'Dancing Script', cursive;
-        }
+body {
+  margin: 0;
+  font-family: Georgia, serif;
+  background: linear-gradient(135deg, #e9e0fa, #d9edfa);
+  color: #62557f;
+  text-align: center;
+}
 
-        /* Background floating bubbles */
-        .ambient-bg-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(50px);
-            opacity: 0.6;
-            z-index: 0;
-            animation: floatOrb 12s infinite ease-in-out alternate;
-        }
+section {
+  min-height: 100vh;
+  padding: 35px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
-        @keyframes floatOrb {
-            0% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-30px) scale(1.08); }
-            100% { transform: translateY(15px) scale(0.95); }
-        }
+h1 {
+  font-size: 38px;
+  color: #8670b3;
+}
 
-        /* Interactive Envelope CSS */
-        .envelope-wrapper {
-            perspective: 1000px;
-        }
+p {
+  line-height: 1.9;
+  max-width: 550px;
+  font-size: 17px;
+}
 
-        .envelope {
-            width: 320px;
-            height: 220px;
-            position: relative;
-            background-color: #FDFBF7;
-            border-radius: 12px;
-            box-shadow: 0 15px 35px rgba(200, 180, 195, 0.25);
-            transition: all 0.5s ease;
-            cursor: pointer;
-        }
+.envelope {
+  font-size: 100px;
+  cursor: pointer;
+  transition: transform .4s;
+}
 
-        @media (min-width: 640px) {
-            .envelope {
-                width: 420px;
-                height: 280px;
-            }
-        }
+.envelope:hover {
+  transform: scale(1.12) rotate(-5deg);
+}
 
-        .envelope-flap {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 0;
-            border-left: 160px solid transparent;
-            border-right: 160px solid transparent;
-            border-top: 130px solid #F3E5E3;
-            transform-origin: top center;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 3;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.04));
-        }
+button {
+  background: #a995d1;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 15px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: .3s;
+}
 
-        @media (min-width: 640px) {
-            .envelope-flap {
-                border-left-width: 210px;
-                border-right-width: 210px;
-                border-top-width: 160px;
-            }
-        }
+button:hover {
+  background: #829fcf;
+  transform: scale(1.05);
+}
 
-        .envelope.open .envelope-flap {
-            transform: rotateX(180deg);
-            z-index: 1;
-        }
+.hidden {
+  display: none !important;
+}
 
-        .envelope-pocket {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom right, #FAF0EE, #F4E8EE);
-            border-radius: 12px;
-            clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 0, 50% 55%);
-            z-index: 2;
-        }
+.card {
+  background: rgba(255,255,255,.65);
+  border: 1px solid white;
+  border-radius: 25px;
+  padding: 30px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 10px 35px #9b8bc322;
+}
 
-        .letter-preview {
-            position: absolute;
-            bottom: 12px;
-            left: 5%;
-            width: 90%;
-            height: 85%;
-            background: #FFFFFF;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 2;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #F6EBEA;
-        }
+.flower {
+  font-size: 25px;
+  margin: 12px;
+}
 
-        .envelope.open .letter-preview {
-            transform: translateY(-90px) scale(1.02);
-            z-index: 4;
-        }
-
-        @media (min-width: 640px) {
-            .envelope.open .letter-preview {
-                transform: translateY(-110px) scale(1.02);
-            }
-        }
-
-        /* Particle Canvas overlay */
-        #particleCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 40;
-        }
-
-        /* Soft Glow Button Effect */
-        .glow-btn {
-            box-shadow: 0 4px 15px rgba(224, 187, 201, 0.4);
-            transition: all 0.3s ease;
-        }
-
-        .glow-btn:hover {
-            box-shadow: 0 6px 22px rgba(224, 187, 201, 0.65);
-            transform: translateY(-2px);
-        }
-
-        /* Custom Scrollbar for Card Modal */
-        .custom-scroll::-webkit-scrollbar {
-            width: 5px;
-        }
-        .custom-scroll::-webkit-scrollbar-track {
-            background: #F8EBEA;
-            border-radius: 10px;
-        }
-        .custom-scroll::-webkit-scrollbar-thumb {
-            background: #E2C4D3;
-            border-radius: 10px;
-        }
-
-        /* Typing cursor effect */
-        .typing-cursor::after {
-            content: '|';
-            animation: blink 0.8s infinite;
-        }
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        /* Accordion transition */
-        .tab-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-in-out, opacity 0.3s ease;
-            opacity: 0;
-        }
-        .tab-content.active {
-            max-height: 350px;
-            opacity: 1;
-        }
-    </style>
+footer {
+  padding: 25px;
+  font-size: 13px;
+}
+</style>
 </head>
-<body class="relative flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 overflow-x-hidden selection:bg-pink-100 selection:text-pink-700">
 
-    <!-- Ambient Glowing Orbs Background -->
-    <div class="ambient-bg-orb w-72 h-72 bg-pink-200 top-10 left-10"></div>
-    <div class="ambient-bg-orb w-96 h-96 bg-purple-200 bottom-10 right-10" style="animation-delay: -4s;"></div>
-    <div class="ambient-bg-orb w-80 h-80 bg-amber-100 top-1/2 left-1/3" style="animation-delay: -8s;"></div>
+<body>
 
-    <!-- Canvas for Floating Flowers/Hearts/Sparkles -->
-    <canvas id="particleCanvas"></canvas>
+<section id="welcome">
+  <div class="flower">🦋 ✨ 🌷 ✨ 🦋</div>
 
-    <!-- Top Music Toggle Controls -->
-    <div class="fixed top-5 right-5 z-50 flex items-center gap-3">
-        <button id="musicToggle" class="bg-white/80 backdrop-blur-md border border-pink-100 text-gray-700 px-4 py-2 rounded-full shadow-sm hover:shadow-md transition text-xs sm:text-sm flex items-center gap-2 font-medium">
-            <span id="musicIcon">🎵</span>
-            <span id="musicText">Play Music</span>
-        </button>
-    </div>
+  <h1>Dear Teacher Laraib</h1>
 
-    <!-- MAIN LANDING VIEW: INTERACTIVE ENVELOPE -->
-    <div id="landingView" class="relative z-10 flex flex-col items-center justify-center w-full max-w-xl text-center space-y-8 my-auto">
-        
-        <div class="space-y-3">
-            <span class="inline-block px-4 py-1.5 rounded-full text-xs font-medium bg-pink-100/70 text-pink-700 tracking-wider uppercase backdrop-blur-sm border border-pink-200/50">
-                Special Delivery ✨
-            </span>
-            <h1 class="font-serif-title text-3xl sm:text-5xl text-gray-800 tracking-tight leading-tight">
-                Warm Birthday Wishes
-            </h1>
-            <p class="text-sm sm:text-base text-gray-600 max-w-md mx-auto font-light">
-                A graceful little surprise created with utmost respect and warmth for a wonderful mentor.
-            </p>
-        </div>
+  <p>
+    Someone has prepared a little surprise
+    especially for you...
+  </p>
 
-        <!-- Interactive Envelope -->
-        <div class="envelope-wrapper py-6">
-            <div id="envelope" class="envelope" onclick="openEnvelope()">
-                <!-- Envelope Flap -->
-                <div class="envelope-flap"></div>
-                
-                <!-- Inner Letter Peek -->
-                <div class="letter-preview">
-                    <div class="text-xs uppercase tracking-widest text-amber-600/80 font-semibold mb-1">Happy Birthday</div>
-                    <div class="font-serif-title text-lg sm:text-xl text-gray-800">Ma'am Laraib 🌸</div>
-                    <div class="w-8 h-0.5 bg-pink-200 my-2"></div>
-                    <p class="text-xs text-gray-500 italic">"Wishing you endless grace & joy..."</p>
-                </div>
+  <div class="envelope" onclick="openLetter()">
+    💌
+  </div>
 
-                <!-- Envelope Front Pocket -->
-                <div class="envelope-pocket"></div>
+  <p> A little envelope, a little mystery...</p>
 
-                <!-- Envelope Seal Sticker -->
-                <div id="envelopeSeal" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 bg-amber-500/90 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-md border-2 border-white transition hover:scale-110">
-                    <span class="text-lg">✉️</span>
-                </div>
-            </div>
-        </div>
+  <button onclick="openLetter()">
+    Open Your Surprise ✨
+  </button>
+</section>
 
-        <div class="space-y-3">
-            <button onclick="openEnvelope()" class="glow-btn bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-200 text-gray-800 font-medium px-8 py-3.5 rounded-full text-sm sm:text-base shadow-sm">
-                Click to Open Card 💌
-            </button>
-            <p class="text-xs text-gray-400">Best viewed with audio turned on</p>
-        </div>
-    </div>
+<section id="surprise" class="hidden">
+  <div class="card">
+    <div class="flower">🩵 💜 🌸</div>
 
-    <!-- DETAILED WISHES MODAL / CARD VIEW (Hidden by Default) -->
-    <div id="cardModal" class="fixed inset-0 z-30 flex items-center justify-center p-4 bg-gray-900/20 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-500">
-        
-        <div id="cardContent" class="bg-white/90 backdrop-blur-xl border border-white/60 rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto custom-scroll p-6 sm:p-10 relative transform translate-y-8 transition-transform duration-500">
-            
-            <!-- Close Modal Button -->
-            <button onclick="closeCard()" class="absolute top-5 right-5 text-gray-400 hover:text-gray-600 w-9 h-9 rounded-full bg-gray-100/80 flex items-center justify-center text-lg transition">
-                ✕
-            </button>
+    <h1>Surprise!</h1>
 
-            <!-- Card Header Header -->
-            <div class="text-center space-y-3 mb-8">
-                <span class="text-3xl sm:text-4xl inline-block animate-bounce">🌷</span>
-                <h2 class="font-serif-title text-2xl sm:text-4xl text-gray-800">
-                    Happy Birthday, Ma'am Laraib!
-                </h2>
-                <div class="w-16 h-1 bg-gradient-to-r from-pink-200 via-amber-200 to-purple-200 mx-auto rounded-full"></div>
-            </div>
+    <h2>Happy Birthday, Laraib Ma'am!</h2>
 
-            <!-- Auto-Typing Heartfelt Message -->
-            <div class="bg-gradient-to-br from-pink-50/60 to-purple-50/60 rounded-2xl p-6 border border-pink-100/80 mb-8 shadow-inner">
-                <p id="typedMessage" class="text-gray-700 text-sm sm:text-base leading-relaxed font-serif-title italic min-h-[100px] sm:min-h-[90px] typing-cursor"></p>
-            </div>
+    <p>
+      Welcome to a little world made
+      especially to celebrate you.
+    </p>
 
-            <!-- Interactive Accordion Tabs: Appreciation & Wishes -->
-            <div class="space-y-4 mb-8 text-left">
-                
-                <!-- Tab 1 -->
-                <div class="border border-pink-100 rounded-2xl bg-white/70 overflow-hidden shadow-sm">
-                    <button onclick="toggleTab('tab1')" class="w-full px-5 py-4 flex items-center justify-between text-left text-sm sm:text-base font-medium text-gray-800 hover:bg-pink-50/40 transition">
-                        <span class="flex items-center gap-2">
-                            <span>✨</span> A Note of Respect & Appreciation
-                        </span>
-                        <span id="tab1-icon" class="text-gray-400 transition-transform duration-300">▼</span>
-                    </button>
-                    <div id="tab1" class="tab-content px-5 text-xs sm:text-sm text-gray-600 space-y-2 border-t border-gray-50">
-                        <p class="py-3 leading-relaxed">
-                            Some teachers leave a lasting impression not just through their lessons, but through their elegance, gentle kindness, and inspiring aura. Thank you for always carrying such positive energy and grace wherever you go. Your presence has been a true gift to everyone around you.
-                        </p>
-                    </div>
-                </div>
+    <p>
+      Some people leave beautiful memories
+      without even realizing how meaningful
+      their words can become.
+    </p>
 
-                <!-- Tab 2 -->
-                <div class="border border-pink-100 rounded-2xl bg-white/70 overflow-hidden shadow-sm">
-                    <button onclick="toggleTab('tab2')" class="w-full px-5 py-4 flex items-center justify-between text-left text-sm sm:text-base font-medium text-gray-800 hover:bg-pink-50/40 transition">
-                        <span class="flex items-center gap-2">
-                            <span>🌟</span> Wishes for the Coming Year
-                        </span>
-                        <span id="tab2-icon" class="text-gray-400 transition-transform duration-300">▼</span>
-                    </button>
-                    <div id="tab2" class="tab-content px-5 text-xs sm:text-sm text-gray-600 space-y-2 border-t border-gray-50">
-                        <p class="py-3 leading-relaxed">
-                            May this special year bring you boundless happiness, serene peace, good health, and immense success in every path you choose. May your days be as bright and heartwarming as the positive impact you create in the lives of those you teach.
-                        </p>
-                    </div>
-                </div>
+    <button onclick="showLetter()">
+      Read Your Little Letter 💌
+    </button>
+  </div>
+</section>
 
-                <!-- Tab 3 -->
-                <div class="border border-pink-100 rounded-2xl bg-white/70 overflow-hidden shadow-sm">
-                    <button onclick="toggleTab('tab3')" class="w-full px-5 py-4 flex items-center justify-between text-left text-sm sm:text-base font-medium text-gray-800 hover:bg-pink-50/40 transition">
-                        <span class="flex items-center gap-2">
-                            <span>🌸</span> Warm Wishes Always
-                        </span>
-                        <span id="tab3-icon" class="text-gray-400 transition-transform duration-300">▼</span>
-                    </button>
-                    <div id="tab3" class="tab-content px-5 text-xs sm:text-sm text-gray-600 space-y-2 border-t border-gray-50">
-                        <p class="py-3 leading-relaxed font-handwriting text-lg text-pink-700">
-                            "Even as paths change and time moves forward, the respect and admiration for a wonderful teacher remain constant. Stay blessed always!"
-                        </p>
-                    </div>
-                </div>
+<section id="letter" class="hidden">
+  <div class="card">
+    <div class="flower">🌷 🦋 🌷</div>
 
-            </div>
+    <h1>A Little Note For You</h1>
 
-            <!-- Action Buttons Footer -->
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
-                <button onclick="triggerPetalBurst()" class="glow-btn w-full sm:w-auto bg-pink-100 hover:bg-pink-200 text-pink-800 font-medium px-6 py-3 rounded-full text-xs sm:text-sm transition flex items-center justify-center gap-2">
-                    <span>🌸</span> Shower Petals & Joy
-                </button>
-                <button onclick="closeCard()" class="w-full sm:w-auto bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium px-6 py-3 rounded-full text-xs sm:text-sm transition">
-                    Close Message
-                </button>
-            </div>
+    <p>
+      Dear Laraib Ma'am,
+    </p>
 
-            <!-- Anonymous Warm Footer -->
-            <div class="mt-8 text-center text-xs text-gray-400 italic">
-                Sent with admiration and warm prayers • 26th August 💖
-            </div>
+    <p>
+      Wishing you a birthday filled with
+      happiness, peace and countless
+      beautiful moments.
+    </p>
 
-        </div>
-    </div>
+    <p>
+      Thank you for the encouragement
+      and inspiration you have given.
+      Some words stay in our hearts
+      for a very long time.
+    </p>
 
-    <script>
-        /* ---------------------------------------------------
-           1. PARTICLES & FLOATING PETALS SYSTEM (CANVAS)
-        --------------------------------------------------- */
-        const canvas = document.getElementById('particleCanvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
+    <p>
+      May Allah bless you with success,
+      good health and endless happiness.
+    </p>
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
+    <h2>With warm wishes 💜</h2>
 
-        class Particle {
-            constructor(x, y, isBurst = false) {
-                this.x = x || Math.random() * canvas.width;
-                this.y = y || (isBurst ? canvas.height / 2 : Math.random() * canvas.height - canvas.height);
-                this.size = Math.random() * 8 + 6;
-                this.speedY = isBurst ? (Math.random() - 0.7) * 8 : Math.random() * 1.5 + 0.8;
-                this.speedX = (Math.random() - 0.5) * (isBurst ? 6 : 1.2);
-                this.rotation = Math.random() * 360;
-                this.rotationSpeed = (Math.random() - 0.5) * 2;
-                this.opacity = Math.random() * 0.6 + 0.4;
-                
-                // Color palette of petals
-                const colors = ['#F9E2EE', '#F3D1DC', '#E8C5D8', '#FFF3F6', '#F5E6CC'];
-                this.color = colors[Math.floor(Math.random() * colors.length)];
-                this.type = Math.random() > 0.4 ? 'petal' : 'sparkle';
-            }
+    <div class="flower">✨ 🩵 ✨</div>
+  </div>
+</section>
 
-            update() {
-                this.y += this.speedY;
-                this.x += Math.sin(this.y * 0.01) + this.speedX;
-                this.rotation += this.rotationSpeed;
+<footer>
+  Made with appreciation ♡
+</footer>
 
-                if (this.y > canvas.height + 20) {
-                    this.y = -20;
-                    this.x = Math.random() * canvas.width;
-                }
-            }
+<script>
+function openLetter() {
+  document.getElementById("welcome").classList.add("hidden");
+  document.getElementById("surprise").classList.remove("hidden");
+  window.scrollTo(0, 0);
+}
 
-            draw() {
-                ctx.save();
-                ctx.translate(this.x, this.y);
-                ctx.rotate((this.rotation * Math.PI) / 180);
-                ctx.globalAlpha = this.opacity;
+function showLetter() {
+  document.getElementById("surprise").classList.add("hidden");
+  document.getElementById("letter").classList.remove("hidden");
+  window.scrollTo(0, 0);
+}
+</script>
 
-                if (this.type === 'petal') {
-                    // Draw soft petal shape
-                    ctx.fillStyle = this.color;
-                    ctx.beginPath();
-                    ctx.moveTo(0, 0);
-                    ctx.quadraticCurveTo(this.size, -this.size, this.size, 0);
-                    ctx.quadraticCurveTo(this.size, this.size, 0, 0);
-                    ctx.fill();
-                } else {
-                    // Draw sparkle
-                    ctx.fillStyle = '#FCE7F3';
-                    ctx.beginPath();
-                    ctx.arc(0, 0, this.size / 3, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-
-                ctx.restore();
-            }
-        }
-
-        // Initialize Ambient Particles
-        function initParticles() {
-            particles = [];
-            for (let i = 0; i < 35; i++) {
-                particles.push(new Particle());
-            }
-        }
-        initParticles();
-
-        function triggerPetalBurst() {
-            for (let i = 0; i < 50; i++) {
-                particles.push(new Particle(canvas.width / 2, canvas.height / 2, true));
-            }
-        }
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach((particle, index) => {
-                particle.update();
-                particle.draw();
-                // Clean up burst particles
-                if (particles.length > 70 && particle.y > canvas.height) {
-                    particles.splice(index, 1);
-                }
-            });
-            requestAnimationFrame(animateParticles);
-        }
-        animateParticles();
-
-
-        /* ---------------------------------------------------
-           2. INTERACTIVE ENVELOPE & MODAL CONTROLS
-        --------------------------------------------------- */
-        let isOpened = false;
-
-        function openEnvelope() {
-            const envelope = document.getElementById('envelope');
-            const seal = document.getElementById('envelopeSeal');
-            
-            if (seal) seal.style.opacity = '0';
-            envelope.classList.add('open');
-
-            // Trigger petal shower
-            triggerPetalBurst();
-
-            // Try playing audio if initialized
-            if (audioCtx && audioCtx.st
+</body>
+</html>
 
                         
 
